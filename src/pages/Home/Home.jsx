@@ -1,4 +1,4 @@
-import { Button, Col, Container, Form, Image, ListGroup, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, ListGroupItem, Row } from "react-bootstrap";
 import styles from "./Home.module.css";
 import ftBanner from "../../assets/modelo.png";
 import Titulo from "../../components/ui/Titulo";
@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
 import { setCategorias, setEscolhida } from "../../state/exercicios/exerciciosSlice";
+import Slider from "react-slick";
 
 const Home = () => {
    const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const Home = () => {
                <Titulo texto="Exercícios incríveis para você Treinar " />
 
                {/*  Pesquisa  */}
-               <Form className="mb-4">
+               <Form className="mb-5">
                   <Form.Group className="d-flex gap-2 w-25 mx-auto mt-4">
                      <Form.Control type="text" placeholder="Procure exercícios" />
                      <Button variant="secondary" type="submit">
@@ -56,20 +57,23 @@ const Home = () => {
                </Form>
 
                {/*  Filtragem */}
-               <ListGroup defaultActiveKey={escolhida} className="flex-row justify-content-center flex-wrap">
-                  {categorias?.map((v, k) => (
-                     <ListGroup.Item
-                        onClick={() => {
-                           dispatch(setEscolhida(v));
-                        }}
-                        key={k}
-                        action
-                        active={escolhida === v}
-                     >
-                        {v}
-                     </ListGroup.Item>
-                  ))}
-               </ListGroup>
+               <div className="container">
+                  <Slider arrows={true} infinite={false} className="list-group" slidesToScroll={1} slidesToShow={4}>
+                     {categorias?.map((v, k) => (
+                        <ListGroupItem
+                           className="py-5"
+                           onClick={() => {
+                              dispatch(setEscolhida(v));
+                           }}
+                           key={k}
+                           action
+                           active={escolhida === v}
+                        >
+                           {v}
+                        </ListGroupItem>
+                     ))}
+                  </Slider>
+               </div>
             </Col>
          </Row>
       </Container>
