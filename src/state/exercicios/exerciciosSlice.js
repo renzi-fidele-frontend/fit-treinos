@@ -1,17 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { dados: null };
+const initialState = { categorias: null };
 
 const exerciciosSlice = createSlice({
    name: "Exercicios",
    initialState,
    reducers: {
-      setDados: (state, action) => {
-         state.dados = action.payload;
+      setCategorias: (state, action) => {
+         state.categorias = action.payload;
       },
    },
 });
 
-export const { setDados } = exerciciosSlice.actions;
+export const { setCategorias } = exerciciosSlice.actions;
 
 export default exerciciosSlice.reducer;

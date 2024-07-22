@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const useFetch = (url, opcoes) => {
+const useFetch = (url, opcoes, arrayNoRedux) => {
    const [data, setData] = useState(null);
    const [error, setError] = useState(null);
    const [loading, setLoading] = useState(false);
@@ -10,6 +10,7 @@ const useFetch = (url, opcoes) => {
       setLoading(true);
       try {
          const res = await axios.request({ ...opcoes, url });
+         console.log("Aconteceu");
          setData(res.data);
       } catch (error) {
          setError(error.message);
@@ -18,7 +19,7 @@ const useFetch = (url, opcoes) => {
    }
 
    useEffect(() => {
-      apanharDados();
+      if (!arrayNoRedux) apanharDados();
    }, [url]);
 
    return { data, error, loading };

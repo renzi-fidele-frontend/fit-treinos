@@ -1,9 +1,22 @@
-import { Button, Card, CardGroup, Col, Container, Form, Image, ListGroup, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, ListGroup, Row } from "react-bootstrap";
 import styles from "./Home.module.css";
 import ftBanner from "../../assets/modelo.png";
 import Titulo from "../../components/ui/Titulo";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import useFetch from "../../hooks/useFetch";
+import { exercisesFetchOptions } from "../../services/ExercicesApi";
+import { setCategorias } from "../../state/exercicios/exerciciosSlice";
 
 const Home = () => {
+   const dispatch = useDispatch();
+   const { categorias } = useSelector((state) => state.exercicios);
+   const { data, loading, error } = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, categorias);
+
+   useEffect(() => {
+      dispatch(setCategorias(data));
+   }, [data]);
+
    return (
       <Container fluid>
          {/*  Banner Inicial  */}
@@ -43,10 +56,9 @@ const Home = () => {
 
                {/*  Filtragem */}
                <ListGroup className="flex-row justify-content-center">
-                  <ListGroup.Item></ListGroup.Item>
-                  <ListGroup.Item></ListGroup.Item>
-                  <ListGroup.Item></ListGroup.Item>
-                  <ListGroup.Item></ListGroup.Item>
+                  {categorias?.map((v, k) => (
+                     <ListGroup.Item key={k}>{v}</ListGroup.Item>
+                  ))}
                </ListGroup>
             </Col>
          </Row>
