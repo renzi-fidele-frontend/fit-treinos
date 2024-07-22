@@ -6,15 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
-import { setCategorias } from "../../state/exercicios/exerciciosSlice";
+import { setCategorias, setEscolhida } from "../../state/exercicios/exerciciosSlice";
 
 const Home = () => {
    const dispatch = useDispatch();
-   const { categorias } = useSelector((state) => state.exercicios);
+   const { categorias, escolhida } = useSelector((state) => state.exercicios);
    const { data, loading, error } = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, categorias);
 
    useEffect(() => {
       dispatch(setCategorias(data));
+      dispatch(setEscolhida(data?.[0]));
    }, [data]);
 
    return (
@@ -43,9 +44,9 @@ const Home = () => {
          <Row className="mt-5 py-5">
             <Col className="text-center">
                <Titulo texto="Exercícios incríveis para você Treinar " />
-               {/*  Pesquisa  */}
 
-               <Form>
+               {/*  Pesquisa  */}
+               <Form className="mb-4">
                   <Form.Group className="d-flex gap-2 w-25 mx-auto mt-4">
                      <Form.Control type="text" placeholder="Procure exercícios" />
                      <Button variant="secondary" type="submit">
@@ -55,9 +56,18 @@ const Home = () => {
                </Form>
 
                {/*  Filtragem */}
-               <ListGroup className="flex-row justify-content-center">
+               <ListGroup defaultActiveKey={escolhida} className="flex-row justify-content-center flex-wrap">
                   {categorias?.map((v, k) => (
-                     <ListGroup.Item key={k}>{v}</ListGroup.Item>
+                     <ListGroup.Item
+                        onClick={() => {
+                           dispatch(setEscolhida(v));
+                        }}
+                        key={k}
+                        action
+                        active={escolhida === v}
+                     >
+                        {v}
+                     </ListGroup.Item>
                   ))}
                </ListGroup>
             </Col>
