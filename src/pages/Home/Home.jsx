@@ -9,6 +9,7 @@ import { exercisesFetchOptions } from "../../services/ExercicesApi";
 import { setCategorias, setEscolhida, setExercicios } from "../../state/exercicios/exerciciosSlice";
 import Slider from "react-slick";
 import gymIcon from "../../assets/gymIco.png";
+import CardExercicio from "../../components/CardExercicio/CardExercicio";
 
 const Home = () => {
    const dispatch = useDispatch();
@@ -37,9 +38,7 @@ const Home = () => {
    useEffect(() => {
       console.log("A nova categoria selecionada é: " + escolhida);
 
-      apanharCategoriaSelecionada.refetch().then((v) => console.log(v));
-
-      dispatch(setExercicios(apanharCategoriaSelecionada.data));
+      apanharCategoriaSelecionada.refetch().then((v) => dispatch(setExercicios(v)));
    }, [escolhida]);
 
    return (
@@ -80,8 +79,8 @@ const Home = () => {
                </Form>
 
                {/*  Filtragem */}
-               <div className="container">
-                  <Slider arrows={true} infinite={false} className="list-group" slidesToScroll={1} slidesToShow={4}>
+               <Container>
+                  <Slider draggable={false} arrows={true} infinite={false} className="list-group" slidesToScroll={1} slidesToShow={4}>
                      {categorias?.map((v, k) => (
                         <ListGroupItem
                            className="py-3 d-flex gap-3 align-items-center flex-column"
@@ -97,7 +96,19 @@ const Home = () => {
                         </ListGroupItem>
                      ))}
                   </Slider>
-               </div>
+               </Container>
+
+               {/*  Exercícios  */}
+               <Container fluid className="mt-5 px-5">
+                  <hr />
+                  <Row className="mt-2 px-5 g-4 justify-content-center flex-content-stretch">
+                     {exercicios?.map((v, k) => (
+                        <Col key={k} xs={3}>
+                           <CardExercicio titulo={v?.name} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
+                        </Col>
+                     ))}
+                  </Row>
+               </Container>
             </Col>
          </Row>
       </Container>
