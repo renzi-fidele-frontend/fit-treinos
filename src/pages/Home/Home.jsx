@@ -8,6 +8,7 @@ import useFetch from "../../hooks/useFetch";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
 import { setCategorias, setEscolhida, setExercicios } from "../../state/exercicios/exerciciosSlice";
 import Slider from "react-slick";
+import gymIcon from "../../assets/gymIco.png";
 
 const Home = () => {
    const dispatch = useDispatch();
@@ -83,7 +84,7 @@ const Home = () => {
                   <Slider arrows={true} infinite={false} className="list-group" slidesToScroll={1} slidesToShow={4}>
                      {categorias?.map((v, k) => (
                         <ListGroupItem
-                           className="py-5"
+                           className="py-3 d-flex gap-3 align-items-center flex-column"
                            onClick={() => {
                               dispatch(setEscolhida(v));
                            }}
@@ -91,7 +92,8 @@ const Home = () => {
                            action
                            active={escolhida === v}
                         >
-                           {v}
+                           <Image id={styles.gymIcon} src={gymIcon} />
+                           <span className="fs-5 text-capitalize">{v}</span>
                         </ListGroupItem>
                      ))}
                   </Slider>

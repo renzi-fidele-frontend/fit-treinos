@@ -20,5 +20,8 @@
    opacity: 0.1;
    line-height: 116px;
    bottom: 0;
+}
 
+#gymIcon {
+   width: 50px;
 }
