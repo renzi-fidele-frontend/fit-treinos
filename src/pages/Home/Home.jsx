@@ -6,18 +6,40 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
-import { setCategorias, setEscolhida } from "../../state/exercicios/exerciciosSlice";
+import { setCategorias, setEscolhida, setExercicios } from "../../state/exercicios/exerciciosSlice";
 import Slider from "react-slick";
 
 const Home = () => {
    const dispatch = useDispatch();
-   const { categorias, escolhida } = useSelector((state) => state.exercicios);
-   const { data, loading, error } = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, categorias);
+   const { categorias, escolhida, exercicios } = useSelector((state) => state.exercicios);
+
+   const apanharCategorias = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, categorias);
+
+   // const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises", exercisesFetchOptions, exercicios);
+
+   const apanharCategoriaSelecionada = useFetch(
+      `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${escolhida}`,
+      exercisesFetchOptions,
+      exercicios
+   );
 
    useEffect(() => {
-      dispatch(setCategorias(data));
-      dispatch(setEscolhida(data?.[0]));
-   }, [data]);
+      if (!exercicios) dispatch(setExercicios(apanharCategoriaSelecionada.data));
+
+      if (!categorias) {
+         dispatch(setCategorias(apanharCategorias.data));
+         dispatch(setEscolhida(apanharCategorias.data?.[0]));
+      }
+   }, [apanharCategorias.data, apanharCategoriaSelecionada.data]);
+
+   // Controlador da mudança de categoria
+   useEffect(() => {
+      console.log("A nova categoria selecionada é: " + escolhida);
+
+      apanharCategoriaSelecionada.refetch().then((v) => console.log(v));
+
+      dispatch(setExercicios(apanharCategoriaSelecionada.data));
+   }, [escolhida]);
 
    return (
       <Container fluid>
