@@ -1,4 +1,4 @@
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import { Button, Card, CardGroup, Col, Container, Form, Image, ListGroup, Row } from "react-bootstrap";
 import styles from "./Home.module.css";
 import ftBanner from "../../assets/modelo.png";
 import Titulo from "../../components/ui/Titulo";
@@ -31,6 +31,7 @@ const Home = () => {
             <Col className="text-center">
                <Titulo texto="Exercícios incríveis para você Treinar " />
                {/*  Pesquisa  */}
+
                <Form>
                   <Form.Group className="d-flex gap-2 w-25 mx-auto mt-4">
                      <Form.Control type="text" placeholder="Procure exercícios" />
@@ -39,6 +40,14 @@ const Home = () => {
                      </Button>
                   </Form.Group>
                </Form>
+
+               {/*  Filtragem */}
+               <ListGroup className="flex-row justify-content-center">
+                  <ListGroup.Item></ListGroup.Item>
+                  <ListGroup.Item></ListGroup.Item>
+                  <ListGroup.Item></ListGroup.Item>
+                  <ListGroup.Item></ListGroup.Item>
+               </ListGroup>
             </Col>
          </Row>
       </Container>
