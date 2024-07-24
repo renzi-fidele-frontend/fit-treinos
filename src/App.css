@@ -13,7 +13,7 @@ img {
 }
 
 a {
-   text-decoration: none;
+   text-decoration: none !important;
 }
 
 body {
@@ -27,6 +27,10 @@ body {
    color: var(--bs-text-color) !important;
    border-color: rgb(209, 209, 209) !important;
    border-top: 4px solid black !important;
+}
+
+.list-group-item.active img {
+   filter: grayscale(100%) !important;
 }
 
 /*  Slick Slider  */

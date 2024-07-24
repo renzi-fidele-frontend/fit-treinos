@@ -1,8 +1,9 @@
 import { Badge, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-const CardExercicio = ({ foto, categoria, titulo }) => {
+const CardExercicio = ({ foto, categoria, titulo, id }) => {
    return (
-      <Card>
+      <Card as={Link} to={`/exercicio/${id}`}>
          <Card.Img src={foto} />
          <Card.Body className="d-flex gap-3">
             {categoria?.map((v, k) => (

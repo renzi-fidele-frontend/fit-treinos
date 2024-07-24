@@ -6,40 +6,42 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
-import { setCategorias, setEscolhida, setExercicios } from "../../state/exercicios/exerciciosSlice";
+import { setCategorias, setEscolhida, setExercicios, setExerciciosDeCategoria } from "../../state/exercicios/exerciciosSlice";
 import Slider from "react-slick";
 import gymIcon from "../../assets/gymIco.png";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
+import { Link } from "react-router-dom";
 
 const Home = () => {
    const dispatch = useDispatch();
-   const { categorias, escolhida, exercicios } = useSelector((state) => state.exercicios);
+   const { categorias, categoriaEscolhida, exerciciosDeCategoria, exercicios } = useSelector((state) => state.exercicios);
 
    const apanharCategorias = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, categorias);
 
-   // const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises", exercisesFetchOptions, exercicios);
+   // TODO: Adicionar funcionalidade de pesquisar ao digitar na página dos exercicios
+
+   const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises?limit=1000", exercisesFetchOptions, exercicios);
 
    const apanharCategoriaSelecionada = useFetch(
-      `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${escolhida}`,
+      `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${categoriaEscolhida}`,
       exercisesFetchOptions,
       exercicios
    );
+   // Controlador da mudança de categoria
+   useEffect(() => {
+      apanharCategoriaSelecionada.refetch().then((v) => dispatch(setExerciciosDeCategoria(v)));
+   }, [categoriaEscolhida]);
 
    useEffect(() => {
-      if (!exercicios) dispatch(setExercicios(apanharCategoriaSelecionada.data));
+      if (!exerciciosDeCategoria) dispatch(setExerciciosDeCategoria(apanharCategoriaSelecionada.data));
 
       if (!categorias) {
          dispatch(setCategorias(apanharCategorias.data));
          dispatch(setEscolhida(apanharCategorias.data?.[0]));
       }
-   }, [apanharCategorias.data, apanharCategoriaSelecionada.data]);
 
-   // Controlador da mudança de categoria
-   useEffect(() => {
-      console.log("A nova categoria selecionada é: " + escolhida);
-
-      apanharCategoriaSelecionada.refetch().then((v) => dispatch(setExercicios(v)));
-   }, [escolhida]);
+      if (!exercicios) dispatch(setExercicios(apanharExercicios.data));
+   }, [apanharCategorias.data, apanharCategoriaSelecionada.data, apanharExercicios.data]);
 
    return (
       <Container fluid>
@@ -52,7 +54,7 @@ const Home = () => {
                      <br /> e fique saudável
                   </h1>
                   <p className="mb-5 mt-5 fs-5">Descubra os exercícios que mais dão resultados, de maneira simples e organizada</p>
-                  <Button variant="secondary" size="lg" className="align-self-baseline">
+                  <Button as={Link} to="/exercicios" variant="secondary" size="lg" className="align-self-baseline">
                      Descobrir Exercícios
                   </Button>
                   <span id={styles.textoOverflow}>Treine Pesado</span>
@@ -69,14 +71,14 @@ const Home = () => {
                <Titulo texto="Exercícios incríveis para você Treinar " />
 
                {/*  Pesquisa  */}
-               <Form className="mb-5">
+               {/* <Form className="mb-5">
                   <Form.Group className="d-flex gap-2 w-25 mx-auto mt-4">
                      <Form.Control type="text" placeholder="Procure exercícios" />
                      <Button variant="secondary" type="submit">
                         Pesquisar
                      </Button>
                   </Form.Group>
-               </Form>
+               </Form> */}
 
                {/*  Filtragem */}
                <Container>
@@ -89,7 +91,7 @@ const Home = () => {
                            }}
                            key={k}
                            action
-                           active={escolhida === v}
+                           active={categoriaEscolhida === v}
                         >
                            <Image id={styles.gymIcon} src={gymIcon} />
                            <span className="fs-5 text-capitalize">{v}</span>
@@ -100,14 +102,17 @@ const Home = () => {
 
                {/*  Exercícios  */}
                <Container fluid className="mt-5 px-5">
-                  <hr />
-                  <Row className="mt-2 px-5 g-4 justify-content-center flex-content-stretch">
+                  <hr className="mx-5" />
+                  <Row className="mt-2 mb-5 px-5 g-4 justify-content-center flex-content-stretch">
                      {exercicios?.map((v, k) => (
                         <Col key={k} xs={3}>
-                           <CardExercicio titulo={v?.name} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
+                           <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
                         </Col>
                      ))}
                   </Row>
+                  <Button as={Link} to="/exercicios" variant="secondary" size="lg">
+                     Ver todos
+                  </Button>
                </Container>
             </Col>
          </Row>

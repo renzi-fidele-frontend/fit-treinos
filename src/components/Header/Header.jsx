@@ -1,5 +1,5 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
    const loc = useLocation();
@@ -8,7 +8,10 @@ const Header = () => {
       <Navbar className="border border-bottom">
          <Container>
             <div className="d-flex align-items-center justify-content-between w-100">
-               <Navbar.Brand className="fw-medium">GymApp</Navbar.Brand>
+               <Navbar.Brand as={Link} to="/" className="fw-medium">
+                  GymApp
+               </Navbar.Brand>
+
                <div className="d-flex">
                   <Nav className="gap-3" activeKey={loc.pathname}>
                      <Nav.Link>Início</Nav.Link>

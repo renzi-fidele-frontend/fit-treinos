@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Header from "./components/Header/Header";
 import { Provider } from "react-redux";
 import store from "./state/store";
+import DetalhesExercicio from "./pages/DetalhesExercicio/DetalhesExercicio";
 
 // Libs
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -17,7 +18,7 @@ function App() {
             <Header />
             <Routes>
                <Route exact path="/" element={<Home />} />
-               <Route />
+               <Route path="/exercicio/:id" element={<DetalhesExercicio />} />
             </Routes>
          </BrowserRouter>
       </Provider>
