@@ -81,7 +81,7 @@ const Home = () => {
                </Form> */}
 
                {/*  Filtragem */}
-               <Container>
+               <Container className="mt-5">
                   <Slider draggable={false} arrows={true} infinite={false} className="list-group" slidesToScroll={1} slidesToShow={4}>
                      {categorias?.map((v, k) => (
                         <ListGroupItem
@@ -104,7 +104,7 @@ const Home = () => {
                <Container fluid className="mt-5 px-5">
                   <hr className="mx-5" />
                   <Row className="mt-2 mb-5 px-5 g-4 justify-content-center flex-content-stretch">
-                     {exercicios?.map((v, k) => (
+                     {exerciciosDeCategoria?.map((v, k) => (
                         <Col key={k} xs={3}>
                            <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
                         </Col>
