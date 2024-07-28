@@ -7,19 +7,34 @@
    font-weight: 800;
 }
 
-/* #ctFoto {
-   border-bottom-left-radius: 50px;
-} */
+ #ctFoto {
+   z-index: 1;
+} 
 
 #textoOverflow {
-   position: absolute;
-   right: -30px;
-   z-index: -1;
    font-size: 7em;
    font-weight: 900;
    opacity: 0.1;
    line-height: 116px;
+   text-wrap: nowrap;
+   z-index: 0;
+}
+#animacao {
+   animation: deslizar 15s linear infinite alternate;
+   animation-play-state: running;
+   position: absolute;
    bottom: 0;
+
+}
+
+#animacao:hover {
+   animation-play-state: paused;
+}
+
+@keyframes deslizar {
+   100% {
+      transform: translateX(-100%);
+   }
 }
 
 #gymIcon {

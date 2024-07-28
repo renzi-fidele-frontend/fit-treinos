@@ -47,8 +47,8 @@ const Home = () => {
       <Container fluid>
          {/*  Banner Inicial  */}
          <Row className="px-5">
-            <Col md={6} className="d-flex flex-column justify-content-center ps-5 position-relative">
-               <div className="ps-5 pe-2 ">
+            <Col sm={6} className="d-flex flex-column justify-content-center ps-5 position-relative">
+               <div className="ps-5 pe-2">
                   <h1 className="" id={styles.titulo}>
                      Transpire, sorria
                      <br /> e fique saudável
@@ -57,7 +57,11 @@ const Home = () => {
                   <Button as={Link} to="/exercicios" variant="secondary" size="lg" className="align-self-baseline">
                      Descobrir Exercícios
                   </Button>
-                  <span id={styles.textoOverflow}>Treine Pesado</span>
+                  <div id={styles.animacao}>
+                     <span id={styles.textoOverflow}>
+                        Treine Pesado <b>·</b> Tenha consistência <b>·</b> Tenha determinação
+                     </span>
+                  </div>
                </div>
             </Col>
             <Col id={styles.ctFoto} className="pt-5 text-center rounded-bottom-5 bg-secondary-subtle bg-gradient">
