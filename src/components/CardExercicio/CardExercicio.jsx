@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 const CardExercicio = ({ foto, categoria, titulo, id }) => {
    return (
-      <Card as={Link} to={`/exercicio/${id}`}>
+      <Card className="h-100" as={Link} to={`/exercicio/${id}`}>
          <Card.Img src={foto} />
-         <Card.Body className="d-flex gap-3">
+         <Card.Body className="d-flex flex-wrap gap-3">
             {categoria?.map((v, k) => (
-               <Badge className=" text-capitalize bg-secondary" key={k}>
+               <Badge style={{ height: "fit-content" }} className=" text-capitalize bg-secondary" key={k}>
                   {v}
                </Badge>
             ))}
