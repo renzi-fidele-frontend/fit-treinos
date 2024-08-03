@@ -7,7 +7,7 @@ const CardExercicio = ({ foto, categoria, titulo, id }) => {
          <Card.Img src={foto} />
          <Card.Body className="d-flex flex-wrap gap-3">
             {categoria?.map((v, k) => (
-               <Badge style={{ height: "fit-content" }} className=" text-capitalize bg-secondary" key={k}>
+               <Badge style={{ height: "fit-content" }} className=" text-capitalize fs-6 bg-secondary" key={k}>
                   {v}
                </Badge>
             ))}

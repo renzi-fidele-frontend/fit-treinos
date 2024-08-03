@@ -7,9 +7,9 @@
    font-weight: 800;
 }
 
- #ctFoto {
+#ctFoto {
    z-index: 1;
-} 
+}
 
 #textoOverflow {
    font-size: 7em;
@@ -24,7 +24,6 @@
    animation-play-state: running;
    position: absolute;
    bottom: 0;
-
 }
 
 #animacao:hover {
@@ -39,4 +38,16 @@
 
 #gymIcon {
    width: 50px;
+}
+
+#bg1 {
+   opacity: .2;
+}
+
+#fotoAtleta {
+}
+
+#titbanner {
+   font-size: 4rem;
+   font-weight: 800;
 }

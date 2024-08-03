@@ -1,4 +1,4 @@
-import { Button, Col, Container, Form, Image, ListGroupItem, Row } from "react-bootstrap";
+import { Button, Card, CardGroup, Col, Container, Form, Image, ListGroupItem, Row } from "react-bootstrap";
 import styles from "./Home.module.css";
 import ftBanner from "../../assets/modelo.png";
 import Titulo from "../../components/ui/Titulo";
@@ -8,7 +8,9 @@ import useFetch from "../../hooks/useFetch";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
 import { setCategorias, setEscolhida, setExercicios, setExerciciosDeCategoria } from "../../state/exercicios/exerciciosSlice";
 import Slider from "react-slick";
+import bg1 from "../../assets/bg1.jpg";
 import gymIcon from "../../assets/gymIco.png";
+import fotoAtleta from "../../assets/atleta.png";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import { Link } from "react-router-dom";
 
@@ -118,6 +120,68 @@ const Home = () => {
                      Ver todos
                   </Button>
                </Container>
+            </Col>
+         </Row>
+
+         {/*  Seção 3  */}
+         <Row className="mt-5 pe-5 py-5 bg-black text-light position-relative bg-gradient overflow-hidden">
+            <Image src={bg1} id={styles.bg1} className="position-absolute end-0 start-0 top-0 h-auto p-0" />
+            <Col style={{ zIndex: "2" }} className="ps-0">
+               <Image id={styles.fotoAtleta} src={fotoAtleta} alt="Atleta que alcançou o melhor resultado" />
+            </Col>
+            <Col style={{ zIndex: "2" }} md={7} className="pe-5 justify-content-center gap-3 d-flex flex-column">
+               <h3 id={styles.titbanner}>O melhor lugar para você ficar em forma</h3>
+               <p className="fs-5">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Error harum nobis, dolorum necessitatibus eius quae earum facere velit
+                  inventore assumenda at, maxime obcaecati sint odit
+               </p>
+
+               <Row className="mt-3 g-3">
+                  <Col xs={6}>
+                     <Card>
+                        <Card.Body>
+                           <Card.Img src="" />
+                           <Card.Title>Titulo1</Card.Title>
+                           <Card.Text>
+                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Error harum nobis, dolorum necessitatibus eius quae earum
+                           </Card.Text>
+                        </Card.Body>
+                     </Card>
+                  </Col>
+                  <Col xs={6}>
+                     <Card>
+                        <Card.Body>
+                           <Card.Img src="" />
+                           <Card.Title>Titulo1</Card.Title>
+                           <Card.Text>
+                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Error harum nobis, dolorum necessitatibus eius quae earum
+                           </Card.Text>
+                        </Card.Body>
+                     </Card>
+                  </Col>
+                  <Col xs={6}>
+                     <Card>
+                        <Card.Body>
+                           <Card.Img src="" />
+                           <Card.Title>Titulo1</Card.Title>
+                           <Card.Text>
+                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Error harum nobis, dolorum necessitatibus eius quae earum
+                           </Card.Text>
+                        </Card.Body>
+                     </Card>
+                  </Col>
+                  <Col xs={6}>
+                     <Card>
+                        <Card.Body>
+                           <Card.Img src="" />
+                           <Card.Title>Titulo1</Card.Title>
+                           <Card.Text>
+                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Error harum nobis, dolorum necessitatibus eius quae earum
+                           </Card.Text>
+                        </Card.Body>
+                     </Card>
+                  </Col>
+               </Row>
             </Col>
          </Row>
       </Container>
