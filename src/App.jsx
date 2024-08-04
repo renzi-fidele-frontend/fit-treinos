@@ -10,6 +10,7 @@ import DetalhesExercicio from "./pages/DetalhesExercicio/DetalhesExercicio";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Exercicios from "./pages/Exercicios/Exercicios";
 
 function App() {
    return (
@@ -19,6 +20,7 @@ function App() {
             <Routes>
                <Route exact path="/" element={<Home />} />
                <Route path="/exercicio/:id" element={<DetalhesExercicio />} />
+               <Route path="/exercicios" element={<Exercicios />} />
             </Routes>
          </BrowserRouter>
       </Provider>

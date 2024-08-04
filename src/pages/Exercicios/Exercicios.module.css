@@ -1,0 +1,12 @@
+#banner {
+    min-height: 400px;
+}
+
+#titBanner {
+    font-size: 3.7rem;
+    font-weight: 800;
+}
+
+#bg {
+    opacity: .8;
+}
