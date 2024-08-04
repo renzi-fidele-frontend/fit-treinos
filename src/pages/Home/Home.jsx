@@ -20,8 +20,6 @@ const Home = () => {
 
    const apanharCategorias = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, categorias);
 
-   // TODO: Adicionar funcionalidade de pesquisar ao digitar na página dos exercicios
-
    const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises?limit=1000", exercisesFetchOptions, exercicios);
 
    const apanharCategoriaSelecionada = useFetch(
@@ -75,16 +73,6 @@ const Home = () => {
          <Row className="mt-5 py-5">
             <Col className="text-center">
                <Titulo texto="Exercícios incríveis para você Treinar " />
-
-               {/*  Pesquisa  */}
-               {/* <Form className="mb-5">
-                  <Form.Group className="d-flex gap-2 w-25 mx-auto mt-4">
-                     <Form.Control type="text" placeholder="Procure exercícios" />
-                     <Button variant="secondary" type="submit">
-                        Pesquisar
-                     </Button>
-                  </Form.Group>
-               </Form> */}
 
                {/*  Filtragem */}
                <Container className="mt-5">

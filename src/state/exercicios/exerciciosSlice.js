@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { categorias: null, categoriaEscolhida: "", exercicios: null, exerciciosDeCategoria: null };
+const initialState = { categorias: null, categoriaEscolhida: "", exercicios: null, exerciciosDeCategoria: null, filtragemExercicios: null };
 
 const exerciciosSlice = createSlice({
    name: "Exercicios",
@@ -18,9 +18,12 @@ const exerciciosSlice = createSlice({
       setExerciciosDeCategoria: (state, action) => {
          state.exerciciosDeCategoria = action.payload;
       },
+      setFiltragemExercicios: (state, action) => {
+         state.filtragemExercicios = action.payload;
+      },
    },
 });
 
-export const { setCategorias, setExercicios, setEscolhida, setExerciciosDeCategoria } = exerciciosSlice.actions;
+export const { setCategorias, setExercicios, setEscolhida, setExerciciosDeCategoria, setFiltragemExercicios } = exerciciosSlice.actions;
 
 export default exerciciosSlice.reducer;

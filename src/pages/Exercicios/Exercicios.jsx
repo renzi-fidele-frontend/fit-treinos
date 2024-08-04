@@ -1,9 +1,27 @@
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Col, Container, Form, Image, Row } from "react-bootstrap";
 import styles from "./Exercicios.module.css";
 import fotoBanner from "../../assets/bannerEx.png";
 import bg from "../../assets/bg1.jpg";
+import Titulo from "../../components/ui/Titulo";
+import { useDispatch, useSelector } from "react-redux";
+import { exercisesFetchOptions } from "../../services/ExercicesApi";
+import useFetch from "../../hooks/useFetch";
+import { useEffect } from "react";
+import { setCategorias } from "../../state/exercicios/exerciciosSlice";
 
 const Exercicios = () => {
+   const { categorias: partesCorpo, filtragemExercicios } = useSelector((state) => state.exercicios);
+   const dispatch = useDispatch();
+
+   // A filtragem deverá ser armazenada no estado global do Redux
+   const apanharPartesCorpo = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, partesCorpo);
+
+   useEffect(() => {
+      if (!partesCorpo) {
+         dispatch(setCategorias(apanharPartesCorpo.data));
+      }
+   }, [apanharPartesCorpo.data]);
+
    return (
       <div>
          {/*  Banner inicial */}
@@ -25,6 +43,41 @@ bg-gradient pt-5  pb-0"
                </Row>
             </Container>
          </div>
+         <Container fluid>
+            <Row className="py-5">
+               <Col className="text-center">
+                  <Titulo texto="Encontre todos os exercícios" />
+                  {/*  Filtragem  */}
+                  <Form className="mb-5 mt-4 px-5 container">
+                     <Row className="px-5 g-5">
+                        <Col>
+                           <Form.Group className="">
+                              <Form.Label className="fs-4 fw-semibold mb-3">Parte do corpo</Form.Label>
+                              <Form.Select className="text-capitalize">
+                                 
+                                 <option value="todos">Todos</option>
+                                 {partesCorpo?.map((v, k) => (
+                                    <option key={k} className="" value={v}>
+                                       {v}
+                                    </option>
+                                 ))}
+                              </Form.Select>
+                           </Form.Group>
+                        </Col>
+                        <Col>
+                           <Form.Group className="">
+                              <Form.Label className="fs-4 fw-semibold mb-3">Equipamento</Form.Label>
+                              <Form.Select className="">
+                                 {/*  TODO: Apanhar equipamentos */}
+                                 <option value="">Todos</option>
+                              </Form.Select>
+                           </Form.Group>
+                        </Col>
+                     </Row>
+                  </Form>
+               </Col>
+            </Row>
+         </Container>
       </div>
    );
 };
