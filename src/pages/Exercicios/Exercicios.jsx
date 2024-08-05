@@ -7,21 +7,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
 import useFetch from "../../hooks/useFetch";
 import { useEffect } from "react";
-import { setCategorias, setEquipamentos } from "../../state/exercicios/exerciciosSlice";
+import { setCategorias, setEquipamentos, setMusculoAlvo } from "../../state/exercicios/exerciciosSlice";
 
 const Exercicios = () => {
-   const { categorias: partesCorpo, equipamentos, filtragemExercicios } = useSelector((state) => state.exercicios);
+   const { categorias: partesCorpo, equipamentos, musculoAlvo, exercicios, filtragemExercicios } = useSelector((state) => state.exercicios);
    const dispatch = useDispatch();
 
    // A filtragem deverá ser armazenada no estado global do Redux
+
    const apanharPartesCorpo = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, partesCorpo);
 
    const apanharEquipamentos = useFetch("https://exercisedb.p.rapidapi.com/exercises/equipmentList", exercisesFetchOptions, equipamentos);
 
+   const apanharMusculoAlvo = useFetch("https://exercisedb.p.rapidapi.com/exercises/targetList", exercisesFetchOptions, musculoAlvo);
+
    useEffect(() => {
       if (!partesCorpo) dispatch(setCategorias(apanharPartesCorpo.data));
       if (!equipamentos) dispatch(setEquipamentos(apanharEquipamentos.data));
-   }, [apanharPartesCorpo.data, apanharEquipamentos.data]);
+      if (!musculoAlvo) dispatch(setMusculoAlvo(apanharMusculoAlvo.data));
+   }, [apanharPartesCorpo.data, apanharEquipamentos.data, apanharMusculoAlvo.data]);
+
+   function filtrarExercicios() {}
 
    return (
       <div>
@@ -54,7 +60,12 @@ bg-gradient pt-5  pb-0"
                         <Col>
                            <Form.Group className="">
                               <Form.Label className="fs-4 fw-semibold mb-3">Parte do corpo</Form.Label>
-                              <Form.Select className="text-capitalize">
+                              <Form.Select
+                                 onChange={(e) => {
+                                    console.log(e.target.value);
+                                 }}
+                                 className="text-capitalize"
+                              >
                                  <option value="todos">Todos</option>
                                  {partesCorpo?.map((v, k) => (
                                     <option key={k} className="" value={v}>
@@ -70,6 +81,19 @@ bg-gradient pt-5  pb-0"
                               <Form.Select className="text-capitalize">
                                  <option value="todos">Todos</option>
                                  {equipamentos?.map((v, k) => (
+                                    <option value={v} key={k}>
+                                       {v}
+                                    </option>
+                                 ))}
+                              </Form.Select>
+                           </Form.Group>
+                        </Col>
+                        <Col>
+                           <Form.Group className="">
+                              <Form.Label className="fs-4 fw-semibold mb-3">Músculo a fortificar</Form.Label>
+                              <Form.Select className="text-capitalize">
+                                 <option value="todos">Todos</option>
+                                 {musculoAlvo?.map((v, k) => (
                                     <option value={v} key={k}>
                                        {v}
                                     </option>
