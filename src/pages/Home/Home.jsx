@@ -75,6 +75,7 @@ const Home = () => {
                <Titulo texto="Exercícios incríveis para você Treinar " />
 
                {/*  Filtragem */}
+               {/* TODO: Adicionar imagens que representam os respectivos materiais de treino */}
                <Container className="mt-5">
                   <Slider draggable={false} arrows={true} infinite={false} className="list-group" slidesToScroll={1} slidesToShow={4}>
                      {categorias?.map((v, k) => (
@@ -128,7 +129,7 @@ const Home = () => {
                   <Col xs={6}>
                      <Card>
                         <Card.Body>
-                           <Card.Img src="" />
+                           <i className="fs-1 bi bi-1-circle"></i>
                            <Card.Title>Titulo1</Card.Title>
                            <Card.Text>
                               Lorem ipsum dolor sit amet consectetur adipisicing elit. Error harum nobis, dolorum necessitatibus eius quae earum
@@ -139,7 +140,7 @@ const Home = () => {
                   <Col xs={6}>
                      <Card>
                         <Card.Body>
-                           <Card.Img src="" />
+                           <i className="fs-1 bi bi-2-circle"></i>
                            <Card.Title>Titulo1</Card.Title>
                            <Card.Text>
                               Lorem ipsum dolor sit amet consectetur adipisicing elit. Error harum nobis, dolorum necessitatibus eius quae earum
@@ -150,7 +151,7 @@ const Home = () => {
                   <Col xs={6}>
                      <Card>
                         <Card.Body>
-                           <Card.Img src="" />
+                           <i className="fs-1 bi bi-3-circle"></i>
                            <Card.Title>Titulo1</Card.Title>
                            <Card.Text>
                               Lorem ipsum dolor sit amet consectetur adipisicing elit. Error harum nobis, dolorum necessitatibus eius quae earum
@@ -161,7 +162,7 @@ const Home = () => {
                   <Col xs={6}>
                      <Card>
                         <Card.Body>
-                           <Card.Img src="" />
+                           <i className="fs-1 bi bi-4-circle"></i>
                            <Card.Title>Titulo1</Card.Title>
                            <Card.Text>
                               Lorem ipsum dolor sit amet consectetur adipisicing elit. Error harum nobis, dolorum necessitatibus eius quae earum
@@ -172,6 +173,9 @@ const Home = () => {
                </Row>
             </Col>
          </Row>
+
+         {/* TODO: Criar seção dos testemunhos */}
+         {/* TODO: Criar Rodapé */}
       </Container>
    );
 };
