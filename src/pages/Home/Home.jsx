@@ -113,11 +113,12 @@ const Home = () => {
                <Titulo texto="Exercícios incríveis para você Treinar " />
 
                {/*  Filtragem */}
+               {/* TODO: Traduzir as partes do corpo */}
                <Container className="mt-5">
                   <Slider draggable={false} arrows={true} infinite={false} className="list-group" slidesToScroll={1} slidesToShow={4}>
                      {categorias?.map((v, k) => (
                         <ListGroupItem
-                           className="pb-3 d-flex gap-3 align-items-center flex-column position-relative"
+                           className="py-1 d-flex gap-2 align-items-center flex-column position-relative"
                            onClick={() => {
                               dispatch(setEscolhida(v));
                            }}
@@ -126,7 +127,10 @@ const Home = () => {
                            active={categoriaEscolhida === v}
                         >
                            <Image src={fotoDaParteDoCorpo(v)} />
-                           <span className="fs-5 text-capitalize">{v}</span>
+                           <div style={{opacity: "15%"}} className="position-absolute bg-dark h-100 w-100"></div>
+                           <span id={styles.textOverlay} className=" fs-6 fw-bold text-uppercase position-absolute">
+                              {v}
+                           </span>
                         </ListGroupItem>
                      ))}
                   </Slider>

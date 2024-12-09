@@ -23,10 +23,9 @@ body {
 
 /*  Modificação do Bootstrap  */
 .list-group-item.active {
-   background-color: rgb(243, 243, 243) !important;
+   background-color: rgb(20, 17, 17) !important;
    color: var(--bs-text-color) !important;
    border-color: rgb(209, 209, 209) !important;
-   border-top: 4px solid black !important;
 }
 
 .list-group-item.active img {
