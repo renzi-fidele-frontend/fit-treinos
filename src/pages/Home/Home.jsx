@@ -1,4 +1,4 @@
-import { Button, Card, CardGroup, Col, Container, Form, Image, ListGroupItem, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Image, ListGroupItem, Row } from "react-bootstrap";
 import styles from "./Home.module.css";
 import ftBanner from "../../assets/modelo.png";
 import Titulo from "../../components/ui/Titulo";
@@ -13,6 +13,17 @@ import gymIcon from "../../assets/gymIco.png";
 import fotoAtleta from "../../assets/atleta.png";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import { Link } from "react-router-dom";
+// Fotos
+import back from "../../assets/bodyparts/back.jpg";
+import cardio from "../../assets/bodyparts/cardio.jpg";
+import chest from "../../assets/bodyparts/chest.jpg";
+import neck from "../../assets/bodyparts/neck.jpg";
+import waist from "../../assets/bodyparts/waist.jpg";
+import shoulders from "../../assets/bodyparts/shoulders.jpg";
+import lowerArms from "../../assets/bodyparts/lower-arms.jpg";
+import lowerLegs from "../../assets/bodyparts/lower-legs.jpg";
+import upperArms from "../../assets/bodyparts/upper-arms.jpg";
+import upperLegs from "../../assets/bodyparts/upper-legs.jpg";
 
 const Home = () => {
    const dispatch = useDispatch();
@@ -42,6 +53,33 @@ const Home = () => {
 
       if (!exercicios) dispatch(setExercicios(apanharExercicios.data));
    }, [apanharCategorias.data, apanharCategoriaSelecionada.data, apanharExercicios.data]);
+
+   const fotoDaParteDoCorpo = (parteDoCorpo) => {
+      switch (parteDoCorpo) {
+         case "back":
+            return back;
+         case "cardio":
+            return cardio;
+         case "chest":
+            return chest;
+         case "lower arms":
+            return lowerArms;
+         case "lower legs":
+            return lowerLegs;
+         case "neck":
+            return neck;
+         case "shoulders":
+            return shoulders;
+         case "upper arms":
+            return upperArms;
+         case "upper legs":
+            return upperLegs;
+         case "waist":
+            return waist;
+         default:
+            return null;
+      }
+   };
 
    return (
       <Container fluid>
@@ -75,12 +113,11 @@ const Home = () => {
                <Titulo texto="Exercícios incríveis para você Treinar " />
 
                {/*  Filtragem */}
-               {/* TODO: Adicionar imagens que representam os respectivos materiais de treino */}
                <Container className="mt-5">
                   <Slider draggable={false} arrows={true} infinite={false} className="list-group" slidesToScroll={1} slidesToShow={4}>
                      {categorias?.map((v, k) => (
                         <ListGroupItem
-                           className="py-3 d-flex gap-3 align-items-center flex-column"
+                           className="pb-3 d-flex gap-3 align-items-center flex-column position-relative"
                            onClick={() => {
                               dispatch(setEscolhida(v));
                            }}
@@ -88,7 +125,7 @@ const Home = () => {
                            action
                            active={categoriaEscolhida === v}
                         >
-                           <Image id={styles.gymIcon} src={gymIcon} />
+                           <Image src={fotoDaParteDoCorpo(v)} />
                            <span className="fs-5 text-capitalize">{v}</span>
                         </ListGroupItem>
                      ))}

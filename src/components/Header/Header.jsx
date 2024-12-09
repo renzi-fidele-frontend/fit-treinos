@@ -13,11 +13,19 @@ const Header = () => {
                </Navbar.Brand>
 
                <div className="d-flex">
-                  <Nav className="gap-3" activeKey={loc.pathname}>
-                     <Nav.Link>Início</Nav.Link>
-                     <Nav.Link>Exercícios</Nav.Link>
-                     <Nav.Link>Cadastrar</Nav.Link>
-                     <Nav.Link>Entrar</Nav.Link>
+                  <Nav className="gap-3 fs-5" activeKey={loc.pathname}>
+                     <Nav.Link as={Link} to="/">
+                        Início
+                     </Nav.Link>
+                     <Nav.Link as={Link} to="/exercicios">
+                        Exercícios
+                     </Nav.Link>
+                     <Nav.Link as={Link} to="/cadastro">
+                        Cadastrar
+                     </Nav.Link>
+                     <Nav.Link as={Link} to="/entrar">
+                        Entrar
+                     </Nav.Link>
                   </Nav>
                </div>
             </div>
