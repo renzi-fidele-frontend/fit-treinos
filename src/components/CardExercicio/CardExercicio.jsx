@@ -1,6 +1,8 @@
 import { Badge, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+// TODO: Adicionar um placeholder caso a foto não exista
+
 const CardExercicio = ({ foto, categoria, titulo, id }) => {
    return (
       <Card className="h-100" as={Link} to={`/exercicio/${id}`}>

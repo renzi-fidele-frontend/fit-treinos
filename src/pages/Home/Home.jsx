@@ -6,10 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
-import { setCategorias, setEscolhida, setExercicios, setExerciciosDeCategoria } from "../../state/exercicios/exerciciosSlice";
+import { setCategorias, setCategoriaEscolhida, setExercicios, setExerciciosDeCategoria } from "../../state/exercicios/exerciciosSlice";
 import Slider from "react-slick";
 import bg1 from "../../assets/bg1.jpg";
-import gymIcon from "../../assets/gymIco.png";
 import fotoAtleta from "../../assets/atleta.png";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import { Link } from "react-router-dom";
@@ -33,14 +32,21 @@ const Home = () => {
 
    const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises?limit=1000", exercisesFetchOptions, exercicios);
 
+   
    const apanharCategoriaSelecionada = useFetch(
       `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${categoriaEscolhida}`,
       exercisesFetchOptions,
       exercicios
    );
+
+   function alterarCategoriaSelecionada() {
+      dispatch(setExerciciosDeCategoria(exercicios?.filter((v) => v?.bodyPart?.includes(categoriaEscolhida))));
+   }
+
    // Controlador da mudança de categoria
    useEffect(() => {
-      apanharCategoriaSelecionada.refetch().then((v) => dispatch(setExerciciosDeCategoria(v)));
+      //apanharCategoriaSelecionada.refetch().then((v) => dispatch(setExerciciosDeCategoria(v)));
+      alterarCategoriaSelecionada();
    }, [categoriaEscolhida]);
 
    useEffect(() => {
@@ -48,7 +54,7 @@ const Home = () => {
 
       if (!categorias) {
          dispatch(setCategorias(apanharCategorias.data));
-         dispatch(setEscolhida(apanharCategorias.data?.[0]));
+         dispatch(setCategoriaEscolhida(apanharCategorias.data?.[0]));
       }
 
       if (!exercicios) dispatch(setExercicios(apanharExercicios.data));
@@ -120,14 +126,14 @@ const Home = () => {
                         <ListGroupItem
                            className="py-1 d-flex gap-2 align-items-center flex-column position-relative"
                            onClick={() => {
-                              dispatch(setEscolhida(v));
+                              dispatch(setCategoriaEscolhida(v));
                            }}
                            key={k}
                            action
                            active={categoriaEscolhida === v}
                         >
                            <Image src={fotoDaParteDoCorpo(v)} />
-                           <div style={{opacity: "15%"}} className="position-absolute bg-dark h-100 w-100"></div>
+                           <div style={{ opacity: "15%" }} className="position-absolute bg-dark h-100 w-100"></div>
                            <span id={styles.textOverlay} className=" fs-6 fw-bold text-uppercase position-absolute">
                               {v}
                            </span>
@@ -140,11 +146,14 @@ const Home = () => {
                <Container fluid className="mt-5 px-5">
                   <hr className="mx-5" />
                   <Row className="mt-2 mb-5 px-5 g-4 justify-content-center flex-content-stretch">
-                     {exerciciosDeCategoria?.map((v, k) => (
-                        <Col key={k} xs={3}>
-                           <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
-                        </Col>
-                     ))}
+                     {exerciciosDeCategoria?.map(
+                        (v, k) =>
+                           k < 7 && (
+                              <Col key={k} xs={3}>
+                                 <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
+                              </Col>
+                           )
+                     )}
                   </Row>
                   <Button as={Link} to="/exercicios" variant="secondary" size="lg">
                      Ver todos

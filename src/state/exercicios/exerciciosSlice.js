@@ -17,7 +17,7 @@ const exerciciosSlice = createSlice({
       setCategorias: (state, action) => {
          state.categorias = action.payload;
       },
-      setEscolhida: (state, action) => {
+      setCategoriaEscolhida: (state, action) => {
          state.categoriaEscolhida = action.payload;
       },
       setExercicios: (state, action) => {
@@ -38,7 +38,14 @@ const exerciciosSlice = createSlice({
    },
 });
 
-export const { setCategorias, setExercicios, setEscolhida, setExerciciosDeCategoria, setFiltragemExercicios, setEquipamentos, setMusculoAlvo } =
-   exerciciosSlice.actions;
+export const {
+   setCategorias,
+   setExercicios,
+   setCategoriaEscolhida,
+   setExerciciosDeCategoria,
+   setFiltragemExercicios,
+   setEquipamentos,
+   setMusculoAlvo,
+} = exerciciosSlice.actions;
 
 export default exerciciosSlice.reducer;
