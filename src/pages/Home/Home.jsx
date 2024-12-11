@@ -32,7 +32,6 @@ const Home = () => {
 
    const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises?limit=1000", exercisesFetchOptions, exercicios);
 
-   
    const apanharCategoriaSelecionada = useFetch(
       `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${categoriaEscolhida}`,
       exercisesFetchOptions,
@@ -45,7 +44,6 @@ const Home = () => {
 
    // Controlador da mudança de categoria
    useEffect(() => {
-      //apanharCategoriaSelecionada.refetch().then((v) => dispatch(setExerciciosDeCategoria(v)));
       alterarCategoriaSelecionada();
    }, [categoriaEscolhida]);
 

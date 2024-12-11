@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+// O dispatch deverá ser realizado no componente pai onde se for utilizar o hook
+
 const useFetch = (url, opcoes, arrayNoRedux) => {
    const [data, setData] = useState(null);
    const [error, setError] = useState(null);
