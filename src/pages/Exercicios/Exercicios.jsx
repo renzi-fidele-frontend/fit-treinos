@@ -7,10 +7,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
 import useFetch from "../../hooks/useFetch";
 import { useEffect, useRef } from "react";
-import { setCategorias, setEquipamentos, setFiltros, setMusculoAlvo } from "../../state/exercicios/exerciciosSlice";
+import { setCategorias, setEquipamentos, setExerciciosFiltrados, setFiltros, setMusculoAlvo } from "../../state/exercicios/exerciciosSlice";
 
 const Exercicios = () => {
-   const { categorias: partesCorpo, equipamentos, musculoAlvo, exercicios, filtros } = useSelector((state) => state.exercicios);
+   const {
+      categorias: partesCorpo,
+      equipamentos,
+      musculoAlvo,
+      exercicios,
+      filtros,
+      exerciciosFiltrados,
+   } = useSelector((state) => state.exercicios);
    const dispatch = useDispatch();
    const parteDoCorpoRef = useRef();
    const equipamentoRef = useRef();
@@ -29,11 +36,6 @@ const Exercicios = () => {
    }, [apanharPartesCorpo.data, apanharEquipamentos.data, apanharMusculoAlvo.data]);
 
    function filtrarExercicios() {
-      console.log({
-         parteDoCorpo: parteDoCorpoRef.current.value,
-         equipamento: equipamentoRef.current.value,
-         musculoAlvo: musculoAlvoRef.current.value,
-      });
       dispatch(
          setFiltros({
             parteDoCorpo: parteDoCorpoRef.current.value,
@@ -42,7 +44,18 @@ const Exercicios = () => {
          })
       );
 
-      // TODO: Filtrar os exercícios
+      const dadosFiltrados = exercicios
+         .filter((parteDoCorpo) =>
+            parteDoCorpoRef.current.value !== "todos" ? parteDoCorpo.bodyPart.includes(parteDoCorpoRef.current.value) : true
+         )
+         .filter((equipamento) =>
+            equipamentoRef.current.value !== "todos" ? equipamento?.equipment?.includes(equipamentoRef.current.value) : true
+         )
+         .filter((musculoAlvo) =>
+            musculoAlvoRef.current.value !== "todos" ? musculoAlvo?.target?.includes(musculoAlvoRef.current.value) : true
+         );
+
+      dispatch(setExerciciosFiltrados(dadosFiltrados));
    }
 
    return (

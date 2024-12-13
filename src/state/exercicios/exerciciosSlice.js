@@ -5,6 +5,7 @@ const initialState = {
    categoriaEscolhida: "",
    exercicios: null,
    exerciciosDeCategoria: null,
+   exerciciosFiltrados: null,
    filtros: null,
    equipamentos: null,
    musculoAlvo: null,
@@ -35,10 +36,21 @@ const exerciciosSlice = createSlice({
       setMusculoAlvo: (state, action) => {
          state.musculoAlvo = action.payload;
       },
+      setExerciciosFiltrados: (state, action) => {
+         state.exerciciosFiltrados = action.payload;
+      },
    },
 });
 
-export const { setCategorias, setExercicios, setCategoriaEscolhida, setExerciciosDeCategoria, setFiltros, setEquipamentos, setMusculoAlvo } =
-   exerciciosSlice.actions;
+export const {
+   setCategorias,
+   setExercicios,
+   setCategoriaEscolhida,
+   setExerciciosDeCategoria,
+   setFiltros,
+   setEquipamentos,
+   setMusculoAlvo,
+   setExerciciosFiltrados,
+} = exerciciosSlice.actions;
 
 export default exerciciosSlice.reducer;
