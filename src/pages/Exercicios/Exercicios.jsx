@@ -7,9 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
 import useFetch from "../../hooks/useFetch";
 import { useEffect, useRef } from "react";
-import { setCategorias, setEquipamentos, setExerciciosFiltrados, setFiltros, setMusculoAlvo } from "../../state/exercicios/exerciciosSlice";
+import {
+   setCategorias,
+   setEquipamentos,
+   setExercicios,
+   setExerciciosFiltrados,
+   setFiltros,
+   setMusculoAlvo,
+} from "../../state/exercicios/exerciciosSlice";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
-import { Link } from "react-router-dom";
 
 const Exercicios = () => {
    const {
@@ -25,6 +31,8 @@ const Exercicios = () => {
    const equipamentoRef = useRef();
    const musculoAlvoRef = useRef();
 
+   const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises?limit=1000", exercisesFetchOptions, exercicios);
+
    const apanharPartesCorpo = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, partesCorpo);
 
    const apanharEquipamentos = useFetch("https://exercisedb.p.rapidapi.com/exercises/equipmentList", exercisesFetchOptions, equipamentos);
@@ -32,10 +40,11 @@ const Exercicios = () => {
    const apanharMusculoAlvo = useFetch("https://exercisedb.p.rapidapi.com/exercises/targetList", exercisesFetchOptions, musculoAlvo);
 
    useEffect(() => {
+      if (!exercicios) dispatch(setExercicios(apanharExercicios.data));
       if (!partesCorpo) dispatch(setCategorias(apanharPartesCorpo.data));
       if (!equipamentos) dispatch(setEquipamentos(apanharEquipamentos.data));
       if (!musculoAlvo) dispatch(setMusculoAlvo(apanharMusculoAlvo.data));
-   }, [apanharPartesCorpo.data, apanharEquipamentos.data, apanharMusculoAlvo.data]);
+   }, [apanharPartesCorpo.data, apanharEquipamentos.data, apanharMusculoAlvo.data, apanharExercicios.data]);
 
    function filtrarExercicios() {
       dispatch(
@@ -63,7 +72,7 @@ const Exercicios = () => {
    // Caso a página carrege e hajam filtros
    useEffect(() => {
       if (!exerciciosFiltrados && exercicios) filtrarExercicios();
-   }, []);
+   }, [exercicios]);
 
    return (
       <div>
@@ -96,7 +105,12 @@ bg-gradient pt-5  pb-0"
                         <Col>
                            <Form.Group>
                               <Form.Label className="fs-4 fw-semibold mb-3">Parte do corpo</Form.Label>
-                              <Form.Select onChange={filtrarExercicios} ref={parteDoCorpoRef} className="text-capitalize">
+                              <Form.Select
+                                 defaultValue={filtros?.parteDoCorpo}
+                                 onChange={filtrarExercicios}
+                                 ref={parteDoCorpoRef}
+                                 className="text-capitalize"
+                              >
                                  <option value="todos">Todos</option>
                                  {partesCorpo?.map((v, k) => (
                                     <option key={k} value={v}>
@@ -109,7 +123,12 @@ bg-gradient pt-5  pb-0"
                         <Col>
                            <Form.Group>
                               <Form.Label className="fs-4 fw-semibold mb-3">Equipamento</Form.Label>
-                              <Form.Select onChange={filtrarExercicios} ref={equipamentoRef} className="text-capitalize">
+                              <Form.Select
+                                 defaultValue={filtros?.equipamento}
+                                 onChange={filtrarExercicios}
+                                 ref={equipamentoRef}
+                                 className="text-capitalize"
+                              >
                                  <option value="todos">Todos</option>
                                  {equipamentos?.map((v, k) => (
                                     <option value={v} key={k}>
@@ -122,7 +141,12 @@ bg-gradient pt-5  pb-0"
                         <Col>
                            <Form.Group>
                               <Form.Label className="fs-4 fw-semibold mb-3">Músculo a fortificar</Form.Label>
-                              <Form.Select onChange={filtrarExercicios} ref={musculoAlvoRef} className="text-capitalize">
+                              <Form.Select
+                                 defaultValue={filtros?.musculoAlvo}
+                                 onChange={filtrarExercicios}
+                                 ref={musculoAlvoRef}
+                                 className="text-capitalize"
+                              >
                                  <option value="todos">Todos</option>
                                  {musculoAlvo?.map((v, k) => (
                                     <option value={v} key={k}>
