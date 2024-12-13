@@ -1,4 +1,4 @@
-import { Col, Container, Form, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import styles from "./Exercicios.module.css";
 import fotoBanner from "../../assets/bannerEx.png";
 import bg from "../../assets/bg1.jpg";
@@ -8,6 +8,8 @@ import { exercisesFetchOptions } from "../../services/ExercicesApi";
 import useFetch from "../../hooks/useFetch";
 import { useEffect, useRef } from "react";
 import { setCategorias, setEquipamentos, setExerciciosFiltrados, setFiltros, setMusculoAlvo } from "../../state/exercicios/exerciciosSlice";
+import CardExercicio from "../../components/CardExercicio/CardExercicio";
+import { Link } from "react-router-dom";
 
 const Exercicios = () => {
    const {
@@ -45,18 +47,23 @@ const Exercicios = () => {
       );
 
       const dadosFiltrados = exercicios
-         .filter((parteDoCorpo) =>
-            parteDoCorpoRef.current.value !== "todos" ? parteDoCorpo.bodyPart.includes(parteDoCorpoRef.current.value) : true
+         ?.filter((parteDoCorpo) =>
+            parteDoCorpoRef?.current?.value !== "todos" ? parteDoCorpo?.bodyPart?.includes(parteDoCorpoRef?.current?.value) : true
          )
-         .filter((equipamento) =>
-            equipamentoRef.current.value !== "todos" ? equipamento?.equipment?.includes(equipamentoRef.current.value) : true
+         ?.filter((equipamento) =>
+            equipamentoRef?.current?.value !== "todos" ? equipamento?.equipment?.includes(equipamentoRef?.current?.value) : true
          )
-         .filter((musculoAlvo) =>
-            musculoAlvoRef.current.value !== "todos" ? musculoAlvo?.target?.includes(musculoAlvoRef.current.value) : true
+         ?.filter((musculoAlvo) =>
+            musculoAlvoRef?.current?.value !== "todos" ? musculoAlvo?.target?.includes(musculoAlvoRef?.current?.value) : true
          );
 
       dispatch(setExerciciosFiltrados(dadosFiltrados));
    }
+
+   // Caso a página carrege e hajam filtros
+   useEffect(() => {
+      if (!exerciciosFiltrados && exercicios) filtrarExercicios();
+   }, []);
 
    return (
       <div>
@@ -127,6 +134,24 @@ bg-gradient pt-5  pb-0"
                         </Col>
                      </Row>
                   </Form>
+
+                  {/* Exercicios */}
+                  <Container fluid className="mt-5 px-5">
+                     <hr className="mx-5" />
+
+                     <Row className="mt-2 mb-5 px-5 mx-5 g-4 justify-content-center flex-content-stretch">
+                        {exerciciosFiltrados?.map(
+                           (v, k) =>
+                              k < 12 && (
+                                 <Col key={k} xs={3}>
+                                    <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
+                                 </Col>
+                              )
+                        )}
+                     </Row>
+
+                     {/* TODO: Adicionar feat de paginação */}
+                  </Container>
                </Col>
             </Row>
          </Container>

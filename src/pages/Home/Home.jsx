@@ -143,7 +143,7 @@ const Home = () => {
                {/*  Exercícios  */}
                <Container fluid className="mt-5 px-5">
                   <hr className="mx-5" />
-                  <Row className="mt-2 mb-5 px-5 g-4 justify-content-center flex-content-stretch">
+                  <Row className="mt-2 mx-5 mb-5 px-5 g-4 justify-content-center flex-content-stretch">
                      {exerciciosDeCategoria?.map(
                         (v, k) =>
                            k < 7 && (
