@@ -25,7 +25,9 @@ const DetalhesExercicio = () => {
                <Image className="" src={exercicio?.gifUrl} alt={exercicio?.name} fluid />
             </Col>
             <Col>
-               <h1 className="fw-bold mb-4">Como praticar o: {exercicio?.name}</h1>
+               <h1 className="fw-bold mb-4">
+                  Como praticar o: <span className="text-capitalize text-secondary">{exercicio?.name}</span>
+               </h1>
                <ListGroup>
                   {exercicio?.instructions?.map((v, key) => (
                      // TODO: Renderizar as imagens da parte do corpo na lista
