@@ -13,6 +13,9 @@ const DetalhesExercicio = () => {
 
    const apanharDetalhes = useFetch(`https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`, exercisesFetchOptions, exercicio);
 
+   // TODO: Apanhar os vídeos do youtube para o exercício
+   
+
    useEffect(() => {
       if (!exercicio) {
          setExercicio(apanharDetalhes.data);
@@ -66,6 +69,15 @@ const DetalhesExercicio = () => {
             </Col>
          </Row>
          {/* TODO: Criar seção de vídeos do youtube explicando o respectivo objectivo */}
+
+         {/* Seção de vídeos do youtube */}
+         <Row>
+            <Col>
+               <h1>
+                  Assista os tutorias de treinamento do: <span className="text-secondary">{exercicio?.name}</span>
+               </h1>
+            </Col>
+         </Row>
          {/* TODO: Renderizar exercícios com o mesmo tipo de equipamento */}
       </Container>
    );
