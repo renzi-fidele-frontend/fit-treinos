@@ -5,22 +5,31 @@ import { exercisesFetchOptions } from "../../services/ExercicesApi";
 import { Col, Container, Image, ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import styles from "./DetalhesExercicio.module.css";
 import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
+import { YoutubeVideosApiOptions } from "../../services/YoutubeVideosApi";
 
 const DetalhesExercicio = () => {
    const { id } = useParams();
 
    const [exercicio, setExercicio] = useState(null);
+   const [videos, setVideos] = useState(null);
 
    const apanharDetalhes = useFetch(`https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`, exercisesFetchOptions, exercicio);
 
    // TODO: Apanhar os vídeos do youtube para o exercício
-   
+   const apanharVideos = useFetch(
+      `https://youtube-search-and-download.p.rapidapi.com/search?query=${exercicio?.name}&hl=pt&type=video`,
+      YoutubeVideosApiOptions,
+      videos
+   );
 
    useEffect(() => {
       if (!exercicio) {
          setExercicio(apanharDetalhes.data);
       }
-   }, [id, apanharDetalhes.data, exercicio]);
+      if (!videos) {
+         setVideos(apanharVideos.data);
+      }
+   }, [id, apanharDetalhes.data, exercicio, apanharVideos.data, videos]);
 
    return (
       <Container className="pt-5">
@@ -73,8 +82,8 @@ const DetalhesExercicio = () => {
          {/* Seção de vídeos do youtube */}
          <Row>
             <Col>
-               <h1>
-                  Assista os tutorias de treinamento do: <span className="text-secondary">{exercicio?.name}</span>
+               <h1 className="mb-4">
+                  Assista vídeos de treinamento do: <span className="text-secondary fw-semibold">{exercicio?.name}</span>
                </h1>
             </Col>
          </Row>

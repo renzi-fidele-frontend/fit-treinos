@@ -1,4 +1,4 @@
-export const YoutubeVideosApi = {
+export const YoutubeVideosApiOptions = {
    method: "GET",
    headers: {
       "x-rapidapi-key": import.meta.env.VITE_YOUTUBE_VIDEOS_API_KEY,
