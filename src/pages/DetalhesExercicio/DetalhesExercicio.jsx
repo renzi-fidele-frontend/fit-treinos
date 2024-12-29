@@ -6,6 +6,7 @@ import { Col, Container, Image, ListGroup, ListGroupItem, Row } from "react-boot
 import styles from "./DetalhesExercicio.module.css";
 import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
 import { YoutubeVideosApiOptions } from "../../services/YoutubeVideosApi";
+import VideoCard from "../../components/VideoCard/VideoCard";
 
 const DetalhesExercicio = () => {
    const { id } = useParams();
@@ -15,9 +16,8 @@ const DetalhesExercicio = () => {
 
    const apanharDetalhes = useFetch(`https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`, exercisesFetchOptions, exercicio);
 
-   // TODO: Apanhar os vídeos do youtube para o exercício
    const apanharVideos = useFetch(
-      `https://youtube-search-and-download.p.rapidapi.com/search?query=${exercicio?.name}&hl=pt&type=video`,
+      `https://youtube-search-and-download.p.rapidapi.com/search?query=${exercicio?.name}%20exercise&hl=pt&type=video`,
       YoutubeVideosApiOptions,
       videos
    );
@@ -27,7 +27,7 @@ const DetalhesExercicio = () => {
          setExercicio(apanharDetalhes.data);
       }
       if (!videos) {
-         setVideos(apanharVideos.data);
+         setVideos(apanharVideos.data?.contents);
       }
    }, [id, apanharDetalhes.data, exercicio, apanharVideos.data, videos]);
 
@@ -77,13 +77,27 @@ const DetalhesExercicio = () => {
                <div className="my-5 border border-4 border-bottom rounded-2 shadow-lg dashed"></div>
             </Col>
          </Row>
-         {/* TODO: Criar seção de vídeos do youtube explicando o respectivo objectivo */}
-
+         
          {/* Seção de vídeos do youtube */}
          <Row>
             <Col>
                <h1 className="mb-4">
                   Assista vídeos de treinamento do: <span className="text-secondary fw-semibold">{exercicio?.name}</span>
+                  <Row className="mt-5 gy-3">
+                     {videos?.map(
+                        ({ video }, k) =>
+                           video?.thumbnails?.[1]?.url && (
+                              <Col md={4} key={k}>
+                                 <VideoCard
+                                    visualizacoes={video?.viewCountText}
+                                    canal={video?.channelName}
+                                    thumbnail={video?.thumbnails?.[1]?.url}
+                                    titulo={video?.title}
+                                 />
+                              </Col>
+                           )
+                     )}
+                  </Row>
                </h1>
             </Col>
          </Row>
