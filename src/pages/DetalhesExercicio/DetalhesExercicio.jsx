@@ -27,10 +27,9 @@ const DetalhesExercicio = () => {
       if (!exercicio) {
          setExercicio(apanharDetalhes.data);
       }
-      if (!videos) {
-         setVideos(apanharVideos.data?.contents);
-      }
-   }, [id, apanharDetalhes.data, exercicio, apanharVideos.data, videos]);
+
+      setVideos(apanharVideos.data?.contents);
+   }, [id, apanharDetalhes?.data, exercicio, apanharVideos?.data, videos]);
 
    return (
       <Container className="pt-5">

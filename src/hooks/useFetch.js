@@ -22,6 +22,20 @@ const useFetch = (url, opcoes, arrayNoRedux) => {
       setLoading(false);
    }
 
+   async function apanharDadosComParam(url) {
+      console.log(url);
+      setLoading(true);
+      try {
+         const res = await axios.request({ ...opcoes, url });
+         console.log("Aconteceu");
+         setData(res.data);
+         if (retornar) return res.data;
+      } catch (error) {
+         setError(error.message);
+      }
+      setLoading(false);
+   }
+
    function refetch() {
       return apanharDados(true);
    }
@@ -30,7 +44,7 @@ const useFetch = (url, opcoes, arrayNoRedux) => {
       if (!arrayNoRedux) apanharDados();
    }, [url]);
 
-   return { data, error, loading, refetch };
+   return { data, error, loading, refetch, apanharDadosComParam };
 };
 
 export default useFetch;
