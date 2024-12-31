@@ -80,7 +80,6 @@ const DetalhesExercicio = () => {
          </Row>
 
          {/* Seção de vídeos do youtube */}
-
          <Row>
             <Col>
                <h1 className="mb-4">

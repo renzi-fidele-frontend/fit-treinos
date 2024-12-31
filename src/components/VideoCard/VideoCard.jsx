@@ -2,6 +2,7 @@ import { Card } from "react-bootstrap";
 import styles from "./VideoCard.module.css";
 import { useNavigate } from "react-router-dom";
 
+{/* TODO: Criar o modal com o vídeo */}
 const VideoCard = ({ thumbnail, titulo, canal, url, visualizacoes }) => {
    const navegar = useNavigate();
    return (
