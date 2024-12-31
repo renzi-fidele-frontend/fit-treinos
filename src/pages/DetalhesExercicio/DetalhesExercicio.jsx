@@ -84,7 +84,7 @@ const DetalhesExercicio = () => {
             <Col>
                <h1 className="mb-4">
                   Assista vídeos de treinamento do: <span className="text-secondary fw-semibold">{exercicio?.name}</span>
-                  <Slider swipeToSlide rows={2} slidesToShow={3} infinite={false} dots slidesToScroll={3} className="mt-5 g-5">
+                  <Slider swipeToSlide rows={2} slidesToShow={3} infinite={false} dots slidesToScroll={3} className="mt-5">
                      {videos?.map(
                         ({ video }, k) =>
                            video?.thumbnails?.[1]?.url && (
@@ -94,6 +94,8 @@ const DetalhesExercicio = () => {
                                  canal={video?.channelName}
                                  thumbnail={video?.thumbnails?.[1]?.url}
                                  titulo={video?.title}
+                                 videoId={video?.videoId}
+                                 descricao={video?.description}
                               />
                            )
                      )}
