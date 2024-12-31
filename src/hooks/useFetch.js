@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 // O dispatch deverá ser realizado no componente pai onde se for utilizar o hook
 
-const useFetch = (url, opcoes, arrayNoRedux) => {
+const useFetch = (url, opcoes, arrayNoRedux, modo = "automatico") => {
    const [data, setData] = useState(null);
    const [error, setError] = useState(null);
    const [loading, setLoading] = useState(false);
@@ -29,7 +29,7 @@ const useFetch = (url, opcoes, arrayNoRedux) => {
          const res = await axios.request({ ...opcoes, url });
          console.log("Aconteceu");
          setData(res.data);
-         if (retornar) return res.data;
+         return res.data;
       } catch (error) {
          setError(error.message);
       }
@@ -41,7 +41,7 @@ const useFetch = (url, opcoes, arrayNoRedux) => {
    }
 
    useEffect(() => {
-      if (!arrayNoRedux) apanharDados();
+      if (!arrayNoRedux && modo === "automatico") apanharDados();
    }, [url]);
 
    return { data, error, loading, refetch, apanharDadosComParam };

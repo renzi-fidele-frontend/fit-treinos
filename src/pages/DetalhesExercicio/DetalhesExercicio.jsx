@@ -15,21 +15,24 @@ const DetalhesExercicio = () => {
    const [exercicio, setExercicio] = useState(null);
    const [videos, setVideos] = useState(null);
 
-   const apanharDetalhes = useFetch(`https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`, exercisesFetchOptions, exercicio);
+   const apanharDetalhes = useFetch(null, exercisesFetchOptions, exercicio, "manual");
 
-   const apanharVideos = useFetch(
-      `https://youtube-search-and-download.p.rapidapi.com/search?query=${exercicio?.name}%20exercise&hl=pt&type=video`,
-      YoutubeVideosApiOptions,
-      videos
-   );
+   const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
 
    useEffect(() => {
       if (!exercicio) {
-         setExercicio(apanharDetalhes.data);
+         setExercicio(
+            apanharDetalhes.apanharDadosComParam("https://exercisedb.p.rapidapi.com/exercises/exercise/" + id).then((v) => setExercicio(v))
+         );
       }
-
-      setVideos(apanharVideos.data?.contents);
-   }, [id, apanharDetalhes?.data, exercicio, apanharVideos?.data, videos]);
+      if (!videos && exercicio) {
+         apanharVideos
+            .apanharDadosComParam(
+               `https://youtube-search-and-download.p.rapidapi.com/search?query=${exercicio?.name}%20exercise&hl=pt&type=video`
+            )
+            .then((v) => setVideos(v.contents));
+      }
+   }, [exercicio?.name]);
 
    return (
       <Container className="pt-5">
