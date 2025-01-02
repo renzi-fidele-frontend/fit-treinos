@@ -8,16 +8,24 @@ import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
 import { YoutubeVideosApiOptions } from "../../services/YoutubeVideosApi";
 import VideoCard from "../../components/VideoCard/VideoCard";
 import Slider from "react-slick";
+import { useDispatch, useSelector } from "react-redux";
+import { setExercicios } from "../../state/exercicios/exerciciosSlice";
+import CardExercicio from "../../components/CardExercicio/CardExercicio";
 
 const DetalhesExercicio = () => {
    const { id } = useParams();
+   const dispatch = useDispatch();
 
    const [exercicio, setExercicio] = useState(null);
    const [videos, setVideos] = useState(null);
+   const { exercicios } = useSelector((state) => state.exercicios);
+   const [exerciciosFiltrados, setExerciciosFiltrados] = useState(null);
 
    const apanharDetalhes = useFetch(null, exercisesFetchOptions, exercicio, "manual");
 
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
+
+   const apanharExercicios = useFetch(null, exercisesFetchOptions, exercicios, "manual");
 
    useEffect(() => {
       if (!exercicio) {
@@ -34,8 +42,25 @@ const DetalhesExercicio = () => {
       }
    }, [exercicio?.name]);
 
+   useEffect(() => {
+      if (!exercicios) {
+         apanharExercicios.apanharDadosComParam("https://exercisedb.p.rapidapi.com/exercises?limit=1000").then((v) => {
+            dispatch(setExercicios(v));
+            filtrarPorMusculoAlvo(v);
+         });
+      } else {
+         filtrarPorMusculoAlvo(exercicios);
+      }
+   }, []);
+
+   function filtrarPorMusculoAlvo(array) {
+      const dadosFiltrados = array?.filter((musculoAlvo) => musculoAlvo?.target?.includes(exercicio?.target));
+      console.log(dadosFiltrados);
+      setExerciciosFiltrados(dadosFiltrados?.slice(0, 6));
+   }
+
    return (
-      <Container className="pt-5">
+      <Container className="py-5">
          {/* Seção inicial */}
          <Row>
             <Col lg={4} className="ps-4 pt-4 me-3 align-items-stretch" id={styles.left}>
@@ -86,26 +111,46 @@ const DetalhesExercicio = () => {
             <Col>
                <h1 className="mb-4">
                   Assista vídeos de treinamento do: <span className="text-secondary fw-semibold">{exercicio?.name}</span>
-                  <Slider swipeToSlide rows={2} slidesToShow={3} infinite={false} dots slidesToScroll={3} className="mt-5">
-                     {videos?.map(
-                        ({ video }, k) =>
-                           video?.thumbnails?.[1]?.url && (
-                              <VideoCard
-                                 key={k}
-                                 visualizacoes={video?.viewCountText}
-                                 canal={video?.channelName}
-                                 thumbnail={video?.thumbnails?.[1]?.url}
-                                 titulo={video?.title}
-                                 videoId={video?.videoId}
-                                 descricao={video?.description}
-                              />
-                           )
-                     )}
-                  </Slider>
                </h1>
+
+               <Slider swipeToSlide rows={2} slidesToShow={3} infinite={false} dots>
+                  {videos?.map(
+                     ({ video }, k) =>
+                        video?.thumbnails?.[1]?.url && (
+                           <VideoCard
+                              key={k}
+                              visualizacoes={video?.viewCountText}
+                              canal={video?.channelName}
+                              thumbnail={video?.thumbnails?.[1]?.url}
+                              titulo={video?.title}
+                              videoId={video?.videoId}
+                              descricao={video?.description}
+                           />
+                        )
+                  )}
+               </Slider>
+
+               {/* Separador */}
+               <div className="my-5 border border-4 border-bottom rounded-2 shadow-lg dashed"></div>
             </Col>
          </Row>
-         {/* TODO: Renderizar exercícios com o mesmo tipo de equipamento */}
+         <Row className="mt-2">
+            <Col>
+               <h1 className="mb-4">
+                  Exercícios que fortalecem o músculo alvo:{" "}
+                  <span className="text-capitalize text-secondary fw-bold text-decoration-underline">{exercicio?.target}</span>
+               </h1>
+               <Row>
+                  <Slider swipeToSlide slidesToShow={3} infinite={false} dots>
+                     {exerciciosFiltrados?.map((v, k) => (
+                        <Col key={k} xs={3}>
+                           <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
+                        </Col>
+                     ))}
+                  </Slider>
+               </Row>
+            </Col>
+         </Row>
       </Container>
    );
 };
