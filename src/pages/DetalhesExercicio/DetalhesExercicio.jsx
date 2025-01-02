@@ -73,7 +73,9 @@ const DetalhesExercicio = () => {
                <ListGroup>
                   {exercicio?.instructions?.map((v, key) => (
                      // TODO: Renderizar as imagens da parte do corpo na lista
-                     <ListGroupItem key={key}>{v}</ListGroupItem>
+                     <ListGroupItem key={key}>
+                        <span className="fw-bold text-secondary">{key + 1}</span> - {v}
+                     </ListGroupItem>
                   ))}
                </ListGroup>
                <p> {exercicio?.description}</p>
