@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 // TODO: Adicionar um placeholder caso a foto não exista
 
-const CardExercicio = ({ foto, categoria, titulo, id }) => {
+const CardExercicio = ({ foto, categoria, titulo, id, truncado = false }) => {
    return (
       <Card className="h-100" as={Link} to={`/exercicio/${id}`}>
          <Card.Img src={foto} />
@@ -15,7 +15,7 @@ const CardExercicio = ({ foto, categoria, titulo, id }) => {
             ))}
          </Card.Body>
          <Card.Footer>
-            <Card.Title className="text-start fw-semibold text-capitalize">{titulo}</Card.Title>
+            <Card.Title className="text-start fw-semibold text-capitalize text-truncate">{titulo}</Card.Title>
          </Card.Footer>
       </Card>
    );

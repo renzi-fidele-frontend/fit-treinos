@@ -5,6 +5,7 @@ import Header from "./components/Header/Header";
 import { Provider } from "react-redux";
 import store from "./state/store";
 import DetalhesExercicio from "./pages/DetalhesExercicio/DetalhesExercicio";
+import ScrollTop from "./components/ScrollTop/ScrollTop";
 
 // Libs
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -18,11 +19,13 @@ function App() {
       <Provider store={store}>
          <BrowserRouter>
             <Header />
-            <Routes>
-               <Route exact path="/" element={<Home />} />
-               <Route path="/exercicio/:id" element={<DetalhesExercicio />} />
-               <Route path="/exercicios" element={<Exercicios />} />
-            </Routes>
+            <ScrollTop>
+               <Routes>
+                  <Route exact path="/" element={<Home />} />
+                  <Route path="/exercicio/:id" element={<DetalhesExercicio />} />
+                  <Route path="/exercicios" element={<Exercicios />} />
+               </Routes>
+            </ScrollTop>
             <Footer />
          </BrowserRouter>
       </Provider>

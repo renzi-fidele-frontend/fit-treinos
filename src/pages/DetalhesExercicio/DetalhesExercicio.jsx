@@ -131,13 +131,14 @@ const DetalhesExercicio = () => {
                   )}
                </Slider>
 
+               <div className="pt-5"></div>
                {/* Separador */}
                <div className="my-5 border border-4 border-bottom rounded-2 shadow-lg dashed"></div>
             </Col>
          </Row>
 
          {/* Seção de exercícios relacionados */}
-         <Row className="mt-2">
+         <Row className="mt-2 pb-5">
             <Col>
                <h1 className="mb-4">
                   Exercícios que fortalecem o músculo alvo:{" "}
@@ -146,9 +147,9 @@ const DetalhesExercicio = () => {
                <Row>
                   <Slider swipeToSlide slidesToShow={3} infinite={false} dots>
                      {exerciciosFiltrados?.map((v, k) => (
-                        <Col key={k} xs={3}>
+                        <div className="mx-4" key={k}>
                            <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
-                        </Col>
+                        </div>
                      ))}
                   </Slider>
                </Row>
