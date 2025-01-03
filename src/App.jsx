@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Exercicios from "./pages/Exercicios/Exercicios";
+import Footer from "./components/Footer/Footer";
 
 function App() {
    return (
@@ -22,6 +23,7 @@ function App() {
                <Route path="/exercicio/:id" element={<DetalhesExercicio />} />
                <Route path="/exercicios" element={<Exercicios />} />
             </Routes>
+            <Footer />
          </BrowserRouter>
       </Provider>
    );

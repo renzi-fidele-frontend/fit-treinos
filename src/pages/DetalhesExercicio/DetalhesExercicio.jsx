@@ -72,7 +72,6 @@ const DetalhesExercicio = () => {
                </h1>
                <ListGroup>
                   {exercicio?.instructions?.map((v, key) => (
-                     // TODO: Renderizar as imagens da parte do corpo na lista
                      <ListGroupItem key={key}>
                         <span className="fw-bold text-secondary">{key + 1}</span> - {v}
                      </ListGroupItem>
@@ -94,6 +93,7 @@ const DetalhesExercicio = () => {
                   alt={exercicio?.bodyPart}
                   fluid
                />
+               {/* TODO: Renderizar as imagens da parte do corpo na lista */}
                <h4 className="mt-5 fw-semibold">Músculos secundários que serão afectados:</h4>
                <ul className="d-flex gap-5 justify-content-center mt-3">
                   {exercicio?.secondaryMuscles?.map((v, key) => (
@@ -136,6 +136,8 @@ const DetalhesExercicio = () => {
                <div className="my-5 border border-4 border-bottom rounded-2 shadow-lg dashed"></div>
             </Col>
          </Row>
+
+         {/* Seção de exercícios relacionados */}
          <Row className="mt-2">
             <Col>
                <h1 className="mb-4">
@@ -146,7 +148,7 @@ const DetalhesExercicio = () => {
                   <Slider swipeToSlide slidesToShow={3} infinite={false} dots>
                      {exerciciosFiltrados?.map((v, k) => (
                         <Col key={k} xs={3}>
-                           <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
+                           <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl}  categoria={v?.secondaryMuscles} />
                         </Col>
                      ))}
                   </Slider>

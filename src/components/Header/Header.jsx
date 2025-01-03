@@ -26,6 +26,7 @@ const Header = () => {
                      <Nav.Link as={Link} to="/entrar">
                         Entrar
                      </Nav.Link>
+                     {/* TODO: Adicionar feat de toggle de modo escuro/claro  */}
                   </Nav>
                </div>
             </div>
