@@ -48,14 +48,13 @@ const DetalhesExercicio = () => {
             dispatch(setExercicios(v));
             filtrarPorMusculoAlvo(v);
          });
-      } else {
+      } else if (exercicio) {
          filtrarPorMusculoAlvo(exercicios);
       }
-   }, []);
+   }, [exercicio]);
 
    function filtrarPorMusculoAlvo(array) {
       const dadosFiltrados = array?.filter((musculoAlvo) => musculoAlvo?.target?.includes(exercicio?.target));
-      console.log(dadosFiltrados);
       setExerciciosFiltrados(dadosFiltrados?.slice(0, 6));
    }
 
@@ -148,7 +147,7 @@ const DetalhesExercicio = () => {
                   <Slider swipeToSlide slidesToShow={3} infinite={false} dots>
                      {exerciciosFiltrados?.map((v, k) => (
                         <Col key={k} xs={3}>
-                           <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl}  categoria={v?.secondaryMuscles} />
+                           <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
                         </Col>
                      ))}
                   </Slider>
