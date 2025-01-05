@@ -12,10 +12,14 @@ import {
    setEquipamentos,
    setExercicios,
    setExerciciosFiltrados,
+   setExerciciosPaginados,
    setFiltros,
    setMusculoAlvo,
+   setPaginaAtual,
 } from "../../state/exercicios/exerciciosSlice";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
+import Paginacao from "../../components/Paginacao/Paginacao";
+import { paginarArray } from "../../utils/paginarArray";
 
 const Exercicios = () => {
    const {
@@ -25,6 +29,8 @@ const Exercicios = () => {
       exercicios,
       filtros,
       exerciciosFiltrados,
+      paginaAtual,
+      exerciciosPaginados,
    } = useSelector((state) => state.exercicios);
    const dispatch = useDispatch();
    const parteDoCorpoRef = useRef();
@@ -66,7 +72,9 @@ const Exercicios = () => {
             musculoAlvoRef?.current?.value !== "todos" ? musculoAlvo?.target?.includes(musculoAlvoRef?.current?.value) : true
          );
 
+      dispatch(setPaginaAtual(1));
       dispatch(setExerciciosFiltrados(dadosFiltrados));
+      dispatch(setExerciciosPaginados(paginarArray(dadosFiltrados, 1, 12)));
    }
 
    // Caso a página carrege e hajam filtros
@@ -164,17 +172,23 @@ bg-gradient pt-5  pb-0"
                      <hr className="mx-5" />
 
                      <Row className="mt-2 mb-5 px-5 mx-5 g-4 justify-content-center flex-content-stretch">
-                        {exerciciosFiltrados?.map(
-                           (v, k) =>
-                              k < 12 && (
-                                 <Col key={k} xs={3}>
-                                    <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
-                                 </Col>
-                              )
-                        )}
+                        {exerciciosPaginados?.map((v, k) => (
+                           <Col key={k} xs={3}>
+                              <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
+                           </Col>
+                        ))}
                      </Row>
 
-                     {/* TODO: Adicionar feat de paginação */}
+                     {/* Pagicação */}
+                     <Paginacao
+                        onPageClick={(pagina) => {
+                           if (pagina === paginaAtual) return;
+                           dispatch(setPaginaAtual(pagina));
+                           dispatch(setExerciciosPaginados(paginarArray(exerciciosFiltrados, pagina, 12)));
+                        }}
+                        paginaAtual={paginaAtual}
+                        totalPaginas={Math.ceil(exerciciosFiltrados?.length / 12)}
+                     />
                   </Container>
                </Col>
             </Row>

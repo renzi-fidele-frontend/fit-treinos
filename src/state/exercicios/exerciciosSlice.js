@@ -6,9 +6,11 @@ const initialState = {
    exercicios: null,
    exerciciosDeCategoria: null,
    exerciciosFiltrados: null,
+   exerciciosPaginados: null,
    filtros: null,
    equipamentos: null,
    musculoAlvo: null,
+   paginaAtual: 1,
 };
 
 const exerciciosSlice = createSlice({
@@ -39,6 +41,12 @@ const exerciciosSlice = createSlice({
       setExerciciosFiltrados: (state, action) => {
          state.exerciciosFiltrados = action.payload;
       },
+      setPaginaAtual: (state, action) => {
+         state.paginaAtual = action.payload;
+      },
+      setExerciciosPaginados: (state, action) => {
+         state.exerciciosPaginados = action.payload;
+      },
    },
 });
 
@@ -51,6 +59,8 @@ export const {
    setEquipamentos,
    setMusculoAlvo,
    setExerciciosFiltrados,
+   setPaginaAtual,
+   setExerciciosPaginados,
 } = exerciciosSlice.actions;
 
 export default exerciciosSlice.reducer;
