@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setExercicios } from "../../state/exercicios/exerciciosSlice";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 
+// TODO: fix: A requisição está sendo feita duas vezes
+
 const DetalhesExercicio = () => {
    const { id } = useParams();
    const dispatch = useDispatch();
