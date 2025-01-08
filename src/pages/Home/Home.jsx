@@ -134,51 +134,55 @@ const Home = () => {
             <Col style={{ zIndex: "2" }} md={7} className="pe-5 justify-content-center gap-3 d-flex flex-column">
                <h3 id={styles.titbanner}>O melhor lugar para você ficar em forma</h3>
                <p className="fs-5">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Error harum nobis, dolorum necessitatibus eius quae earum facere velit
-                  inventore assumenda at, maxime obcaecati sint odit
+                  Descubra o jeito mais divertido e prático de atingir seus objetivos fitness! Aqui você encontra uma plataforma completa com
+                  exercícios detalhados
                </p>
 
                <Row className="mt-3 g-3">
                   <Col xs={6}>
-                     <Card>
+                     <Card className="h-100 border-top  border-5">
                         <Card.Body>
                            <i className="fs-1 bi bi-1-circle"></i>
-                           <Card.Title>Titulo1</Card.Title>
+                           <Card.Title className="fw-semibold">Exercícios Detalhados</Card.Title>
                            <Card.Text>
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Error harum nobis, dolorum necessitatibus eius quae earum
+                              Encontre descrições claras e passo a passo de exercícios para todos os níveis. Seja iniciante ou avançado, temos o
+                              treino perfeito para você!
                            </Card.Text>
                         </Card.Body>
                      </Card>
                   </Col>
                   <Col xs={6}>
-                     <Card>
+                     <Card className="h-100 border-top border-5">
                         <Card.Body>
                            <i className="fs-1 bi bi-2-circle"></i>
-                           <Card.Title>Titulo1</Card.Title>
+                           <Card.Title className="fw-semibold">Tutoriais em Vídeo</Card.Title>
                            <Card.Text>
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Error harum nobis, dolorum necessitatibus eius quae earum
+                              Acompanhe tutoriais no YouTube criados por profissionais. Aprenda a executar os movimentos com segurança e
+                              eficiência.
                            </Card.Text>
                         </Card.Body>
                      </Card>
                   </Col>
                   <Col xs={6}>
-                     <Card>
+                     <Card className="h-100 border-top border-5">
                         <Card.Body>
                            <i className="fs-1 bi bi-3-circle"></i>
-                           <Card.Title>Titulo1</Card.Title>
+                           <Card.Title className="fw-semibold">Controle Personalizados</Card.Title>
                            <Card.Text>
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Error harum nobis, dolorum necessitatibus eius quae earum
+                              Filtre exercícios por categorias, como força, cardio ou alongamento. Economize tempo e encontre exatamente o que
+                              precisa!
                            </Card.Text>
                         </Card.Body>
                      </Card>
                   </Col>
                   <Col xs={6}>
-                     <Card>
+                     <Card className="h-100 border-top border-5">
                         <Card.Body>
                            <i className="fs-1 bi bi-4-circle"></i>
-                           <Card.Title>Titulo1</Card.Title>
+                           <Card.Title className="fw-semibold">Rastreio do treinamento</Card.Title>
                            <Card.Text>
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Error harum nobis, dolorum necessitatibus eius quae earum
+                              Acompanhe seu progresso com facilidade! Registre seus treinos, visualize estatísticas e mantenha-se motivado
+                              enquanto atinge suas metas.
                            </Card.Text>
                         </Card.Body>
                      </Card>

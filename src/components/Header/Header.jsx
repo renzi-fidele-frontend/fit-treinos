@@ -8,6 +8,7 @@ const Header = () => {
       <Navbar className="border border-bottom">
          <Container>
             <div className="d-flex align-items-center justify-content-between w-100">
+               {/* TODO: Melhorar a logo do website */}
                <Navbar.Brand as={Link} to="/" className="fw-medium">
                   GymApp
                </Navbar.Brand>

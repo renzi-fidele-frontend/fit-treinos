@@ -14,6 +14,11 @@ import "slick-carousel/slick/slick-theme.css";
 import Exercicios from "./pages/Exercicios/Exercicios";
 import Footer from "./components/Footer/Footer";
 
+// TODO: Adicionar página de cadastro
+// TODO: Adicionar página de login
+// TODO: Criar estrura básica do servidor em Node.js
+
+
 function App() {
    return (
       <Provider store={store}>
