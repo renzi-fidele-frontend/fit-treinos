@@ -14,6 +14,27 @@ import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import { Link } from "react-router-dom";
 import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
 
+const vantagens = [
+   {
+      titulo: "Exercícios Detalhados",
+      texto: "Encontre descrições claras e passo a passo de exercícios para todos os níveis. Seja iniciante ou avançado, temos o treino perfeito para você!",
+   },
+   {
+      titulo: "Tutoriais em Vídeo",
+      texto: "Acompanhe tutoriais no YouTube criados por profissionais. Aprenda a executar os movimentos com segurança e eficiência.",
+   },
+   {
+      titulo: "Controle Personalizados",
+      texto: "Filtre exercícios por categorias, como força, cardio ou alongamento. Economize tempo e encontre exatamente o que precisa!",
+   },
+   {
+      titulo: "Rastreio do treinamento",
+      texto: "Acompanhe seu progresso com facilidade! Registre seus treinos, visualize estatísticas e mantenha-se motivado enquanto atinge suas metas.",
+   },
+];
+
+const CardVantagem = () => <></>;
+
 const Home = () => {
    const dispatch = useDispatch();
    const { categorias, categoriaEscolhida, exerciciosDeCategoria, exercicios } = useSelector((state) => state.exercicios);
@@ -126,6 +147,7 @@ const Home = () => {
          </Row>
 
          {/*  Seção 3  */}
+
          <Row className="mt-5 pe-5 py-5 bg-black text-light position-relative bg-gradient overflow-hidden">
             <Image src={bg1} id={styles.bg1} className="position-absolute end-0 start-0 top-0 h-auto p-0" />
             <Col style={{ zIndex: "2" }} className="ps-0">
@@ -139,59 +161,27 @@ const Home = () => {
                </p>
 
                <Row className="mt-3 g-3">
-                  <Col xs={6}>
-                     <Card className="h-100 border-top  border-5">
-                        <Card.Body>
-                           <i className="fs-1 bi bi-1-circle"></i>
-                           <Card.Title className="fw-semibold">Exercícios Detalhados</Card.Title>
-                           <Card.Text>
-                              Encontre descrições claras e passo a passo de exercícios para todos os níveis. Seja iniciante ou avançado, temos o
-                              treino perfeito para você!
-                           </Card.Text>
-                        </Card.Body>
-                     </Card>
-                  </Col>
-                  <Col xs={6}>
-                     <Card className="h-100 border-top border-5">
-                        <Card.Body>
-                           <i className="fs-1 bi bi-2-circle"></i>
-                           <Card.Title className="fw-semibold">Tutoriais em Vídeo</Card.Title>
-                           <Card.Text>
-                              Acompanhe tutoriais no YouTube criados por profissionais. Aprenda a executar os movimentos com segurança e
-                              eficiência.
-                           </Card.Text>
-                        </Card.Body>
-                     </Card>
-                  </Col>
-                  <Col xs={6}>
-                     <Card className="h-100 border-top border-5">
-                        <Card.Body>
-                           <i className="fs-1 bi bi-3-circle"></i>
-                           <Card.Title className="fw-semibold">Controle Personalizados</Card.Title>
-                           <Card.Text>
-                              Filtre exercícios por categorias, como força, cardio ou alongamento. Economize tempo e encontre exatamente o que
-                              precisa!
-                           </Card.Text>
-                        </Card.Body>
-                     </Card>
-                  </Col>
-                  <Col xs={6}>
-                     <Card className="h-100 border-top border-5">
-                        <Card.Body>
-                           <i className="fs-1 bi bi-4-circle"></i>
-                           <Card.Title className="fw-semibold">Rastreio do treinamento</Card.Title>
-                           <Card.Text>
-                              Acompanhe seu progresso com facilidade! Registre seus treinos, visualize estatísticas e mantenha-se motivado
-                              enquanto atinge suas metas.
-                           </Card.Text>
-                        </Card.Body>
-                     </Card>
-                  </Col>
+                  {vantagens.map(({ titulo, texto }, k) => (
+                     <Col xs={6} key={k}>
+                        <Card className="h-100 border-top  border-5">
+                           <Card.Body>
+                              <i className={`fs-${k + 1} bi bi-${k + 1}-circle`}></i>
+                              <Card.Title className="fw-semibold">{titulo}</Card.Title>
+                              <Card.Text>{texto}</Card.Text>
+                           </Card.Body>
+                        </Card>
+                     </Col>
+                  ))}
                </Row>
             </Col>
          </Row>
 
          {/* TODO: Criar seção dos testemunhos */}
+         <Row className="text-center">
+            <Col>
+               <h2></h2>
+            </Col>
+         </Row>
       </Container>
    );
 };
