@@ -2,9 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
    categorias: null,
-   categoriaEscolhida: "",
+   categoriaEscolhida: null,
    exercicios: null,
-   exerciciosDeCategoria: null,
+   exerciciosDeCategoria: [],
    exerciciosFiltrados: null,
    exerciciosPaginados: null,
    filtros: null,

@@ -22,33 +22,35 @@ const Home = () => {
 
    const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises?limit=1000", exercisesFetchOptions, exercicios);
 
-   const apanharCategoriaSelecionada = useFetch(
-      `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${categoriaEscolhida}`,
-      exercisesFetchOptions,
-      exercicios
-   );
-
-   function alterarCategoriaSelecionada() {
-      dispatch(setExerciciosDeCategoria(exercicios?.filter((v) => v?.bodyPart?.includes(categoriaEscolhida))));
+   function alterarCategoriaSelecionada(categoria) {
+      dispatch(setExerciciosDeCategoria(exercicios?.filter((v) => v?.bodyPart?.includes(categoria))));
    }
-
-   // Controlador da mudança de categoria
+   // Controlador da mudança de categoria escolhida
    useEffect(() => {
-      alterarCategoriaSelecionada();
+      if (categoriaEscolhida) {
+         alterarCategoriaSelecionada(categoriaEscolhida);
+      }
    }, [categoriaEscolhida]);
 
-   useEffect(() => {
-      if (!exerciciosDeCategoria) dispatch(setExerciciosDeCategoria(apanharCategoriaSelecionada.data));
-
+   function definirCategorias() {
       if (!categorias) {
          dispatch(setCategorias(apanharCategorias.data));
          dispatch(setCategoriaEscolhida(apanharCategorias.data?.[0]));
       }
+      // Ao se chegar da página de exercícios será recapturada a categoria escolhida
+      if (!categoriaEscolhida && categorias) {
+         dispatch(setCategoriaEscolhida(categorias?.[0]));
+      }
+   }
 
-      if (!exercicios) dispatch(setExercicios(apanharExercicios.data));
-   }, [apanharCategorias.data, apanharCategoriaSelecionada.data, apanharExercicios.data]);
+   useEffect(() => {
+      definirCategorias();
+      if (!exercicios) {
+         dispatch(setExercicios(apanharExercicios.data));
+         dispatch(setExerciciosDeCategoria(apanharExercicios.data?.filter((v) => v?.bodyPart?.includes(categoriaEscolhida))));
+      }
+   }, [apanharCategorias.data, apanharExercicios.data, exercicios]);
 
-   
    return (
       <Container fluid>
          {/*  Banner Inicial  */}
@@ -75,7 +77,6 @@ const Home = () => {
             </Col>
          </Row>
 
-         {/*  Exercícios */}
          <Row className="mt-5 py-5">
             <Col className="text-center">
                <Titulo texto="Exercícios incríveis para você Treinar " />
@@ -187,7 +188,6 @@ const Home = () => {
          </Row>
 
          {/* TODO: Criar seção dos testemunhos */}
-         {/* TODO: Criar Rodapé */}
       </Container>
    );
 };
