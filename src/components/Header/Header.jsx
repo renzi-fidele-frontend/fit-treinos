@@ -1,5 +1,7 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Image, Nav, Navbar } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
+import styles from "./Header.module.css";
+import logo from "../../assets/logo.jpg";
 
 const Header = () => {
    const loc = useLocation();
@@ -8,9 +10,8 @@ const Header = () => {
       <Navbar className="border border-bottom">
          <Container>
             <div className="d-flex align-items-center justify-content-between w-100">
-               {/* TODO: Melhorar a logo do website */}
                <Navbar.Brand as={Link} to="/" className="fw-medium">
-                  GymApp
+                  <Image id={styles.logo} src={logo} alt="Logo do site" />
                </Navbar.Brand>
 
                <div className="d-flex">
