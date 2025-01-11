@@ -13,6 +13,7 @@ import fotoAtleta from "../../assets/atleta.png";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import { Link } from "react-router-dom";
 import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
+import thumb from "../../assets/thumb_temp.gif";
 
 const vantagens = [
    {
@@ -33,7 +34,52 @@ const vantagens = [
    },
 ];
 
-const CardVantagem = () => <></>;
+const testemunhos = [
+   {
+      foto: thumb,
+      nome: "Ana Carolina",
+      testemunho:
+         "Nunca imaginei que pudesse me sentir tão confiante treinando em casa. Os tutoriais são incríveis, e os filtros me ajudam a encontrar exatamente o que preciso. Já perdi 5 kg e ganhei muito mais energia!",
+   },
+   {
+      foto: thumb,
+      nome: "Rafael Monteiro",
+      testemunho:
+         "Eu era completamente sedentário, mas o site tornou tudo tão simples e prático. Adoro acompanhar meu progresso com o rastreio de treinamento. Hoje, minha saúde é outra!",
+   },
+   {
+      foto: thumb,
+      nome: "Mariana Costa",
+      testemunho:
+         "Os vídeos são super didáticos e motivadores. Consigo fazer exercícios de forma segura, mesmo sem ir à academia. É como ter um personal trainer em casa!",
+   },
+   {
+      foto: thumb,
+      nome: "Felipe Almeida",
+      testemunho:
+         "Com a rotina corrida, eu precisava de algo rápido e eficiente. Encontrei tudo aqui! Os exercícios são fáceis de seguir, e a variedade é impressionante.",
+   },
+   {
+      foto: thumb,
+      nome: "Camila Rodrigues",
+      testemunho:
+         "A possibilidade de filtrar exercícios por categoria foi um divisor de águas para mim. Agora consigo alternar entre treinos de força e alongamento sem perder tempo!",
+   },
+   {
+      foto: thumb,
+      nome: "Pedro Henrique",
+      testemunho:
+         "As dicas e tendências me mantêm motivado. É como ter um guia fitness atualizado sempre à mão. Já recomendei para vários amigos!",
+   },
+];
+
+const CardTestemunho = ({ foto, nome, testemunho }) => (
+   <div className="border mx-2 p-3 rounded-5 shadow-sm d-flex flex-column gap-3 align-items-center">
+      <Image src={foto} roundedCircle width="100" height="100" />
+      <h4>{nome}</h4>
+      <p>{testemunho}</p>
+   </div>
+);
 
 const Home = () => {
    const dispatch = useDispatch();
@@ -176,10 +222,22 @@ const Home = () => {
             </Col>
          </Row>
 
-         {/* TODO: Criar seção dos testemunhos */}
-         <Row className="text-center">
+         <Row style={{}} className="text-center py-5 px-5">
             <Col>
-               <h2></h2>
+               <h2 className="fw-semibold fs-1 mb-5">Testemunhos dos usuários do site</h2>
+               <Slider
+                  className="mb-5"
+                  autoplay
+                  slidesToShow={3}
+                  responsive={[
+                     { breakpoint: 1024, settings: { slidesToShow: 2 } },
+                     { breakpoint: 480, settings: { slidesToShow: 1 } },
+                  ]}
+               >
+                  {testemunhos.map(({ nome, foto, testemunho }, k) => (
+                     <CardTestemunho nome={nome} foto={foto} testemunho={testemunho} key={k} />
+                  ))}
+               </Slider>
             </Col>
          </Row>
       </Container>
