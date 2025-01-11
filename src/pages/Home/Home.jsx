@@ -74,10 +74,11 @@ const testemunhos = [
 ];
 
 const CardTestemunho = ({ foto, nome, testemunho }) => (
-   <div className="border mx-2 p-3 rounded-5 shadow-sm d-flex flex-column gap-3 align-items-center">
-      <Image src={foto} roundedCircle width="100" height="100" />
+   <div className="border border-4 bg-light mx-2 p-3 rounded-5 shadow-sm d-flex flex-column gap-3 align-items-center">
+      <Image className="border border-2" src={foto} roundedCircle width="100" height="100" />
       <h4>{nome}</h4>
-      <p>{testemunho}</p>
+      <p className="fst-italic">{testemunho}</p>
+      
    </div>
 );
 
@@ -193,7 +194,6 @@ const Home = () => {
          </Row>
 
          {/*  Seção 3  */}
-
          <Row className="mt-5 pe-5 py-5 bg-black text-light position-relative bg-gradient overflow-hidden">
             <Image src={bg1} id={styles.bg1} className="position-absolute end-0 start-0 top-0 h-auto p-0" />
             <Col style={{ zIndex: "2" }} className="ps-0">
@@ -206,7 +206,7 @@ const Home = () => {
                   exercícios detalhados
                </p>
 
-               <Row className="mt-3 g-3">
+               <Row className="mt-3 mb-4 g-3">
                   {vantagens.map(({ titulo, texto }, k) => (
                      <Col xs={6} key={k}>
                         <Card className="h-100 border-top  border-5">
@@ -222,9 +222,9 @@ const Home = () => {
             </Col>
          </Row>
 
-         <Row style={{}} className="text-center py-5 px-5">
-            <Col>
-               <h2 className="fw-semibold fs-1 mb-5">Testemunhos dos usuários do site</h2>
+         <Row id={styles.bg2} className="text-center ">
+            <Col className="py-5 px-5">
+               <h2 className="fw-semibold fs-1 mb-5 ">Testemunhos dos usuários do site</h2>
                <Slider
                   className="mb-5"
                   autoplay
