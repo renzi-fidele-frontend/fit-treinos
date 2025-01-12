@@ -21,6 +21,13 @@ body {
    overflow-x: hidden;
 }
 
+#root {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   min-height: 100dvh;
+}
+
 /*  Modificação do Bootstrap  */
 .list-group-item.active {
    background-color: rgb(20, 17, 17) !important;
