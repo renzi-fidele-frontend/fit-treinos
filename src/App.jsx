@@ -14,8 +14,8 @@ import "slick-carousel/slick/slick-theme.css";
 import Exercicios from "./pages/Exercicios/Exercicios";
 import Footer from "./components/Footer/Footer";
 import Cadastro from "./pages/Cadastro/Cadastro";
+import Login from "./pages/Login/Login";
 
-// TODO: Adicionar página de login
 // TODO: Criar estrutura básica do servidor em Node.js
 // TODO: No backend, instalar o passport e passport-local para autenticação
 // TODO: Adicionar dashboard de rastreamento do treino
@@ -31,6 +31,7 @@ function App() {
                   <Route path="/exercicio/:id" element={<DetalhesExercicio />} />
                   <Route path="/exercicios" element={<Exercicios />} />
                   <Route path="/cadastro" element={<Cadastro />} />
+                  <Route path="/entrar" element={<Login />} />
                </Routes>
             </ScrollTop>
             <Footer />

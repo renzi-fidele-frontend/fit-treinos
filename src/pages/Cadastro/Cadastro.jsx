@@ -10,7 +10,7 @@ const Cadastro = () => {
             <Col sm={6} className="justify-content-center d-flex flex-column pe-5">
                <h1 className="fw-bold">Crie a sua conta</h1>
                <p className="fs-5">
-                  Já tens uma conta criada? <Link to="entrar">Faça Login</Link>
+                  Já tens uma conta criada? <Link to="/entrar">Faça Login</Link>
                </p>
                <Form className="mt-3">
                   <div className="d-flex gap-3">
