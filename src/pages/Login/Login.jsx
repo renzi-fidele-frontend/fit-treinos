@@ -30,7 +30,7 @@ const Login = () => {
                      <Form.Control className="my-3" type="email" placeholder="Insira seu email" />
                      <Form.Control type="password" placeholder="Insira a palavra-chave" />
                      <Button className="mt-4" type="submit">
-                        Começar treinamento
+                        Continuar treinamento
                      </Button>
                   </Form>
                </div>
