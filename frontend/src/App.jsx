@@ -16,7 +16,6 @@ import Footer from "./components/Footer/Footer";
 import Cadastro from "./pages/Cadastro/Cadastro";
 import Login from "./pages/Login/Login";
 
-// TODO: Criar estrutura básica do servidor em Node.js
 // TODO: No backend, instalar o passport e passport-local para autenticação
 // TODO: Adicionar dashboard de rastreamento do treino
 
