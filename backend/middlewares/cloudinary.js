@@ -12,6 +12,7 @@ async function uploadImage(file) {
       const data = await cloudinary.uploader.upload(file, {
          resource_type: "image",
          use_filename: true,
+         folder: "GymApp",
       });
       return data;
    } catch (error) {
