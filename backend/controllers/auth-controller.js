@@ -1,6 +1,7 @@
 const { uploadImage } = require("../middlewares/cloudinary");
 const Usuario = require("../models/Usuario");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const cadastrarUsuario = async (req, res) => {
    const { email, password, nome } = req.body;
@@ -27,9 +28,9 @@ const cadastrarUsuario = async (req, res) => {
          const usuarioAdicionado = new Usuario({ foto: fotoUpada.url, nome, email, password: senhaSecreta });
          usuarioAdicionado.save();
 
-         // TODO: Gerar o token de autenticação com JWT
+         const token = jwt.sign({ userId: usuarioAdicionado._id, password }, process.env.JWT_SECRET);
 
-         res.json({ usuario: usuarioAdicionado });
+         res.json({ usuario: { ...usuarioAdicionado.toObject(), password }, token });
       }
    } catch (error) {
       res.status(500).json({ message: "Erro ao cadastrar o usuário, tente mais tarde" });
