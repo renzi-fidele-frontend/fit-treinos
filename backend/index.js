@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
+const authRoute = require("./routes/auth-route");
 
 const app = express();
 
@@ -18,9 +19,8 @@ app.use(function (req, res, next) {
 // Permitindo qualquer domínio de accesar o servidor
 app.use(cors());
 
-app.get("/", (req, res) => {
-   res.send("Servidor está rodando");
-});
+// Roteamento do servidor
+app.use("/api/auth", authRoute);
 
 // Caso se navegue para uma rota inexistente
 app.use((req, res) => {
@@ -28,7 +28,7 @@ app.use((req, res) => {
 });
 
 mongoose
-   .connect(process.env.MONGO_URI)
+   .connect(process.env.MONGO_URI, { dbName: process.env.DB_NAME })
    .then(() => {
       app.listen(process.env.PORT, () => console.log("Conectado ao MongoDB"));
    })

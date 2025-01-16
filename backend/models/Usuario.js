@@ -8,7 +8,7 @@ const schemaDoUsuario = new mongoose.Schema(
       foto: { type: String, required: true },
       criadoEm: { type: Date, default: Date.now },
    },
-   { collection: "usuarios" }
+   { collection: "Usuarios" }
 );
 
 const Usuario = mongoose.model("Usuario", schemaDoUsuario);
