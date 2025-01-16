@@ -38,4 +38,25 @@ const cadastrarUsuario = async (req, res) => {
    return;
 };
 
+const loginUsuario = async (req, res) => {
+   const { email, password } = req.body;
+   try {
+      const existeUsuario = await Usuario.findOne({ email });
+      if (existeUsuario) {
+         const senhaCorreta = await bcrypt.compare(password, existeUsuario.password);
+         if (senhaCorreta) {
+            const token = jwt.sign({ userId: existeUsuario._id, password }, process.env.JWT_SECRET);
+            res.json({ usuario: { ...existeUsuario.toObject(), password }, token });
+         } else {
+            res.status(401).json({ message: "Senha incorreta!" });
+         }
+      } else {
+         res.status(401).json({ message: "Este email não foi cadastrado!" });
+      }
+   } catch (error) {
+      res.status(500).json({ message: "Erro ao fazer login, tente mais tarde" });
+   }
+};
+
 exports.cadastrarUsuario = cadastrarUsuario;
+exports.loginUsuario = loginUsuario;
