@@ -3,11 +3,12 @@
 }
 
 #ctFoto {
-   width: 270px;
+width: fit-content;
+padding: .8rem;
 }
 
 #ctFoto img {
-   width: 100%;
-   height: 100%;
+   width: 270px;
+   height: 270px;
    object-fit: cover;
 }
