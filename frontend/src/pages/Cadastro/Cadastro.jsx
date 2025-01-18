@@ -1,11 +1,13 @@
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import styles from "./Cadastro.module.css";
 import ftBanner from "../../assets/modelo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import profilepic from "../../assets/profile.jpg";
+import useFetch from "../../hooks/useFetch";
 
 const Cadastro = () => {
+   const navegar = useNavigate();
    const [step, setStep] = useState(1);
    // Refs do formulario
    const nomeRef = useRef();
@@ -17,6 +19,8 @@ const Cadastro = () => {
 
    const fotoPreviaRef = useRef();
 
+   const { apanharNoBackend } = useFetch(null, null, null, "manual");
+
    function handleSubmit1(e) {
       e.preventDefault();
       const estadoAtual = {
@@ -25,14 +29,20 @@ const Cadastro = () => {
          password: passwordRef.current.value,
       };
       setStep(2);
-      console.log(estadoAtual);
       setEstadoForm(estadoAtual);
    }
 
    async function handleSubmit2(e) {
       e.preventDefault();
-      console.log(estadoForm);
-      setEstadoForm({ ...estadoForm, foto: inputFotoPerfilRef.current.files[0] });
+      const data = { ...estadoForm, foto: inputFotoPerfilRef.current.files[0] };
+      const cadastrar = apanharNoBackend("auth/cadastro", "POST", {
+         headers: {
+            "Content-Type": "multipart/form-data",
+         },
+         data,
+      }).then((res) => console.log(res));
+
+      navegar("/");
    }
 
    function renderizarPrevia() {
@@ -91,7 +101,17 @@ const Cadastro = () => {
                <Form.Label>
                   <i className="bi bi-arrow-down me-2"></i>Clique abaixo para selecionar a foto:
                </Form.Label>
-               <Form.Control onChange={renderizarPrevia} ref={inputFotoPerfilRef} accept="image/*" required className="shadow-sm" type="file" />
+               <Form.Control
+                  id="foto"
+                  ref={inputFotoPerfilRef}
+                  onChange={() => {
+                     renderizarPrevia();
+                  }}
+                  accept="image/*"
+                  required
+                  className="shadow-sm"
+                  type="file"
+               />
             </Form.Group>
             <Button type="submit">Concluir cadastro</Button>
          </Form>

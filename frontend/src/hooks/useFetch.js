@@ -36,6 +36,18 @@ const useFetch = (url, opcoes, arrayNoRedux, modo = "automatico") => {
       setLoading(false);
    }
 
+   async function apanharNoBackend(endpoint, method, options) {
+      setLoading(true);
+      try {
+         const res = await axios.request({ url: `${import.meta.env.VITE_BACKEND_URL}/${endpoint}`, method, ...options });
+         console.log("Fetch ao servidor");
+         return res.data;
+      } catch (error) {
+         setError(error.message);
+      }
+      setLoading(false);
+   }
+
    function refetch() {
       return apanharDados(true);
    }
@@ -44,7 +56,7 @@ const useFetch = (url, opcoes, arrayNoRedux, modo = "automatico") => {
       if (!arrayNoRedux && modo === "automatico") apanharDados();
    }, [url]);
 
-   return { data, error, loading, refetch, apanharDadosComParam };
+   return { data, error, loading, refetch, apanharDadosComParam, apanharNoBackend };
 };
 
 export default useFetch;

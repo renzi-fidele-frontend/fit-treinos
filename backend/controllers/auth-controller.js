@@ -4,8 +4,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const cadastrarUsuario = async (req, res) => {
-   const { email, password, nome } = req.body;
-   const foto = req.file.path;
+   const { email, password, nome } = req?.body;
+   const foto = req?.file?.path;
+   console.log(foto, email, password, nome);
    try {
       const existeUsuario = await Usuario.findOne({ email });
       if (existeUsuario) {
