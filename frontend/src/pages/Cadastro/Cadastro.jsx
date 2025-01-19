@@ -5,9 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import profilepic from "../../assets/profile.jpg";
 import useFetch from "../../hooks/useFetch";
+import { useDispatch } from "react-redux";
+import { setToken, setUser } from "../../state/auth/authSlice";
 
 const Cadastro = () => {
    const navegar = useNavigate();
+   const dispatch = useDispatch();
    const [step, setStep] = useState(1);
    // Refs do formulario
    const nomeRef = useRef();
@@ -32,6 +35,7 @@ const Cadastro = () => {
       setEstadoForm(estadoAtual);
    }
 
+   // TODO: Alertando o cliente caso haja um erro ao tentar autenticar
    async function handleSubmit2(e) {
       e.preventDefault();
       const data = { ...estadoForm, foto: inputFotoPerfilRef.current.files[0] };
@@ -40,9 +44,14 @@ const Cadastro = () => {
             "Content-Type": "multipart/form-data",
          },
          data,
-      }).then((res) => console.log(res));
-
-      navegar("/");
+      })
+         .then(({ usuario, token }) => {
+            dispatch(setUser(usuario));
+            dispatch(setToken(token));
+         })
+         .finally(() => {
+            navegar("/");
+         });
    }
 
    function renderizarPrevia() {
