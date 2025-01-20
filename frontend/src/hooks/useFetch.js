@@ -43,9 +43,10 @@ const useFetch = (url, opcoes, arrayNoRedux, modo = "automatico") => {
          console.log("Fetch ao servidor");
          return res.data;
       } catch (error) {
-         setError(error.message);
+         return { error: error.response.data.message };
+      } finally {
+         setLoading(false);
       }
-      setLoading(false);
    }
 
    function refetch() {

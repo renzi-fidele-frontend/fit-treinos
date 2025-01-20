@@ -7,11 +7,14 @@ import profilepic from "../../assets/profile.jpg";
 import useFetch from "../../hooks/useFetch";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../../state/auth/authSlice";
+import Notificacao from "../../components/Notificacao/Notificacao";
 
 const Cadastro = () => {
    const navegar = useNavigate();
    const dispatch = useDispatch();
    const [step, setStep] = useState(1);
+   const [erro, setErro] = useState("");
+   const [mostrarErro, setMostrarErro] = useState(false);
    // Refs do formulario
    const nomeRef = useRef();
    const sobrenomeRef = useRef();
@@ -22,7 +25,7 @@ const Cadastro = () => {
 
    const fotoPreviaRef = useRef();
 
-   const { apanharNoBackend } = useFetch(null, null, null, "manual");
+   const { apanharNoBackend, loading } = useFetch(null, null, null, "manual");
 
    function handleSubmit1(e) {
       e.preventDefault();
@@ -35,7 +38,6 @@ const Cadastro = () => {
       setEstadoForm(estadoAtual);
    }
 
-   // TODO: Alertando o cliente caso haja um erro ao tentar autenticar
    async function handleSubmit2(e) {
       e.preventDefault();
       const data = { ...estadoForm, foto: inputFotoPerfilRef.current.files[0] };
@@ -44,14 +46,17 @@ const Cadastro = () => {
             "Content-Type": "multipart/form-data",
          },
          data,
-      })
-         .then(({ usuario, token }) => {
-            dispatch(setUser(usuario));
-            dispatch(setToken(token));
-         })
-         .finally(() => {
-            navegar("/");
-         });
+      }).then((res) => {
+         console.log(res);
+         if (res.error) {
+            setMostrarErro(true);
+            setErro(res.error);
+            return;
+         }
+         dispatch(setUser(res.usuario));
+         dispatch(setToken(res.token));
+         if (res.usuario && res.token) navegar("/");
+      });
    }
 
    function renderizarPrevia() {
@@ -89,7 +94,7 @@ const Cadastro = () => {
                </div>
                <Form.Control required ref={emailRef} className="my-3" type="email" placeholder="E-mail" />
                <Form.Control required ref={passwordRef} type="password" placeholder="Insira sua senha" />
-               <Button className="mt-4" type="submit">
+               <Button variant="secondary" className="mt-4" type="submit">
                   Começar treinamento
                </Button>
             </Form>
@@ -113,16 +118,16 @@ const Cadastro = () => {
                <Form.Control
                   id="foto"
                   ref={inputFotoPerfilRef}
-                  onChange={() => {
-                     renderizarPrevia();
-                  }}
+                  onChange={renderizarPrevia}
                   accept="image/*"
                   required
                   className="shadow-sm"
                   type="file"
                />
             </Form.Group>
-            <Button type="submit">Concluir cadastro</Button>
+            <Button variant="secondary" type="submit">
+               Concluir cadastro
+            </Button>
          </Form>
       </>
    );
@@ -131,12 +136,24 @@ const Cadastro = () => {
       <Container>
          <Row className="gap-5">
             <Col sm={6} className="justify-content-center d-flex flex-column pe-5">
-               {step === 1 ? <Step1 /> : <Step2 />}
+               {!loading ? (
+                  step === 1 ? (
+                     <Step1 />
+                  ) : (
+                     <Step2 />
+                  )
+               ) : (
+                  <>
+                     {/* TODO: Adicionar loading ao se criar a conta */}
+                     <p>Carregando...</p>
+                  </>
+               )}
             </Col>
             <Col className="pt-5 shadow-sm text-center rounded-5 bg-secondary-subtle bg-gradient">
                <Image id={styles.fotoBanner} src={ftBanner} />
             </Col>
          </Row>
+         <Notificacao mostrar={mostrarErro} onClose={() => setMostrarErro(false)} mensagem={erro} />
       </Container>
    );
 };
