@@ -3,6 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import styles from "./Header.module.css";
 import logo from "../../assets/logo.jpg";
 
+const rotas = [
+   { texto: "Início", path: "/" },
+   { texto: "Exercícios", path: "/exercicios" },
+   { texto: "Cadastrar", path: "/cadastro" },
+   { texto: "Entrar", path: "/entrar" },
+];
+
 const Header = () => {
    const loc = useLocation();
 
@@ -16,18 +23,11 @@ const Header = () => {
 
                <div className="d-flex">
                   <Nav className="gap-3 fs-5" activeKey={loc.pathname}>
-                     <Nav.Link as={Link} to="/">
-                        Início
-                     </Nav.Link>
-                     <Nav.Link as={Link} to="/exercicios">
-                        Exercícios
-                     </Nav.Link>
-                     <Nav.Link as={Link} to="/cadastro">
-                        Cadastrar
-                     </Nav.Link>
-                     <Nav.Link as={Link} to="/entrar">
-                        Entrar
-                     </Nav.Link>
+                     {rotas.map((v, k) => (
+                        <Nav.Link active={loc.pathname === v.path} as={Link} to={v.path} key={k}>
+                           {v.texto}
+                        </Nav.Link>
+                     ))}
                      {/* TODO: Adicionar feat de toggle de modo escuro/claro  */}
                   </Nav>
                </div>

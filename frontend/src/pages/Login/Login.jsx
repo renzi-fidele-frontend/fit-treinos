@@ -57,7 +57,7 @@ const Login = () => {
                   <Form onSubmit={fazerLogin} className="mt-3">
                      <Form.Control ref={emailRef} className="my-3" type="email" placeholder="Insira seu email" />
                      <Form.Control ref={passwordRef} type="password" placeholder="Insira a palavra-chave" />
-                     <Button className="mt-4" type="submit">
+                     <Button variant="secondary" className="mt-4" type="submit">
                         Continuar treinamento
                      </Button>
                   </Form>

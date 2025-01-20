@@ -34,9 +34,19 @@ body {
    color: var(--bs-text-color) !important;
    border-color: rgb(209, 209, 209) !important;
 }
-
 .list-group-item.active img {
    filter: grayscale(100%) !important;
+}
+.nav-link {
+   text-decoration: underline 0.15em rgba(0, 0, 0, 0) !important;
+   transition: all 300ms !important;
+}
+.nav-link.active {
+   font-weight: 500;
+   text-decoration: underline 0.15em #201e1e !important;
+}
+.nav-link:hover {
+   text-decoration-color: #201e1e !important;
 }
 
 /*  Slick Slider  */
