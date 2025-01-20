@@ -10,7 +10,7 @@ const cadastrarUsuario = async (req, res) => {
    try {
       const existeUsuario = await Usuario.findOne({ email });
       if (existeUsuario) {
-         res.status(401).json({ message: "Este email já foi utilizada para criar uma conta!" });
+         res.status(401).json({ message: "O email já foi utilizado para criar uma conta!" });
       } else {
          let senhaSecreta;
          try {
