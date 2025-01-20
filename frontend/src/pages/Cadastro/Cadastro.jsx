@@ -1,4 +1,4 @@
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, ProgressBar, Row } from "react-bootstrap";
 import styles from "./Cadastro.module.css";
 import ftBanner from "../../assets/modelo.png";
 import { Link, useNavigate } from "react-router-dom";
@@ -109,9 +109,8 @@ const Cadastro = () => {
          <div id={styles.ctFoto} className="mb-2 rounded border">
             <Image ref={fotoPreviaRef} src={profilepic} className="rounded-circle" />
          </div>
-
-         <Form onSubmit={handleSubmit2}>
-            <Form.Group className="mb-4">
+         <Form className="mb-3" onSubmit={handleSubmit2}>
+            <Form.Group className="mb-3">
                <Form.Label>
                   <i className="bi bi-arrow-down me-2"></i>Clique abaixo para selecionar a foto:
                </Form.Label>
@@ -129,6 +128,8 @@ const Cadastro = () => {
                Concluir cadastro
             </Button>
          </Form>
+
+         <ProgressBar variant="success" animated striped now={80} label={`${80}%`} />
       </>
    );
 

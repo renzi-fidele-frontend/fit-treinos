@@ -31,6 +31,7 @@ const Header = () => {
                      ))}
                   </Nav>
                   <MudarTemaBtn />
+                  {/* TODO: Adicionar dropdown do usuário logado */}
                </div>
             </div>
          </Container>
