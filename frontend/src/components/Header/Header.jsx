@@ -1,7 +1,8 @@
-import { Container, Image, Nav, Navbar } from "react-bootstrap";
+import { Button, Container, Image, Nav, Navbar } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import styles from "./Header.module.css";
 import logo from "../../assets/logo.jpg";
+import MudarTemaBtn from "../ui/MudarTemaBtn";
 
 const rotas = [
    { texto: "Início", path: "/" },
@@ -21,15 +22,15 @@ const Header = () => {
                   <Image id={styles.logo} src={logo} alt="Logo do site" />
                </Navbar.Brand>
 
-               <div className="d-flex">
+               <div className="d-flex align-items-center">
                   <Nav className="gap-3 fs-5" activeKey={loc.pathname}>
                      {rotas.map((v, k) => (
                         <Nav.Link active={loc.pathname === v.path} as={Link} to={v.path} key={k}>
                            {v.texto}
                         </Nav.Link>
                      ))}
-                     {/* TODO: Adicionar feat de toggle de modo escuro/claro  */}
                   </Nav>
+                  <MudarTemaBtn />
                </div>
             </div>
          </Container>
