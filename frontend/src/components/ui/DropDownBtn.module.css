@@ -1,0 +1,10 @@
+#fotoUsuario {
+   height: 34px;
+   width: 34px;
+   cursor: pointer;
+}
+
+#seta::after,
+#seta::before {
+   content: none;
+}

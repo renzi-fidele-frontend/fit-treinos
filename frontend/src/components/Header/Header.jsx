@@ -1,8 +1,9 @@
-import { Button, Container, Image, Nav, Navbar } from "react-bootstrap";
+import { Container, Image, Nav, Navbar } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import styles from "./Header.module.css";
 import logo from "../../assets/logo.jpg";
 import MudarTemaBtn from "../ui/MudarTemaBtn";
+import DropDownBtn from "../ui/DropDownBtn";
 
 const rotas = [
    { texto: "Início", path: "/" },
@@ -30,8 +31,8 @@ const Header = () => {
                         </Nav.Link>
                      ))}
                   </Nav>
+                  <DropDownBtn />
                   <MudarTemaBtn />
-                  {/* TODO: Adicionar dropdown do usuário logado */}
                </div>
             </div>
          </Container>
