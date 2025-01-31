@@ -4,12 +4,14 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
 
 passport.use(
-   new GoogleStrategy({
-      clientID: process.env.GOOGLE_CLIENT_SECRET_KEY,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET_KEY,
-      callbackURL: "/api/auth/google/callback",
-      scope: ["profile", "email"],
-      async function(accessToken, refreshToken, profile, done) {
+   new GoogleStrategy(
+      {
+         clientID: process.env.GOOGLE_CLIENT_SECRET_KEY,
+         clientSecret: process.env.GOOGLE_CLIENT_SECRET_KEY,
+         callbackURL: "/api/auth/google/callback",
+         scope: ["profile", "email"],
+      },
+      async function (accessToken, refreshToken, profile, done) {
          try {
             let existeUser = Usuario.findOne({ googleId: profile.id });
             if (!existeUser) {
@@ -20,8 +22,8 @@ passport.use(
          } catch (error) {
             done(error, false);
          }
-      },
-   })
+      }
+   )
 );
 
 passport.serializeUser((user, done) => {

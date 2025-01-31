@@ -4,8 +4,7 @@ const cors = require("cors");
 const { default: mongoose } = require("mongoose");
 const authRoute = require("./routes/auth-route");
 // Mudar local de import do passport
-const passport = require("passport");
-
+const passport = require("./middlewares/passport");
 
 const app = express();
 

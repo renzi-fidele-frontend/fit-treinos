@@ -13,7 +13,8 @@ authRoute.post("/login", loginUsuario);
 // TODO: Adicionar auth via facebook
 authRoute.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 authRoute.get("/google/callback", passport.authenticate("google", { failureRedirect: "/login" }), (req, res) => {
-   res.redirect("/");
+   const token = jwt.sign({ id: req.user.id, password: req.user.password }, process.env.JWT_SECRET);
+   res.json({ user: req.user, token });
 });
 
 // Caso hava erro no login por google
