@@ -6,14 +6,6 @@ import MudarTemaBtn from "../ui/MudarTemaBtn";
 import DropDownBtn from "../ui/DropDownBtn";
 import { useSelector } from "react-redux";
 
-const rotas = [
-   { texto: "Início", path: "/" },
-   { texto: "Exercícios", path: "/exercicios" },
-   { texto: "Cadastrar", path: "/cadastro", user: false },
-   { texto: "Entrar", path: "/entrar", user: false },
-   { texto: "Progresso do treinamento", path: "/progresso", user: true },
-];
-
 const Header = () => {
    const loc = useLocation();
    const { user } = useSelector((state) => state.auth);
@@ -28,13 +20,26 @@ const Header = () => {
 
                <div className="d-flex align-items-center">
                   <Nav className="gap-3 fs-5" activeKey={loc.pathname}>
-                     {rotas.map(
-                        (v, k) =>
-                           v.user === !!user || v.user === undefined && (
-                              <Nav.Link active={loc.pathname === v.path} as={Link} to={v.path} key={k}>
-                                 {v.texto}
-                              </Nav.Link>
-                           )
+                     <Nav.Link active={loc.pathname === "/"} as={Link} to={"/"}>
+                        Início
+                     </Nav.Link>
+                     <Nav.Link active={loc.pathname === "/exercicios"} as={Link} to={"/exercicios"}>
+                        Exercícios
+                     </Nav.Link>
+                     {!user && (
+                        <>
+                           <Nav.Link active={loc.pathname === "/cadastro"} as={Link} to={"/cadastro"}>
+                              Cadastrar
+                           </Nav.Link>
+                           <Nav.Link active={loc.pathname === "/entrar"} as={Link} to={"/entrar"}>
+                              Entrar
+                           </Nav.Link>
+                        </>
+                     )}
+                     {user && (
+                        <Nav.Link active={loc.pathname === ""} as={Link} to={""}>
+                           Progresso do treinamento
+                        </Nav.Link>
                      )}
                   </Nav>
                   {user && <DropDownBtn />}

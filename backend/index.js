@@ -3,12 +3,16 @@ require("dotenv").config();
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
 const authRoute = require("./routes/auth-route");
+// Mudar local de import do passport
+const passport = require("passport");
+
 
 const app = express();
 
 app.use(express.json());
+app.use(passport.initialize());
 
-// Permitindo operações no servidor
+// Permitindo operações no servidor,
 app.use(function (req, res, next) {
    res.header("Access-Control-Allow-Origin", "*");
    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");

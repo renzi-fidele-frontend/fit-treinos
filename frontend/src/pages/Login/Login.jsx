@@ -43,10 +43,10 @@ const Login = () => {
                <div className="mt-1">
                   <h6 className="fw-semibold">Entre com uma rede social</h6>
                   <div className="d-flex gap-3">
-                     <Button size="sm" variant="outline-secondary">
+                     <Button size="sm" variant="outline-danger">
                         <i className="bi bi-google"></i> Google
                      </Button>
-                     <Button size="sm" variant="outline-secondary">
+                     <Button size="sm" variant="outline-primary">
                         <i className="bi bi-facebook"></i> Facebook
                      </Button>
                   </div>
