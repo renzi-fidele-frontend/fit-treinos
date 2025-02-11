@@ -12,7 +12,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// TODO: No backend, instalar o passport e passport-local para autenticação
 // TODO: Adicionar dashboard de rastreamento do treino
 // TODO: Guardar o usuário logado no local storage
 

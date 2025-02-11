@@ -14,6 +14,7 @@ import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import { Link } from "react-router-dom";
 import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
 import thumb from "../../assets/thumb_temp.gif";
+import useGoogleAuth from "../../hooks/useGoogleAuth";
 
 const vantagens = [
    {
@@ -78,12 +79,12 @@ const CardTestemunho = ({ foto, nome, testemunho }) => (
       <Image className="border border-2" src={foto} roundedCircle width="100" height="100" />
       <h4>{nome}</h4>
       <p className="fst-italic">{testemunho}</p>
-      
    </div>
 );
 
 const Home = () => {
    const dispatch = useDispatch();
+   const verificar = useGoogleAuth();
    const { categorias, categoriaEscolhida, exerciciosDeCategoria, exercicios } = useSelector((state) => state.exercicios);
 
    const apanharCategorias = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, categorias);

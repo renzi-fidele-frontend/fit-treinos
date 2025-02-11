@@ -11,11 +11,12 @@ const verificarToken = (req, res, next) => {
    } else {
       try {
          const decodificado = jwt.verify(token, process.env.JWT_SECRET);
+         console.log(decodificado.userId)
          req.userId = decodificado.userId;
-         req.password = decodificado.password;
+         req.password = decodificado?.password;
          next();
       } catch (error) {
-         res.status(500).json({ mensagem: "Erro de autenticação, tente novamente." });
+         res.status(500).json({ message: "Erro de autenticação, tente novamente." });
       }
    }
 };
