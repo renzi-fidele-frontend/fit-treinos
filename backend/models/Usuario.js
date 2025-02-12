@@ -6,6 +6,7 @@ const schemaDoUsuario = new mongoose.Schema(
       email: { type: String, required: true, unique: true },
       password: { type: String, minLength: 6 }, // Somente para usuários normais
       googleId: { type: String },
+      facebookId: { type: String },
       foto: { type: String, required: true },
       criadoEm: { type: Date, default: Date.now },
    },

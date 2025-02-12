@@ -36,5 +36,38 @@ passport.use(
       }
    )
 );
+passport.use(
+   new FacebookStrategy({ clientID: process.env.FB_ID, clientSecret: process.env.FB_SECRET, callbackURL: "/api/auth/facebook/callback" }, async function (
+      accessToken,
+      refreshToken,
+      profile,
+      done
+   ) {
+      console.log(profile);
+      try {
+         /*
+         let existeUser = await Usuario.findOne({ facebookId: profile.id });
+         let usuarioAdicionado;
+         if (!existeUser) {
+            usuarioAdicionado = new Usuario({
+               nome: profile.displayName,
+               email: profile?.emails[0]?.value,
+               facebookId: profile.id,
+               foto: profile?.photos[0]?.value,
+            });
+            usuarioAdicionado.save();
+            const token = jwt.sign({ userId: usuarioAdicionado.id }, process.env.JWT_SECRET);
+            done(false, { user: usuarioAdicionado.toObject(), token });
+
+         } else {
+            const token = jwt.sign({ userId: existeUser.id }, process.env.JWT_SECRET);
+            done(false, { user: existeUser.toObject(), token });
+         }
+         */
+      } catch (error) {
+         done(error, false);
+      }
+   })
+);
 
 module.exports = passport;

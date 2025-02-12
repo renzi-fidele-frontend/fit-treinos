@@ -14,7 +14,7 @@ import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import { Link } from "react-router-dom";
 import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
 import thumb from "../../assets/thumb_temp.gif";
-import useGoogleAuth from "../../hooks/useGoogleAuth";
+import useSocialAuth from "../../hooks/useSocialAuth";
 
 const vantagens = [
    {
@@ -84,7 +84,7 @@ const CardTestemunho = ({ foto, nome, testemunho }) => (
 
 const Home = () => {
    const dispatch = useDispatch();
-   const verificar = useGoogleAuth();
+   const verificar = useSocialAuth();
    const { categorias, categoriaEscolhida, exerciciosDeCategoria, exercicios } = useSelector((state) => state.exercicios);
 
    const apanharCategorias = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, categorias);

@@ -22,20 +22,24 @@ authRoute.get("/login/failed", (req, res) => {
 });
 
 // TODO: Adicionar auth via facebook
+authRoute.get("/auth/facebook", passport.authenticate("facebook"));
+authRoute.get("/auth/facebook/callback", passport.authenticate("facebook", { session: false }), function (req, res) {
+   res.redirect(`${process.env.CLIENT_URL}/?token=${req.user.token}`);
+});
 
-// Rotas privadas
+// Rotas privadas ------------------------
 authRoute.use(verificarToken);
 
-authRoute.get("/success/google", async (req, res) => {
+// Caso haja sucesso ao se logar via rede social retornar as credenciais
+authRoute.get("/success/social", async (req, res) => {
    console.log(req?.userId);
-   
    try {
       const user = await Usuario.findById(req?.userId);
       if (user) {
          res.json({ user });
       }
    } catch (error) {
-      res.status(500).json({ message: "Erro ao encontrar o usuário logado no google!" });
+      res.status(500).json({ message: "Erro ao encontrar o usuário logado na rede social!" });
    }
 });
 
