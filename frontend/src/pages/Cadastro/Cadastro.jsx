@@ -39,7 +39,7 @@ const Cadastro = () => {
       setEstadoForm(estadoAtual);
    }
 
-   async function handleSubmit2(e) {
+   function handleSubmit2(e) {
       e.preventDefault();
       const data = { ...estadoForm, foto: inputFotoPerfilRef.current.files[0] };
       const cadastrar = apanharNoBackend("auth/cadastro", "POST", {
