@@ -21,9 +21,8 @@ authRoute.get("/login/failed", (req, res) => {
    res.status(401).json({ error: true, message: "Falha ao fazer login" });
 });
 
-// TODO: Adicionar auth via facebook
-authRoute.get("/auth/facebook", passport.authenticate("facebook"));
-authRoute.get("/auth/facebook/callback", passport.authenticate("facebook", { session: false }), function (req, res) {
+authRoute.get("/facebook", passport.authenticate("facebook"));
+authRoute.get("/facebook/callback", passport.authenticate("facebook", { session: false }), function (req, res) {
    res.redirect(`${process.env.CLIENT_URL}/?token=${req.user.token}`);
 });
 

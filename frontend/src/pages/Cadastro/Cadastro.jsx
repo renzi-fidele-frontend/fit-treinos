@@ -8,7 +8,7 @@ import useFetch from "../../hooks/useFetch";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../../state/auth/authSlice";
 import Notificacao from "../../components/Notificacao/Notificacao";
-import { googleAuth } from "../../services/GoogleAuth";
+import { facebookAuth, googleAuth } from "../../services/SocialAuth";
 
 const Cadastro = () => {
    const navegar = useNavigate();
@@ -80,7 +80,7 @@ const Cadastro = () => {
                <Button onClick={() => googleAuth()} size="sm" variant="outline-danger">
                   <i className="bi bi-google"></i> Google
                </Button>
-               <Button size="sm" variant="outline-primary">
+               <Button onClick={() => facebookAuth()} size="sm" variant="outline-primary">
                   <i className="bi bi-facebook"></i> Facebook
                </Button>
             </div>
