@@ -13,6 +13,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // TODO: Adicionar dashboard de rastreamento do treino
+// TODO: 
 
 function App() {
    return (

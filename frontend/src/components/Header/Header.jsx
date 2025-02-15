@@ -37,7 +37,7 @@ const Header = () => {
                         </>
                      )}
                      {user && (
-                        <Nav.Link active={loc.pathname === ""} as={Link} to={""}>
+                        <Nav.Link active={loc.pathname === "/dashboard"} as={Link} to="/dashboard">
                            Progresso do treinamento
                         </Nav.Link>
                      )}
