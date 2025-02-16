@@ -7,6 +7,7 @@ import useFetch from "../../hooks/useFetch";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../../state/auth/authSlice";
 import Notificacao from "../../components/Notificacao/Notificacao";
+import { facebookAuth, googleAuth } from "../../services/SocialAuth";
 
 const Login = () => {
    const navegar = useNavigate();
@@ -43,10 +44,10 @@ const Login = () => {
                <div className="mt-1">
                   <h6 className="fw-semibold">Entre com uma rede social</h6>
                   <div className="d-flex gap-3">
-                     <Button size="sm" variant="outline-danger">
+                     <Button onClick={googleAuth} size="sm" variant="outline-danger">
                         <i className="bi bi-google"></i> Google
                      </Button>
-                     <Button size="sm" variant="outline-primary">
+                     <Button onClick={facebookAuth} size="sm" variant="outline-primary">
                         <i className="bi bi-facebook"></i> Facebook
                      </Button>
                   </div>
