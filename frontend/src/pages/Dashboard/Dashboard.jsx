@@ -1,7 +1,15 @@
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "./Dashboard.module.css";
+import Chart from "chart.js/auto";
+import { Line } from "react-chartjs-2";
+import { CategoryScale } from "chart.js";
+Chart.register(CategoryScale);
 
 const Dashboard = () => {
+   // TODO: Renderizar o gráfico de estatísticas de treino semanal
+   const diasDaSemana = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"];
+   const dedicacaoSemanal = [120, 60, 150, 50, 76, 30, 90];
+
    return (
       <Container className="h-100">
          <h2 className="fw-semibold mb-5">Progresso do treinamento</h2>
@@ -60,6 +68,28 @@ const Dashboard = () => {
                   <h6 id={styles.tit} className="mb-0">
                      Estatísticas da Dedicação Semanal
                   </h6>
+
+                  <div className="mt-4 mb-3">
+                     <Line
+                        data={{
+                           labels: diasDaSemana,
+                           datasets: [
+                              {
+                                 label: "Tempo de treino",
+                                 data: dedicacaoSemanal,
+                                 fill: true,
+                                 tension: 0.4,
+                                 borderColor: "rgb(135, 142, 163)",
+                                 backgroundColor: "rgba(116, 126, 211, 0.5)",
+                                 pointBackgroundColor: "#ffffff",
+                                 
+                              },
+                           ],
+                        }}
+                        options={{ responsive: true }}
+                     />
+                  </div>
+                  <p className="text-secondary fw-medium mb-0">* O unidade do tempo de treino está em segundos</p>
                </div>
             </Col>
             <Col>
