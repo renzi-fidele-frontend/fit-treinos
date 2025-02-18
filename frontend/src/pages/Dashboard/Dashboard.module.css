@@ -1,8 +1,13 @@
 #tit {
-    color: #1F6BC1;
-    font-weight: 600;
+   color: #1f6bc1;
+   font-weight: 600;
 }
 
 #small {
-    font-size: 16px;
+   font-size: 16px;
+}
+
+.chart {
+    width: 100% !important;
+    height: auto !important;
 }

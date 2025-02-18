@@ -1,6 +1,9 @@
 /* Bibliotecas */
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
+/* Google Font: Rubik */
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
 /* Reset */
 * {
    padding: 0;
@@ -19,6 +22,7 @@ a {
 body {
    max-width: 100%;
    overflow-x: hidden;
+   font-family: "Rubik", serif !important;
 }
 
 #root {
