@@ -1,4 +1,4 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Image, Row } from "react-bootstrap";
 import styles from "./Dashboard.module.css";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
@@ -12,7 +12,7 @@ const Dashboard = () => {
    const diasDaSemana = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"];
    const dedicacaoSemanal = [150, 60, 200, 50, 76, 30, 90];
 
-   const { categorias: partesDoCorpo } = useSelector((state) => state.exercicios);
+   const { categorias: partesDoCorpo, exercicios } = useSelector((state) => state.exercicios);
    const treinosPorCategoria = [1, 0, 4, 0, 0, 4, 0, 2, 8, 0];
 
    return (
@@ -97,7 +97,7 @@ const Dashboard = () => {
                   <p className="text-secondary small">* A Unidade do tempo de treino está em segundos</p>
                   <hr className="mt-4" />
                   <p className="text-secondary mb-0">
-                     <span className="fw-semibold">Dia mais esforçado:</span> Qua
+                     <span className="fw-semibold">Melhor dia da semana:</span> <i className="bi bi-calendar-day"></i> Qua
                   </p>
                   <p className="text-secondary mb-0">
                      <span className="fw-semibold">Última seção de treino:</span> 10/02/2025
@@ -109,7 +109,7 @@ const Dashboard = () => {
                   <h6 id={styles.tit} className="mb-0">
                      Partes do corpo mais treinadas
                   </h6>
-                  <div className="mt-2">
+                  <div className="mt-4">
                      <Pie data={{ labels: partesDoCorpo, datasets: [{ data: treinosPorCategoria }] }} />
                   </div>
                </div>
@@ -119,6 +119,23 @@ const Dashboard = () => {
                   <h6 id={styles.tit} className="mb-0">
                      Exercício mais praticado
                   </h6>
+                  {exercicios && (
+                     <div className="mt-3">
+                        <Image className={styles.foto} src={exercicios[20]?.gifUrl} />
+                        <div className="d-flex align-items-center mt-2">
+                           <div className="d-flex gap-2">
+                              {exercicios[20]?.secondaryMuscles.map((v, k) => (
+                                 <p key={k} className="text-capitalize text-bg-secondary px-2 py-1 rounded small mb-0">
+                                    {v}
+                                 </p>
+                              ))}
+                           </div>
+                           <div className="vr mx-2"></div>
+                           <p className="mb-0">Treinos: 12</p>
+                        </div>
+                        <p className="fs-5 fw-semibold text-capitalize mt-2 text-truncate mb-0">{exercicios[20]?.name}</p>
+                     </div>
+                  )}
                </div>
             </Col>
          </Row>
