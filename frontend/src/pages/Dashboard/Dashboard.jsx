@@ -5,6 +5,8 @@ import { Line } from "react-chartjs-2";
 import { CategoryScale } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import { useSelector } from "react-redux";
+import Slider from "react-slick";
+import CardExercicio from "../../components/CardExercicio/CardExercicio";
 Chart.register(CategoryScale);
 
 const Dashboard = () => {
@@ -17,7 +19,7 @@ const Dashboard = () => {
 
    return (
       <Container className="h-100 py-5">
-         <h2 className="fw-semibold mb-5 ">Progresso do treinamento</h2>
+         <h2 className="fw-semibold mb-4 ">Progresso do treinamento</h2>
 
          {/* Primeira linha */}
          <Row>
@@ -67,7 +69,7 @@ const Dashboard = () => {
          </Row>
 
          {/* Segunda linha */}
-         <Row className="mt-4 mb-4">
+         <Row className="mt-4 mb-5">
             <Col>
                <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
                   <h6 id={styles.tit} className="mb-0">
@@ -100,7 +102,7 @@ const Dashboard = () => {
                      <span className="fw-semibold">Melhor dia da semana:</span> <i className="bi bi-calendar-day"></i> Qua
                   </p>
                   <p className="text-secondary mb-0">
-                     <span className="fw-semibold">Última seção de treino:</span> 10/02/2025
+                     <span className="fw-semibold">Última sessão de treino:</span> 10/02/2025
                   </p>
                </div>
             </Col>
@@ -139,6 +141,21 @@ const Dashboard = () => {
                </div>
             </Col>
          </Row>
+
+         {/* Últimos exercícios praticados */}
+         <Row className="mb-5">
+            <Col>
+               <h2 className="fw-semibold mb-4">Últimos exercícios praticados</h2>
+               <Slider swipeToSlide slidesToShow={3} infinite={false} dots>
+                  {exercicios.slice(0, 6)?.map((v, k) => (
+                     <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} key={k} />
+                  ))}
+               </Slider>
+            </Col>
+         </Row>
+
+         {/* TODO: Adicionar a estrutura básica da seção das sessões de treino do usuário */}
+         {/* Sessões de treino */}
       </Container>
    );
 };
