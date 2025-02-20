@@ -49,7 +49,7 @@ const Dashboard = () => {
    ];
 
    return (
-      <Container className="h-100 py-5">
+      <Container id={styles.ct} className="h-100 py-5">
          <h2 className="fw-semibold mb-4 ">Progresso do treinamento</h2>
 
          {/* Primeira linha */}
@@ -60,8 +60,11 @@ const Dashboard = () => {
                      <h6 id={styles.tit} className="mb-0">
                         Tempo total de treino
                      </h6>
+                     <div className="p-2 rounded" id={styles.icon1}>
+                        <i className="bi bi-clock fs-3 "></i>
+                     </div>
                   </div>
-                  <h5 className="fs-1 fw-bold my-3">02h30min</h5>
+                  <h5 className="fs-1 fw-bold mb-3">02h30min</h5>
                   <p className="text-secondary mb-0">O tempo acumulado praticando exercícios</p>
                </div>
             </Col>
@@ -71,8 +74,11 @@ const Dashboard = () => {
                      <h6 id={styles.tit} className="mb-0">
                         Treinamentos feitos hoje
                      </h6>
+                     <div className="p-2 rounded" id={styles.icon2}>
+                        <i className="bi bi-person-arms-up fs-3"></i>
+                     </div>
                   </div>
-                  <h5 className="fs-1 fw-bold my-3">
+                  <h5 className="fs-1 fw-bold mb-3">
                      5.00{" "}
                      <span id={styles.small} className="text-small text-success">
                         (+10%)
@@ -87,8 +93,11 @@ const Dashboard = () => {
                      <h6 id={styles.tit} className="mb-0">
                         Média do tempo de treino
                      </h6>
+                     <div className="p-2 rounded" id={styles.icon3}>
+                        <i className="bi bi-hourglass-split fs-3"></i>
+                     </div>
                   </div>
-                  <h5 className="fs-1 fw-bold my-3">
+                  <h5 className="fs-1 fw-bold mb-3">
                      02min 93s{" "}
                      <span id={styles.small} className="text-small text-success">
                         (+10%)

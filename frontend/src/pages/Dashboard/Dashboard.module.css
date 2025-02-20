@@ -17,3 +17,23 @@
     width: 100%;
     object-fit: cover;
 }
+
+#ct i {
+    line-height: 0 !important;
+ }
+ 
+ #icon1 {
+    background-color: #ffeacd;
+    color: #ce8d01 !important;
+ }
+ 
+ #icon2 {
+    background-color: #ddedf0;
+    color: #13cce0 !important;
+ }
+ 
+ #icon3 {
+    background-color: #ffd7fb;
+    color: #572552 !important;
+ }
+ 
