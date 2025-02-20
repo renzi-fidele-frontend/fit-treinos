@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 // TODO: Adicionar um placeholder caso a foto não exista
 
-const CardExercicio = ({ foto, categoria, titulo, id, truncado = false }) => {
+const CardExercicio = ({ foto, categoria, titulo, id, truncado = false, customClass }) => {
    return (
-      <Card className="h-100" as={Link} to={`/exercicio/${id}`}>
+      <Card className={"h-100 " + customClass} as={Link} to={`/exercicio/${id}`}>
          <Card.Img src={foto} />
          <Card.Body className="d-flex flex-wrap gap-3">
             {categoria?.map((v, k) => (

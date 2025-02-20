@@ -1,4 +1,4 @@
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Image, Row } from "react-bootstrap";
 import styles from "./Dashboard.module.css";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
@@ -7,6 +7,7 @@ import { Pie } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
+import CardSessao from "../../components/CardSessao/CardSessao";
 Chart.register(CategoryScale);
 
 const Dashboard = () => {
@@ -16,6 +17,36 @@ const Dashboard = () => {
 
    const { categorias: partesDoCorpo, exercicios } = useSelector((state) => state.exercicios);
    const treinosPorCategoria = [1, 0, 4, 0, 0, 4, 0, 2, 8, 0];
+
+   const sessoes = [
+      {
+         nome: "Melhoria da cintura",
+         exercicios: [exercicios[0], exercicios[1], exercicios[2], exercicios[3]],
+         objetivo: "Fortalecer e tonificar a região da cintura para melhorar a postura e a flexibilidade.",
+         concluido: 2,
+         id: "1",
+      },
+      {
+         nome: "Melhoria da cintura",
+         exercicios: [exercicios[0], exercicios[1], exercicios[2], exercicios[3]],
+         objetivo: "Fortalecer e tonificar a região da cintura para melhorar a postura e a flexibilidade.",
+         concluido: 2,
+         id: "2",
+      },
+      {
+         nome: "Melhoria da cintura",
+         exercicios: [exercicios[0], exercicios[1], exercicios[2], exercicios[3]],
+         objetivo: "Fortalecer e tonificar a região da cintura para melhorar a postura e a flexibilidade.",
+         concluido: 2,
+         id: "3",
+      },
+      {
+         nome: "Melhoria da cintura",
+         exercicios: [exercicios[0], exercicios[1], exercicios[2], exercicios[3]],
+         objetivo: "Fortalecer e tonificar a região da cintura para melhorar a postura e a flexibilidade.",
+         concluido: 2,
+      },
+   ];
 
    return (
       <Container className="h-100 py-5">
@@ -123,7 +154,7 @@ const Dashboard = () => {
                   </h6>
                   {exercicios && (
                      <div className="mt-3">
-                        <Image className={styles.foto} src={exercicios[20]?.gifUrl} />
+                        <Image className={styles.foto + " border rounded-1"} src={exercicios[20]?.gifUrl} />
                         <div className="d-flex align-items-center mt-2">
                            <div className="d-flex gap-2">
                               {exercicios[20]?.secondaryMuscles.map((v, k) => (
@@ -148,14 +179,29 @@ const Dashboard = () => {
                <h2 className="fw-semibold mb-4">Últimos exercícios praticados</h2>
                <Slider swipeToSlide slidesToShow={3} infinite={false} dots>
                   {exercicios.slice(0, 6)?.map((v, k) => (
-                     <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} key={k} />
+                     <CardExercicio customClass="me-4" titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} key={k} />
                   ))}
                </Slider>
             </Col>
          </Row>
 
-         {/* TODO: Adicionar a estrutura básica da seção das sessões de treino do usuário */}
          {/* Sessões de treino */}
+         <Row className="mt-4 mb-5">
+            <Col className="mb-4">
+               <div className="d-flex align-items-center justify-content-between mb-4">
+                  <h2 className="fw-semibold">Sessões de treino (8)</h2>
+                  <Button variant="secondary me-5">
+                     <i className="bi bi-plus-circle me-1"></i> Criar sessão
+                  </Button>
+               </div>
+
+               <Slider swipeToSlide slidesToShow={3} infinite={false} dots>
+                  {sessoes.map(({ concluido, exercicios, nome, objetivo, id }, k) => (
+                     <CardSessao concluido={concluido} exercicios={exercicios} nome={nome} id={id} objetivo={objetivo} key={k} />
+                  ))}
+               </Slider>
+            </Col>
+         </Row>
       </Container>
    );
 };
