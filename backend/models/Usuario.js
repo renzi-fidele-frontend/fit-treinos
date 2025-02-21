@@ -9,6 +9,10 @@ const schemaDoUsuario = new mongoose.Schema(
       facebookId: { type: String },
       foto: { type: String, required: true },
       criadoEm: { type: Date, default: Date.now },
+      // TODO: Estender modelo para suportar rastreiamento do progresso do treino
+      tempoDeTreino: { type: Number, default: 0 },
+      exercicios: { type: Array, default: [] },
+      ultimosExerciciosPraticados: { type: Array, default: [] },
    },
    { collection: "Usuarios" }
 );

@@ -11,7 +11,7 @@ import CardSessao from "../../components/CardSessao/CardSessao";
 Chart.register(CategoryScale);
 
 const Dashboard = () => {
-   // TODO: Renderizar o gráfico de estatísticas de treino semanal
+   // TODO: Apanhar o tempo total de treino do usuário
    const diasDaSemana = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"];
    const dedicacaoSemanal = [150, 60, 200, 50, 76, 30, 90];
 
@@ -55,8 +55,8 @@ const Dashboard = () => {
          {/* Primeira linha */}
          <Row>
             <Col md={4}>
-               <div className="border border-2 px-3 py-4 shadow-sm rounded-2">
-                  <div className="d-flex justify-content-between h-100">
+               <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
+                  <div className="d-flex justify-content-between">
                      <h6 id={styles.tit} className="mb-0">
                         Tempo total de treino
                      </h6>
@@ -69,8 +69,8 @@ const Dashboard = () => {
                </div>
             </Col>
             <Col md={4}>
-               <div className="border border-2 px-3 py-4 shadow-sm rounded-2">
-                  <div className="d-flex justify-content-between h-100">
+               <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
+                  <div className="d-flex justify-content-between">
                      <h6 id={styles.tit} className="mb-0">
                         Treinamentos feitos hoje
                      </h6>
@@ -88,8 +88,8 @@ const Dashboard = () => {
                </div>
             </Col>
             <Col md={4}>
-               <div className="border border-2 px-3 py-4 shadow-sm rounded-2">
-                  <div className="d-flex justify-content-between h-100">
+               <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
+                  <div className="d-flex justify-content-between">
                      <h6 id={styles.tit} className="mb-0">
                         Média do tempo de treino
                      </h6>

@@ -11,9 +11,10 @@ import Slider from "react-slick";
 import { useDispatch, useSelector } from "react-redux";
 import { setExercicios } from "../../state/exercicios/exerciciosSlice";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
+import { fotoEquipamento } from "../../utils/fotoEquipamento";
 
 // FIXME: A requisição está sendo feita duas vezes
-
+// TODO: Adicionar botão de adicionar começar o treinamento
 const DetalhesExercicio = () => {
    const { id } = useParams();
    const dispatch = useDispatch();
@@ -60,6 +61,8 @@ const DetalhesExercicio = () => {
       setExerciciosFiltrados(dadosFiltrados?.slice(0, 6));
    }
 
+
+
    return (
       <Container className="py-5">
          {/* Seção inicial */}
@@ -84,8 +87,8 @@ const DetalhesExercicio = () => {
 
          {/* Seção de baixo */}
          <Row className="mt-5 text-center">
-            <Col>
-               <h2 className="fw-bold mb-4">
+            <Col md={7}>
+               <h2 className="fw-medium mb-4">
                   Parte do corpo que irá se desenvolver: <span className="text-secondary text-capitalize">{exercicio?.bodyPart}</span>
                </h2>
                <Image
@@ -94,7 +97,18 @@ const DetalhesExercicio = () => {
                   alt={exercicio?.bodyPart}
                   fluid
                />
-               {/* TODO: Renderizar as imagens da parte do corpo na lista */}
+               {/* TODO: Renderizar as imagens dos músculos do corpo que serão afetados na lista */}
+            </Col>
+            <div className="vr px-1 bg-gradient mx-4"></div>
+            <Col>
+               <h2 className="fw-medium mb-4">
+                  Equipamento necessário: <span className="text-secondary text-capitalize">{exercicio?.equipment}</span>
+               </h2>
+               <Image className={styles.equipamento} src={fotoEquipamento(exercicio?.equipment)} />
+            </Col>
+         </Row>
+         <Row>
+            <Col className="text-center">
                <h4 className="mt-5 fw-semibold">Músculos secundários que serão afectados:</h4>
                <ul className="d-flex gap-5 justify-content-center mt-3">
                   {exercicio?.secondaryMuscles?.map((v, key) => (
