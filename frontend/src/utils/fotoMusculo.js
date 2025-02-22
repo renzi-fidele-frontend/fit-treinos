@@ -17,6 +17,12 @@ import spine from "../assets/musculos/spine.jpg";
 import traps from "../assets/musculos/traps.jpg";
 import triceps from "../assets/musculos/triceps.jpg";
 import upperBack from "../assets/musculos/upper-back.jpg";
+import hipFlexors from "../assets/musculos/hip-flexors.jpg";
+import lowerBack from "../assets/musculos/lower-back.jpg";
+import obliques from "../assets/musculos/obliques.jpg";
+import quadriceps from "../assets/musculos/quadriceps.jpg";
+import sternocleidomastoid from "../assets/musculos/sternocleidomastoid.jpg";
+import trapezius from "../assets/musculos/trapezius.jpg";
 
 export const fotoMusculo = (equipamento) => {
    switch (equipamento) {
@@ -58,6 +64,19 @@ export const fotoMusculo = (equipamento) => {
          return upperBack;
       case "serratus anterior":
          return serratusAnterior;
+      case "trapezius":
+         return trapezius;
+      case "sternocleidomastoid":
+         return sternocleidomastoid;
+      case "quadriceps":
+         return quadriceps;
+      case "obliques":
+         return obliques;
+      case "lower back":
+         return lowerBack;
+      case "hip flexors":
+         return hipFlexors;
+
       default:
          return null;
    }
