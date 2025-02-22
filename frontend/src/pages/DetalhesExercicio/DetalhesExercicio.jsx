@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
-import { Col, Container, Image, ListGroup, ListGroupItem, Row } from "react-bootstrap";
+import { Button, Col, Container, Image, ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import styles from "./DetalhesExercicio.module.css";
 import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
 import { YoutubeVideosApiOptions } from "../../services/YoutubeVideosApi";
@@ -16,15 +16,13 @@ import { fotoMusculo } from "../../utils/fotoMusculo";
 import noPhoto from "../../assets/musculos/noPhoto.jpg";
 
 // FIXME: A requisição está sendo feita duas vezes
-// TODO: Adicionar botão de adicionar começar o treinamento
 
 const DetalhesExercicio = () => {
    const { id } = useParams();
    const dispatch = useDispatch();
-
+   const { exercicios } = useSelector((state) => state.exercicios);
    const [exercicio, setExercicio] = useState(null);
    const [videos, setVideos] = useState(null);
-   const { exercicios } = useSelector((state) => state.exercicios);
    const [exerciciosFiltrados, setExerciciosFiltrados] = useState(null);
 
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
@@ -77,7 +75,14 @@ const DetalhesExercicio = () => {
                      </ListGroupItem>
                   ))}
                </ListGroup>
-               <p> {exercicio?.description}</p>
+               <div className="d-flex gap-3 mt-4">
+                  <Button variant="danger">
+                     <i className="bi bi-person-arms-up me-1"></i> Iniciar treino rápido
+                  </Button>
+                  <Button variant="secondary">
+                     <i className="bi bi-plus-circle me-1"></i> Adicionar aos favoritos
+                  </Button>
+               </div>
             </Col>
          </Row>
 
@@ -184,9 +189,14 @@ const DetalhesExercicio = () => {
                <Row>
                   <Slider swipeToSlide slidesToShow={3} infinite={false} dots>
                      {exerciciosFiltrados?.map((v, k) => (
-                        <div className="mx-4" key={k}>
-                           <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
-                        </div>
+                        <CardExercicio
+                           customClass=" me-3"
+                           titulo={v?.name}
+                           id={v?.id}
+                           foto={v?.gifUrl}
+                           categoria={v?.secondaryMuscles}
+                           key={k}
+                        />
                      ))}
                   </Slider>
                </Row>
