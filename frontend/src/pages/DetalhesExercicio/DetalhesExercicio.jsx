@@ -17,6 +17,7 @@ import noPhoto from "../../assets/musculos/noPhoto.jpg";
 
 // FIXME: A requisição está sendo feita duas vezes
 // TODO: Adicionar botão de adicionar começar o treinamento
+
 const DetalhesExercicio = () => {
    const { id } = useParams();
    const dispatch = useDispatch();
@@ -30,9 +31,7 @@ const DetalhesExercicio = () => {
    const apanharExercicios = useFetch(null, exercisesFetchOptions, exercicios, "manual");
 
    useEffect(() => {
-      if (!exercicio) {
-         setExercicio(exercicios?.filter((v) => v.id === id)[0]);
-      }
+      if (exercicio) filtrarPorMusculoAlvo(exercicios);
       if (!videos && exercicio) {
          apanharVideos
             .apanharDadosComParam(
@@ -40,7 +39,7 @@ const DetalhesExercicio = () => {
             )
             .then((v) => setVideos(v.contents));
       }
-   }, [exercicio?.name]);
+   }, [exercicio]);
 
    useEffect(() => {
       if (!exercicios) {
@@ -48,6 +47,8 @@ const DetalhesExercicio = () => {
             dispatch(setExercicios(v));
             filtrarPorMusculoAlvo(v);
          });
+      } else if (exercicios) {
+         setExercicio(exercicios?.filter((v) => v.id === id)[0]);
       } else if (exercicio) {
          filtrarPorMusculoAlvo(exercicios);
       }
@@ -174,7 +175,7 @@ const DetalhesExercicio = () => {
          </Row>
 
          {/* Seção de exercícios relacionados */}
-         <Row className="mt-2 pb-5">
+         <Row className="mt-2 pb-5 mb-3">
             <Col>
                <h1 className="mb-4">
                   Exercícios que fortalecem o músculo alvo:{" "}
