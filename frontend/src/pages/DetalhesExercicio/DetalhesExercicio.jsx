@@ -26,17 +26,12 @@ const DetalhesExercicio = () => {
    const { exercicios } = useSelector((state) => state.exercicios);
    const [exerciciosFiltrados, setExerciciosFiltrados] = useState(null);
 
-   const apanharDetalhes = useFetch(null, exercisesFetchOptions, exercicio, "manual");
-
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
-
    const apanharExercicios = useFetch(null, exercisesFetchOptions, exercicios, "manual");
 
    useEffect(() => {
       if (!exercicio) {
-         setExercicio(
-            apanharDetalhes.apanharDadosComParam("https://exercisedb.p.rapidapi.com/exercises/exercise/" + id).then((v) => setExercicio(v))
-         );
+         setExercicio(exercicios?.filter((v) => v.id === id)[0]);
       }
       if (!videos && exercicio) {
          apanharVideos
@@ -56,7 +51,7 @@ const DetalhesExercicio = () => {
       } else if (exercicio) {
          filtrarPorMusculoAlvo(exercicios);
       }
-   }, [exercicio]);
+   }, [exercicios]);
 
    function filtrarPorMusculoAlvo(array) {
       const dadosFiltrados = array?.filter((musculoAlvo) => musculoAlvo?.target?.includes(exercicio?.target));
