@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setExercicios } from "../../state/exercicios/exerciciosSlice";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import { fotoEquipamento } from "../../utils/fotoEquipamento";
+import { fotoMusculo } from "../../utils/fotoMusculo";
 
 // FIXME: A requisição está sendo feita duas vezes
 // TODO: Adicionar botão de adicionar começar o treinamento
@@ -61,13 +62,11 @@ const DetalhesExercicio = () => {
       setExerciciosFiltrados(dadosFiltrados?.slice(0, 6));
    }
 
-
-
    return (
       <Container className="py-5">
          {/* Seção inicial */}
          <Row>
-            <Col lg={4} className="ps-4 pt-4 me-3 align-items-stretch" id={styles.left}>
+            <Col lg={4} className="ps-4 pt-4 me-3 align-items-stretch rounded-start" id={styles.left}>
                <Image className="" src={exercicio?.gifUrl} alt={exercicio?.name} fluid />
             </Col>
             <Col>
@@ -85,10 +84,13 @@ const DetalhesExercicio = () => {
             </Col>
          </Row>
 
+         {/* Separador */}
+         <div className="my-5 border border-4 border-bottom rounded-2 shadow-lg dashed"></div>
+
          {/* Seção de baixo */}
          <Row className="mt-5 text-center">
             <Col md={7}>
-               <h2 className="fw-medium mb-4">
+               <h2 className="fw-medium mb-4 fs-3">
                   Parte do corpo que irá se desenvolver: <span className="text-secondary text-capitalize">{exercicio?.bodyPart}</span>
                </h2>
                <Image
@@ -99,29 +101,41 @@ const DetalhesExercicio = () => {
                />
                {/* TODO: Renderizar as imagens dos músculos do corpo que serão afetados na lista */}
             </Col>
-            <div className="vr px-1 bg-gradient mx-4"></div>
+            <div className="vr px-1 bg-gradient mx-4 rounded"></div>
             <Col>
-               <h2 className="fw-medium mb-4">
+               <h2 className="fw-medium mb-4 fs-3">
                   Equipamento necessário: <span className="text-secondary text-capitalize">{exercicio?.equipment}</span>
                </h2>
                <Image className={styles.equipamento} src={fotoEquipamento(exercicio?.equipment)} />
             </Col>
          </Row>
-         <Row>
+         <Row className="pt-5">
+            <Col className="text-center" md={5}>
+               <h4 className=" fw-semibold mb-4">Principal músculo que será afectado:</h4>
+               <div
+                  style={{ width: "fit-content" }}
+                  className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-danger shadow-sm rounded-3 mx-auto"
+               >
+                  <Image className={styles.musculo + " border rounded-2"} src={fotoMusculo(exercicio?.target)} />
+                  <span>{exercicio?.target}</span>
+               </div>
+            </Col>
+            <div className="vr px-1 bg-gradient mx-4 rounded"></div>
             <Col className="text-center">
-               <h4 className="mt-5 fw-semibold">Músculos secundários que serão afectados:</h4>
-               <ul className="d-flex gap-5 justify-content-center mt-3">
+               <h4 className="fw-semibold mb-4">Músculos secundários que serão afetados:</h4>
+               <div className="d-flex gap-5 justify-content-center">
                   {exercicio?.secondaryMuscles?.map((v, key) => (
-                     <li className="text-capitalize fs-5 px-3 py-1 text-bg-secondary shadow-sm rounded-3" key={key}>
-                        {v}
-                     </li>
+                     <div className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-secondary shadow-sm rounded-3" key={key}>
+                        <Image className={styles.musculo + " border rounded-2"} src={fotoMusculo(v)} />
+                        <span>{v}</span>
+                     </div>
                   ))}
-               </ul>
-
-               {/* Separador */}
-               <div className="my-5 border border-4 border-bottom rounded-2 shadow-lg dashed"></div>
+               </div>
             </Col>
          </Row>
+
+         {/* Separador */}
+         <div className="my-5 border border-4 border-bottom rounded-2 shadow-lg dashed"></div>
 
          {/* Seção de vídeos do youtube */}
          <Row>
