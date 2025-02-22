@@ -13,6 +13,7 @@ import { setExercicios } from "../../state/exercicios/exerciciosSlice";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import { fotoEquipamento } from "../../utils/fotoEquipamento";
 import { fotoMusculo } from "../../utils/fotoMusculo";
+import noPhoto from "../../assets/musculos/noPhoto.jpg";
 
 // FIXME: A requisição está sendo feita duas vezes
 // TODO: Adicionar botão de adicionar começar o treinamento
@@ -99,7 +100,6 @@ const DetalhesExercicio = () => {
                   alt={exercicio?.bodyPart}
                   fluid
                />
-               {/* TODO: Renderizar as imagens dos músculos do corpo que serão afetados na lista */}
             </Col>
             <div className="vr px-1 bg-gradient mx-4 rounded"></div>
             <Col>
@@ -124,12 +124,23 @@ const DetalhesExercicio = () => {
             <Col className="text-center">
                <h4 className="fw-semibold mb-4">Músculos secundários que serão afetados:</h4>
                <div className="d-flex gap-5 justify-content-center">
-                  {exercicio?.secondaryMuscles?.map((v, key) => (
-                     <div className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-secondary shadow-sm rounded-3" key={key}>
-                        <Image className={styles.musculo + " border rounded-2"} src={fotoMusculo(v)} />
-                        <span>{v}</span>
-                     </div>
-                  ))}
+                  {exercicio?.secondaryMuscles?.map((v, key) =>
+                     fotoMusculo(v) || fotoDaParteDoCorpo(v) ? (
+                        <div className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-secondary shadow-sm rounded-3" key={key}>
+                           <Image className={styles.musculo + " border rounded-2"} src={fotoMusculo(v) || fotoDaParteDoCorpo(v)} />
+                           <span>{v}</span>
+                        </div>
+                     ) : (
+                        <div
+                           className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-secondary shadow-sm rounded-3 position-relative"
+                           key={key}
+                        >
+                           <Image className={styles.musculo + " border rounded-2"} src={noPhoto} />
+
+                           <span>{v}</span>
+                        </div>
+                     )
+                  )}
                </div>
             </Col>
          </Row>
