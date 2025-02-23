@@ -12,7 +12,7 @@ const rootReducer = combineReducers({ exercicios: exerciciosReducer, auth: authR
 const persistConfig = {
    key: "root",
    storage,
-   blacklist: ["Exercicios"],
+   blacklist: ["exercicios"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
