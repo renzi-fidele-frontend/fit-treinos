@@ -58,6 +58,8 @@ const DetalhesExercicio = () => {
       setExerciciosFiltrados(dadosFiltrados?.slice(0, 6));
    }
 
+   function iniciarTreino() {}
+
    return (
       <Container className="py-5">
          {/* Seção inicial */}
@@ -77,11 +79,14 @@ const DetalhesExercicio = () => {
                   ))}
                </ListGroup>
                <div className="d-flex gap-3 mt-4">
-                  <Button variant="danger">
-                     <i className="bi bi-person-arms-up me-1"></i> Iniciar treino rápido
+                  <Button variant="danger" onClick={iniciarTreino}>
+                     <i className="bi bi-person-arms-up me-1"></i> Treino rápido
                   </Button>
                   <Button variant="secondary">
-                     <i className="bi bi-plus-circle me-1"></i> Adicionar aos favoritos
+                     <i className="bi bi-heart me-1"></i> Adicionar aos favoritos
+                  </Button>
+                  <Button variant="dark">
+                     <i className="bi bi-plus-circle me-1"></i> Adicionar a sessão de treino
                   </Button>
                </div>
             </Col>

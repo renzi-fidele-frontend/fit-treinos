@@ -6,6 +6,7 @@ import Cadastro from "../pages/Cadastro/Cadastro";
 import Login from "../pages/Login/Login";
 import { useSelector } from "react-redux";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import Favoritos from "../pages/Favoritos/Favoritos";
 
 const Router = () => {
    const { user } = useSelector((state) => state.auth);
@@ -18,6 +19,7 @@ const Router = () => {
          <Route path="/cadastro" element={!user ? <Cadastro /> : <Navigate to="/" />} />
          <Route path="/entrar" element={!user ? <Login /> : <Navigate to="/" />} />
          <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/entrar" />} />
+         <Route path="/favoritos" element={user ? <Favoritos /> : <Navigate to="/entrar" />} />
       </Routes>
    );
 };

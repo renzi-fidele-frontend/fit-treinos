@@ -41,6 +41,11 @@ const Header = () => {
                            Progresso do treinamento
                         </Nav.Link>
                      )}
+                     {user && (
+                        <Nav.Link active={loc.pathname === "/favoritos"} as={Link} to="/favoritos">
+                           Favoritos
+                        </Nav.Link>
+                     )}
                   </Nav>
                   {user && <DropDownBtn />}
 
