@@ -7,31 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
 import useFetch from "../../hooks/useFetch";
 import { useEffect, useRef } from "react";
-import {
-   setCategorias,
-   setEquipamentos,
-   setExercicios,
-   setExerciciosFiltrados,
-   setExerciciosPaginados,
-   setFiltros,
-   setMusculoAlvo,
-   setPaginaAtual,
-} from "../../state/exercicios/exerciciosSlice";
+import { setCategorias, setEquipamentos, setFiltros, setMusculoAlvo, setPaginaAtual } from "../../state/configs/configsSlice";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import Paginacao from "../../components/Paginacao/Paginacao";
 import { paginarArray } from "../../utils/paginarArray";
+import { setExercicios, setExerciciosFiltrados, setExerciciosPaginados } from "../../state/exercicios/exerciciosSlice";
 
 const Exercicios = () => {
-   const {
-      categorias: partesCorpo,
-      equipamentos,
-      musculoAlvo,
-      exercicios,
-      filtros,
-      exerciciosFiltrados,
-      paginaAtual,
-      exerciciosPaginados,
-   } = useSelector((state) => state.exercicios);
+   const { categorias: partesCorpo, equipamentos, musculoAlvo, filtros, paginaAtual } = useSelector((state) => state.configs);
+   const { exercicios, exerciciosFiltrados, exerciciosPaginados } = useSelector((state) => state.exercicios);
    const dispatch = useDispatch();
    const parteDoCorpoRef = useRef();
    const equipamentoRef = useRef();

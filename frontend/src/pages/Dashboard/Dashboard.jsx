@@ -15,7 +15,8 @@ const Dashboard = () => {
    const diasDaSemana = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"];
    const dedicacaoSemanal = [150, 60, 200, 50, 76, 30, 90];
 
-   const { categorias: partesDoCorpo, exercicios } = useSelector((state) => state.exercicios);
+   const { exercicios } = useSelector((state) => state.exercicios);
+   const { categorias: partesDoCorpo } = useSelector((state) => state.configs);
    const treinosPorCategoria = [1, 0, 4, 0, 0, 4, 0, 2, 8, 0];
 
    const sessoes = [

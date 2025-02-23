@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
-import { setCategorias, setCategoriaEscolhida, setExercicios, setExerciciosDeCategoria } from "../../state/exercicios/exerciciosSlice";
+import { setCategorias, setCategoriaEscolhida } from "../../state/configs/configsSlice";
 import Slider from "react-slick";
 import bg1 from "../../assets/bg1.jpg";
 import fotoAtleta from "../../assets/atleta.png";
@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
 import thumb from "../../assets/thumb_temp.gif";
 import useSocialAuth from "../../hooks/useSocialAuth";
+import { setExercicios, setExerciciosDeCategoria } from "../../state/exercicios/exerciciosSlice";
 
 const vantagens = [
    {
@@ -85,7 +86,8 @@ const CardTestemunho = ({ foto, nome, testemunho }) => (
 const Home = () => {
    const dispatch = useDispatch();
    const verificar = useSocialAuth();
-   const { categorias, categoriaEscolhida, exerciciosDeCategoria, exercicios } = useSelector((state) => state.exercicios);
+   const { categorias, categoriaEscolhida,  } = useSelector((state) => state.configs);
+   const { exerciciosDeCategoria, exercicios } = useSelector((state) => state.exercicios);
 
    const apanharCategorias = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, categorias);
 

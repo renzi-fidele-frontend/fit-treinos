@@ -9,11 +9,12 @@ import { YoutubeVideosApiOptions } from "../../services/YoutubeVideosApi";
 import VideoCard from "../../components/VideoCard/VideoCard";
 import Slider from "react-slick";
 import { useDispatch, useSelector } from "react-redux";
-import { setExercicios } from "../../state/exercicios/exerciciosSlice";
+
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import { fotoEquipamento } from "../../utils/fotoEquipamento";
 import { fotoMusculo } from "../../utils/fotoMusculo";
 import noPhoto from "../../assets/musculos/noPhoto.jpg";
+import { setExercicios } from "../../state/exercicios/exerciciosSlice";
 
 // FIXME: A requisição está sendo feita duas vezes
 
