@@ -54,7 +54,7 @@ const DetalhesExercicio = () => {
       } else if (exercicio) {
          filtrarPorMusculoAlvo(exercicios);
       }
-   }, [exercicios]);
+   }, [exercicios, id]);
 
    function filtrarPorMusculoAlvo(array) {
       const dadosFiltrados = array?.filter((musculoAlvo) => musculoAlvo?.target?.includes(exercicio?.target));
