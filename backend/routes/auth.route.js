@@ -1,5 +1,5 @@
 const express = require("express");
-const { cadastrarUsuario, loginUsuario } = require("../controllers/auth-controller");
+const { cadastrarUsuario, loginUsuario } = require("../controllers/auth.controller");
 const multer = require("../middlewares/multer");
 const passport = require("../middlewares/passport");
 const Usuario = require("../models/Usuario");

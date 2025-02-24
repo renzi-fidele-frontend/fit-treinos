@@ -22,6 +22,7 @@ const useSocialAuth = () => {
       // Apanhando usuário caso haja um token no localstorage
       const localToken = localStorage.getItem("token");
       if (localToken) {
+         dispatch(setToken(localToken));
          const user = apanharNoBackend("auth/success/social", "GET", { headers: { Authorization: `Bearer ${localToken}` } }).then((v) => {
             dispatch(setUser(v.user));
          });

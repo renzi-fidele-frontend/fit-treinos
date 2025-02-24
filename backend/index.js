@@ -2,9 +2,10 @@ const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
-const authRoute = require("./routes/auth-route");
+const authRoute = require("./routes/auth.route");
 // Mudar local de import do passport
 const passport = require("./middlewares/passport");
+const actionsRoute = require("./routes/actions.route");
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(cors());
 
 // Roteamento do servidor
 app.use("/api/auth", authRoute);
+app.use("/api/actions", actionsRoute);
 
 // Caso se navegue para uma rota inexistente
 app.use((req, res) => {

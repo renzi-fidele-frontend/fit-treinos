@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 // O dispatch deverá ser realizado no componente pai onde se for utilizar o hook
 
@@ -7,6 +8,7 @@ const useFetch = (url, opcoes, arrayNoRedux, modo = "automatico") => {
    const [data, setData] = useState(null);
    const [error, setError] = useState(null);
    const [loading, setLoading] = useState(false);
+   const { token } = useSelector((state) => state.auth);
 
    async function apanharDados(retornar = false) {
       console.log(url);
@@ -49,6 +51,24 @@ const useFetch = (url, opcoes, arrayNoRedux, modo = "automatico") => {
       }
    }
 
+   async function apanharNoBackendComAuth(endpoint, method, options) {
+      setLoading(true);
+      try {
+         const res = await axios.request({
+            url: `${import.meta.env.VITE_BACKEND_URL}/${endpoint}`,
+            method,
+            ...options,
+            headers: { Authorization: `Bearer ${token}` },
+         });
+         console.log("Fetch ao servidor");
+         return res.data;
+      } catch (error) {
+         return { error: error.response.data.message };
+      } finally {
+         setLoading(false);
+      }
+   }
+
    function refetch() {
       return apanharDados(true);
    }
@@ -57,7 +77,7 @@ const useFetch = (url, opcoes, arrayNoRedux, modo = "automatico") => {
       if (!arrayNoRedux && modo === "automatico") apanharDados();
    }, [url]);
 
-   return { data, error, loading, refetch, apanharDadosComParam, apanharNoBackend };
+   return { data, error, loading, refetch, apanharDadosComParam, apanharNoBackend, apanharNoBackendComAuth };
 };
 
 export default useFetch;

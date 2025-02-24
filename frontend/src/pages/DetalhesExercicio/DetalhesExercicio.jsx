@@ -9,7 +9,6 @@ import { YoutubeVideosApiOptions } from "../../services/YoutubeVideosApi";
 import VideoCard from "../../components/VideoCard/VideoCard";
 import Slider from "react-slick";
 import { useDispatch, useSelector } from "react-redux";
-
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import { fotoEquipamento } from "../../utils/fotoEquipamento";
 import { fotoMusculo } from "../../utils/fotoMusculo";
@@ -19,6 +18,7 @@ import { setExercicios } from "../../state/exercicios/exerciciosSlice";
 // FIXME: A requisição está sendo feita duas vezes
 
 const DetalhesExercicio = () => {
+   const { token } = useSelector((state) => state.auth);
    const { id } = useParams();
    const dispatch = useDispatch();
    const { exercicios } = useSelector((state) => state.exercicios);
@@ -28,6 +28,7 @@ const DetalhesExercicio = () => {
 
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
    const apanharExercicios = useFetch(null, exercisesFetchOptions, exercicios, "manual");
+   const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
 
    useEffect(() => {
       if (exercicio) filtrarPorMusculoAlvo(exercicios);
@@ -60,6 +61,13 @@ const DetalhesExercicio = () => {
 
    function iniciarTreino() {}
 
+   async function adicionarAosFavoritos() {
+      const res = await apanharNoBackendComAuth("actions/adicionarAosFavoritos", "POST", {
+         data: { idExercicio: exercicio?.id },
+      });
+      console.log(res);
+   }
+
    return (
       <Container className="py-5">
          {/* Seção inicial */}
@@ -79,10 +87,10 @@ const DetalhesExercicio = () => {
                   ))}
                </ListGroup>
                <div className="d-flex gap-3 mt-4">
-                  <Button variant="danger" onClick={iniciarTreino}>
+                  <Button variant="warning" onClick={iniciarTreino}>
                      <i className="bi bi-person-arms-up me-1"></i> Treino rápido
                   </Button>
-                  <Button variant="secondary">
+                  <Button variant="secondary" onClick={adicionarAosFavoritos}>
                      <i className="bi bi-heart me-1"></i> Adicionar aos favoritos
                   </Button>
                   <Button variant="dark">
