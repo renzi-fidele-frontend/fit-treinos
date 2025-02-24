@@ -7,7 +7,9 @@ import CardExercicio from "../../components/CardExercicio/CardExercicio";
 
 const Favoritos = () => {
    const { user } = useSelector((state) => state.auth);
-   const favoritos = user?.favoritos
+   const { exercicios } = useSelector((state) => state.exercicios);
+   const favoritos = exercicios?.filter((v) => user?.favoritos?.includes(v?.id));
+
    return (
       <>
          {/* Banner inicial */}
@@ -29,14 +31,14 @@ bg-gradient pt-5  pb-0"
                </Row>
             </Container>
          </div>
-         <Container>
+         <Container className="py-5">
             <Row>
                <Col>
                   <h2 className="fw-semibold mb-4 ">Exercícios favoritos</h2>
                   <hr />
-                  <Row className="mt-2 mb-5 px-5 mx-5 g-4 justify-content-center flex-content-stretch">
-                     {user?.exercícios?.map((v, k) => (
-                        <Col key={k} xs={3}>
+                  <Row className="mt-2 mb-5 g-4 flex-content-stretch">
+                     {favoritos?.map((v, k) => (
+                        <Col key={k} xs={4}>
                            <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
                         </Col>
                      ))}
