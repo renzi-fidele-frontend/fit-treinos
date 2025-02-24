@@ -2,10 +2,10 @@ const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
-const authRoute = require("./routes/auth.route");
+const authRoute = require("./routes/auth.routes");
 // Mudar local de import do passport
 const passport = require("./middlewares/passport");
-const actionsRoute = require("./routes/actions.route");
+const actionsRoute = require("./routes/actions.routes");
 
 const app = express();
 

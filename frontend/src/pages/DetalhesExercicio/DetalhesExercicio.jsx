@@ -14,6 +14,7 @@ import { fotoEquipamento } from "../../utils/fotoEquipamento";
 import { fotoMusculo } from "../../utils/fotoMusculo";
 import noPhoto from "../../assets/musculos/noPhoto.jpg";
 import { setExercicios } from "../../state/exercicios/exerciciosSlice";
+import { setUser } from "../../state/auth/authSlice";
 
 // FIXME: A requisição está sendo feita duas vezes
 
@@ -66,8 +67,8 @@ const DetalhesExercicio = () => {
       const res = apanharNoBackendComAuth("actions/adicionarAosFavoritos", "POST", {
          data: { idExercicio: exercicio?.id },
       }).then((v) => {
+         dispatch(setUser({ ...user, favoritos: v.favoritos }));
          setFavorito(true);
-         console.log(v);
       });
    }
 
@@ -75,7 +76,7 @@ const DetalhesExercicio = () => {
       const res = apanharNoBackendComAuth("actions/removerDosFavoritos", "DELETE", {
          data: { idExercicio: exercicio?.id },
       }).then((v) => {
-         console.log(v);
+         dispatch(setUser({ ...user, favoritos: v.favoritos }));
          setFavorito(false);
       });
    }

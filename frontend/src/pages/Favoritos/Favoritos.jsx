@@ -7,6 +7,7 @@ import CardExercicio from "../../components/CardExercicio/CardExercicio";
 
 const Favoritos = () => {
    const { user } = useSelector((state) => state.auth);
+   const favoritos = user?.favoritos
    return (
       <>
          {/* Banner inicial */}
