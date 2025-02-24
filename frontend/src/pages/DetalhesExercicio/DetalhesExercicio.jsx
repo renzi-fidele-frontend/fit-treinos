@@ -72,7 +72,12 @@ const DetalhesExercicio = () => {
    }
 
    function removerDosFavoritos() {
-      return;
+      const res = apanharNoBackendComAuth("actions/removerDosFavoritos", "DELETE", {
+         data: { idExercicio: exercicio?.id },
+      }).then((v) => {
+         console.log(v);
+         setFavorito(false);
+      });
    }
 
    return (
@@ -97,9 +102,16 @@ const DetalhesExercicio = () => {
                   <Button variant="warning" onClick={iniciarTreino}>
                      <i className="bi bi-person-arms-up me-1"></i> Treino rápido
                   </Button>
-                  <Button variant="secondary" onClick={adicionarAosFavoritos}>
-                     <i className="bi bi-heart me-1"></i> Adicionar aos favoritos
-                  </Button>
+
+                  {!favorito ? (
+                     <Button variant="secondary" onClick={adicionarAosFavoritos}>
+                        <i className="bi bi-heart me-1"></i> Adicionar aos favoritos
+                     </Button>
+                  ) : (
+                     <Button variant="danger" onClick={removerDosFavoritos}>
+                        <i className="bi bi-trash me-1"></i> Remover dos favoritos
+                     </Button>
+                  )}
                   <Button variant="dark">
                      <i className="bi bi-plus-circle me-1"></i> Adicionar a sessão de treino
                   </Button>
