@@ -18,13 +18,14 @@ import { setExercicios } from "../../state/exercicios/exerciciosSlice";
 // FIXME: A requisição está sendo feita duas vezes
 
 const DetalhesExercicio = () => {
-   const { token } = useSelector((state) => state.auth);
    const { id } = useParams();
    const dispatch = useDispatch();
    const { exercicios } = useSelector((state) => state.exercicios);
+   const { user } = useSelector((state) => state.auth);
    const [exercicio, setExercicio] = useState(null);
    const [videos, setVideos] = useState(null);
    const [exerciciosFiltrados, setExerciciosFiltrados] = useState(null);
+   const [favorito, setFavorito] = useState(user?.favoritos?.includes(exercicio?.id));
 
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
    const apanharExercicios = useFetch(null, exercisesFetchOptions, exercicios, "manual");
@@ -61,11 +62,17 @@ const DetalhesExercicio = () => {
 
    function iniciarTreino() {}
 
-   async function adicionarAosFavoritos() {
-      const res = await apanharNoBackendComAuth("actions/adicionarAosFavoritos", "POST", {
+   function adicionarAosFavoritos() {
+      const res = apanharNoBackendComAuth("actions/adicionarAosFavoritos", "POST", {
          data: { idExercicio: exercicio?.id },
+      }).then((v) => {
+         setFavorito(true);
+         console.log(v);
       });
-      console.log(res);
+   }
+
+   function removerDosFavoritos() {
+      return;
    }
 
    return (

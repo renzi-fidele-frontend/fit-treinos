@@ -13,13 +13,13 @@ const schemaDoUsuario = new mongoose.Schema(
       tempoTotalDeTreino: { type: Number, default: 0 },
 
       // {id: number, objetivo: string, titulo: string, exercicios: [{id: string}]}
-      sessoesDeTreino: { type: Array, default: [] },
+      sessoesDeTreino: { type: Array },
 
       // {vezesConcluído: number, id: number, }
-      ultimosExerciciosPraticados: { type: Array, default: [] },
+      ultimosExerciciosPraticados: { type: Array },
 
       // {id}
-      favoritos: { type: Array, default: [] },
+      favoritos: { type: Array },
    },
    { collection: "Usuarios" }
 );
