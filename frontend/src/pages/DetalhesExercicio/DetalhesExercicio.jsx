@@ -15,6 +15,7 @@ import { fotoMusculo } from "../../utils/fotoMusculo";
 import noPhoto from "../../assets/musculos/noPhoto.jpg";
 import { setExercicios } from "../../state/exercicios/exerciciosSlice";
 import { setUser } from "../../state/auth/authSlice";
+import ToastTreinamento from "../../components/ToastTreinamento/ToastTreinamento";
 
 // FIXME: A requisição está sendo feita duas vezes
 
@@ -27,6 +28,7 @@ const DetalhesExercicio = () => {
    const [videos, setVideos] = useState(null);
    const [exerciciosFiltrados, setExerciciosFiltrados] = useState(null);
    const [favorito, setFavorito] = useState(user?.favoritos?.includes(exercicio?.id));
+   const [mostrar, setMostrar] = useState(false);
 
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
    const apanharExercicios = useFetch(null, exercisesFetchOptions, exercicios, "manual");
@@ -61,7 +63,9 @@ const DetalhesExercicio = () => {
       setExerciciosFiltrados(dadosFiltrados?.slice(0, 6));
    }
 
-   function iniciarTreino() {}
+   function iniciarTreino() {
+      setMostrar(true);
+   }
 
    function adicionarAosFavoritos() {
       const res = apanharNoBackendComAuth("actions/adicionarAosFavoritos", "POST", {
@@ -92,6 +96,7 @@ const DetalhesExercicio = () => {
                <h1 className="fw-bold mb-4 pt-3">
                   Como praticar o: <span className="text-capitalize text-secondary">{exercicio?.name}</span>
                </h1>
+               {/* Instruções */}
                <ListGroup>
                   {exercicio?.instructions?.map((v, key) => (
                      <ListGroupItem key={key}>
@@ -99,11 +104,12 @@ const DetalhesExercicio = () => {
                      </ListGroupItem>
                   ))}
                </ListGroup>
+
+               {/* Ações */}
                <div className="d-flex gap-3 mt-4">
                   <Button variant="warning" onClick={iniciarTreino}>
-                     <i className="bi bi-person-arms-up me-1"></i> Treino rápido
+                     <i className="bi bi-person-arms-up me-1"></i> Iniciar exercício
                   </Button>
-
                   {!favorito ? (
                      <Button variant="secondary" onClick={adicionarAosFavoritos}>
                         <i className="bi bi-heart me-1"></i> Adicionar aos favoritos
@@ -113,7 +119,7 @@ const DetalhesExercicio = () => {
                         <i className="bi bi-trash me-1"></i> Remover dos favoritos
                      </Button>
                   )}
-                  <Button variant="dark">
+                  <Button variant="dark" className="bg-gradient">
                      <i className="bi bi-plus-circle me-1"></i> Adicionar a sessão de treino
                   </Button>
                </div>
@@ -187,7 +193,7 @@ const DetalhesExercicio = () => {
          <Row>
             <Col>
                <h1 className="mb-4">
-                  Assista vídeos de treinamento do: <span className="text-secondary fw-semibold">{exercicio?.name}</span>
+                  Assista vídeos de treinamento do: <span className="text-secondary fw-semibold text-capitalize">{exercicio?.name}</span>
                </h1>
 
                <Slider swipeToSlide rows={2} slidesToShow={3} infinite={false} dots>
@@ -236,6 +242,8 @@ const DetalhesExercicio = () => {
                </Row>
             </Col>
          </Row>
+
+         <ToastTreinamento mostrar={mostrar} onClose={() => setMostrar(false)} />
       </Container>
    );
 };
