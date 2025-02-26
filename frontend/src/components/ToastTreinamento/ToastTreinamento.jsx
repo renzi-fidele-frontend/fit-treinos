@@ -1,7 +1,38 @@
 import { Button, Image, Toast, ToastContainer } from "react-bootstrap";
 import gif from "../../assets/illustration.jpg";
+import { useState, useEffect, useRef } from "react";
 
 const ToastTreinamento = ({ mostrar, onClose }) => {
+   // Contabilizar o treino durante a sessão
+   const [tempo, setTempo] = useState(0);
+   const [ativo, setAtivo] = useState(false);
+   const intervalRef = useRef(null);
+
+   function iniciarTreino() {
+      setAtivo(true);
+      intervalRef.current = setInterval(() => {
+         setTempo((prevTempo) => prevTempo + 1);
+      }, 1000);
+   }
+
+   function pausarTreino() {
+      clearInterval(intervalRef.current);
+      setAtivo(false);
+
+      // Ao pausar enviar os dados pra API
+   }
+
+   // Converter segundos para formato humano
+   const formatarTempo = (segundos) => {
+      const minutos = Math.floor(segundos / 60);
+      const segundosRestantes = segundos % 60;
+      return `${String(minutos).padStart(2, "0")}:${String(segundosRestantes).padStart(2, "0")}`;
+   };
+
+   useEffect(() => {
+      return () => clearInterval(intervalRef.current);
+   }, []);
+
    return (
       <ToastContainer position="bottom-end" className="position-fixed">
          <Toast show={mostrar} onClose={onClose} className="me-4 mb-4">
@@ -16,11 +47,18 @@ const ToastTreinamento = ({ mostrar, onClose }) => {
                <hr className="my-2" />
                <div className="d-flex justify-content-between align-items-center">
                   <strong className="fw-medium">
-                     Tempo de treino: <span className="ms-1 mb-0 p-1 rounded text-bg-secondary">00:00</span>
+                     Tempo de treino: <span className="ms-1 mb-0 p-1 rounded text-bg-secondary">{formatarTempo(tempo)}</span>
                   </strong>
-                  <Button size="sm" variant="dark">
-                     <i className="bi bi-play"></i> Iniciar
-                  </Button>
+                  {/* Ações */}
+                  {ativo ? (
+                     <Button size="sm" variant="dark" onClick={pausarTreino}>
+                        <i className="bi bi-pause"></i> Pausar
+                     </Button>
+                  ) : (
+                     <Button size="sm" variant="dark" onClick={iniciarTreino}>
+                        <i className="bi bi-play"></i> Iniciar
+                     </Button>
+                  )}
                </div>
             </Toast.Body>
          </Toast>
