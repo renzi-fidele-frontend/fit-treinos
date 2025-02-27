@@ -1,12 +1,14 @@
 import { Button, Image, Toast, ToastContainer } from "react-bootstrap";
 import gif from "../../assets/illustration.jpg";
 import { useState, useEffect, useRef } from "react";
+import useFetch from "../../hooks/useFetch";
 
-const ToastTreinamento = ({ mostrar, onClose }) => {
+const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
    // Contabilizar o treino durante a sessão
    const [tempo, setTempo] = useState(0);
    const [ativo, setAtivo] = useState(false);
    const intervalRef = useRef(null);
+   const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
 
    function iniciarTreino() {
       setAtivo(true);
@@ -20,6 +22,15 @@ const ToastTreinamento = ({ mostrar, onClose }) => {
       setAtivo(false);
 
       // Ao pausar enviar os dados pra API
+      // Adicionar ao progresso do usuário o seguinte: {dataDoTreino: Date, treinos: [{tempoDeTreino: 0, idExercicio: 123}]}
+
+      const date = new Date();
+      console.log();
+
+      // Atualizar no array dos últimos exercícios praticados
+      const atualizar = apanharNoBackendComAuth("actions/atualizarProgresso", "PATCH", {
+         data: { idExercicio: idExercicio, dataDoTreino: date.toDateString(), tempoDeTreino: tempo },
+      }).then((v) => console.log(v));
    }
 
    // Converter segundos para formato humano

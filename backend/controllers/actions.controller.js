@@ -34,5 +34,21 @@ const removerDosFavoritos = async (req, res) => {
    }
 };
 
+const atualizarProgresso = async (req, res) => {
+   const { userId } = req;
+   const { idExercicio, dataDoTreino, tempoDeTreino } = req.body;
+   try {
+      const user = await Usuario.findById(userId);
+      const progresso = user.progresso;
+      const progressoAtualizado = progresso?.map((v) => {
+         return v;
+      });
+      console.log(progressoAtualizado, idExercicio, dataDoTreino, tempoDeTreino);
+   } catch (error) {
+      res.status(500).json({ message: "Erro ao atualizar o progresso de treino" });
+   }
+};
+
 exports.adicionarAosFavoritos = adicionarAosFavoritos;
 exports.removerDosFavoritos = removerDosFavoritos;
+exports.atualizarProgresso = atualizarProgresso;

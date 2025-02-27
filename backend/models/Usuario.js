@@ -10,12 +10,11 @@ const schemaDoUsuario = new mongoose.Schema(
       foto: { type: String, required: true },
       criadoEm: { type: Date, default: Date.now },
       // TODO: Estender modelo para suportar rastreiamento do progresso do treino
-      tempoTotalDeTreino: { type: Number, default: 0 },
 
       // {id: number, objetivo: string, titulo: string, exercicios: [{id: string}]}
       sessoesDeTreino: { type: Array },
-
-      // {vezesConcluído: number, id: number, }
+      progresso: { type: Array },
+      // {id: number}
       ultimosExerciciosPraticados: { type: Array },
 
       // {id}

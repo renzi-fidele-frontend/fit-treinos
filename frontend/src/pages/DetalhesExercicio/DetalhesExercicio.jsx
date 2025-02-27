@@ -243,7 +243,7 @@ const DetalhesExercicio = () => {
             </Col>
          </Row>
 
-         <ToastTreinamento mostrar={mostrar} onClose={() => setMostrar(false)} />
+         <ToastTreinamento mostrar={mostrar} onClose={() => setMostrar(false)} idExercicio={exercicio?.id} />
       </Container>
    );
 };
