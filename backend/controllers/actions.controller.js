@@ -40,10 +40,26 @@ const atualizarProgresso = async (req, res) => {
    try {
       const user = await Usuario.findById(userId);
       const progresso = user.progresso;
-      const progressoAtualizado = progresso?.map((v) => {
-         return v;
+      const treinos = progresso.treinos;
+
+      // Caso nada tenha sido criado
+      if (progresso.length === 0) {
+         progresso.push({ dataDoTreino: dataDoTreino, treinos: [{ tempoDeTreino, idExercicio }] });
+      } else if (1) {
+         // Caso o treino seja no mesmo dia
+      } else if (2) {
+         // Caso o treino seja em um dia diferente
+      }
+
+      const atualizar = await Usuario.findByIdAndUpdate(userId, {
+         ...user.toObject(),
+         progresso,
       });
-      console.log(progressoAtualizado, idExercicio, dataDoTreino, tempoDeTreino);
+
+      console.log(progresso[0].dataDoTreino, progresso[0].treinos);
+
+      // Adicionar ao progresso do usuário o seguinte: {dataDoTreino: Date, treinos: [{tempoDeTreino: 0, idExercicio: 123}]}
+      // const atualizar = await Usuario.findByIdAndUpdate(user, {})
    } catch (error) {
       res.status(500).json({ message: "Erro ao atualizar o progresso de treino" });
    }

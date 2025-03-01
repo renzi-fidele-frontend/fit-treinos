@@ -24,8 +24,9 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
       // Ao pausar enviar os dados pra API
       // Adicionar ao progresso do usuário o seguinte: {dataDoTreino: Date, treinos: [{tempoDeTreino: 0, idExercicio: 123}]}
 
+      // NB: Caso seja o mesmo dia contabilizar o tempo de treino
+
       const date = new Date();
-      console.log();
 
       // Atualizar no array dos últimos exercícios praticados
       const atualizar = apanharNoBackendComAuth("actions/atualizarProgresso", "PATCH", {
