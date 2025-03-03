@@ -39,16 +39,48 @@ const atualizarProgresso = async (req, res) => {
    const { idExercicio, dataDoTreino, tempoDeTreino } = req.body;
    try {
       const user = await Usuario.findById(userId);
-      const progresso = user.progresso;
-      const treinos = progresso.treinos;
+      let progresso = user.progresso;
+      let treinos = progresso.treinos;
+
+      // {dataDoTreino: Date, treinos: [{tempoDeTreino: 0, idExercicio: 123}]}
 
       // Caso nada tenha sido criado
-      if (progresso.length === 0) {
-         progresso.push({ dataDoTreino: dataDoTreino, treinos: [{ tempoDeTreino, idExercicio }] });
-      } else if (1) {
+
+      // Caso o treino seja em um dia diferente
+      const treinoNodiaDiferente = progresso.some((obj) => obj.dataDoTreino === dataDoTreino);
+
+      if (!treinoNodiaDiferente) {
+         console.log("Treinou pela primeira vez hoje");
+         progresso.push({ dataDoTreino, treinos: [{ tempoDeTreino, idExercicio }] });
+      } else {
+         console.log("Já treinou hoje");
          // Caso o treino seja no mesmo dia
-      } else if (2) {
-         // Caso o treino seja em um dia diferente
+         progresso = progresso.map((v) => {
+            if (v.dataDoTreino === dataDoTreino) {
+               // Caso seja a primeira vez a se praticar o exercício
+               const primeiroTreino = v.treinos.some((obj) => obj.idExercicio === idExercicio);
+               if (!primeiroTreino) {
+                  console.log("Exercício treinando pela primeira vez no dia");
+                  treinos.push({ idExercicio, tempoDeTreino });
+               } else {
+                  console.log("Atualizando o tempo de treino do exercício já praticado...");
+                  // Caso o exercício já tenha sido treinado no tal dia
+                  treinos = v.treinos.map((v) => {
+                     if (v.idExercicio === idExercicio) {
+                        // Atualizando o tempo de treino
+                        return { ...v, tempoDeTreino };
+                        console.log("Tempo de treino atualizado");
+                     } else {
+                        // Retornando os restantes
+                        return v;
+                     }
+                  });
+               }
+               return { ...v, treinos };
+            } else {
+               v;
+            }
+         });
       }
 
       const atualizar = await Usuario.findByIdAndUpdate(userId, {
@@ -56,10 +88,7 @@ const atualizarProgresso = async (req, res) => {
          progresso,
       });
 
-      console.log(progresso[0].dataDoTreino, progresso[0].treinos);
-
-      // Adicionar ao progresso do usuário o seguinte: {dataDoTreino: Date, treinos: [{tempoDeTreino: 0, idExercicio: 123}]}
-      // const atualizar = await Usuario.findByIdAndUpdate(user, {})
+      console.log(progresso);
    } catch (error) {
       res.status(500).json({ message: "Erro ao atualizar o progresso de treino" });
    }
