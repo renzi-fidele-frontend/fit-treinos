@@ -1,7 +1,6 @@
 const Usuario = require("../models/Usuario");
 const betterLog = require("../utils/betterLog");
 
-// FIXME: Ao chegar na página, verificar se o exercício é favorito
 const adicionarAosFavoritos = async (req, res) => {
    const { userId } = req;
    const { idExercicio } = req.body;

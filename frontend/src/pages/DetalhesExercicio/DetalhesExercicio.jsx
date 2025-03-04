@@ -43,6 +43,7 @@ const DetalhesExercicio = () => {
             )
             .then((v) => setVideos(v.contents));
       }
+      if (user.favoritos.includes(exercicio?.id)) setFavorito(true);
    }, [exercicio]);
 
    useEffect(() => {

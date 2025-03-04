@@ -3,6 +3,8 @@ import gif from "../../assets/illustration.jpg";
 import { useState, useEffect, useRef } from "react";
 import useFetch from "../../hooks/useFetch";
 
+// FIXME: Ao chegar na página, verificar se o exercício é favorito
+// TODO: Adicionar a funcionalidade de salvar o progress de treino através do botão de salvar ao invés de sempre que se for pausar o tempo de treino
 const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
    // Contabilizar o treino durante a sessão
    const [tempo, setTempo] = useState(0);
@@ -20,11 +22,6 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
    function pausarTreino() {
       clearInterval(intervalRef.current);
       setAtivo(false);
-
-      // Ao pausar enviar os dados pra API
-      // Adicionar ao progresso do usuário o seguinte: {dataDoTreino: Date, treinos: [{tempoDeTreino: 0, idExercicio: 123}]}
-
-      // NB: Caso seja o mesmo dia contabilizar o tempo de treino
 
       const date = new Date();
 
