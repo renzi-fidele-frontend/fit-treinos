@@ -1,5 +1,7 @@
 const Usuario = require("../models/Usuario");
+const betterLog = require("../utils/betterLog");
 
+// FIXME: Ao chegar na página, verificar se o exercício é favorito
 const adicionarAosFavoritos = async (req, res) => {
    const { userId } = req;
    const { idExercicio } = req.body;
@@ -40,14 +42,14 @@ const atualizarProgresso = async (req, res) => {
    try {
       const user = await Usuario.findById(userId);
       let progresso = user.progresso;
-      let treinos = progresso.treinos;
+      let treinos;
 
       // {dataDoTreino: Date, treinos: [{tempoDeTreino: 0, idExercicio: 123}]}
 
-      // Caso nada tenha sido criado
-
       // Caso o treino seja em um dia diferente
       const treinoNodiaDiferente = progresso.some((obj) => obj.dataDoTreino === dataDoTreino);
+
+      // Cada objeto de progresso é uma data
 
       if (!treinoNodiaDiferente) {
          console.log("Treinou pela primeira vez hoje");
@@ -61,7 +63,8 @@ const atualizarProgresso = async (req, res) => {
                const primeiroTreino = v.treinos.some((obj) => obj.idExercicio === idExercicio);
                if (!primeiroTreino) {
                   console.log("Exercício treinando pela primeira vez no dia");
-                  treinos.push({ idExercicio, tempoDeTreino });
+                  treinos = [...v.treinos, { idExercicio, tempoDeTreino }];
+                  betterLog(treinos);
                } else {
                   console.log("Atualizando o tempo de treino do exercício já praticado...");
                   // Caso o exercício já tenha sido treinado no tal dia
@@ -69,16 +72,16 @@ const atualizarProgresso = async (req, res) => {
                      if (v.idExercicio === idExercicio) {
                         // Atualizando o tempo de treino
                         return { ...v, tempoDeTreino };
-                        console.log("Tempo de treino atualizado");
                      } else {
                         // Retornando os restantes
                         return v;
                      }
                   });
                }
+
                return { ...v, treinos };
             } else {
-               v;
+               return v;
             }
          });
       }
@@ -88,7 +91,7 @@ const atualizarProgresso = async (req, res) => {
          progresso,
       });
 
-      console.log(progresso);
+      betterLog(progresso);
    } catch (error) {
       res.status(500).json({ message: "Erro ao atualizar o progresso de treino" });
    }
