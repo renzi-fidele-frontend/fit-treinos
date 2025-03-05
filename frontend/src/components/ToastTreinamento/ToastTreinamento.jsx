@@ -1,11 +1,13 @@
-import { Button, Image, Toast, ToastContainer } from "react-bootstrap";
+import { Button, Image, OverlayTrigger, Toast, ToastContainer, Tooltip } from "react-bootstrap";
 import gif from "../../assets/illustration.jpg";
 import { useState, useEffect, useRef } from "react";
 import useFetch from "../../hooks/useFetch";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../state/auth/authSlice";
 
-// FIXME: Ao chegar na página, verificar se o exercício é favorito
-// TODO: Adicionar a funcionalidade de salvar o progress de treino através do botão de salvar ao invés de sempre que se for pausar o tempo de treino
 const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
+   const dispatch = useDispatch();
+   const { user } = useSelector((state) => state.auth);
    // Contabilizar o treino durante a sessão
    const [tempo, setTempo] = useState(0);
    const [ativo, setAtivo] = useState(false);
@@ -22,13 +24,19 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
    function pausarTreino() {
       clearInterval(intervalRef.current);
       setAtivo(false);
+   }
 
+   function atualizarProgresso() {
       const date = new Date();
 
       // Atualizar no array dos últimos exercícios praticados
-      const atualizar = apanharNoBackendComAuth("actions/atualizarProgresso", "PATCH", {
+      const res = apanharNoBackendComAuth("actions/atualizarProgresso", "PATCH", {
          data: { idExercicio: idExercicio, dataDoTreino: date.toDateString(), tempoDeTreino: tempo },
-      }).then((v) => console.log(v));
+      }).then((v) => {
+         console.log(v);
+         dispatch(setUser({ ...user, progresso: v.progresso }));
+         setTempo(0);
+      });
    }
 
    // Converter segundos para formato humano
@@ -56,18 +64,30 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
                <hr className="my-2" />
                <div className="d-flex justify-content-between align-items-center">
                   <strong className="fw-medium">
-                     Tempo de treino: <span className="ms-1 mb-0 p-1 rounded text-bg-secondary">{formatarTempo(tempo)}</span>
+                     Tempo de treino: <span className="ms-1 mb-0 p-1 rounded text-bg-success">{formatarTempo(tempo)}</span>
                   </strong>
                   {/* Ações */}
-                  {ativo ? (
-                     <Button size="sm" variant="dark" onClick={pausarTreino}>
-                        <i className="bi bi-pause"></i> Pausar
-                     </Button>
-                  ) : (
-                     <Button size="sm" variant="dark" onClick={iniciarTreino}>
-                        <i className="bi bi-play"></i> Iniciar
-                     </Button>
-                  )}
+                  <div className="d-flex gap-2">
+                     {ativo ? (
+                        <Button size="sm" variant="dark" onClick={pausarTreino}>
+                           <i className="bi bi-pause"></i> Pausar
+                        </Button>
+                     ) : (
+                        // TODO: Mostrar loading da atualização do progresso do treinamento
+                        <>
+                           {tempo > 1 && (
+                              <OverlayTrigger overlay={<Tooltip style={{ zIndex: 2000 }}>Salvar progresso</Tooltip>}>
+                                 <Button size="sm" variant="warning" className="border border-black" onClick={atualizarProgresso}>
+                                    <i className="bi bi-floppy"></i>
+                                 </Button>
+                              </OverlayTrigger>
+                           )}
+                           <Button size="sm" variant="dark" onClick={iniciarTreino}>
+                              <i className="bi bi-play"></i> Iniciar
+                           </Button>
+                        </>
+                     )}
+                  </div>
                </div>
             </Toast.Body>
          </Toast>

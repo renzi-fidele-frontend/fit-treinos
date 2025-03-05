@@ -91,6 +91,7 @@ const atualizarProgresso = async (req, res) => {
       });
 
       betterLog(progresso);
+      res.json({ progresso, message: "Progresso atualizado com sucesso" });
    } catch (error) {
       res.status(500).json({ message: "Erro ao atualizar o progresso de treino" });
    }
