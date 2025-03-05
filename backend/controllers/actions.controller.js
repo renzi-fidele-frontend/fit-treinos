@@ -98,6 +98,25 @@ const atualizarProgresso = async (req, res) => {
    }
 };
 
+const retornarTempoTotalDeTreinoDeExercicio = async (req, res) => {
+   const { userId } = req;
+   const { idExercicio } = req.body;
+   try {
+      const user = await Usuario.findById(userId);
+      // Calculando o tempo total de treino do exercício
+      let tempoTotalDeTreino = 0;
+      user.progresso.forEach((v) => {
+         v.treinos.forEach((v) => {
+            if (v.idExercicio === idExercicio) tempoTotalDeTreino += Number(v.tempoDeTreino);
+         });
+      });
+      res.json({ tempoTotalDeTreino });
+   } catch (error) {
+      res.status(500).json({ message: "Erro ao retornar o tempo de treino" });
+   }
+};
+
 exports.adicionarAosFavoritos = adicionarAosFavoritos;
 exports.removerDosFavoritos = removerDosFavoritos;
 exports.atualizarProgresso = atualizarProgresso;
+exports.retornarTempoTotalDeTreinoDeExercicio = retornarTempoTotalDeTreinoDeExercicio;

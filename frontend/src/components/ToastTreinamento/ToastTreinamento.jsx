@@ -38,16 +38,20 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
          console.log(v);
          dispatch(setUser({ ...user, progresso: v.progresso }));
          setTempo(0);
-         
-         setTempoTotal(v.tempoTotalDeTreino)
+
+         setTempoTotal(v.tempoTotalDeTreino);
       });
    }
 
-   
-   // TODO: Ao chegar na página apanhar o tempo total do exercício
    useEffect(() => {
       return () => clearInterval(intervalRef.current);
    }, []);
+
+   useEffect(() => {
+      const res = apanharNoBackendComAuth("actions/retornarTempoTotalDeTreinosDeExercicio", "GET", { data: { idExercicio } }).then((v) =>
+         setTempoTotal(v.tempoTotalDeTreino)
+      );
+   }, [idExercicio]);
 
    return (
       <ToastContainer position="bottom-end" className="position-fixed">
@@ -62,7 +66,7 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
                   <Image className="rounded" src={gif} />
                   <div className="w-100 position-absolute text-bg-dark bottom-0 rounded-bottom text-center py-1">
                      <span>
-                        Tempo total: <span className="text-bg-secondary rounded px-1">{formatarTempo(tempoTotal)}</span>
+                        Tempo total: <span className="ms-1 text-bg-secondary rounded px-1">{formatarTempo(tempoTotal)}</span>
                      </span>
                   </div>
                </div>
