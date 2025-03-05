@@ -70,7 +70,7 @@ const atualizarProgresso = async (req, res) => {
                   treinos = v.treinos.map((v) => {
                      if (v.idExercicio === idExercicio) {
                         // Atualizando o tempo de treino
-                        return { ...v, tempoDeTreino };
+                        return { ...v, tempoDeTreino: tempoDeTreino + v.tempoDeTreino };
                      } else {
                         // Retornando os restantes
                         return v;
@@ -86,13 +86,22 @@ const atualizarProgresso = async (req, res) => {
       }
 
       // TODO: Calcular o tempo total de treino de um exercício
+      let tempoTotalDeTreino = 0;
+      progresso.forEach((v) => {
+         v.treinos.forEach((v) => {
+            console.log(v);
+
+            if (v.idExercicio === idExercicio) tempoTotalDeTreino += Number(v.tempoDeTreino);
+         });
+      });
+
+      console.log("O tempo total de treino é: ", tempoTotalDeTreino);
 
       const atualizar = await Usuario.findByIdAndUpdate(userId, {
          ...user.toObject(),
          progresso,
+         tempoTotalDeTreino,
       });
-
-      betterLog(progresso);
       res.json({ progresso, message: "Progresso atualizado com sucesso" });
    } catch (error) {
       res.status(500).json({ message: "Erro ao atualizar o progresso de treino" });

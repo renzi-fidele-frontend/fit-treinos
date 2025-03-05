@@ -47,7 +47,7 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
       const segundosRestantes = segundos % 60;
       return `${String(minutos).padStart(2, "0")}:${String(segundosRestantes).padStart(2, "0")}`;
    };
-
+   // TODO: Ao chegar na página apanhar o tempo total do exercício
    useEffect(() => {
       return () => clearInterval(intervalRef.current);
    }, []);
