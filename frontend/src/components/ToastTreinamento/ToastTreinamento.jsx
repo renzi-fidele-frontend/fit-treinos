@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../state/auth/authSlice";
+import { formatarTempo } from "../../utils/formatarSegundos";
 
 const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
    const dispatch = useDispatch();
@@ -41,12 +42,7 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
       });
    }
 
-   // Converter segundos para formato humano
-   const formatarTempo = (segundos) => {
-      const minutos = Math.floor(segundos / 60);
-      const segundosRestantes = segundos % 60;
-      return `${String(minutos).padStart(2, "0")}:${String(segundosRestantes).padStart(2, "0")}`;
-   };
+   
    // TODO: Ao chegar na página apanhar o tempo total do exercício
    useEffect(() => {
       return () => clearInterval(intervalRef.current);
