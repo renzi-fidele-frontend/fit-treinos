@@ -5,6 +5,7 @@ const {
    removerDosFavoritos,
    atualizarProgresso,
    retornarTempoTotalDeTreinoDeExercicio,
+   retornarTempoTotalAbsoluto,
 } = require("../controllers/actions.controller");
 
 const actionsRoute = express.Router();
@@ -19,5 +20,7 @@ actionsRoute.delete("/removerDosFavoritos", removerDosFavoritos);
 actionsRoute.patch("/atualizarProgresso", atualizarProgresso);
 
 actionsRoute.get("/retornarTempoTotalDeTreinosDeExercicio", retornarTempoTotalDeTreinoDeExercicio);
+
+actionsRoute.get("/retornarTempoTotalAbsoluto", retornarTempoTotalAbsoluto);
 
 module.exports = actionsRoute;

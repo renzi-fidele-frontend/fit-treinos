@@ -8,10 +8,15 @@ import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import CardSessao from "../../components/CardSessao/CardSessao";
+import useFetch from "../../hooks/useFetch";
+import { useEffect, useState } from "react";
+import { segundosParaFormatoHumanizado } from "../../utils/segundosParaFormatoHumanizado";
 Chart.register(CategoryScale);
 
 const Dashboard = () => {
-   // TODO: Apanhar o tempo total de treino do usuário
+   const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
+   const [tempoTotalTreino, setTempoTotalTreino] = useState(0);
+
    const diasDaSemana = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"];
    const dedicacaoSemanal = [150, 60, 200, 50, 76, 30, 90];
 
@@ -49,6 +54,13 @@ const Dashboard = () => {
       },
    ];
 
+   // TODO: Apanhar o tempo total de treino do usuário
+   useEffect(() => {
+      if (exercicios) {
+         const res = apanharNoBackendComAuth("actions/retornarTempoTotalAbsoluto").then((v) => setTempoTotalTreino(v.tempoTotalAbsoluto));
+      }
+   }, [exercicios]);
+
    return (
       <Container id={styles.ct} className="h-100 py-5">
          <h2 className="fw-semibold mb-4 ">Progresso do treinamento</h2>
@@ -65,7 +77,7 @@ const Dashboard = () => {
                         <i className="bi bi-clock fs-3 "></i>
                      </div>
                   </div>
-                  <h5 className="fs-1 fw-bold mb-3">02h30min</h5>
+                  <h5 className="fs-1 fw-bold mb-3">{segundosParaFormatoHumanizado(tempoTotalTreino)}</h5>
                   <p className="text-secondary mb-0">O tempo acumulado praticando exercícios</p>
                </div>
             </Col>
