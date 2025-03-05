@@ -6,6 +6,7 @@ const {
    atualizarProgresso,
    retornarTempoTotalDeTreinoDeExercicio,
    retornarTempoTotalAbsoluto,
+   retornarNrDeTreinosHoje,
 } = require("../controllers/actions.controller");
 
 const actionsRoute = express.Router();
@@ -22,5 +23,7 @@ actionsRoute.patch("/atualizarProgresso", atualizarProgresso);
 actionsRoute.get("/retornarTempoTotalDeTreinosDeExercicio", retornarTempoTotalDeTreinoDeExercicio);
 
 actionsRoute.get("/retornarTempoTotalAbsoluto", retornarTempoTotalAbsoluto);
+
+actionsRoute.get("/retornarNrDeTreinosHoje", retornarNrDeTreinosHoje);
 
 module.exports = actionsRoute;

@@ -133,8 +133,24 @@ const retornarTempoTotalAbsoluto = async (req, res) => {
    }
 };
 
+const retornarNrDeTreinosHoje = async (req, res) => {
+   const { userId } = req;
+   try {
+      const user = await Usuario.findById(userId);
+      const date = new Date();
+      let nrTreinosHoje = 0;
+      user.progresso.forEach((v) => {
+         if (v.dataDoTreino === date.toDateString()) nrTreinosHoje += v.treinos.length;
+      });
+      res.json({ nrTreinosHoje });
+   } catch (error) {
+      res.status(500).json({ message: "Erro ao retornar o nr de treinos realizados hoje" });
+   }
+};
+
 exports.adicionarAosFavoritos = adicionarAosFavoritos;
 exports.removerDosFavoritos = removerDosFavoritos;
 exports.atualizarProgresso = atualizarProgresso;
 exports.retornarTempoTotalDeTreinoDeExercicio = retornarTempoTotalDeTreinoDeExercicio;
 exports.retornarTempoTotalAbsoluto = retornarTempoTotalAbsoluto;
+exports.retornarNrDeTreinosHoje = retornarNrDeTreinosHoje;

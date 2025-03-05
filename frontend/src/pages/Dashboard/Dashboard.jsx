@@ -16,6 +16,7 @@ Chart.register(CategoryScale);
 const Dashboard = () => {
    const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
    const [tempoTotalTreino, setTempoTotalTreino] = useState(0);
+   const [nrTreinosHoje, setNrTreinosHoje] = useState(0);
 
    const diasDaSemana = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"];
    const dedicacaoSemanal = [150, 60, 200, 50, 76, 30, 90];
@@ -54,10 +55,15 @@ const Dashboard = () => {
       },
    ];
 
-   // TODO: Apanhar o tempo total de treino do usuário
+   // TODO: Apanhar o nr de treinos realizados hoje
    useEffect(() => {
       if (exercicios) {
-         const res = apanharNoBackendComAuth("actions/retornarTempoTotalAbsoluto").then((v) => setTempoTotalTreino(v.tempoTotalAbsoluto));
+         const apanharTempoTotal = apanharNoBackendComAuth("actions/retornarTempoTotalAbsoluto").then((v) =>
+            setTempoTotalTreino(v.tempoTotalAbsoluto)
+         );
+         const apanharNrDeTreinosHoje = apanharNoBackendComAuth("actions/retornarNrDeTreinosHoje").then((v) =>
+            setNrTreinosHoje(v.nrTreinosHoje)
+         );
       }
    }, [exercicios]);
 
@@ -92,7 +98,7 @@ const Dashboard = () => {
                      </div>
                   </div>
                   <h5 className="fs-1 fw-bold mb-3">
-                     5.00{" "}
+                     {nrTreinosHoje}{" "}
                      <span id={styles.small} className="text-small text-success">
                         (+10%)
                      </span>
