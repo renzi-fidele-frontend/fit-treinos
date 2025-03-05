@@ -85,6 +85,8 @@ const atualizarProgresso = async (req, res) => {
          });
       }
 
+      // TODO: Calcular o tempo total de treino de um exercício
+
       const atualizar = await Usuario.findByIdAndUpdate(userId, {
          ...user.toObject(),
          progresso,

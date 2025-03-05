@@ -13,6 +13,7 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
    const [ativo, setAtivo] = useState(false);
    const intervalRef = useRef(null);
    const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
+   const [tempoTotal, setTempoTotal] = useState(0);
 
    function iniciarTreino() {
       setAtivo(true);
@@ -36,6 +37,7 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
          console.log(v);
          dispatch(setUser({ ...user, progresso: v.progresso }));
          setTempo(0);
+         // TODO: Atualizar o tempo total de treino do exercício
       });
    }
 
@@ -59,7 +61,14 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
                </strong>
             </Toast.Header>
             <Toast.Body>
-               <Image className="rounded" src={gif} />
+               <div className="position-relative w-auto">
+                  <Image className="rounded" src={gif} />
+                  <div className="w-100 position-absolute text-bg-dark bottom-0 rounded-bottom text-center py-1">
+                     <span>
+                        Tempo total: <span className="text-bg-secondary rounded px-1">{formatarTempo(tempoTotal)}</span>
+                     </span>
+                  </div>
+               </div>
                <p className="mt-2 mb-0">Siga as instruções de como praticar o exercício ou assista os vídeos de treinamento.</p>
                <hr className="my-2" />
                <div className="d-flex justify-content-between align-items-center">
