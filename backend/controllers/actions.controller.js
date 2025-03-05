@@ -43,13 +43,8 @@ const atualizarProgresso = async (req, res) => {
       let progresso = user.progresso;
       let treinos;
 
-      // {dataDoTreino: Date, treinos: [{tempoDeTreino: 0, idExercicio: 123}]}
-
       // Caso o treino seja em um dia diferente
       const treinoNodiaDiferente = progresso.some((obj) => obj.dataDoTreino === dataDoTreino);
-
-      // Cada objeto de progresso é uma data
-
       if (!treinoNodiaDiferente) {
          console.log("Treinou pela primeira vez hoje");
          progresso.push({ dataDoTreino, treinos: [{ tempoDeTreino, idExercicio }] });
@@ -85,24 +80,19 @@ const atualizarProgresso = async (req, res) => {
          });
       }
 
-      // TODO: Calcular o tempo total de treino de um exercício
+      // Calculando o tempo total de treino do exercício
       let tempoTotalDeTreino = 0;
       progresso.forEach((v) => {
          v.treinos.forEach((v) => {
-            console.log(v);
-
             if (v.idExercicio === idExercicio) tempoTotalDeTreino += Number(v.tempoDeTreino);
          });
       });
 
-      console.log("O tempo total de treino é: ", tempoTotalDeTreino);
-
       const atualizar = await Usuario.findByIdAndUpdate(userId, {
          ...user.toObject(),
          progresso,
-         tempoTotalDeTreino,
       });
-      res.json({ progresso, message: "Progresso atualizado com sucesso" });
+      res.json({ progresso, message: "Progresso atualizado com sucesso", tempoTotalDeTreino });
    } catch (error) {
       res.status(500).json({ message: "Erro ao atualizar o progresso de treino" });
    }

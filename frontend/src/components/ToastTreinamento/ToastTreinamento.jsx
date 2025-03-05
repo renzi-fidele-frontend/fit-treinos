@@ -38,7 +38,8 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
          console.log(v);
          dispatch(setUser({ ...user, progresso: v.progresso }));
          setTempo(0);
-         // TODO: Atualizar o tempo total de treino do exercício
+         
+         setTempoTotal(v.tempoTotalDeTreino)
       });
    }
 
