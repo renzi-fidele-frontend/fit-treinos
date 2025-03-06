@@ -100,7 +100,7 @@ const atualizarProgresso = async (req, res) => {
 
 const retornarTempoTotalDeTreinoDeExercicio = async (req, res) => {
    const { userId } = req;
-   const { idExercicio } = req.body;
+   const { idExercicio } = req.params;
    try {
       const user = await Usuario.findById(userId);
       // Calculando o tempo total de treino do exercício
@@ -142,6 +142,7 @@ const retornarNrDeTreinosHoje = async (req, res) => {
       user.progresso.forEach((v) => {
          if (v.dataDoTreino === date.toDateString()) nrTreinosHoje += v.treinos.length;
       });
+      console.log(nrTreinosHoje);
       res.json({ nrTreinosHoje });
    } catch (error) {
       res.status(500).json({ message: "Erro ao retornar o nr de treinos realizados hoje" });

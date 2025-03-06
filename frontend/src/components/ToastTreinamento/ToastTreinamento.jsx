@@ -33,12 +33,10 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
 
       // Atualizar no array dos últimos exercícios praticados
       const res = apanharNoBackendComAuth("actions/atualizarProgresso", "PATCH", {
-         data: { idExercicio: idExercicio, dataDoTreino: date.toDateString(), tempoDeTreino: tempo },
+         data: { idExercicio, dataDoTreino: date.toDateString(), tempoDeTreino: tempo },
       }).then((v) => {
-         console.log(v);
          dispatch(setUser({ ...user, progresso: v.progresso }));
          setTempo(0);
-
          setTempoTotal(v.tempoTotalDeTreino);
       });
    }
@@ -48,9 +46,11 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
    }, []);
 
    useEffect(() => {
-      const res = apanharNoBackendComAuth("actions/retornarTempoTotalDeTreinosDeExercicio", "GET", { data: { idExercicio } }).then((v) =>
-         setTempoTotal(v.tempoTotalDeTreino)
-      );
+      if (idExercicio) {
+         const res = apanharNoBackendComAuth(`actions/retornarTempoTotalDeTreinoDeExercicio/${idExercicio}`, "GET").then((v) =>
+            setTempoTotal(v.tempoTotalDeTreino)
+         );
+      }
    }, [idExercicio]);
 
    return (

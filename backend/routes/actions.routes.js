@@ -20,7 +20,7 @@ actionsRoute.delete("/removerDosFavoritos", removerDosFavoritos);
 
 actionsRoute.patch("/atualizarProgresso", atualizarProgresso);
 
-actionsRoute.get("/retornarTempoTotalDeTreinosDeExercicio", retornarTempoTotalDeTreinoDeExercicio);
+actionsRoute.get("/retornarTempoTotalDeTreinoDeExercicio/:idExercicio", retornarTempoTotalDeTreinoDeExercicio);
 
 actionsRoute.get("/retornarTempoTotalAbsoluto", retornarTempoTotalAbsoluto);
 
