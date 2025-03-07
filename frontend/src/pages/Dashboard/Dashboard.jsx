@@ -17,6 +17,7 @@ const Dashboard = () => {
    const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
    const [tempoTotalTreino, setTempoTotalTreino] = useState(0);
    const [nrTreinosHoje, setNrTreinosHoje] = useState(0);
+   const [difPercentualDiasDeTreino, setDifPercentualDiasDeTreino] = useState(0);
 
    const diasDaSemana = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"];
    const dedicacaoSemanal = [150, 60, 200, 50, 76, 30, 90];
@@ -61,9 +62,10 @@ const Dashboard = () => {
          const apanharTempoTotal = apanharNoBackendComAuth("actions/retornarTempoTotalAbsoluto").then((v) =>
             setTempoTotalTreino(v.tempoTotalAbsoluto)
          );
-         const apanharNrDeTreinosHoje = apanharNoBackendComAuth("actions/retornarNrDeTreinosHoje").then((v) =>
-            setNrTreinosHoje(v.nrTreinosHoje)
-         );
+         const apanharNrDeTreinosHoje = apanharNoBackendComAuth("actions/retornarNrDeTreinosHoje").then((v) => {
+            setNrTreinosHoje(v.nrTreinosHoje);
+            setDifPercentualDiasDeTreino(parseFloat(v.diferencialPercentual.toFixed(3)));
+         });
       }
    }, [exercicios]);
 
@@ -99,9 +101,15 @@ const Dashboard = () => {
                   </div>
                   <h5 className="fs-1 fw-bold mb-3">
                      {nrTreinosHoje}{" "}
-                     <span id={styles.small} className="text-small text-success">
-                        (+10%)
-                     </span>
+                     {difPercentualDiasDeTreino >= 0 ? (
+                        <span id={styles.small} className={"text-small text-success"}>
+                           (+{difPercentualDiasDeTreino}%)
+                        </span>
+                     ) : (
+                        <span id={styles.small} className={"text-small text-danger"}>
+                           (-{difPercentualDiasDeTreino}%)
+                        </span>
+                     )}
                   </h5>
                   <p className="text-secondary mb-0">Número total de treinamentos executados hoje</p>
                </div>
