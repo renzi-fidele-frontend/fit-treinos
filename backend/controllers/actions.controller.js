@@ -118,8 +118,18 @@ const retornarTempoTotalDeTreinoDeExercicio = async (req, res) => {
 
 const retornarDadosTreinamento = async (req, res) => {
    const { userId } = req;
+
    try {
       const user = await Usuario.findById(userId);
+      // Calculando o tempo total absoluto
+      let tempoTotalAbsoluto = 0;
+      user.progresso.forEach((v) => {
+         v.treinos.forEach((v) => {
+            tempoTotalAbsoluto += Number(v.tempoDeTreino);
+         });
+      });
+
+      // Calculando o nr de treinos feitos hoje
       const date = new Date();
       let nrTreinosHoje = 0;
       user.progresso.forEach((v) => {
@@ -153,7 +163,7 @@ const retornarDadosTreinamento = async (req, res) => {
 
       const mediaTempoPorDia = tempoTotal / nrDiasTreinados;
       const diferencialPercentualTempo = ((tempoTotalHoje - mediaTempoPorDia) / mediaTempoPorDia) * 100;
-      res.json({ nrTreinosHoje, diferencialPercentual, mediaTempoPorDia, diferencialPercentualTempo });
+      res.json({ nrTreinosHoje, diferencialPercentual, mediaTempoPorDia, diferencialPercentualTempo, tempoTotalAbsoluto });
    } catch (error) {
       res.status(500).json({ message: "Erro ao retornar o nr de treinos realizados hoje" });
    }
