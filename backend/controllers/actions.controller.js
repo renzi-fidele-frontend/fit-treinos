@@ -133,7 +133,7 @@ const retornarTempoTotalAbsoluto = async (req, res) => {
    }
 };
 
-const retornarNrDeTreinosHoje = async (req, res) => {
+const retornarDadosTreinamento = async (req, res) => {
    const { userId } = req;
    try {
       const user = await Usuario.findById(userId);
@@ -181,4 +181,4 @@ exports.removerDosFavoritos = removerDosFavoritos;
 exports.atualizarProgresso = atualizarProgresso;
 exports.retornarTempoTotalDeTreinoDeExercicio = retornarTempoTotalDeTreinoDeExercicio;
 exports.retornarTempoTotalAbsoluto = retornarTempoTotalAbsoluto;
-exports.retornarNrDeTreinosHoje = retornarNrDeTreinosHoje;
+exports.retornarDadosTreinamento = retornarDadosTreinamento;

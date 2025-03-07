@@ -61,10 +61,8 @@ const Dashboard = () => {
    // TODO: Apanhar o nr de treinos realizados hoje
    useEffect(() => {
       if (exercicios) {
-         const apanharTempoTotal = apanharNoBackendComAuth("actions/retornarTempoTotalAbsoluto").then((v) =>
-            setTempoTotalTreino(v.tempoTotalAbsoluto)
-         );
-         const apanharEstatisticasDeTreino = apanharNoBackendComAuth("actions/retornarNrDeTreinosHoje").then((v) => {
+         const apanharEstatisticasDeTreino = apanharNoBackendComAuth("actions/retornarDadosTreinamento").then((v) => {
+            setTempoTotalTreino(v.tempoTotalAbsoluto);
             setNrTreinosHoje(v.nrTreinosHoje);
             setDifPercentualDiasDeTreino(parseFloat(v.diferencialPercentual.toFixed(3)));
             setMediaTempoPorDia(v.mediaTempoPorDia);

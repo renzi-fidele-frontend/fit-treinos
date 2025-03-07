@@ -5,8 +5,8 @@ const {
    removerDosFavoritos,
    atualizarProgresso,
    retornarTempoTotalDeTreinoDeExercicio,
-   retornarTempoTotalAbsoluto,
    retornarNrDeTreinosHoje,
+   retornarDadosTreinamento,
 } = require("../controllers/actions.controller");
 
 const actionsRoute = express.Router();
@@ -22,7 +22,7 @@ actionsRoute.patch("/atualizarProgresso", atualizarProgresso);
 
 actionsRoute.get("/retornarTempoTotalDeTreinoDeExercicio/:idExercicio", retornarTempoTotalDeTreinoDeExercicio);
 
-actionsRoute.get("/retornarTempoTotalAbsoluto", retornarTempoTotalAbsoluto);
+actionsRoute.get("/retornarDadosTreinamento", retornarDadosTreinamento);
 
 actionsRoute.get("/retornarNrDeTreinosHoje", retornarNrDeTreinosHoje);
 
