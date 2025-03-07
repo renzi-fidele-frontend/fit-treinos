@@ -116,23 +116,6 @@ const retornarTempoTotalDeTreinoDeExercicio = async (req, res) => {
    }
 };
 
-const retornarTempoTotalAbsoluto = async (req, res) => {
-   const { userId } = req;
-   try {
-      const user = await Usuario.findById(userId);
-      // Calculando o tempo total de treino absoluto
-      let tempoTotalAbsoluto = 0;
-      user.progresso.forEach((v) => {
-         v.treinos.forEach((v) => {
-            tempoTotalAbsoluto += Number(v.tempoDeTreino);
-         });
-      });
-      res.json({ tempoTotalAbsoluto });
-   } catch (error) {
-      res.status(500).json({ message: "Erro ao retornar o tempo de treino absoluto" });
-   }
-};
-
 const retornarDadosTreinamento = async (req, res) => {
    const { userId } = req;
    try {
@@ -180,5 +163,4 @@ exports.adicionarAosFavoritos = adicionarAosFavoritos;
 exports.removerDosFavoritos = removerDosFavoritos;
 exports.atualizarProgresso = atualizarProgresso;
 exports.retornarTempoTotalDeTreinoDeExercicio = retornarTempoTotalDeTreinoDeExercicio;
-exports.retornarTempoTotalAbsoluto = retornarTempoTotalAbsoluto;
 exports.retornarDadosTreinamento = retornarDadosTreinamento;
