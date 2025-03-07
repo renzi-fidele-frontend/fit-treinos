@@ -18,6 +18,8 @@ const Dashboard = () => {
    const [tempoTotalTreino, setTempoTotalTreino] = useState(0);
    const [nrTreinosHoje, setNrTreinosHoje] = useState(0);
    const [difPercentualDiasDeTreino, setDifPercentualDiasDeTreino] = useState(0);
+   const [mediaTempoPorDia, setMediaTempoPorDia] = useState(0);
+   const [diferencialPercentualTempo, setDiferencialPercentualTempo] = useState(0);
 
    const diasDaSemana = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"];
    const dedicacaoSemanal = [150, 60, 200, 50, 76, 30, 90];
@@ -62,9 +64,11 @@ const Dashboard = () => {
          const apanharTempoTotal = apanharNoBackendComAuth("actions/retornarTempoTotalAbsoluto").then((v) =>
             setTempoTotalTreino(v.tempoTotalAbsoluto)
          );
-         const apanharNrDeTreinosHoje = apanharNoBackendComAuth("actions/retornarNrDeTreinosHoje").then((v) => {
+         const apanharEstatisticasDeTreino = apanharNoBackendComAuth("actions/retornarNrDeTreinosHoje").then((v) => {
             setNrTreinosHoje(v.nrTreinosHoje);
             setDifPercentualDiasDeTreino(parseFloat(v.diferencialPercentual.toFixed(3)));
+            setMediaTempoPorDia(v.mediaTempoPorDia);
+            setDiferencialPercentualTempo(parseFloat(v.diferencialPercentualTempo).toFixed(2));
          });
       }
    }, [exercicios]);
@@ -107,7 +111,7 @@ const Dashboard = () => {
                         </span>
                      ) : (
                         <span id={styles.small} className={"text-small text-danger"}>
-                           (-{difPercentualDiasDeTreino}%)
+                           ({difPercentualDiasDeTreino}%)
                         </span>
                      )}
                   </h5>
@@ -125,10 +129,16 @@ const Dashboard = () => {
                      </div>
                   </div>
                   <h5 className="fs-1 fw-bold mb-3">
-                     02min 93s{" "}
-                     <span id={styles.small} className="text-small text-success">
-                        (+10%)
-                     </span>
+                     {segundosParaFormatoHumanizado(mediaTempoPorDia)}{" "}
+                     {diferencialPercentualTempo >= 0 ? (
+                        <span id={styles.small} className={"text-small text-success"}>
+                           (+{diferencialPercentualTempo}%)
+                        </span>
+                     ) : (
+                        <span id={styles.small} className={"text-small text-danger"}>
+                           ({diferencialPercentualTempo}%)
+                        </span>
+                     )}
                   </h5>
                   <p className="text-secondary mb-0">Tempo dedicado ao treinamento por dia</p>
                </div>
