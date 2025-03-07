@@ -142,8 +142,16 @@ const retornarNrDeTreinosHoje = async (req, res) => {
       user.progresso.forEach((v) => {
          if (v.dataDoTreino === date.toDateString()) nrTreinosHoje += v.treinos.length;
       });
-      console.log(nrTreinosHoje);
-      res.json({ nrTreinosHoje });
+
+      // Calculando diferencial percentual do nr de treino por dia
+      let totalTreinos = 0;
+      user.progresso.forEach((v) => {
+         totalTreinos += v.treinos.length;
+      });
+      const nrDiasTreinados = user.progresso.length;
+      const mediaTreinosPorDia = totalTreinos / nrDiasTreinados;
+      const diferencialPercentual = ((nrTreinosHoje - mediaTreinosPorDia) / mediaTreinosPorDia) * 100;
+      res.json({ nrTreinosHoje, diferencialPercentual });
    } catch (error) {
       res.status(500).json({ message: "Erro ao retornar o nr de treinos realizados hoje" });
    }
