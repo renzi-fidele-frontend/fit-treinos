@@ -22,6 +22,7 @@ passport.use(
                   email: profile?.emails[0]?.value,
                   googleId: profile.id,
                   foto: profile?.photos[0]?.value,
+                  
                });
                usuarioAdicionado.save();
                const token = jwt.sign({ userId: usuarioAdicionado.id }, process.env.JWT_SECRET);

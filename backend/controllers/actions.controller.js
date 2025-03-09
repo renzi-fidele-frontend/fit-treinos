@@ -37,7 +37,7 @@ const removerDosFavoritos = async (req, res) => {
 
 const atualizarProgresso = async (req, res) => {
    const { userId } = req;
-   const { idExercicio, dataDoTreino, tempoDeTreino } = req.body;
+   const { idExercicio, dataDoTreino, tempoDeTreino, parteDoCorpo } = req.body;
    try {
       const user = await Usuario.findById(userId);
       let progresso = user.progresso;
@@ -88,9 +88,35 @@ const atualizarProgresso = async (req, res) => {
          });
       });
 
+      // Calculando a parte do corpo mais treinada
+      // Caso seja a primeira vez
+      let partesDoCorpoTreinadas;
+      if (user.partesDoCorpoTreinadas.length === 0) {
+         partesDoCorpoTreinadas = [
+            { nome: "back", tempoDeTreino: 0 },
+            { nome: "cardio", tempoDeTreino: 0 },
+            { nome: "chest", tempoDeTreino: 0 },
+            { nome: "lower arms", tempoDeTreino: 0 },
+            { nome: "lower legs", tempoDeTreino: 0 },
+            { nome: "neck", tempoDeTreino: 0 },
+            { nome: "shoulders", tempoDeTreino: 0 },
+            { nome: "upper arms", tempoDeTreino: 0 },
+            { nome: "upper legs", tempoDeTreino: 0 },
+            { nome: "waist", tempoDeTreino: 0 },
+         ];
+      }
+      partesDoCorpoTreinadas = user.partesDoCorpoTreinadas.map((v) => {
+         if (v.nome === parteDoCorpo) {
+            return { ...v, tempoDeTreino: v.tempoDeTreino + tempoDeTreino };
+         } else {
+            return v;
+         }
+      });
+
       const atualizar = await Usuario.findByIdAndUpdate(userId, {
          ...user.toObject(),
          progresso,
+         partesDoCorpoTreinadas,
       });
       res.json({ progresso, message: "Progresso atualizado com sucesso", tempoTotalDeTreino });
    } catch (error) {
@@ -203,10 +229,19 @@ const retornarDadosTreinamento = async (req, res) => {
                });
             }
          });
+
          return { tempoTreinadoNoDia, dia: verificarDiaDaSemana(dia.getDay()) };
       });
 
-      res.json({ nrTreinosHoje, diferencialPercentual, mediaTempoPorDia, diferencialPercentualTempo, tempoTotalAbsoluto, estatisticasDaSemana });
+      res.json({
+         nrTreinosHoje,
+         diferencialPercentual,
+         mediaTempoPorDia,
+         diferencialPercentualTempo,
+         tempoTotalAbsoluto,
+         estatisticasDaSemana,
+         partesDoCorpoTreinadas: user.partesDoCorpoTreinadas,
+      });
    } catch (error) {
       res.status(500).json({ message: "Erro ao retornar o nr de treinos realizados hoje" });
    }

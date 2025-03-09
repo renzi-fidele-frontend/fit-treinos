@@ -26,7 +26,12 @@ const cadastrarUsuario = async (req, res) => {
          }
 
          // Adicionando o user ao DB
-         const usuarioAdicionado = new Usuario({ foto: fotoUpada.url, nome, email, password: senhaSecreta });
+         const usuarioAdicionado = new Usuario({
+            foto: fotoUpada.url,
+            nome,
+            email,
+            password: senhaSecreta,
+         });
          usuarioAdicionado.save();
 
          const token = jwt.sign({ userId: usuarioAdicionado._id, password }, process.env.JWT_SECRET);

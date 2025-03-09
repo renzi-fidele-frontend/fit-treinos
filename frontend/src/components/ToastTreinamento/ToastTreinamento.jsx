@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../state/auth/authSlice";
 import { formatarTempo } from "../../utils/formatarSegundos";
 
-const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
+const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo }) => {
    const dispatch = useDispatch();
    const { user } = useSelector((state) => state.auth);
    // Contabilizar o treino durante a sessão
@@ -30,10 +30,9 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio }) => {
 
    function atualizarProgresso() {
       const date = new Date();
-
       // Atualizar no array dos últimos exercícios praticados
       const res = apanharNoBackendComAuth("actions/atualizarProgresso", "PATCH", {
-         data: { idExercicio, dataDoTreino: date.toDateString(), tempoDeTreino: tempo },
+         data: { idExercicio, dataDoTreino: date.toDateString(), tempoDeTreino: tempo, parteDoCorpo },
       }).then((v) => {
          dispatch(setUser({ ...user, progresso: v.progresso }));
          setTempo(0);
