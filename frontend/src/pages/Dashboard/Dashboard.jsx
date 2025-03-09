@@ -58,7 +58,6 @@ const Dashboard = () => {
       },
    ];
 
-   // TODO: Apanhar o nr de treinos realizados hoje
    useEffect(() => {
       if (exercicios) {
          const apanharEstatisticasDeTreino = apanharNoBackendComAuth("actions/retornarDadosTreinamento").then((v) => {

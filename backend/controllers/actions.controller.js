@@ -163,7 +163,30 @@ const retornarDadosTreinamento = async (req, res) => {
 
       const mediaTempoPorDia = tempoTotal / nrDiasTreinados;
       const diferencialPercentualTempo = ((tempoTotalHoje - mediaTempoPorDia) / mediaTempoPorDia) * 100;
-      res.json({ nrTreinosHoje, diferencialPercentual, mediaTempoPorDia, diferencialPercentualTempo, tempoTotalAbsoluto });
+
+      // Calculando a estatística da dedicação semanal
+      const hoje = new Date();
+      const ultimaSemana = [];
+
+      for (let i = 6; i >= 0; i--) {
+         const dia = new Date(hoje);
+         dia.setDate(hoje.getDate() - i);
+         ultimaSemana.push(dia.toDateString());
+      }
+
+      const estatisticasDaSemana = ultimaSemana.map((dia) => {
+         let tempoTreinadoNoDia = 0;
+         user.progresso.forEach((v) => {
+            if (v.dataDoTreino === dia) {
+               v.treinos.forEach((treino) => {
+                  tempoTreinadoNoDia += Number(treino.tempoDeTreino);
+               });
+            }
+         });
+         return { tempoTreinadoNoDia, dia };
+      });
+
+      res.json({ nrTreinosHoje, diferencialPercentual, mediaTempoPorDia, diferencialPercentualTempo, tempoTotalAbsoluto, estatisticasDaSemana });
    } catch (error) {
       res.status(500).json({ message: "Erro ao retornar o nr de treinos realizados hoje" });
    }
