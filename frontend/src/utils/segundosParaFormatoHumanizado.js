@@ -1,7 +1,7 @@
 export function segundosParaFormatoHumanizado(segundos) {
    if (segundos < 600) {
       const minutos = Math.floor(segundos / 60);
-      const seg = segundos % 60;
+      const seg = (segundos % 60).toFixed(0);
       return `${String(minutos).padStart(2, "0")}min ${String(seg).padStart(2, "0")}s`;
    } else {
       const horas = Math.floor(segundos / 3600);
