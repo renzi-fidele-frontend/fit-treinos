@@ -186,7 +186,6 @@ const retornarDadosTreinamento = async (req, res) => {
             tempoTotal += Number(treino.tempoDeTreino);
          });
       });
-
       const mediaTempoPorDia = tempoTotal / nrDiasTreinados;
       const diferencialPercentualTempo = ((tempoTotalHoje - mediaTempoPorDia) / mediaTempoPorDia) * 100;
 
@@ -198,7 +197,6 @@ const retornarDadosTreinamento = async (req, res) => {
          dia.setDate(hoje.getDate() - i);
          ultimaSemana.push(dia);
       }
-
       function verificarDiaDaSemana(dia) {
          switch (dia) {
             case 0:
@@ -219,7 +217,6 @@ const retornarDadosTreinamento = async (req, res) => {
                return "";
          }
       }
-
       const estatisticasDaSemana = ultimaSemana.map((dia) => {
          let tempoTreinadoNoDia = 0;
          user.progresso.forEach((v) => {
@@ -233,6 +230,20 @@ const retornarDadosTreinamento = async (req, res) => {
          return { tempoTreinadoNoDia, dia: verificarDiaDaSemana(dia.getDay()) };
       });
 
+      // Verificar o exercício mais treinado de todos (de acordo com o tempo Treinado)
+      const exerciciosTreinados = {};
+      user.progresso.forEach((v) => {
+         v.treinos.forEach((treino) => {
+            if (!exerciciosTreinados[treino.idExercicio]) {
+               exerciciosTreinados[treino.idExercicio] = 0;
+            }
+            exerciciosTreinados[treino.idExercicio] += Number(treino.tempoDeTreino);
+         });
+      });
+      const exercicioMaisTreinado = Object.keys(exerciciosTreinados).reduce((a, b) => (exerciciosTreinados[a] > exerciciosTreinados[b] ? a : b));
+
+      
+
       res.json({
          nrTreinosHoje,
          diferencialPercentual,
@@ -241,6 +252,7 @@ const retornarDadosTreinamento = async (req, res) => {
          tempoTotalAbsoluto,
          estatisticasDaSemana,
          partesDoCorpoTreinadas: user.partesDoCorpoTreinadas,
+         exercicioMaisTreinado,
       });
    } catch (error) {
       res.status(500).json({ message: "Erro ao retornar o nr de treinos realizados hoje" });

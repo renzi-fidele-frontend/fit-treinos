@@ -22,10 +22,7 @@ const Dashboard = () => {
    const [diferencialPercentualTempo, setDiferencialPercentualTempo] = useState(0);
    const [estatisticasDaSemana, setEstatisticasDaSemana] = useState(null);
    const [partesDoCorpoTreinadas, setPartesDoCorpoTreinadas] = useState(null);
-
    const { exercicios } = useSelector((state) => state.exercicios);
-   const { categorias: partesDoCorpo } = useSelector((state) => state.configs);
-   const treinosPorCategoria = [1, 0, 4, 0, 0, 4, 0, 2, 8, 0];
 
    const sessoes = [
       {
