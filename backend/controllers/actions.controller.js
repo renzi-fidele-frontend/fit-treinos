@@ -167,23 +167,43 @@ const retornarDadosTreinamento = async (req, res) => {
       // Calculando a estatística da dedicação semanal
       const hoje = new Date();
       const ultimaSemana = [];
-
       for (let i = 6; i >= 0; i--) {
          const dia = new Date(hoje);
          dia.setDate(hoje.getDate() - i);
-         ultimaSemana.push(dia.toDateString());
+         ultimaSemana.push(dia);
+      }
+
+      function verificarDiaDaSemana(dia) {
+         switch (dia) {
+            case 0:
+               return "Dom";
+            case 1:
+               return "Seg";
+            case 2:
+               return "Ter";
+            case 3:
+               return "Qua";
+            case 4:
+               return "Qui";
+            case 5:
+               return "Sex";
+            case 6:
+               return "Sab";
+            default:
+               return "";
+         }
       }
 
       const estatisticasDaSemana = ultimaSemana.map((dia) => {
          let tempoTreinadoNoDia = 0;
          user.progresso.forEach((v) => {
-            if (v.dataDoTreino === dia) {
+            if (v.dataDoTreino === dia.toDateString()) {
                v.treinos.forEach((treino) => {
                   tempoTreinadoNoDia += Number(treino.tempoDeTreino);
                });
             }
          });
-         return { tempoTreinadoNoDia, dia };
+         return { tempoTreinadoNoDia, dia: verificarDiaDaSemana(dia.getDay()) };
       });
 
       res.json({ nrTreinosHoje, diferencialPercentual, mediaTempoPorDia, diferencialPercentualTempo, tempoTotalAbsoluto, estatisticasDaSemana });

@@ -20,9 +20,7 @@ const Dashboard = () => {
    const [difPercentualDiasDeTreino, setDifPercentualDiasDeTreino] = useState(0);
    const [mediaTempoPorDia, setMediaTempoPorDia] = useState(0);
    const [diferencialPercentualTempo, setDiferencialPercentualTempo] = useState(0);
-
-   const diasDaSemana = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"];
-   const dedicacaoSemanal = [150, 60, 200, 50, 76, 30, 90];
+   const [estatisticasDaSemana, setEstatisticasDaSemana] = useState(null);
 
    const { exercicios } = useSelector((state) => state.exercicios);
    const { categorias: partesDoCorpo } = useSelector((state) => state.configs);
@@ -66,6 +64,7 @@ const Dashboard = () => {
             setDifPercentualDiasDeTreino(parseFloat(v.diferencialPercentual.toFixed(3)));
             setMediaTempoPorDia(v.mediaTempoPorDia);
             setDiferencialPercentualTempo(parseFloat(v.diferencialPercentualTempo).toFixed(2));
+            setEstatisticasDaSemana(v.estatisticasDaSemana);
          });
       }
    }, [exercicios]);
@@ -153,11 +152,11 @@ const Dashboard = () => {
                   <div className="my-4">
                      <Line
                         data={{
-                           labels: diasDaSemana,
+                           labels: estatisticasDaSemana?.map((v) => v?.dia),
                            datasets: [
                               {
                                  label: "Tempo de treino",
-                                 data: dedicacaoSemanal,
+                                 data: estatisticasDaSemana?.map((v) => v?.tempoTreinadoNoDia),
                                  fill: true,
                                  tension: 0.4,
                                  borderColor: "rgb(135, 142, 163)",
