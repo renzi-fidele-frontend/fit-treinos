@@ -21,6 +21,7 @@ const Dashboard = () => {
    const [mediaTempoPorDia, setMediaTempoPorDia] = useState(0);
    const [diferencialPercentualTempo, setDiferencialPercentualTempo] = useState(0);
    const [estatisticasDaSemana, setEstatisticasDaSemana] = useState(null);
+   const [partesDoCorpoTreinadas, setPartesDoCorpoTreinadas] = useState(null);
 
    const { exercicios } = useSelector((state) => state.exercicios);
    const { categorias: partesDoCorpo } = useSelector((state) => state.configs);
@@ -65,6 +66,7 @@ const Dashboard = () => {
             setMediaTempoPorDia(v.mediaTempoPorDia);
             setDiferencialPercentualTempo(parseFloat(v.diferencialPercentualTempo).toFixed(2));
             setEstatisticasDaSemana(v.estatisticasDaSemana);
+            setPartesDoCorpoTreinadas(v.partesDoCorpoTreinadas);
          });
       }
    }, [exercicios]);
@@ -185,7 +187,18 @@ const Dashboard = () => {
                      Partes do corpo mais treinadas
                   </h6>
                   <div className="mt-4">
-                     <Pie data={{ labels: partesDoCorpo, datasets: [{ data: treinosPorCategoria }] }} />
+                     {partesDoCorpoTreinadas ? (
+                        <Pie
+                           data={{
+                              labels: partesDoCorpoTreinadas?.map((v) => v?.nome),
+                              datasets: [{ data: partesDoCorpoTreinadas?.map((v) => v?.tempoDeTreino) }],
+                           }}
+                        />
+                     ) : (
+                        <div>
+                           <p>Gráfico carregando...</p>
+                        </div>
+                     )}
                   </div>
                </div>
             </Col>
