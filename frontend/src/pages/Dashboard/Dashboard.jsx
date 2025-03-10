@@ -1,4 +1,4 @@
-import { Button, Col, Container, Image, Row } from "react-bootstrap";
+import { Col, Container, Image, Row } from "react-bootstrap";
 import styles from "./Dashboard.module.css";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
@@ -7,7 +7,6 @@ import { Pie } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
-import CardSessao from "../../components/CardSessao/CardSessao";
 import useFetch from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { segundosParaFormatoHumanizado } from "../../utils/segundosParaFormatoHumanizado";
@@ -25,36 +24,6 @@ const Dashboard = () => {
    const [partesDoCorpoTreinadas, setPartesDoCorpoTreinadas] = useState(null);
    const { exercicios } = useSelector((state) => state.exercicios);
    const [exercicioMaisTreinado, setExercicioMaisTreinado] = useState(null);
-
-   const sessoes = [
-      {
-         nome: "Melhoria da cintura",
-         exercicios: [exercicios[0], exercicios[1], exercicios[2], exercicios[3]],
-         objetivo: "Fortalecer e tonificar a região da cintura para melhorar a postura e a flexibilidade.",
-         concluido: 2,
-         id: "1",
-      },
-      {
-         nome: "Melhoria da cintura",
-         exercicios: [exercicios[0], exercicios[1], exercicios[2], exercicios[3]],
-         objetivo: "Fortalecer e tonificar a região da cintura para melhorar a postura e a flexibilidade.",
-         concluido: 2,
-         id: "2",
-      },
-      {
-         nome: "Melhoria da cintura",
-         exercicios: [exercicios[0], exercicios[1], exercicios[2], exercicios[3]],
-         objetivo: "Fortalecer e tonificar a região da cintura para melhorar a postura e a flexibilidade.",
-         concluido: 2,
-         id: "3",
-      },
-      {
-         nome: "Melhoria da cintura",
-         exercicios: [exercicios[0], exercicios[1], exercicios[2], exercicios[3]],
-         objetivo: "Fortalecer e tonificar a região da cintura para melhorar a postura e a flexibilidade.",
-         concluido: 2,
-      },
-   ];
 
    useEffect(() => {
       if (exercicios) {
@@ -247,24 +216,6 @@ const Dashboard = () => {
                <Slider swipeToSlide slidesToShow={3} infinite={false} dots>
                   {exercicios.slice(0, 6)?.map((v, k) => (
                      <CardExercicio customClass="me-4" titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} key={k} />
-                  ))}
-               </Slider>
-            </Col>
-         </Row>
-
-         {/* Sessões de treino */}
-         <Row className="mt-4 mb-5">
-            <Col className="mb-4">
-               <div className="d-flex align-items-center justify-content-between mb-4">
-                  <h2 className="fw-semibold">Sessões de treino (8)</h2>
-                  <Button variant="secondary me-5">
-                     <i className="bi bi-plus-circle me-1"></i> Criar sessão
-                  </Button>
-               </div>
-
-               <Slider swipeToSlide slidesToShow={3} infinite={false} dots>
-                  {sessoes.map(({ concluido, exercicios, nome, objetivo, id }, k) => (
-                     <CardSessao concluido={concluido} exercicios={exercicios} nome={nome} id={id} objetivo={objetivo} key={k} />
                   ))}
                </Slider>
             </Col>

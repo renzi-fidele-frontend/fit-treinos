@@ -12,8 +12,7 @@ const schemaDoUsuario = new mongoose.Schema(
       progresso: { type: Array },
       favoritos: { type: Array },
       partesDoCorpoTreinadas: { type: Array },
-      ultimosExerciciosPraticados: { type: Array },
-      sessoesDeTreino: { type: Array },
+      ultimosExerciciosPraticados: { type: Array, maxLength: 10 },
    },
    { collection: "Usuarios" }
 );

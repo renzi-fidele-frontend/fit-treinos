@@ -113,10 +113,18 @@ const atualizarProgresso = async (req, res) => {
          }
       });
 
+      // TODO: Atualizar os últimos exercicios praticados
+      // O array não deverá ultrapassar 7 itens
+      let ultimosExerciciosPraticados = [...user.ultimosExerciciosPraticados, idExercicio];
+      ultimosExerciciosPraticados = ultimosExerciciosPraticados.filter(v => !ultimosExerciciosPraticados?.includes(v))
+
+      betterLog(ultimosExerciciosPraticados);
+
       const atualizar = await Usuario.findByIdAndUpdate(userId, {
          ...user.toObject(),
          progresso,
          partesDoCorpoTreinadas,
+         ultimosExerciciosPraticados,
       });
       res.json({ progresso, message: "Progresso atualizado com sucesso", tempoTotalDeTreino });
    } catch (error) {
@@ -249,6 +257,7 @@ const retornarDadosTreinamento = async (req, res) => {
             if (treino.idExercicio === exercicioMaisTreinado) tempoTotalDeTreinoMaisPraticado += treino.tempoDeTreino;
          });
       });
+
       betterLog({ id: exercicioMaisTreinado, tempoTotalDeTreinoMaisPraticado });
 
       res.json({
