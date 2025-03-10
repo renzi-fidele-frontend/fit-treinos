@@ -11,6 +11,7 @@ import CardSessao from "../../components/CardSessao/CardSessao";
 import useFetch from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { segundosParaFormatoHumanizado } from "../../utils/segundosParaFormatoHumanizado";
+import { Link } from "react-router-dom";
 Chart.register(CategoryScale);
 
 const Dashboard = () => {
@@ -23,6 +24,7 @@ const Dashboard = () => {
    const [estatisticasDaSemana, setEstatisticasDaSemana] = useState(null);
    const [partesDoCorpoTreinadas, setPartesDoCorpoTreinadas] = useState(null);
    const { exercicios } = useSelector((state) => state.exercicios);
+   const [exercicioMaisTreinado, setExercicioMaisTreinado] = useState(null);
 
    const sessoes = [
       {
@@ -64,9 +66,33 @@ const Dashboard = () => {
             setDiferencialPercentualTempo(parseFloat(v.diferencialPercentualTempo).toFixed(2));
             setEstatisticasDaSemana(v.estatisticasDaSemana);
             setPartesDoCorpoTreinadas(v.partesDoCorpoTreinadas);
+            setExercicioMaisTreinado(v.exercicioMaisTreinado);
          });
       }
    }, [exercicios]);
+
+   const CardExercicioMaisTreinado = ({ exercicio, tempoDeTreino }) => (
+      <div className="mt-3">
+         <Link to={`/exercicio/${exercicio?.id}`}>
+            <Image className={styles.foto + " border rounded-1"} src={exercicio?.gifUrl} />
+         </Link>
+         <div className="d-flex align-items-center mt-2">
+            <div className="d-flex gap-2">
+               {exercicio?.secondaryMuscles?.slice(0, 1)?.map((v, k) => (
+                  <p key={k} className="text-capitalize text-bg-secondary px-2 py-1 rounded small mb-0">
+                     {v}
+                  </p>
+               ))}
+            </div>
+            <div className="vr mx-2"></div>
+            <p className="mb-0">
+               Tempo de treino:{" "}
+               <span className="fw-medium fst-italic border rounded px-1 shadow-sm">{segundosParaFormatoHumanizado(tempoDeTreino)}</span>
+            </p>
+         </div>
+         <p className="fs-5 fw-semibold text-capitalize mt-2 text-truncate mb-0">{exercicio?.name}</p>
+      </div>
+   );
 
    return (
       <Container id={styles.ct} className="h-100 py-5">
@@ -205,21 +231,10 @@ const Dashboard = () => {
                      Exercício mais praticado
                   </h6>
                   {exercicios && (
-                     <div className="mt-3">
-                        <Image className={styles.foto + " border rounded-1"} src={exercicios[20]?.gifUrl} />
-                        <div className="d-flex align-items-center mt-2">
-                           <div className="d-flex gap-2">
-                              {exercicios[20]?.secondaryMuscles.map((v, k) => (
-                                 <p key={k} className="text-capitalize text-bg-secondary px-2 py-1 rounded small mb-0">
-                                    {v}
-                                 </p>
-                              ))}
-                           </div>
-                           <div className="vr mx-2"></div>
-                           <p className="mb-0">Treinos: 12</p>
-                        </div>
-                        <p className="fs-5 fw-semibold text-capitalize mt-2 text-truncate mb-0">{exercicios[20]?.name}</p>
-                     </div>
+                     <CardExercicioMaisTreinado
+                        exercicio={exercicios?.filter((v) => v.id === exercicioMaisTreinado?.id)?.[0]}
+                        tempoDeTreino={exercicioMaisTreinado?.tempoTotalDeTreinoMaisPraticado}
+                     />
                   )}
                </div>
             </Col>

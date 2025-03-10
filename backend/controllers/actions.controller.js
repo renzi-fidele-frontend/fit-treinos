@@ -242,7 +242,14 @@ const retornarDadosTreinamento = async (req, res) => {
       });
       const exercicioMaisTreinado = Object.keys(exerciciosTreinados).reduce((a, b) => (exerciciosTreinados[a] > exerciciosTreinados[b] ? a : b));
 
-      
+      // Calculando o tempo total de treino do exercício mais treinado
+      let tempoTotalDeTreinoMaisPraticado = 0;
+      user.progresso.forEach((v) => {
+         v.treinos.forEach((treino) => {
+            if (treino.idExercicio === exercicioMaisTreinado) tempoTotalDeTreinoMaisPraticado += treino.tempoDeTreino;
+         });
+      });
+      betterLog({ id: exercicioMaisTreinado, tempoTotalDeTreinoMaisPraticado });
 
       res.json({
          nrTreinosHoje,
@@ -252,7 +259,7 @@ const retornarDadosTreinamento = async (req, res) => {
          tempoTotalAbsoluto,
          estatisticasDaSemana,
          partesDoCorpoTreinadas: user.partesDoCorpoTreinadas,
-         exercicioMaisTreinado,
+         exercicioMaisTreinado: { id: exercicioMaisTreinado, tempoTotalDeTreinoMaisPraticado },
       });
    } catch (error) {
       res.status(500).json({ message: "Erro ao retornar o nr de treinos realizados hoje" });
