@@ -113,12 +113,11 @@ const atualizarProgresso = async (req, res) => {
          }
       });
 
-      // TODO: Atualizar os últimos exercicios praticados
-      // O array não deverá ultrapassar 7 itens
-      let ultimosExerciciosPraticados = [...user.ultimosExerciciosPraticados, idExercicio];
-      ultimosExerciciosPraticados = ultimosExerciciosPraticados.filter(v => !ultimosExerciciosPraticados?.includes(v))
-
-      betterLog(ultimosExerciciosPraticados);
+      // Atualizando os últimos exercícios praticados
+      let ultimosExerciciosPraticados = user.ultimosExerciciosPraticados;
+      if (ultimosExerciciosPraticados.slice(-1)[0] !== idExercicio) {
+         ultimosExerciciosPraticados = [...ultimosExerciciosPraticados, idExercicio];
+      }
 
       const atualizar = await Usuario.findByIdAndUpdate(userId, {
          ...user.toObject(),
@@ -126,6 +125,7 @@ const atualizarProgresso = async (req, res) => {
          partesDoCorpoTreinadas,
          ultimosExerciciosPraticados,
       });
+
       res.json({ progresso, message: "Progresso atualizado com sucesso", tempoTotalDeTreino });
    } catch (error) {
       res.status(500).json({ message: "Erro ao atualizar o progresso de treino" });
@@ -258,8 +258,6 @@ const retornarDadosTreinamento = async (req, res) => {
          });
       });
 
-      betterLog({ id: exercicioMaisTreinado, tempoTotalDeTreinoMaisPraticado });
-
       res.json({
          nrTreinosHoje,
          diferencialPercentual,
@@ -268,7 +266,11 @@ const retornarDadosTreinamento = async (req, res) => {
          tempoTotalAbsoluto,
          estatisticasDaSemana,
          partesDoCorpoTreinadas: user.partesDoCorpoTreinadas,
-         exercicioMaisTreinado: { id: exercicioMaisTreinado, tempoTotalDeTreinoMaisPraticado },
+         exercicioMaisTreinado: {
+            id: exercicioMaisTreinado,
+            tempoTotalDeTreinoMaisPraticado,
+         },
+         ultimosExerciciosPraticados: user.ultimosExerciciosPraticados,
       });
    } catch (error) {
       res.status(500).json({ message: "Erro ao retornar o nr de treinos realizados hoje" });

@@ -22,6 +22,7 @@ const Dashboard = () => {
    const [diferencialPercentualTempo, setDiferencialPercentualTempo] = useState(0);
    const [estatisticasDaSemana, setEstatisticasDaSemana] = useState(null);
    const [partesDoCorpoTreinadas, setPartesDoCorpoTreinadas] = useState(null);
+   const [ultimosExerciciosPraticados, setUltimosExerciciosPraticados] = useState(null);
    const { exercicios } = useSelector((state) => state.exercicios);
    const [exercicioMaisTreinado, setExercicioMaisTreinado] = useState(null);
 
@@ -36,6 +37,12 @@ const Dashboard = () => {
             setEstatisticasDaSemana(v.estatisticasDaSemana);
             setPartesDoCorpoTreinadas(v.partesDoCorpoTreinadas);
             setExercicioMaisTreinado(v.exercicioMaisTreinado);
+            setUltimosExerciciosPraticados(
+               v.ultimosExerciciosPraticados.map((exId) => {
+                  return exercicios.find((obj) => obj.id === exId);
+               })
+            );
+            console.log(v.ultimosExerciciosPraticados);
          });
       }
    }, [exercicios]);
@@ -214,7 +221,7 @@ const Dashboard = () => {
             <Col>
                <h2 className="fw-semibold mb-4">Últimos exercícios praticados</h2>
                <Slider swipeToSlide slidesToShow={3} infinite={false} dots>
-                  {exercicios.slice(0, 6)?.map((v, k) => (
+                  {ultimosExerciciosPraticados?.map((v, k) => (
                      <CardExercicio customClass="me-4" titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} key={k} />
                   ))}
                </Slider>
