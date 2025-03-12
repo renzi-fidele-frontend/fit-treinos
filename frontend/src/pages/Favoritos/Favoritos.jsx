@@ -1,9 +1,10 @@
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Alert, Col, Container, Image, Row } from "react-bootstrap";
 import styles from "./Favoritos.module.css";
 import fotoBanner from "../../assets/modelo.png";
 import bg from "../../assets/bg1.jpg";
 import { useSelector } from "react-redux";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
+import noEx from "../../assets/modelo2.webp";
 
 const Favoritos = () => {
    const { user } = useSelector((state) => state.auth);
@@ -37,11 +38,18 @@ bg-gradient pt-5  pb-0"
                   <h2 className="fw-semibold mb-4 ">Exercícios favoritos</h2>
                   <hr />
                   <Row className="mt-2 mb-5 g-4 flex-content-stretch">
-                     {favoritos?.map((v, k) => (
-                        <Col key={k} xs={4}>
-                           <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
+                     {favoritos?.length > 0 ? (
+                        favoritos?.map((v, k) => (
+                           <Col key={k} xs={4}>
+                              <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
+                           </Col>
+                        ))
+                     ) : (
+                        <Col className="text-center">
+                           <Image src={noEx} />
+                           <Alert className="mt-4" variant="warning">Ainda não existem exercícios favoritos.</Alert>
                         </Col>
-                     ))}
+                     )}
                   </Row>
                </Col>
             </Row>

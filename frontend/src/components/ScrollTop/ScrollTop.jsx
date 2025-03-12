@@ -6,7 +6,7 @@ const ScrollTop = ({ children }) => {
 
    // Scroll para o topo da página sempre que a rota mudar
    useEffect(() => {
-      window.scrollTo(0, 0);
+      window.scrollTo(0, 1);
    }, [path]);
    return <>{children}</>;
 };
