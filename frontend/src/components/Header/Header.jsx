@@ -1,7 +1,7 @@
 import { Container, Image, Nav, Navbar } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import styles from "./Header.module.css";
-import logo from "../../assets/logo.jpg";
+import logo from "../../assets/logo.png";
 import MudarTemaBtn from "../ui/MudarTemaBtn";
 import DropDownBtn from "../ui/DropDownBtn";
 import { useSelector } from "react-redux";
