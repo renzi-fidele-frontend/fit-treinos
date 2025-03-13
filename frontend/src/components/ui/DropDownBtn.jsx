@@ -4,7 +4,7 @@ import { Dropdown, Image, NavLink } from "react-bootstrap";
 import styles from "./DropDownBtn.module.css";
 import { Link } from "react-router-dom";
 
-const DropDownBtn = () => {
+const DropDownBtn = ({ customClass }) => {
    const dispatch = useDispatch();
    const { user } = useSelector((state) => state.auth);
    function deslogar() {
@@ -14,7 +14,7 @@ const DropDownBtn = () => {
    }
 
    return (
-      <Dropdown drop="start" className="d-flex align-items-center ms-4">
+      <Dropdown drop="start" className={"d-flex align-items-center ms-4 " + customClass}>
          <Dropdown.Toggle id={styles.seta} as="a">
             <Image className="border border-secondary border-1 rounded-circle object-fit-cover " id={styles.fotoUsuario} src={user?.foto} />
          </Dropdown.Toggle>

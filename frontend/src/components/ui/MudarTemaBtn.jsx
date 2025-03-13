@@ -12,14 +12,16 @@ const MudarTemaBtn = () => {
    }
 
    return (
-      <div
-         role="button"
-         style={{ height: "fit-content", lineHeight: "0" }}
-         onClick={alternarTema}
-         className="ms-3 rounded-circle d-flex align-items-center border p-2"
-      >
-         {!modoEscuro ? <i className="bi bi-moon-stars-fill"></i> : <i className="bi bi-brightness-high-fill"></i>}
-      </div>
+      <>
+         <div
+            role="button"
+            style={{ height: "fit-content", lineHeight: "0" }}
+            onClick={alternarTema}
+            className=" ms-3 rounded-circle d-flex align-items-center border p-2"
+         >
+            {!modoEscuro ? <i className="bi bi-moon-stars-fill"></i> : <i className="bi bi-brightness-high-fill"></i>}
+         </div>
+      </>
    );
 };
 export default MudarTemaBtn;

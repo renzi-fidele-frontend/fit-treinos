@@ -1,3 +1,8 @@
 #logo {
     width: 170px;
 }
+
+#toggle {
+    font-size: 2rem;
+    line-height: 0;
+}
