@@ -86,7 +86,7 @@ const CardTestemunho = ({ foto, nome, testemunho }) => (
 const Home = () => {
    const dispatch = useDispatch();
    const verificar = useSocialAuth();
-   const { categorias, categoriaEscolhida,  } = useSelector((state) => state.configs);
+   const { categorias, categoriaEscolhida } = useSelector((state) => state.configs);
    const { exerciciosDeCategoria, exercicios } = useSelector((state) => state.exercicios);
 
    const apanharCategorias = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, categorias);
@@ -125,17 +125,21 @@ const Home = () => {
    return (
       <Container fluid>
          {/*  Banner Inicial  */}
-         <Row className="px-5">
-            <Col sm={6} className="d-flex flex-column justify-content-center ps-5 position-relative">
-               <div className="ps-5 pe-2">
+         <Row className="px-sm-5 flex-column-reverse flex-lg-row">
+            <Col
+               lg={6}
+               className="d-flex flex-column justify-content-center ps-2 ps-xxl-5 position-relative text-center text-lg-start pb-5 pb-lg-0 pt-4 pt-lg-0"
+            >
+               <div className="ps-lg-3 ps-xxl-5 pe-lg-4">
                   <h1 className="" id={styles.titulo}>
                      Transpire, sorria
-                     <br /> e fique saudável
+                     <br className="d-none d-lg-block" /> e fique saudável
                   </h1>
-                  <p className="mb-5 mt-5 fs-5">Descubra os exercícios que mais dão resultados, de maneira simples e organizada</p>
-                  <Button as={Link} to="/exercicios" variant="secondary" size="lg" className="align-self-baseline">
+                  <p className="mb-4 mb-sm-5 mt-4 mt-lg-5 fs-5">Descubra os exercícios que mais dão resultados, de maneira simples e organizada</p>
+                  <Button as={Link} to="/exercicios" variant="secondary" size="lg" className="align-self-baseline mb-5 mb-lg-0">
                      Descobrir Exercícios
                   </Button>
+                  <div className="mb-5 mb-lg-0"></div>
                   <div id={styles.animacao}>
                      <span id={styles.textoOverflow}>
                         Treine Pesado <b>·</b> Tenha consistência <b>·</b> Tenha determinação

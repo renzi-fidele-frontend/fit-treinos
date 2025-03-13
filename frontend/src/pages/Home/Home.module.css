@@ -66,3 +66,49 @@
    font-weight: 800;
    text-shadow: 0 0 2px black;
 }
+
+@media screen and (max-width: 1440px) {
+   #fotoBanner {
+      height: 650px;
+   }
+   #titulo {
+      font-size: 3.5em;
+   }
+}
+
+@media screen and (max-width: 1200px) {
+   #titulo {
+      font-size: 3em;
+   }
+   #fotoBanner {
+      height: 600px;
+   }
+}
+
+@media screen and (max-width: 992px) {
+   #fotoBanner {
+      height: 400px;
+   }
+   #titulo {
+      font-size: 2.5em;
+   }
+   #textoOverflow {
+      font-size: 4rem;
+   }
+}
+
+@media screen and (max-width: 650px) {
+   #titulo {
+      font-size: 2.1em;
+   }
+}
+
+@media screen and (max-width: 500px) {
+   #fotoBanner {
+      height: 310px;
+   }
+
+   #titulo {
+      font-size: 1.8em;
+   }
+}
