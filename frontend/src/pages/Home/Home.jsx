@@ -135,7 +135,9 @@ const Home = () => {
                      Transpire, sorria
                      <br className="d-none d-lg-block" /> e fique saudável
                   </h1>
-                  <p className="mb-4 mb-sm-5 mt-4 mt-lg-5 fs-5">Descubra os exercícios que mais dão resultados, de maneira simples e organizada</p>
+                  <p className="mb-4 mb-sm-5 mt-4 mt-lg-5 fs-5">
+                     Descubra os exercícios que mais dão resultados, de maneira simples e organizada
+                  </p>
                   <Button as={Link} to="/exercicios" variant="secondary" size="lg" className="align-self-baseline mb-5 mb-lg-0">
                      Descobrir Exercícios
                   </Button>
@@ -152,14 +154,26 @@ const Home = () => {
             </Col>
          </Row>
 
-         <Row className="mt-5 py-5">
+         <Row className="mt-0 mt-md-5 py-5">
             <Col className="text-center">
                <Titulo texto="Exercícios incríveis para você Treinar " />
 
                {/*  Filtragem */}
                {/* TODO: Traduzir as partes do corpo */}
                <Container className="mt-5">
-                  <Slider draggable={false} arrows={true} infinite={false} className="list-group" slidesToScroll={1} slidesToShow={4}>
+                  <Slider
+                     draggable={false}
+                     responsive={[
+                        { breakpoint: 1200, settings: { slidesToShow: 3 } },
+                        { breakpoint: 992, settings: { slidesToShow: 2 } },
+                        { breakpoint: 480, settings: { slidesToShow: 1 } },
+                     ]}
+                     arrows={true}
+                     infinite={false}
+                     className="list-group"
+                     slidesToScroll={1}
+                     slidesToShow={4}
+                  >
                      {categorias?.map((v, k) => (
                         <ListGroupItem
                            className="py-1 d-flex gap-2 align-items-center flex-column position-relative"
