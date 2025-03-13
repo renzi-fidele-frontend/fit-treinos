@@ -195,13 +195,13 @@ const Home = () => {
                </Container>
 
                {/*  Exercícios  */}
-               <Container fluid className="mt-5 px-5">
+               <Container fluid className="mt-5 px-xl-5">
                   <hr className="mx-5" />
-                  <Row className="mt-2 mx-5 mb-5 px-5 g-4 justify-content-center flex-content-stretch">
+                  <Row className="mt-2 mx-sm-5 mb-5 px-xl-5 g-4 justify-content-center flex-content-stretch">
                      {exerciciosDeCategoria?.map(
                         (v, k) =>
                            k < 7 && (
-                              <Col key={k} xs={3}>
+                              <Col key={k} sm={6} lg={4} xxl={3}>
                                  <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
                               </Col>
                            )
