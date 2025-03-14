@@ -215,7 +215,9 @@ const Home = () => {
          </Row>
 
          {/*  Seção das vantagens do App  */}
-         <Row className="mt-5 pe-xxl-5 py-5 bg-black text-light position-relative bg-gradient overflow-hidden flex-column-reverse flex-xxl-row ">
+         <Row
+            className={"mt-5 pe-xxl-5 py-5 bg-black text-light position-relative bg-gradient overflow-hidden flex-column-reverse flex-xxl-row"}
+         >
             <Image src={bg1} id={styles.bg1} className="position-absolute end-0 start-0 top-0 p-0 h-100" />
             <Col style={{ zIndex: "2" }} className="ps-0">
                <div className="d-flex align-items-center h-100">
@@ -248,7 +250,7 @@ const Home = () => {
          </Row>
 
          {/*  Seção dos testemunhos  */}
-         <Row id={styles.bg2} className="text-center ">
+         <Row id={styles.bg2} style={{}} className="text-center ">
             <Col className="py-5 px-5">
                <h2 className="fw-semibold fs-1 mb-5 ">Testemunhos dos usuários do site</h2>
                <Slider
@@ -257,7 +259,7 @@ const Home = () => {
                   slidesToShow={3}
                   responsive={[
                      { breakpoint: 1024, settings: { slidesToShow: 2 } },
-                     { breakpoint: 480, settings: { slidesToShow: 1 } },
+                     { breakpoint: 600, settings: { slidesToShow: 1 } },
                   ]}
                >
                   {testemunhos.map(({ nome, foto, testemunho }, k) => (
