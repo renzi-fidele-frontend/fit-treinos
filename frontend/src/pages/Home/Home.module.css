@@ -62,7 +62,7 @@
 }
 
 #titbanner {
-   font-size: 4rem;
+   font-size: 3.3rem;
    font-weight: 800;
    text-shadow: 0 0 2px black;
 }
@@ -95,11 +95,19 @@
    #textoOverflow {
       font-size: 4rem;
    }
+
+   #titbanner {
+      font-size: 2.8rem;
+   }
 }
 
 @media screen and (max-width: 650px) {
    #titulo {
       font-size: 2.1em;
+   }
+
+   #titbanner {
+      font-size: 2.1rem;
    }
 }
 
@@ -110,6 +118,14 @@
 
    #titulo {
       font-size: 1.8em;
+   }
+
+   #subBanner {
+      font-size: 16px !important;
+   }
+
+   #titbanner {
+      font-size: 1.7rem;
    }
 }
 

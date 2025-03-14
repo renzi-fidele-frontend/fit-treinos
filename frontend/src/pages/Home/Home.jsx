@@ -197,7 +197,7 @@ const Home = () => {
                {/*  Exercícios  */}
                <Container fluid className="mt-5 px-xl-5">
                   <hr className="mx-5" />
-                  <Row className="mt-2 mx-sm-5 mb-5 px-xl-5 g-4 justify-content-center flex-content-stretch">
+                  <Row className="mt-2 mx-xxl-5 mb-5 px-xl-5 g-4 justify-content-center flex-content-stretch">
                      {exerciciosDeCategoria?.map(
                         (v, k) =>
                            k < 7 && (
@@ -215,23 +215,27 @@ const Home = () => {
          </Row>
 
          {/*  Seção 3  */}
-         <Row className="mt-5 pe-5 py-5 bg-black text-light position-relative bg-gradient overflow-hidden">
-            <Image src={bg1} id={styles.bg1} className="position-absolute end-0 start-0 top-0 h-auto p-0" />
+         <Row className="mt-5 pe-xxl-5 py-5 bg-black text-light position-relative bg-gradient overflow-hidden flex-column-reverse flex-xxl-row ">
+            <Image src={bg1} id={styles.bg1} className="position-absolute end-0 start-0 top-0 p-0 h-100" />
             <Col style={{ zIndex: "2" }} className="ps-0">
-               <Image id={styles.fotoAtleta} src={fotoAtleta} alt="Atleta que alcançou o melhor resultado" />
+               <div className="d-flex align-items-center h-100">
+                  <Image id={styles.fotoAtleta} className="d-none d-xxl-block" src={fotoAtleta} alt="Atleta que alcançou o melhor resultado" />
+               </div>
             </Col>
-            <Col style={{ zIndex: "2" }} md={7} className="pe-5 justify-content-center gap-3 d-flex flex-column">
-               <h3 id={styles.titbanner}>O melhor lugar para você ficar em forma</h3>
-               <p className="fs-5">
+            <Col style={{ zIndex: "2" }} xxl={7} className="pe-xxl-5 px-3 px-sm-5 px-xxl-0 justify-content-center gap-3 d-flex flex-column">
+               <h3 className="me-sm-5" id={styles.titbanner}>
+                  O melhor lugar para você ficar em forma
+               </h3>
+               <p id={styles.subBanner} className={"fs-5 "}>
                   Descubra o jeito mais divertido e prático de atingir seus objetivos fitness! Aqui você encontra uma plataforma completa com
                   exercícios detalhados
                </p>
 
-               <Row className="mt-3 mb-4 g-3">
+               <Row className="mt-lg-3 mb-4 g-3">
                   {vantagens.map(({ titulo, texto }, k) => (
-                     <Col xs={6} key={k}>
-                        <Card className="h-100 border-top  border-5">
-                           <Card.Body>
+                     <Col sm={6} key={k}>
+                        <Card className="h-100 border-top pt-0 border-5">
+                           <Card.Body className="pt-2">
                               <i className={`fs-${k + 1} bi bi-${k + 1}-circle`}></i>
                               <Card.Title className="fw-semibold">{titulo}</Card.Title>
                               <Card.Text>{texto}</Card.Text>
