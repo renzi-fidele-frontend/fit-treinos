@@ -214,7 +214,7 @@ const Home = () => {
             </Col>
          </Row>
 
-         {/*  Seção 3  */}
+         {/*  Seção das vantagens do App  */}
          <Row className="mt-5 pe-xxl-5 py-5 bg-black text-light position-relative bg-gradient overflow-hidden flex-column-reverse flex-xxl-row ">
             <Image src={bg1} id={styles.bg1} className="position-absolute end-0 start-0 top-0 p-0 h-100" />
             <Col style={{ zIndex: "2" }} className="ps-0">
@@ -247,6 +247,7 @@ const Home = () => {
             </Col>
          </Row>
 
+         {/*  Seção dos testemunhos  */}
          <Row id={styles.bg2} className="text-center ">
             <Col className="py-5 px-5">
                <h2 className="fw-semibold fs-1 mb-5 ">Testemunhos dos usuários do site</h2>

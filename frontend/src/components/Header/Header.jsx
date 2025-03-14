@@ -14,30 +14,30 @@ const Header = () => {
    const MyNav = ({ offcanvas }) => (
       <Nav className={`gap-3 fs-5 ${!offcanvas ? "d-none d-lg-flex" : "d-flex"} `} activeKey={loc.pathname}>
          <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/"} as={Link} to={"/"}>
-            Início
+            <i className="me-2 d-lg-none bi bi-house-fill"></i> Início
          </Nav.Link>
          <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/exercicios"} as={Link} to={"/exercicios"}>
-            Exercícios
+            <i className="me-2 d-lg-none bi bi-person-arms-up"></i> Exercícios
          </Nav.Link>
          {!user && (
             <>
                <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/cadastro"} as={Link} to={"/cadastro"}>
-                  Cadastrar
+                  <i className="me-2 d-lg-none bi bi-person-add"></i> Cadastrar
                </Nav.Link>
                <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/entrar"} as={Link} to={"/entrar"}>
-                  Entrar
+                  <i className="me-2 d-lg-none bi bi-person-fill-lock"></i> Entrar
                </Nav.Link>
             </>
          )}
          {user && (
-            <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/dashboard"} as={Link} to="/dashboard">
-               Progresso do treinamento
-            </Nav.Link>
-         )}
-         {user && (
-            <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/favoritos"} as={Link} to="/favoritos">
-               Favoritos
-            </Nav.Link>
+            <>
+               <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/dashboard"} as={Link} to="/dashboard">
+                  <i className="me-2 d-lg-none bi bi-graph-up-arrow"></i> Progresso do treinamento
+               </Nav.Link>
+               <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/favoritos"} as={Link} to="/favoritos">
+                  <i className="me-2 d-lg-none bi bi-box2-heart-fill"></i> Favoritos
+               </Nav.Link>
+            </>
          )}
       </Nav>
    );
