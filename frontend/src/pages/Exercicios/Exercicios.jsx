@@ -6,7 +6,7 @@ import Titulo from "../../components/ui/Titulo";
 import { useDispatch, useSelector } from "react-redux";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
 import useFetch from "../../hooks/useFetch";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { setCategorias, setEquipamentos, setMusculoAlvo, setPaginaAtual } from "../../state/configs/configsSlice";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import Paginacao from "../../components/Paginacao/Paginacao";
@@ -73,7 +73,7 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                <Col className="text-center">
                   <Titulo texto="Encontre todos os exercícios" />
                   {/*  Filtragem  */}
-                  
+
                   <Container className="mb-5 mt-4 px-5 ">
                      <Row className="px-5 g-5">
                         <Col>
@@ -87,19 +87,6 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                               modo="Parte do corpo"
                               array={partesCorpo}
                            />
-                           {/* <Form.Select
-                              defaultValue={filtros?.parteDoCorpo}
-                              onChange={filtrarExercicios}
-                              ref={parteDoCorpoRef}
-                              className="text-capitalize"
-                           >
-                              <option value="todos">Todos</option>
-                              {partesCorpo?.map((v, k) => (
-                                 <option key={k} value={v}>
-                                    {v}
-                                 </option>
-                              ))}
-                           </Form.Select> */}
                         </Col>
                         <Col>
                            <Form.Group>
@@ -113,19 +100,6 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                                  modo="Equipamento"
                                  array={equipamentos}
                               />
-                              {/* <Form.Select
-                                 defaultValue={filtros?.equipamento}
-                                 onChange={filtrarExercicios}
-                                 ref={equipamentoRef}
-                                 className="text-capitalize"
-                              >
-                                 <option value="todos">Todos</option>
-                                 {equipamentos?.map((v, k) => (
-                                    <option value={v} key={k}>
-                                       {v}
-                                    </option>
-                                 ))}
-                              </Form.Select> */}
                            </Form.Group>
                         </Col>
                         <Col>
@@ -140,19 +114,6 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                                  modo="Músculo a fortificar"
                                  array={musculoAlvo}
                               />
-                              {/* <Form.Select
-                                 defaultValue={filtros?.musculoAlvo}
-                                 onChange={filtrarExercicios}
-                                 ref={musculoAlvoRef}
-                                 className="text-capitalize"
-                              >
-                                 <option value="todos">Todos</option>
-                                 {musculoAlvo?.map((v, k) => (
-                                    <option value={v} key={k}>
-                                       {v}
-                                    </option>
-                                 ))}
-                              </Form.Select> */}
                            </Form.Group>
                         </Col>
                      </Row>
