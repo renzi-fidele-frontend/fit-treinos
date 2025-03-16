@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
    categorias: null,
    categoriaEscolhida: null,
-   filtros: null,
+   filtros: { equipamento: "todos", musculoAlvo: "todos", parteDoCorpo: "todos" },
    equipamentos: null,
    musculoAlvo: null,
    paginaAtual: 1,

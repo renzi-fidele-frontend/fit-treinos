@@ -1,0 +1,16 @@
+.ct {
+
+}
+
+.modalBd {
+    max-height: 70dvh;
+    overflow-y: auto;
+}
+
+#noFilterIco {
+    font-size: 6rem;
+}
+
+#grupo > button {
+    flex-basis: 33.3% !important;
+}

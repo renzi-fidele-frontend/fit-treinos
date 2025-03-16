@@ -1,4 +1,4 @@
-import { Col, Container, Form, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import styles from "./Exercicios.module.css";
 import fotoBanner from "../../assets/bannerEx.png";
 import bg from "../../assets/bg1.jpg";
@@ -6,29 +6,33 @@ import Titulo from "../../components/ui/Titulo";
 import { useDispatch, useSelector } from "react-redux";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
 import useFetch from "../../hooks/useFetch";
-import { useEffect, useRef } from "react";
-import { setCategorias, setEquipamentos, setFiltros, setMusculoAlvo, setPaginaAtual } from "../../state/configs/configsSlice";
+import { useEffect, useRef, useState } from "react";
+import { setCategorias, setEquipamentos, setMusculoAlvo, setPaginaAtual } from "../../state/configs/configsSlice";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import Paginacao from "../../components/Paginacao/Paginacao";
 import { paginarArray } from "../../utils/paginarArray";
-import { setExercicios, setExerciciosFiltrados, setExerciciosPaginados } from "../../state/exercicios/exerciciosSlice";
+import { setExercicios, setExerciciosPaginados } from "../../state/exercicios/exerciciosSlice";
+import ModalFiltragem from "../../components/ModalFiltragem/ModalFiltragem";
+import useFiltrarExercicios from "../../hooks/useFiltrarExercicios";
 
 const Exercicios = () => {
    const { categorias: partesCorpo, equipamentos, musculoAlvo, filtros, paginaAtual } = useSelector((state) => state.configs);
    const { exercicios, exerciciosFiltrados, exerciciosPaginados } = useSelector((state) => state.exercicios);
    const dispatch = useDispatch();
-   const parteDoCorpoRef = useRef();
-   const equipamentoRef = useRef();
-   const musculoAlvoRef = useRef();
+   const { filtrarExercicios } = useFiltrarExercicios();
 
+   // Modais de filtragem
+   const [modalParteDoCorpo, setModalParteDoCorpo] = useState(false);
+   const [modalEquipamentos, setModalEquipamentos] = useState(false);
+   const [modalMusculosAlvo, setModalMusculosAlvo] = useState(false);
+
+   // Requisições
    const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises?limit=1000", exercisesFetchOptions, exercicios);
-
    const apanharPartesCorpo = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, partesCorpo);
-
    const apanharEquipamentos = useFetch("https://exercisedb.p.rapidapi.com/exercises/equipmentList", exercisesFetchOptions, equipamentos);
-
    const apanharMusculoAlvo = useFetch("https://exercisedb.p.rapidapi.com/exercises/targetList", exercisesFetchOptions, musculoAlvo);
 
+   // Armazenando os dados da api
    useEffect(() => {
       if (!exercicios) dispatch(setExercicios(apanharExercicios.data));
       if (!partesCorpo) dispatch(setCategorias(apanharPartesCorpo.data));
@@ -36,35 +40,10 @@ const Exercicios = () => {
       if (!musculoAlvo) dispatch(setMusculoAlvo(apanharMusculoAlvo.data));
    }, [apanharPartesCorpo.data, apanharEquipamentos.data, apanharMusculoAlvo.data, apanharExercicios.data]);
 
-   function filtrarExercicios() {
-      dispatch(
-         setFiltros({
-            parteDoCorpo: parteDoCorpoRef.current.value,
-            equipamento: equipamentoRef.current.value,
-            musculoAlvo: musculoAlvoRef.current.value,
-         })
-      );
-
-      const dadosFiltrados = exercicios
-         ?.filter((parteDoCorpo) =>
-            parteDoCorpoRef?.current?.value !== "todos" ? parteDoCorpo?.bodyPart?.includes(parteDoCorpoRef?.current?.value) : true
-         )
-         ?.filter((equipamento) =>
-            equipamentoRef?.current?.value !== "todos" ? equipamento?.equipment?.includes(equipamentoRef?.current?.value) : true
-         )
-         ?.filter((musculoAlvo) =>
-            musculoAlvoRef?.current?.value !== "todos" ? musculoAlvo?.target?.includes(musculoAlvoRef?.current?.value) : true
-         );
-
-      dispatch(setPaginaAtual(1));
-      dispatch(setExerciciosFiltrados(dadosFiltrados));
-      dispatch(setExerciciosPaginados(paginarArray(dadosFiltrados, 1, 12)));
-   }
-
    // Caso a página carrege e hajam filtros
    useEffect(() => {
-      if (!exerciciosFiltrados && exercicios) filtrarExercicios();
-   }, [exercicios]);
+      if (!exerciciosFiltrados && exercicios) filtrarExercicios(filtros);
+   }, [exercicios, filtros]);
 
    return (
       <div>
@@ -79,7 +58,9 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                <Row className="position-relative px-2 px-sm-5 px-md-0">
                   <Col xs={8} sm={7} className="justify-content-center flex-column gap-3 d-flex">
                      <h2 id={styles.titBanner}>Está na hora de dar aquela melhorada no seu físico</h2>
-                     <p className="fs-4 mb-3 mb-sm-0" id={styles.bannerSub}>Mais de 1000 exercícios foram preparados para você</p>
+                     <p className="fs-4 mb-3 mb-sm-0" id={styles.bannerSub}>
+                        Mais de 1000 exercícios foram preparados para você
+                     </p>
                   </Col>
                   <Col className="text-end pe-md-5">
                      <Image id={styles.fotoBanner} src={fotoBanner} />
@@ -92,30 +73,47 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                <Col className="text-center">
                   <Titulo texto="Encontre todos os exercícios" />
                   {/*  Filtragem  */}
-                  <Form className="mb-5 mt-4 px-5 container">
+                  
+                  <Container className="mb-5 mt-4 px-5 ">
                      <Row className="px-5 g-5">
                         <Col>
-                           <Form.Group>
-                              <Form.Label className="fs-4 fw-semibold mb-3">Parte do corpo</Form.Label>
-                              <Form.Select
-                                 defaultValue={filtros?.parteDoCorpo}
-                                 onChange={filtrarExercicios}
-                                 ref={parteDoCorpoRef}
-                                 className="text-capitalize"
-                              >
-                                 <option value="todos">Todos</option>
-                                 {partesCorpo?.map((v, k) => (
-                                    <option key={k} value={v}>
-                                       {v}
-                                    </option>
-                                 ))}
-                              </Form.Select>
-                           </Form.Group>
+                           <h6 className="fs-4 fw-semibold mb-3">Parte do corpo</h6>
+                           <Button variant="outline-primary" onClick={() => setModalParteDoCorpo(true)}>
+                              Escolher...
+                           </Button>
+                           <ModalFiltragem
+                              mostrar={modalParteDoCorpo}
+                              onClose={() => setModalParteDoCorpo(false)}
+                              modo="Parte do corpo"
+                              array={partesCorpo}
+                           />
+                           {/* <Form.Select
+                              defaultValue={filtros?.parteDoCorpo}
+                              onChange={filtrarExercicios}
+                              ref={parteDoCorpoRef}
+                              className="text-capitalize"
+                           >
+                              <option value="todos">Todos</option>
+                              {partesCorpo?.map((v, k) => (
+                                 <option key={k} value={v}>
+                                    {v}
+                                 </option>
+                              ))}
+                           </Form.Select> */}
                         </Col>
                         <Col>
                            <Form.Group>
-                              <Form.Label className="fs-4 fw-semibold mb-3">Equipamento</Form.Label>
-                              <Form.Select
+                              <h6 className="fs-4 fw-semibold mb-3">Equipamento</h6>
+                              <Button variant="outline-primary" onClick={() => setModalEquipamentos(true)}>
+                                 Escolher...
+                              </Button>
+                              <ModalFiltragem
+                                 mostrar={modalEquipamentos}
+                                 onClose={() => setModalEquipamentos(false)}
+                                 modo="Equipamento"
+                                 array={equipamentos}
+                              />
+                              {/* <Form.Select
                                  defaultValue={filtros?.equipamento}
                                  onChange={filtrarExercicios}
                                  ref={equipamentoRef}
@@ -127,13 +125,22 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                                        {v}
                                     </option>
                                  ))}
-                              </Form.Select>
+                              </Form.Select> */}
                            </Form.Group>
                         </Col>
                         <Col>
                            <Form.Group>
-                              <Form.Label className="fs-4 fw-semibold mb-3">Músculo a fortificar</Form.Label>
-                              <Form.Select
+                              <h6 className="fs-4 fw-semibold mb-3">Músculo a fortificar</h6>
+                              <Button variant="outline-primary" onClick={() => setModalMusculosAlvo(true)}>
+                                 Escolher...
+                              </Button>
+                              <ModalFiltragem
+                                 mostrar={modalMusculosAlvo}
+                                 onClose={() => setModalMusculosAlvo(false)}
+                                 modo="Músculo a fortificar"
+                                 array={musculoAlvo}
+                              />
+                              {/* <Form.Select
                                  defaultValue={filtros?.musculoAlvo}
                                  onChange={filtrarExercicios}
                                  ref={musculoAlvoRef}
@@ -145,11 +152,11 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                                        {v}
                                     </option>
                                  ))}
-                              </Form.Select>
+                              </Form.Select> */}
                            </Form.Group>
                         </Col>
                      </Row>
-                  </Form>
+                  </Container>
 
                   {/* Exercicios */}
                   <Container fluid className="mt-5 px-5">
