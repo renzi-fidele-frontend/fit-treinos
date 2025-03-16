@@ -1,12 +1,64 @@
-#banner {
-    min-height: 400px;
-}
-
 #titBanner {
-    font-size: 3.7rem;
-    font-weight: 800;
+   font-size: 3.7rem;
+   font-weight: 800;
 }
 
 #bg {
-    opacity: .8;
+   opacity: 0.8;
+}
+
+@media screen and (max-width: 1200px) {
+   #titBanner {
+      font-size: 3rem;
+   }
+
+   #fotoBanner {
+      width: 230px;
+   }
+}
+
+@media screen and (max-width: 992px) {
+   #titBanner {
+      font-size: 2.4rem;
+   }
+
+   #fotoBanner {
+      width: 200px;
+   }
+}
+
+@media screen and (max-width: 768px) {
+   #titBanner {
+      font-size: 2rem;
+   }
+
+   #bannerSub {
+      font-size: 18px !important;
+   }
+}
+
+@media screen and (max-width: 600px) {
+   #bg {
+      height: 100% !important;
+      width: 100% !important;
+   }
+}
+
+@media screen and (max-width: 575px) {
+   #titBanner {
+      font-size: 1.6rem;
+   }
+   #bannerSub {
+      font-size: 15px !important;
+   }
+
+   #fotoBanner {
+    width: 140px;
+ }
+}
+
+@media screen and (max-width: 442px) {
+    #titBanner {
+        font-size: 1.3rem;
+     }
 }

@@ -72,20 +72,20 @@ const Exercicios = () => {
          <div
             id={styles.banner}
             className="position-relative overflow-hidden bg-secondary
-bg-gradient pt-5  pb-0"
+bg-gradient pt-4 pt-sm-5  pb-0"
          >
             <Image src={bg} id={styles.bg} className="position-absolute top-0 start-0 end-0 h-auto" />
-            <Container>
-               <Row className="position-relative">
-                  <Col sm={7} className="justify-content-center flex-column gap-3 d-flex">
+            <div className="container-md">
+               <Row className="position-relative px-2 px-sm-5 px-md-0">
+                  <Col xs={8} sm={7} className="justify-content-center flex-column gap-3 d-flex">
                      <h2 id={styles.titBanner}>Está na hora de dar aquela melhorada no seu físico</h2>
-                     <p className="fs-4">Mais de 1000 exercícios foram preparados para você</p>
+                     <p className="fs-4 mb-3 mb-sm-0" id={styles.bannerSub}>Mais de 1000 exercícios foram preparados para você</p>
                   </Col>
-                  <Col className="text-end pe-5">
-                     <Image src={fotoBanner} />
+                  <Col className="text-end pe-md-5">
+                     <Image id={styles.fotoBanner} src={fotoBanner} />
                   </Col>
                </Row>
-            </Container>
+            </div>
          </div>
          <Container fluid>
             <Row className="py-5">
