@@ -8,32 +8,71 @@
 }
 
 .chart {
-    width: 100% !important;
-    height: auto !important;
+   width: 100% !important;
+   height: auto !important;
 }
 
 .foto {
-    height: 310px;
-    width: 100%;
-    object-fit: cover;
+   height: 310px;
+   width: 100%;
+   object-fit: cover;
 }
 
 #ct i {
-    line-height: 0 !important;
- }
- 
- #icon1 {
-    background-color: #ffeacd;
-    color: #ce8d01 !important;
- }
- 
- #icon2 {
-    background-color: #ddedf0;
-    color: #09808d !important;
- }
- 
- #icon3 {
-    background-color: #ffd7fb;
-    color: #572552 !important;
- }
- 
+   line-height: 0 !important;
+}
+
+#icon1 {
+   background-color: #ffeacd;
+   color: #ce8d01 !important;
+}
+
+#icon2 {
+   background-color: #ddedf0;
+   color: #09808d !important;
+}
+
+#icon3 {
+   background-color: #ffd7fb;
+   color: #572552 !important;
+}
+
+@media screen and (max-width: 1400px) {
+   .foto {
+      height: 250px;
+   }
+
+   #small {
+      font-size: 15px !important;
+   }
+}
+
+@media screen and (max-width: 1200px) {
+   .foto {
+      height: 350px;
+   }
+}
+
+@media screen and (max-width: 992px) {
+   .foto {
+      height: 320px;
+   }
+}
+
+@media screen and (max-width: 830px) {
+   .foto {
+      height: 270px;
+   }
+}
+
+@media screen and (max-width: 666px) {
+   .foto {
+      height: 270px;
+   }
+}
+
+@media screen and (max-width: 570px) {
+   .foto {
+      height: auto;
+   }
+}

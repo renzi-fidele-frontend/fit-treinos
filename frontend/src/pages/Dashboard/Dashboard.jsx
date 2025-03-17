@@ -11,6 +11,7 @@ import useFetch from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { segundosParaFormatoHumanizado } from "../../utils/segundosParaFormatoHumanizado";
 import { Link } from "react-router-dom";
+import mediaTreinos from "../../assets/mediaTreinos.png";
 Chart.register(CategoryScale);
 
 const Dashboard = () => {
@@ -47,36 +48,43 @@ const Dashboard = () => {
       }
    }, [exercicios]);
 
-   const CardExercicioMaisTreinado = ({ exercicio, tempoDeTreino }) => (
-      <div className="mt-3">
-         <Link to={`/exercicio/${exercicio?.id}`}>
-            <Image className={styles.foto + " border rounded-1"} src={exercicio?.gifUrl} />
-         </Link>
-         <div className="d-flex align-items-center mt-2">
-            <div className="d-flex gap-2">
-               {exercicio?.secondaryMuscles?.slice(0, 1)?.map((v, k) => (
-                  <p key={k} className="text-capitalize text-bg-secondary px-2 py-1 rounded small mb-0">
-                     {v}
-                  </p>
-               ))}
+   const CardExercicioMaisTreinado = ({ exercicio, tempoDeTreino }) => {
+      const musculoSecundario = exercicio?.secondaryMuscles?.slice(0, 1)[0];
+
+      return (
+         <div className="mt-3">
+            <Link to={`/exercicio/${exercicio?.id}`} className="position-relative h-100 d-flex justify-content-end align-items-end">
+               <Image className={styles.foto + " border rounded-1"} src={exercicio?.gifUrl} />
+               {/* Tag mobile */}
+               <p className="text-capitalize text-bg-secondary px-2 py-1 rounded small mb-0 position-absolute d-xxl-none me-1 mb-1 shadow-lg">
+                  {musculoSecundario}
+               </p>
+            </Link>
+            <div className="d-flex align-items-center mt-2">
+               <div className="d-flex gap-2">
+                  {/* Tag desktop */}
+                  <p className="text-capitalize text-bg-secondary px-2 py-1 rounded small mb-0 d-none d-xxl-block ">{musculoSecundario}</p>
+               </div>
+               <div className="vr mx-2 d-none d-xxl-block"></div>
+               <p className="mb-0">
+                  Tempo de treino:{" "}
+                  <span className="fw-medium fst-italic border rounded px-1 shadow-sm">{segundosParaFormatoHumanizado(tempoDeTreino)}</span>
+               </p>
             </div>
-            <div className="vr mx-2"></div>
-            <p className="mb-0">
-               Tempo de treino:{" "}
-               <span className="fw-medium fst-italic border rounded px-1 shadow-sm">{segundosParaFormatoHumanizado(tempoDeTreino)}</span>
-            </p>
+            <p className="fs-5 fw-semibold text-capitalize mt-2 text-truncate mb-0">{exercicio?.name}</p>
          </div>
-         <p className="fs-5 fw-semibold text-capitalize mt-2 text-truncate mb-0">{exercicio?.name}</p>
-      </div>
-   );
+      );
+   };
 
    return (
-      <Container id={styles.ct} className="h-100 py-5">
-         <h2 className="fw-semibold mb-4 ">Progresso do treinamento</h2>
-
+      <div id={styles.ct} className="h-100  py-4 py-md-5 px-3  px-lg-5 container-lg">
+         <h2 className="fw-semibold mb-3 text-center text-xl-start ">Progresso do treinamento</h2>
+         {/* Separador Mobile */}
+         <hr className="d-xl-none mb-4" />
          {/* Primeira linha */}
-         <Row>
-            <Col md={4}>
+         <Row className="justify-content-center g-3 g-xl-4 flex-wrap flex-xl-nowrap">
+            {/* Tempo total de treino */}
+            <Col sm={6} xl={4}>
                <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
                   <div className="d-flex justify-content-between">
                      <h6 id={styles.tit} className="mb-0">
@@ -87,10 +95,13 @@ const Dashboard = () => {
                      </div>
                   </div>
                   <h5 className="fs-1 fw-bold mb-3">{segundosParaFormatoHumanizado(tempoTotalTreino)}</h5>
-                  <p className="text-secondary mb-0">O tempo acumulado praticando exercícios</p>
+                  <p className="text-secondary mb-0" id={styles.small}>
+                     O tempo acumulado praticando exercícios
+                  </p>
                </div>
             </Col>
-            <Col md={4}>
+            {/* Treinamentos feitos hoje */}
+            <Col sm={6} xl={4}>
                <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
                   <div className="d-flex justify-content-between">
                      <h6 id={styles.tit} className="mb-0">
@@ -112,10 +123,13 @@ const Dashboard = () => {
                         </span>
                      )}
                   </h5>
-                  <p className="text-secondary mb-0">Número total de treinamentos executados hoje</p>
+                  <p className="text-secondary mb-0" id={styles.small}>
+                     Total de treinamentos executados hoje
+                  </p>
                </div>
             </Col>
-            <Col md={4}>
+            {/* Média do tempo de treino (Desktop) */}
+            <Col className="d-none d-xl-block" sm={6} xl={4}>
                <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
                   <div className="d-flex justify-content-between">
                      <h6 id={styles.tit} className="mb-0">
@@ -137,14 +151,17 @@ const Dashboard = () => {
                         </span>
                      )}
                   </h5>
-                  <p className="text-secondary mb-0">Tempo dedicado ao treinamento por dia</p>
+                  <p className="text-secondary mb-0" id={styles.small}>
+                     Tempo dedicado ao treinamento por dia
+                  </p>
                </div>
             </Col>
          </Row>
 
          {/* Segunda linha */}
-         <Row className="mt-4 mb-5">
-            <Col>
+         <Row className="mt-0 mb-5 g-3 g-xl-4">
+            {/* Estatísticas da Dedicação Semanal */}
+            <Col sm={6} xl={4}>
                <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
                   <h6 id={styles.tit} className="mb-0">
                      Estatísticas da Dedicação Semanal
@@ -172,15 +189,16 @@ const Dashboard = () => {
                   </div>
                   <p className="text-secondary small">* A Unidade do tempo de treino está em segundos</p>
                   <hr className="mt-4" />
-                  <p className="text-secondary mb-0">
+                  <p className="text-secondary mb-0" id={styles.small}>
                      <span className="fw-semibold">Melhor dia da semana:</span> <i className="bi bi-calendar-day"></i> Qua
                   </p>
-                  <p className="text-secondary mb-0">
+                  <p className="text-secondary mb-0" id={styles.small}>
                      <span className="fw-semibold">Última sessão de treino:</span> 10/02/2025
                   </p>
                </div>
             </Col>
-            <Col>
+            {/* Partes do corpo mais treinadas */}
+            <Col sm={6} xl={4}>
                <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
                   <h6 id={styles.tit} className="mb-0">
                      Partes do corpo mais treinadas
@@ -201,7 +219,8 @@ const Dashboard = () => {
                   </div>
                </div>
             </Col>
-            <Col>
+            {/* Exercício mais praticado */}
+            <Col sm={6} xl={4}>
                <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
                   <h6 id={styles.tit} className="mb-0">
                      Exercício mais praticado
@@ -214,20 +233,58 @@ const Dashboard = () => {
                   )}
                </div>
             </Col>
+            {/* Média do tempo de treino (Mobile) */}
+            <Col sm={6} className="d-xl-none">
+               <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
+                  <div className="d-flex justify-content-between">
+                     <h6 id={styles.tit} className="mb-0">
+                        Média do tempo de treino
+                     </h6>
+                     <div className="p-2 rounded" id={styles.icon3}>
+                        <i className="bi bi-hourglass-split fs-3"></i>
+                     </div>
+                  </div>
+                  <h5 className="fs-1 fw-bold mb-3">
+                     {segundosParaFormatoHumanizado(mediaTempoPorDia)}{" "}
+                     {diferencialPercentualTempo >= 0 ? (
+                        <span id={styles.small} className={"text-small text-success"}>
+                           (+{diferencialPercentualTempo}%)
+                        </span>
+                     ) : (
+                        <span id={styles.small} className={"text-small text-danger"}>
+                           ({diferencialPercentualTempo}%)
+                        </span>
+                     )}
+                  </h5>
+                  <p className="text-secondary mb-0" id={styles.small}>
+                     Tempo dedicado ao treinamento por dia
+                  </p>
+                  <Image className="mt-4" src={mediaTreinos} />
+               </div>
+            </Col>
          </Row>
 
          {/* Últimos exercícios praticados */}
-         <Row className="mb-5">
+         <Row className="mb-5 px-sm-4">
             <Col>
                <h2 className="fw-semibold mb-4">Últimos exercícios praticados</h2>
-               <Slider swipeToSlide slidesToShow={3} infinite={false} dots>
+               <Slider
+                  swipeToSlide
+                  slidesToShow={3}
+                  responsive={[
+                     { breakpoint: 992, settings: { slidesToShow: 2 } },
+                     { breakpoint: 576, settings: { slidesToShow: 1 } },
+                  ]}
+                  infinite={false}
+                  dots
+               >
                   {ultimosExerciciosPraticados?.map((v, k) => (
-                     <CardExercicio customClass="me-4" titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} key={k} />
+                     <CardExercicio customClass="me-4" titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles?.slice(0, 2)} key={k} />
                   ))}
                </Slider>
             </Col>
          </Row>
-      </Container>
+      </div>
    );
 };
 export default Dashboard;
