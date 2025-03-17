@@ -87,16 +87,19 @@ const DetalhesExercicio = () => {
    }
 
    return (
-      <Container className="py-5">
+      <Container className="py-3 py-xl-5">
          {/* Seção inicial */}
          <Row>
-            <Col lg={4} className="ps-4 pt-4 me-3 align-items-stretch rounded-start" id={styles.left}>
-               <Image className="" src={exercicio?.gifUrl} alt={exercicio?.name} fluid />
+            <Col xl={4} className="d-none d-xl-flex ps-4 pt-4 me-3 align-items-stretch rounded-start" id={styles.left}>
+               {/* Foto de desktop */}
+               <Image className="d-none d-xl-block" src={exercicio?.gifUrl} alt={exercicio?.name} fluid />
             </Col>
             <Col>
-               <h1 className="fw-bold mb-4 pt-3">
+               <h1 className="fw-bold mb-2 mb-xl-4 pt-3">
                   Como praticar o: <span className="text-capitalize text-secondary">{exercicio?.name}</span>
                </h1>
+               {/* Foto do mobile */}
+               <Image className="d-xl-none"  src={exercicio?.gifUrl} alt={exercicio?.name} fluid />
                {/* Instruções */}
                <ListGroup>
                   {exercicio?.instructions?.map((v, key) => (
@@ -107,7 +110,7 @@ const DetalhesExercicio = () => {
                </ListGroup>
 
                {/* Ações */}
-               <div className="d-flex gap-3 mt-4">
+               <div className="d-flex gap-3 mt-4 flex-wrap flex-sm-row justify-content-center">
                   <Button variant="warning" onClick={iniciarTreino}>
                      <i className="bi bi-person-arms-up me-1"></i> Iniciar exercício
                   </Button>
