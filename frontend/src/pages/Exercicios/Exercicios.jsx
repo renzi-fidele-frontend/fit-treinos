@@ -1,4 +1,4 @@
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import styles from "./Exercicios.module.css";
 import fotoBanner from "../../assets/bannerEx.png";
 import bg from "../../assets/bg1.jpg";
@@ -14,6 +14,7 @@ import { paginarArray } from "../../utils/paginarArray";
 import { setExercicios, setExerciciosPaginados } from "../../state/exercicios/exerciciosSlice";
 import ModalFiltragem from "../../components/ModalFiltragem/ModalFiltragem";
 import useFiltrarExercicios from "../../hooks/useFiltrarExercicios";
+import noFilter from "../../assets/noFilter.webp"
 
 const Exercicios = () => {
    const { categorias: partesCorpo, equipamentos, musculoAlvo, filtros, paginaAtual } = useSelector((state) => state.configs);
@@ -73,7 +74,6 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                <Col className="text-center">
                   <Titulo texto="Encontre todos os exercícios" />
                   {/*  Filtragem  */}
-
                   <Container className="mb-5 mt-4 px-5 ">
                      <Row className="px-5 g-5">
                         <Col>
@@ -89,7 +89,7 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                               array={partesCorpo}
                            />
                         </Col>
-                        <Col className="border  border-top-0 border-bottom-0">
+                        <Col id={styles.border} className="border border-top-0 border-bottom-0">
                            <h6 className="fs-4 fw-semibold mb-3">Equipamento</h6>
                            <p className="mb-2 text-secondary text-capitalize">[{filtros.equipamento}]</p>
                            <Button variant="outline-primary" onClick={() => setModalEquipamentos(true)}>
@@ -123,13 +123,18 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                   {/* Exercicios */}
                   <Container fluid className="mt-5 px-5">
                      <hr className="mx-5" />
-
                      <Row className="mt-2 mb-5 px-5 mx-5 g-4 justify-content-center flex-content-stretch">
-                        {exerciciosPaginados?.map((v, k) => (
+                        {exerciciosPaginados.length> 0 ? 
+                        exerciciosPaginados?.map((v, k) => (
                            <Col key={k} xs={3}>
                               <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
                            </Col>
-                        ))}
+                        )) : (
+                           <div>
+                              <Image className="mb-4" src={noFilter}/>
+                              <Alert variant="secondary">Nenhum exercício corresponde com os filtros definidos!</Alert>
+                           </div>
+                        )}
                      </Row>
 
                      {/* Pagicação */}

@@ -7,6 +7,11 @@
    opacity: 0.8;
 }
 
+#border {
+   border-style: dashed !important;
+
+}
+
 @media screen and (max-width: 1200px) {
    #titBanner {
       font-size: 3rem;
