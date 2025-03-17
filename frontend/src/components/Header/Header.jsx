@@ -67,7 +67,7 @@ const Header = () => {
                <Image id={styles.logo} src={logo} alt="Logo do site" />
                <CloseButton onClick={() => setMostrar(false)} />
             </Offcanvas.Header>
-            <Offcanvas.Body className="h-100 pt-4">
+            <Offcanvas.Body onClick={() => setMostrar(false)} className="h-100 pt-4">
                <MyNav offcanvas={true} />
             </Offcanvas.Body>
          </Offcanvas>
