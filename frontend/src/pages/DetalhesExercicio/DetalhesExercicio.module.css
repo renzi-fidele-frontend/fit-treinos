@@ -31,4 +31,14 @@
       width: auto;
       height: auto;
    }
+
+   #tit2 {
+      font-size: 1.6rem !important;
+   }
+}
+
+@media screen and (max-width: 576px) {
+   #tit2 {
+      font-size: 1.4rem !important;
+   }
 }

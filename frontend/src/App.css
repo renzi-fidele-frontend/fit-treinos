@@ -70,10 +70,25 @@ body {
    opacity: 0 !important;
 }
 
-.slick-arrow::before {
-}
 
 .slick-dots li button::before {
    font-size: 14px !important;
    color: rgb(230, 247, 0);
+}
+
+@media screen and (max-width: 587px) {
+   .slick-arrow {
+      height: 30px !important;
+      width: 30px !important;
+   }
+   .slick-prev {
+      left: -8px !important;
+   }
+   .slick-next {
+      right: -8px !important;
+   }
+      
+   .videos .slick-dots {
+      bottom: -50px !important;
+   }
 }

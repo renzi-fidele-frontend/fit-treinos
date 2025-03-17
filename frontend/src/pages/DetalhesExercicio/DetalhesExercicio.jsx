@@ -131,9 +131,9 @@ const DetalhesExercicio = () => {
          </Row>
 
          {/* Separador */}
-         <div className="my-5 border border-4 border-bottom rounded-2 shadow-lg dashed"></div>
+         <div className="my-5 border border-4 border-bottom rounded-2 shadow-lg"></div>
 
-         {/* Seção de baixo */}
+         {/* Seção das informações sobre a parte do corpo que será beneficiada ao treinar o exercício  */}
          <Row className="mt-5 text-center">
             <Col sm={7}>
                <h2 className="fw-medium mb-3 mb-sm-4 fs-3" id={styles.labelDetalhes}>
@@ -154,10 +154,8 @@ const DetalhesExercicio = () => {
                <Image className={styles.equipamento} src={fotoEquipamento(exercicio?.equipment)} />
             </Col>
          </Row>
-
          {/* Separador do Mobile */}
          <div className="d-sm-none border mt-4" id={styles.sepMobile}></div>
-         
          <Row className="pt-4 pt-sm-5">
             <Col className="text-center" xl={5}>
                <h4 className=" fw-semibold mb-4">Principal músculo que será afectado:</h4>
@@ -173,7 +171,7 @@ const DetalhesExercicio = () => {
             <div className="vr px-1 bg-gradient mx-4 rounded d-none d-xl-block"></div>
             <Col className="text-center">
                <h4 className="fw-semibold mb-4 mt-4 mt-xl-0">Músculos secundários que serão afetados:</h4>
-               <div className="d-flex gap-5 justify-content-center flex-wrap flex-md-nowrap">
+               <div className="d-flex gap-2  gap-lg-5 justify-content-center flex-wrap flex-md-nowrap">
                   {exercicio?.secondaryMuscles?.map((v, key) =>
                      fotoMusculo(v) || fotoDaParteDoCorpo(v) ? (
                         <div className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-secondary shadow-sm rounded-3" key={key}>
@@ -194,16 +192,29 @@ const DetalhesExercicio = () => {
                </div>
             </Col>
          </Row>
+
          {/* Separador */}
-         <div className="my-5 border border-4 border-bottom rounded-2 shadow-lg dashed"></div>
+         <div className="my-4 my-md-5 border border-4 border-bottom rounded-2 shadow-lg"></div>
+
          {/* Seção de vídeos do youtube */}
-         <Row>
+         <Row className="px-2">
             <Col>
-               <h1 className="mb-4">
+               <h1 className="mb-4" id={styles.tit2}>
                   Assista vídeos de treinamento do: <span className="text-secondary fw-semibold text-capitalize">{exercicio?.name}</span>
                </h1>
 
-               <Slider swipeToSlide rows={2} slidesToShow={3} infinite={false} dots>
+               <Slider
+                  swipeToSlide
+                  rows={2}
+                  className="videos"
+                  slidesToShow={3}
+                  responsive={[
+                     { breakpoint: 992, settings: { slidesToShow: 2 } },
+                     { breakpoint: 576, settings: { slidesToShow: 1, rows: 1 } },
+                  ]}
+                  infinite={false}
+                  dots
+               >
                   {videos?.map(
                      ({ video }, k) =>
                         video?.thumbnails?.[1]?.url && (
@@ -222,13 +233,14 @@ const DetalhesExercicio = () => {
 
                <div className="pt-5"></div>
                {/* Separador */}
-               <div className="my-5 border border-4 border-bottom rounded-2 shadow-lg dashed"></div>
+               <div className="my-4 my-md-5 border border-4 border-bottom rounded-2 shadow-lg"></div>
             </Col>
          </Row>
+
          {/* Seção de exercícios relacionados */}
          <Row className="mt-2 pb-5 mb-3">
             <Col>
-               <h1 className="mb-4">
+               <h1 className="mb-4" id={styles.tit2}>
                   Exercícios que fortalecem o músculo alvo:{" "}
                   <span className="text-capitalize text-secondary fw-bold text-decoration-underline">{exercicio?.target}</span>
                </h1>
