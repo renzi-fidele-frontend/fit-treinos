@@ -14,3 +14,16 @@
 #grupo > button {
     flex-basis: 33.3% !important;
 }
+
+@media screen and (max-width: 992px) {
+    #grupo > button {
+        flex-basis: 50% !important;
+    }
+ 
+}
+
+@media screen and (max-width: 470px) {
+    #grupo > button {
+        flex-basis: 100% !important;
+    }
+}

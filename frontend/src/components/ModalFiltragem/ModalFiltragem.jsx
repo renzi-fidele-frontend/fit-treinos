@@ -60,7 +60,7 @@ const ModalFiltragem = ({ mostrar, onClose, modo, array }) => {
             </Modal.Title>
          </Modal.Header>
          <Modal.Body className={styles.modalBd}>
-            <ListGroup className="flex-row flex-wrap justify-content-center myList" id={styles.grupo}>
+            <ListGroup className="flex-row flex-wrap justify-content-center myList text-center" id={styles.grupo}>
                <ListGroup.Item onClick={() => setSelecionado("todos")} className="text-center" active={selecionado === "todos"} action>
                   <i className="bi bi-ban-fill text-danger mx-auto" id={styles.noFilterIco}></i>
                </ListGroup.Item>
@@ -69,7 +69,9 @@ const ModalFiltragem = ({ mostrar, onClose, modo, array }) => {
                      <div className="position-relative d-flex align-items-center justify-content-center">
                         <Image src={processarFoto(v)} />
                         <div className="z-1 w-100 h-100 position-absolute bg-black opacity-25"></div>
-                        <p className="mb-0 fs-5 position-absolute z-2 shadow-lg text-light fw-bold ">{v}</p>
+                        <p className="mb-0 fs-5 position-absolute z-2 shadow-lg text-light fw-bold " id={styles.txt}>
+                           {v}
+                        </p>
                      </div>
                   </ListGroup.Item>
                ))}

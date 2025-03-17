@@ -78,6 +78,7 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                      <Row className="px-5 g-5">
                         <Col>
                            <h6 className="fs-4 fw-semibold mb-3">Parte do corpo</h6>
+                           <p className="mb-2 text-secondary text-capitalize">[{filtros.parteDoCorpo}]</p>
                            <Button variant="outline-primary" onClick={() => setModalParteDoCorpo(true)}>
                               Escolher...
                            </Button>
@@ -88,23 +89,23 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                               array={partesCorpo}
                            />
                         </Col>
-                        <Col>
-                           <Form.Group>
-                              <h6 className="fs-4 fw-semibold mb-3">Equipamento</h6>
-                              <Button variant="outline-primary" onClick={() => setModalEquipamentos(true)}>
-                                 Escolher...
-                              </Button>
-                              <ModalFiltragem
-                                 mostrar={modalEquipamentos}
-                                 onClose={() => setModalEquipamentos(false)}
-                                 modo="Equipamento"
-                                 array={equipamentos}
-                              />
-                           </Form.Group>
+                        <Col className="border  border-top-0 border-bottom-0">
+                           <h6 className="fs-4 fw-semibold mb-3">Equipamento</h6>
+                           <p className="mb-2 text-secondary text-capitalize">[{filtros.equipamento}]</p>
+                           <Button variant="outline-primary" onClick={() => setModalEquipamentos(true)}>
+                              Escolher...
+                           </Button>
+                           <ModalFiltragem
+                              mostrar={modalEquipamentos}
+                              onClose={() => setModalEquipamentos(false)}
+                              modo="Equipamento"
+                              array={equipamentos}
+                           />
                         </Col>
                         <Col>
                            <Form.Group>
                               <h6 className="fs-4 fw-semibold mb-3">Músculo a fortificar</h6>
+                              <p className="mb-2 text-secondary text-capitalize">[{filtros.musculoAlvo}]</p>
                               <Button variant="outline-primary" onClick={() => setModalMusculosAlvo(true)}>
                                  Escolher...
                               </Button>
