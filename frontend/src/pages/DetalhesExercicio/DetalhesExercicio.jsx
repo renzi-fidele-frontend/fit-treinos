@@ -202,7 +202,6 @@ const DetalhesExercicio = () => {
                <h1 className="mb-4" id={styles.tit2}>
                   Assista vídeos de treinamento do: <span className="text-secondary fw-semibold text-capitalize">{exercicio?.name}</span>
                </h1>
-
                <Slider
                   swipeToSlide
                   rows={2}
@@ -244,19 +243,30 @@ const DetalhesExercicio = () => {
                   Exercícios que fortalecem o músculo alvo:{" "}
                   <span className="text-capitalize text-secondary fw-bold text-decoration-underline">{exercicio?.target}</span>
                </h1>
-               <Row>
-                  <Slider swipeToSlide slidesToShow={3} infinite={false} dots>
-                     {exerciciosFiltrados?.map((v, k) => (
-                        <CardExercicio
-                           customClass=" me-3"
-                           titulo={v?.name}
-                           id={v?.id}
-                           foto={v?.gifUrl}
-                           categoria={v?.secondaryMuscles}
-                           key={k}
-                        />
-                     ))}
-                  </Slider>
+               <Row className="px-4 px-sm-0">
+                  <Col>
+                     <Slider
+                        responsive={[
+                           { breakpoint: 992, settings: { slidesToShow: 2 } },
+                           { breakpoint: 576, settings: { slidesToShow: 1 } },
+                        ]}
+                        swipeToSlide
+                        slidesToShow={3}
+                        infinite={false}
+                        dots
+                     >
+                        {exerciciosFiltrados?.map((v, k) => (
+                           <CardExercicio
+                              customClass=" me-sm-3"
+                              titulo={v?.name}
+                              id={v?.id}
+                              foto={v?.gifUrl}
+                              categoria={v?.secondaryMuscles}
+                              key={k}
+                           />
+                        ))}
+                     </Slider>
+                  </Col>
                </Row>
             </Col>
          </Row>
