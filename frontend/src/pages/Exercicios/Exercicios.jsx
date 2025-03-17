@@ -14,7 +14,7 @@ import { paginarArray } from "../../utils/paginarArray";
 import { setExercicios, setExerciciosPaginados } from "../../state/exercicios/exerciciosSlice";
 import ModalFiltragem from "../../components/ModalFiltragem/ModalFiltragem";
 import useFiltrarExercicios from "../../hooks/useFiltrarExercicios";
-import noFilter from "../../assets/noFilter.webp"
+import noFilter from "../../assets/noFilter.webp";
 
 const Exercicios = () => {
    const { categorias: partesCorpo, equipamentos, musculoAlvo, filtros, paginaAtual } = useSelector((state) => state.configs);
@@ -74,10 +74,10 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                <Col className="text-center">
                   <Titulo texto="Encontre todos os exercícios" />
                   {/*  Filtragem  */}
-                  <Container className="mb-5 mt-4 px-5 ">
-                     <Row className="px-5 g-5">
-                        <Col>
-                           <h6 className="fs-4 fw-semibold mb-3">Parte do corpo</h6>
+                  <Container className="mb-5 mt-5 px-2 ">
+                     <Row className="px-sm-5 g-5 justify-content-center">
+                        <Col xs={6} lg={4} className="mt-4 mt-xxl-5" >
+                           <h6 className="fs-4 fw-semibold mb-3" id={styles.label}>Parte do corpo</h6>
                            <p className="mb-2 text-secondary text-capitalize">[{filtros.parteDoCorpo}]</p>
                            <Button variant="outline-primary" onClick={() => setModalParteDoCorpo(true)}>
                               Escolher...
@@ -89,8 +89,8 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                               array={partesCorpo}
                            />
                         </Col>
-                        <Col id={styles.border} className="border border-top-0 border-bottom-0">
-                           <h6 className="fs-4 fw-semibold mb-3">Equipamento</h6>
+                        <Col xs={6} lg={4} className="mt-4 mt-xxl-5"  id={styles.border}>
+                           <h6 className="fs-4 fw-semibold mb-3" id={styles.label}>Equipamento</h6>
                            <p className="mb-2 text-secondary text-capitalize">[{filtros.equipamento}]</p>
                            <Button variant="outline-primary" onClick={() => setModalEquipamentos(true)}>
                               Escolher...
@@ -102,9 +102,9 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                               array={equipamentos}
                            />
                         </Col>
-                        <Col>
+                        <Col xs={6} lg={4} className="mt-4 mt-xxl-5" >
                            <Form.Group>
-                              <h6 className="fs-4 fw-semibold mb-3">Músculo a fortificar</h6>
+                              <h6 className="fs-4 fw-semibold mb-3" id={styles.label}>Músculo a fortificar</h6>
                               <p className="mb-2 text-secondary text-capitalize">[{filtros.musculoAlvo}]</p>
                               <Button variant="outline-primary" onClick={() => setModalMusculosAlvo(true)}>
                                  Escolher...
@@ -124,14 +124,15 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                   <Container fluid className="mt-5 px-5">
                      <hr className="mx-5" />
                      <Row className="mt-2 mb-5 px-5 mx-5 g-4 justify-content-center flex-content-stretch">
-                        {exerciciosPaginados.length> 0 ? 
-                        exerciciosPaginados?.map((v, k) => (
-                           <Col key={k} xs={3}>
-                              <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
-                           </Col>
-                        )) : (
+                        {exerciciosPaginados?.length > 0 ? (
+                           exerciciosPaginados?.map((v, k) => (
+                              <Col key={k} xs={3}>
+                                 <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
+                              </Col>
+                           ))
+                        ) : (
                            <div>
-                              <Image className="mb-4" src={noFilter}/>
+                              <Image className="mb-4" src={noFilter} />
                               <Alert variant="secondary">Nenhum exercício corresponde com os filtros definidos!</Alert>
                            </div>
                         )}

@@ -1,0 +1,5 @@
+@media screen and (max-width: 450px) {
+  #titulo {
+    font-size: 1.4rem !important;
+  }
+}

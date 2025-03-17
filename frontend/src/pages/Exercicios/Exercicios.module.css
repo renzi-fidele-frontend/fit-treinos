@@ -8,8 +8,7 @@
 }
 
 #border {
-   border-style: dashed !important;
-
+   border-inline: 1px dashed grey;
 }
 
 @media screen and (max-width: 1200px) {
@@ -30,6 +29,11 @@
    #fotoBanner {
       width: 200px;
    }
+
+   #border {
+      border-right: none;
+   }
+
 }
 
 @media screen and (max-width: 768px) {
@@ -66,4 +70,8 @@
     #titBanner {
         font-size: 1.3rem;
      }
+
+    #label {
+      font-size: 1rem !important;
+    }
 }
