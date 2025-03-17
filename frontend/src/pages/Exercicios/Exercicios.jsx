@@ -121,12 +121,12 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                   </Container>
 
                   {/* Exercicios */}
-                  <Container fluid className="mt-5 px-5">
+                  <Container fluid className="mt-5 px-xxl-5">
                      <hr className="mx-5" />
-                     <Row className="mt-2 mb-5 px-5 mx-5 g-4 justify-content-center flex-content-stretch">
+                     <Row className="mt-2 mb-5 px-0 px-sm-1 px-md-4 px-xxl-5 g-4 justify-content-center flex-content-stretch">
                         {exerciciosPaginados?.length > 0 ? (
                            exerciciosPaginados?.map((v, k) => (
-                              <Col key={k} xs={3}>
+                              <Col key={k} sm={6} lg={4} xl={3}>
                                  <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
                               </Col>
                            ))
