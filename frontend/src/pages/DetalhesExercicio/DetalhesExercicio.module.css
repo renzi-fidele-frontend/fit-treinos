@@ -12,3 +12,23 @@
    height: 320px;
    object-fit: cover;
 }
+
+#sepMobile {
+   border-style: dashed !important;
+}
+
+@media screen and (max-width: 1200px) {
+   .equipamento {
+      width: 200px;
+   }
+}
+
+@media screen and (max-width: 768px) {
+   #labelDetalhes {
+      font-size: 19px !important;
+   }
+   .musculo {
+      width: auto;
+      height: auto;
+   }
+}

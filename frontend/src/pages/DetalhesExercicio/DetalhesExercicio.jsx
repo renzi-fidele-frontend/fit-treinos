@@ -99,7 +99,7 @@ const DetalhesExercicio = () => {
                   Como praticar o: <span className="text-capitalize text-secondary">{exercicio?.name}</span>
                </h1>
                {/* Foto do mobile */}
-               <Image className="d-xl-none"  src={exercicio?.gifUrl} alt={exercicio?.name} fluid />
+               <Image className="d-xl-none mb-3" src={exercicio?.gifUrl} alt={exercicio?.name} fluid />
                {/* Instruções */}
                <ListGroup>
                   {exercicio?.instructions?.map((v, key) => (
@@ -110,7 +110,7 @@ const DetalhesExercicio = () => {
                </ListGroup>
 
                {/* Ações */}
-               <div className="d-flex gap-3 mt-4 flex-wrap flex-sm-row justify-content-center">
+               <div className="d-flex gap-3 mt-4 flex-wrap flex-sm-row justify-content-center justify-content-md-start">
                   <Button variant="warning" onClick={iniciarTreino}>
                      <i className="bi bi-person-arms-up me-1"></i> Iniciar exercício
                   </Button>
@@ -135,27 +135,31 @@ const DetalhesExercicio = () => {
 
          {/* Seção de baixo */}
          <Row className="mt-5 text-center">
-            <Col md={7}>
-               <h2 className="fw-medium mb-4 fs-3">
+            <Col sm={7}>
+               <h2 className="fw-medium mb-3 mb-sm-4 fs-3" id={styles.labelDetalhes}>
                   Parte do corpo que irá se desenvolver: <span className="text-secondary text-capitalize">{exercicio?.bodyPart}</span>
                </h2>
                <Image
-                  className="border-3 shadow-lg border rounded-2"
+                  className="border-3 shadow-lg border rounded-2 mb-5 mb-sm-0"
                   src={fotoDaParteDoCorpo(exercicio?.bodyPart)}
                   alt={exercicio?.bodyPart}
                   fluid
                />
             </Col>
-            <div className="vr px-1 bg-gradient mx-4 rounded"></div>
+            <div className="vr px-1 bg-gradient mx-4 rounded d-none d-sm-block"></div>
             <Col>
-               <h2 className="fw-medium mb-4 fs-3">
+               <h2 className="fw-medium mb-3 mb-sm-4 fs-3" id={styles.labelDetalhes}>
                   Equipamento necessário: <span className="text-secondary text-capitalize">{exercicio?.equipment}</span>
                </h2>
                <Image className={styles.equipamento} src={fotoEquipamento(exercicio?.equipment)} />
             </Col>
          </Row>
-         <Row className="pt-5">
-            <Col className="text-center" md={5}>
+
+         {/* Separador do Mobile */}
+         <div className="d-sm-none border mt-4" id={styles.sepMobile}></div>
+         
+         <Row className="pt-4 pt-sm-5">
+            <Col className="text-center" xl={5}>
                <h4 className=" fw-semibold mb-4">Principal músculo que será afectado:</h4>
                <div
                   style={{ width: "fit-content" }}
@@ -165,10 +169,11 @@ const DetalhesExercicio = () => {
                   <span>{exercicio?.target}</span>
                </div>
             </Col>
-            <div className="vr px-1 bg-gradient mx-4 rounded"></div>
+            {/* Separador vertical do desktop */}
+            <div className="vr px-1 bg-gradient mx-4 rounded d-none d-xl-block"></div>
             <Col className="text-center">
-               <h4 className="fw-semibold mb-4">Músculos secundários que serão afetados:</h4>
-               <div className="d-flex gap-5 justify-content-center">
+               <h4 className="fw-semibold mb-4 mt-4 mt-xl-0">Músculos secundários que serão afetados:</h4>
+               <div className="d-flex gap-5 justify-content-center flex-wrap flex-md-nowrap">
                   {exercicio?.secondaryMuscles?.map((v, key) =>
                      fotoMusculo(v) || fotoDaParteDoCorpo(v) ? (
                         <div className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-secondary shadow-sm rounded-3" key={key}>
@@ -189,10 +194,8 @@ const DetalhesExercicio = () => {
                </div>
             </Col>
          </Row>
-
          {/* Separador */}
          <div className="my-5 border border-4 border-bottom rounded-2 shadow-lg dashed"></div>
-
          {/* Seção de vídeos do youtube */}
          <Row>
             <Col>
@@ -222,7 +225,6 @@ const DetalhesExercicio = () => {
                <div className="my-5 border border-4 border-bottom rounded-2 shadow-lg dashed"></div>
             </Col>
          </Row>
-
          {/* Seção de exercícios relacionados */}
          <Row className="mt-2 pb-5 mb-3">
             <Col>
@@ -246,7 +248,6 @@ const DetalhesExercicio = () => {
                </Row>
             </Col>
          </Row>
-
          <ToastTreinamento mostrar={mostrar} onClose={() => setMostrar(false)} parteDoCorpo={exercicio?.bodyPart} idExercicio={exercicio?.id} />
       </Container>
    );
