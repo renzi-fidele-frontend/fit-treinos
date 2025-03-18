@@ -77,7 +77,7 @@ const Dashboard = () => {
    };
 
    return (
-      <div id={styles.ct} className="h-100  py-4 py-md-5 px-3  px-lg-5 container-lg">
+      <div id={styles.ct} className="h-100  py-4 py-md-5 px-3  px-md-5 px-lg-0 container-lg">
          <h2 className="fw-semibold mb-3 text-center text-xl-start ">Progresso do treinamento</h2>
          {/* Separador Mobile */}
          <hr className="d-xl-none mb-4" />

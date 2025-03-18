@@ -3,12 +3,49 @@
 }
 
 #ctFoto {
-width: fit-content;
-padding: .8rem;
+   width: fit-content;
+   padding: 0.8rem;
 }
 
 #ctFoto img {
    width: 270px;
    height: 270px;
    object-fit: cover;
+}
+
+@media screen and (max-width: 1200px) {
+   #fotoBanner {
+      height: 450px;
+   }
+
+   #tit2 {
+      font-size: 2rem !important;
+   }
+
+   #ctFoto img {
+      width: 200px;
+      height: 200px;
+   }
+}
+
+@media screen and (max-width: 992px) {
+   #fotoBanner {
+      height: 300px;
+   }
+
+   #ctFoto img {
+      width: 270px;
+      height: 270px;
+   }
+}
+
+@media screen and (max-width: 576px) {
+   #tit2 {
+      font-size: 1.6rem !important;
+   }  
+
+   #ctFoto img {
+      width: 200px;
+      height: 200px;
+   }
 }
