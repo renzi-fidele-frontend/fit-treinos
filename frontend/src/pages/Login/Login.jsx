@@ -35,10 +35,10 @@ const Login = () => {
    }
    return (
       <Container>
-         <Row className="gap-5">
-            <Col sm={6} className="justify-content-center d-flex flex-column pe-5">
-               <h1 className="fw-bold">Entre na sua conta</h1>
-               <p className="fs-5">
+         <Row className="gap-3 gap-md-5 flex-column-reverse flex-md-row pb-5 pb-mb-0">
+            <Col md={6} className="justify-content-center d-flex flex-column pe-5">
+               <h1 id={styles.tit2} className="fw-bold">Entre na sua conta</h1>
+               <p id={styles.subtit} className="fs-5">
                   Você ainda não tem uma conta criada? <Link to="/cadastro">Crie uma conta</Link>
                </p>
                <div className="mt-1">
@@ -64,7 +64,7 @@ const Login = () => {
                   </Form>
                </div>
             </Col>
-            <Col id={styles.ctFoto} className="pt-5 text-center rounded-5 bg-secondary-subtle bg-gradient">
+            <Col id={styles.ctFoto} className="pt-3 pt-sm-5 text-center rounded-5 bg-secondary-subtle bg-gradient">
                <Image id={styles.fotoBanner} src={ftBanner} />
             </Col>
          </Row>

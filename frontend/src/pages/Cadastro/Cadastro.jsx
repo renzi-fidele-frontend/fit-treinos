@@ -151,7 +151,7 @@ const Cadastro = () => {
                   </>
                )}
             </Col>
-            <Col className="pt-5 shadow-sm text-center rounded-5 bg-secondary-subtle bg-gradient">
+            <Col className="pt-3 pt-sm-5 shadow-sm text-center rounded-5 bg-secondary-subtle bg-gradient">
                <Image id={styles.fotoBanner} src={ftBanner} />
             </Col>
          </Row>

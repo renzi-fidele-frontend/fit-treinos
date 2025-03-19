@@ -1,3 +1,37 @@
 #fotoBanner {
-    height: 600px;
+   height: 600px;
+}
+
+@media screen and (max-width: 1200px) {
+   #fotoBanner {
+      height: 450px;
+   }
+}
+
+@media screen and (max-width: 992px) {
+   #fotoBanner {
+      height: 370px;
+   }
+
+   #tit2 {
+      font-size: 2rem !important;
+   }
+
+   #subtit {
+    font-size: 1.1rem !important;
+   }
+}
+
+@media screen and (max-width: 768px) {
+  
+}
+
+@media screen and (max-width: 576px) {
+    #fotoBanner {
+        height: 300px;
+    }
+
+    #tit2 {
+        font-size: 1.7rem !important;
+     }
 }
