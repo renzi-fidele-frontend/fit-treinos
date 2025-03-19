@@ -27,7 +27,7 @@ const DetalhesExercicio = () => {
    const [exercicio, setExercicio] = useState(null);
    const [videos, setVideos] = useState(null);
    const [exerciciosFiltrados, setExerciciosFiltrados] = useState(null);
-   const [favorito, setFavorito] = useState(user?.favoritos?.includes(exercicio?.id));
+   const [favorito, setFavorito] = useState(null);
    const [mostrar, setMostrar] = useState(false);
 
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
@@ -35,7 +35,10 @@ const DetalhesExercicio = () => {
    const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
 
    useEffect(() => {
-      if (exercicio) filtrarPorMusculoAlvo(exercicios);
+      if (exercicio) {
+         filtrarPorMusculoAlvo(exercicios);
+         setFavorito(verificarFavorito(exercicio?.id));
+      }
       if (!videos && exercicio) {
          apanharVideos
             .apanharDadosComParam(
@@ -52,9 +55,11 @@ const DetalhesExercicio = () => {
             dispatch(setExercicios(v));
             filtrarPorMusculoAlvo(v);
          });
-      } else if (exercicios) {
+      }
+      if (exercicios) {
          setExercicio(exercicios?.filter((v) => v.id === id)[0]);
-      } else if (exercicio) {
+      }
+      if (exercicio) {
          filtrarPorMusculoAlvo(exercicios);
       }
    }, [exercicios, id]);
@@ -84,6 +89,10 @@ const DetalhesExercicio = () => {
          dispatch(setUser({ ...user, favoritos: v.favoritos }));
          setFavorito(false);
       });
+   }
+
+   function verificarFavorito(idExercicio) {
+      return user?.favoritos?.includes(idExercicio);
    }
 
    return (
