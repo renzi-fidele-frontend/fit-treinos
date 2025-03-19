@@ -57,7 +57,7 @@ bg-gradient pt-4 pt-sm-5  pb-0"
             <Image src={bg} id={styles.bg} className="position-absolute top-0 start-0 end-0 h-auto" />
             <div className="container-md">
                <Row className="position-relative px-2 px-sm-5 px-md-0">
-                  <Col xs={8} sm={7} className="justify-content-center flex-column gap-3 d-flex">
+                  <Col xs={8} sm={7} className="justify-content-center flex-column gap-1 gap-sm-3 d-flex">
                      <h2 id={styles.titBanner}>Está na hora de dar aquela melhorada no seu físico</h2>
                      <p className="fs-4 mb-3 mb-sm-0" id={styles.bannerSub}>
                         Mais de 1000 exercícios foram preparados para você
@@ -70,14 +70,14 @@ bg-gradient pt-4 pt-sm-5  pb-0"
             </div>
          </div>
          <Container fluid>
-            <Row className="py-5">
+            <Row className="py-4 py-sm-5">
                <Col className="text-center">
                   <Titulo texto="Encontre todos os exercícios" />
                   {/*  Filtragem  */}
                   <Container className="mb-5 mt-5 px-2 ">
                      <Row className="px-sm-5 g-5 justify-content-center">
                         <Col xs={6} lg={4} className="mt-4 mt-xxl-5" >
-                           <h6 className="fs-4 fw-semibold mb-3" id={styles.label}>Parte do corpo</h6>
+                           <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>Parte do corpo</h6>
                            <p className="mb-2 text-secondary text-capitalize">[{filtros.parteDoCorpo}]</p>
                            <Button variant="outline-primary" onClick={() => setModalParteDoCorpo(true)}>
                               Escolher...
@@ -90,7 +90,7 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                            />
                         </Col>
                         <Col xs={6} lg={4} className="mt-4 mt-xxl-5"  id={styles.border}>
-                           <h6 className="fs-4 fw-semibold mb-3" id={styles.label}>Equipamento</h6>
+                           <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>Equipamento</h6>
                            <p className="mb-2 text-secondary text-capitalize">[{filtros.equipamento}]</p>
                            <Button variant="outline-primary" onClick={() => setModalEquipamentos(true)}>
                               Escolher...
@@ -104,7 +104,7 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                         </Col>
                         <Col xs={6} lg={4} className="mt-4 mt-xxl-5" >
                            <Form.Group>
-                              <h6 className="fs-4 fw-semibold mb-3" id={styles.label}>Músculo a fortificar</h6>
+                              <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>Músculo a fortificar</h6>
                               <p className="mb-2 text-secondary text-capitalize">[{filtros.musculoAlvo}]</p>
                               <Button variant="outline-primary" onClick={() => setModalMusculosAlvo(true)}>
                                  Escolher...

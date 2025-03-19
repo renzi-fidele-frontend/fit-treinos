@@ -1,8 +1,14 @@
 #logo {
-    width: 170px;
+   width: 170px;
 }
 
 #toggle {
-    font-size: 2rem;
-    line-height: 0;
+   font-size: 2rem;
+   line-height: 0;
+}
+
+@media screen and (max-width: 576px) {
+   #logo {
+      width: 162px;
+   }
 }
