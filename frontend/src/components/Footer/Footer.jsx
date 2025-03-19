@@ -5,7 +5,7 @@ import styles from "./Footer.module.css"
 
 const Footer = () => {
    return (
-      <div className="text-bg-dark pt-3 pb-4 pb-lg-5">
+      <div className="text-bg-dark pt-3 pb-4">
          <Container>
             <hr />
             <Row>

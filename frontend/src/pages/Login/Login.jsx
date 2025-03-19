@@ -35,7 +35,7 @@ const Login = () => {
    }
    return (
       <Container>
-         <Row className="gap-3 gap-md-5 flex-column-reverse flex-md-row pb-5 pb-mb-0">
+         <Row className="gap-3 gap-md-5 flex-column-reverse flex-md-row pb-5 pb-md-0">
             <Col md={6} className="justify-content-center d-flex flex-column pe-5">
                <h1 id={styles.tit2} className="fw-bold">Entre na sua conta</h1>
                <p id={styles.subtit} className="fs-5">

@@ -3,12 +3,16 @@
    font-weight: 800;
 }
 
-#bg {
-   opacity: 0.8;
+.txtShadow {
+   text-shadow: 2px 2px 4px black;
 }
 
 #border {
    border-inline: 1px dashed grey;
+}
+
+#banner {
+   background-image: url("../../assets/bg1.jpg");
 }
 
 @media screen and (max-width: 1200px) {
@@ -33,7 +37,6 @@
    #border {
       border-right: none;
    }
-
 }
 
 @media screen and (max-width: 768px) {
@@ -62,24 +65,22 @@
    }
 
    #fotoBanner {
-    width: 140px;
- }
+      width: 140px;
+   }
 }
 
 @media screen and (max-width: 442px) {
-    #titBanner {
-        font-size: 1.3rem;
-     }
+   #titBanner {
+      font-size: 1.3rem;
+   }
 
-    #label {
+   #label {
       font-size: 1rem !important;
-    }
+   }
 }
 
 @media screen and (max-width: 372px) {
    #titBanner {
       font-size: 1.1rem;
    }
-
-   
 }

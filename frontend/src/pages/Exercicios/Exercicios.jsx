@@ -1,7 +1,6 @@
 import { Alert, Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import styles from "./Exercicios.module.css";
 import fotoBanner from "../../assets/bannerEx.png";
-import bg from "../../assets/bg1.jpg";
 import Titulo from "../../components/ui/Titulo";
 import { useDispatch, useSelector } from "react-redux";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
@@ -21,6 +20,7 @@ const Exercicios = () => {
    const { exercicios, exerciciosFiltrados, exerciciosPaginados } = useSelector((state) => state.exercicios);
    const dispatch = useDispatch();
    const { filtrarExercicios } = useFiltrarExercicios();
+   const { modoEscuro } = useSelector((state) => state.tema);
 
    // Modais de filtragem
    const [modalParteDoCorpo, setModalParteDoCorpo] = useState(false);
@@ -51,22 +51,23 @@ const Exercicios = () => {
          {/*  Banner inicial */}
          <div
             id={styles.banner}
-            className="position-relative overflow-hidden bg-secondary
-bg-gradient pt-4 pt-sm-5  pb-0"
+            className="position-relative overflow-hidden 
+  pb-0"
          >
-            <Image src={bg} id={styles.bg} className="position-absolute top-0 start-0 end-0 h-auto" />
-            <div className="container-md">
-               <Row className="position-relative px-2 px-sm-5 px-md-0">
-                  <Col xs={8} sm={7} className="justify-content-center flex-column gap-1 gap-sm-3 d-flex">
-                     <h2 id={styles.titBanner}>Está na hora de dar aquela melhorada no seu físico</h2>
-                     <p className="fs-4 mb-3 mb-sm-0" id={styles.bannerSub}>
-                        Mais de 1000 exercícios foram preparados para você
-                     </p>
-                  </Col>
-                  <Col className="text-end pe-md-5">
-                     <Image id={styles.fotoBanner} src={fotoBanner} />
-                  </Col>
-               </Row>
+            <div className={`pt-4 pt-sm-5 ${modoEscuro ? "bg-dark bg-opacity-75" : "bg-light bg-opacity-50"} `}>
+               <div className="container-md">
+                  <Row className="position-relative px-2 px-sm-5 px-md-0">
+                     <Col xs={8} sm={7} className="justify-content-center flex-column gap-1 gap-sm-3 d-flex">
+                        <h2 className={modoEscuro && styles.txtShadow} id={styles.titBanner}>Está na hora de dar aquela melhorada no seu físico</h2>
+                        <p className="fs-4 mb-3 mb-sm-0" id={styles.bannerSub}>
+                           Mais de 1000 exercícios foram preparados para você
+                        </p>
+                     </Col>
+                     <Col className="text-end pe-md-5">
+                        <Image id={styles.fotoBanner} src={fotoBanner} />
+                     </Col>
+                  </Row>
+               </div>
             </div>
          </div>
          <Container fluid>
@@ -76,8 +77,10 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                   {/*  Filtragem  */}
                   <Container className="mb-5 mt-5 px-2 ">
                      <Row className="px-sm-5 g-5 justify-content-center">
-                        <Col xs={6} lg={4} className="mt-4 mt-xxl-5" >
-                           <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>Parte do corpo</h6>
+                        <Col xs={6} lg={4} className="mt-4 mt-xxl-5">
+                           <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>
+                              Parte do corpo
+                           </h6>
                            <p className="mb-2 text-secondary text-capitalize">[{filtros.parteDoCorpo}]</p>
                            <Button variant="outline-primary" onClick={() => setModalParteDoCorpo(true)}>
                               Escolher...
@@ -89,8 +92,10 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                               array={partesCorpo}
                            />
                         </Col>
-                        <Col xs={6} lg={4} className="mt-4 mt-xxl-5"  id={styles.border}>
-                           <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>Equipamento</h6>
+                        <Col xs={6} lg={4} className="mt-4 mt-xxl-5" id={styles.border}>
+                           <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>
+                              Equipamento
+                           </h6>
                            <p className="mb-2 text-secondary text-capitalize">[{filtros.equipamento}]</p>
                            <Button variant="outline-primary" onClick={() => setModalEquipamentos(true)}>
                               Escolher...
@@ -102,9 +107,11 @@ bg-gradient pt-4 pt-sm-5  pb-0"
                               array={equipamentos}
                            />
                         </Col>
-                        <Col xs={6} lg={4} className="mt-4 mt-xxl-5" >
+                        <Col xs={6} lg={4} className="mt-4 mt-xxl-5">
                            <Form.Group>
-                              <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>Músculo a fortificar</h6>
+                              <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>
+                                 Músculo a fortificar
+                              </h6>
                               <p className="mb-2 text-secondary text-capitalize">[{filtros.musculoAlvo}]</p>
                               <Button variant="outline-primary" onClick={() => setModalMusculosAlvo(true)}>
                                  Escolher...
