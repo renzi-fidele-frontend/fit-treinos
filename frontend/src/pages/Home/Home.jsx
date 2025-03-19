@@ -36,6 +36,7 @@ const vantagens = [
    },
 ];
 
+// TODO: Adicionar fotos reais de pessoas que testemunharam
 const testemunhos = [
    {
       foto: thumb,
@@ -75,19 +76,27 @@ const testemunhos = [
    },
 ];
 
-const CardTestemunho = ({ foto, nome, testemunho }) => (
-   <div className="border border-4 bg-light mx-2 p-3 rounded-5 shadow-sm d-flex flex-column gap-3 align-items-center">
-      <Image className="border border-2" src={foto} roundedCircle width="100" height="100" />
-      <h4>{nome}</h4>
-      <p className="fst-italic">{testemunho}</p>
-   </div>
-);
+const CardTestemunho = ({ foto, nome, testemunho }) => {
+   const { modoEscuro } = useSelector((state) => state.tema);
+   return (
+      <div
+         className={`border border-4 ${
+            modoEscuro ? "bg-dark" : "bg-light"
+         } mx-2 p-3 rounded-5 shadow-sm d-flex flex-column gap-3 align-items-center`}
+      >
+         <Image className="border border-2" src={foto} roundedCircle width="100" height="100" />
+         <h4>{nome}</h4>
+         <p className="fst-italic">{testemunho}</p>
+      </div>
+   );
+};
 
 const Home = () => {
    const dispatch = useDispatch();
    const verificar = useSocialAuth();
    const { categorias, categoriaEscolhida } = useSelector((state) => state.configs);
    const { exerciciosDeCategoria, exercicios } = useSelector((state) => state.exercicios);
+   const { modoEscuro } = useSelector((state) => state.tema);
 
    const apanharCategorias = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, categorias);
 
@@ -250,8 +259,8 @@ const Home = () => {
          </Row>
 
          {/*  Seção dos testemunhos  */}
-         <Row id={styles.bg2} style={{}} className="text-center ">
-            <Col className="py-5 px-5">
+         <Row id={styles.bg2} className="text-center position-relative ">
+            <Col className="py-5 px-5" id={modoEscuro && styles.bgdark}>
                <h2 className="fw-semibold fs-1 mb-5 ">Testemunhos dos usuários do site</h2>
                <Slider
                   className="mb-5"
