@@ -3,6 +3,10 @@
    background-image: linear-gradient(to left top, #1aa7ec00 50%, #b6b1af 55%);
 }
 
+.left_dark {
+   background-image: linear-gradient(to left top, #1aa7ec00 50%, #6c757d 55%) !important;
+}
+
 .equipamento {
    width: 250px;
 }

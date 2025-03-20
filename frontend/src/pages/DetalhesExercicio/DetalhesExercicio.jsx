@@ -29,6 +29,7 @@ const DetalhesExercicio = () => {
    const [exerciciosFiltrados, setExerciciosFiltrados] = useState(null);
    const [favorito, setFavorito] = useState(null);
    const [mostrar, setMostrar] = useState(false);
+   const { modoEscuro } = useSelector((state) => state.tema);
 
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
    const apanharExercicios = useFetch(null, exercisesFetchOptions, exercicios, "manual");
@@ -99,7 +100,11 @@ const DetalhesExercicio = () => {
       <Container className="py-3 py-xl-5">
          {/* Seção inicial */}
          <Row>
-            <Col xl={4} className="d-none d-xl-flex ps-4 pt-4 me-3 align-items-stretch rounded-start" id={styles.left}>
+            <Col
+               xl={4}
+               className={`d-none d-xl-flex ps-4 pt-4 me-3 align-items-stretch rounded-start ${modoEscuro && styles.left_dark}`}
+               id={styles.left}
+            >
                {/* Foto de desktop */}
                <Image className="d-none d-xl-block" src={exercicio?.gifUrl} alt={exercicio?.name} fluid />
             </Col>
