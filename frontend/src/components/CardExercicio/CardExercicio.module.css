@@ -1,10 +1,9 @@
 .exImg {
-    height: 300px;
+   height: 300px;
 }
 
 @media screen and (max-width: 500px) {
-    .exImg {
-        height: 250px;
-    }
-  
+   .exImg {
+      height: 250px;
+   }
 }

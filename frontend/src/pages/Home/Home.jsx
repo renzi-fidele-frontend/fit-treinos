@@ -135,7 +135,11 @@ const Home = () => {
    return (
       <Container fluid>
          {/*  Banner Inicial  */}
-         <Row className="px-sm-5 flex-column-reverse flex-lg-row">
+         <Row id={styles.banInicial} className="px-sm-5 flex-column-reverse flex-lg-row position-relative">
+            {/* Opacidade */}
+            <section
+               className={`position-absolute w-100 h-100 start-0 end-0 bottom-0 top-0 z-0 opacity-75 ${modoEscuro ? "bg-dark" : "bg-light"}`}
+            ></section>
             <Col
                lg={6}
                className="d-flex flex-column justify-content-center ps-2 ps-xxl-5 position-relative text-center text-lg-start pb-5 pb-lg-0 pt-4 pt-lg-0"
@@ -152,7 +156,7 @@ const Home = () => {
                      Descobrir Exercícios
                   </Button>
                   <div className="mb-5 mb-lg-0"></div>
-                  <div id={styles.animacao}>
+                  <div id={styles.animacao} className="mb-xxl-3">
                      <span id={styles.textoOverflow}>
                         Treine Pesado <b>·</b> Tenha consistência <b>·</b> Tenha determinação
                      </span>

@@ -17,7 +17,7 @@
    opacity: 0.1;
    line-height: 116px;
    text-wrap: nowrap;
-   z-index: 0;
+   z-index: 1;
 }
 #animacao {
    animation: deslizar 15s linear infinite alternate;
@@ -72,6 +72,19 @@
 
 .loadCateg {
    height: 160px;
+}
+
+/* Magic Pattern */
+#banInicial {
+   background-color: #ececec;
+   background-image: linear-gradient(#6c757d 1px, transparent 1px), linear-gradient(to right, #6c757d 1px, #ececec 1px);
+   background-size: 190px 190px;
+}
+
+[data-bs-theme="dark"] #banInicial {
+   background-color: #212529;
+   background-image: linear-gradient(#6c757d 1px, transparent 1px), linear-gradient(to right, #6c757d 1px, #212529 1px);
+   background-size: 190px 190px;
 }
 
 @media screen and (max-width: 1440px) {
