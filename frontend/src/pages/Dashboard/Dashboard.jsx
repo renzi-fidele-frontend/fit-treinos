@@ -39,7 +39,7 @@ const Dashboard = () => {
             setEstatisticasDaSemana(v.estatisticasDaSemana);
             setPartesDoCorpoTreinadas(v.partesDoCorpoTreinadas);
             setExercicioMaisTreinado(v.exercicioMaisTreinado);
-            setUltimosExerciciosPraticados(
+            setUltimosExerciciosPraticados( 
                v.ultimosExerciciosPraticados.map((exId) => {
                   return exercicios.find((obj) => obj.id === exId);
                })
