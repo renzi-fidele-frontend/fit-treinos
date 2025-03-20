@@ -1,4 +1,4 @@
-import { Button, Card, Col, Container, Image, ListGroupItem, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Image, ListGroupItem, Placeholder, Row } from "react-bootstrap";
 import styles from "./Home.module.css";
 import ftBanner from "../../assets/modelo.png";
 import Titulo from "../../components/ui/Titulo";
@@ -16,6 +16,7 @@ import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
 import thumb from "../../assets/thumb_temp.gif";
 import useSocialAuth from "../../hooks/useSocialAuth";
 import { setExercicios, setExerciciosDeCategoria } from "../../state/exercicios/exerciciosSlice";
+import { gerarArray } from "../../utils/gerarArray";
 
 const vantagens = [
    {
@@ -183,23 +184,31 @@ const Home = () => {
                      slidesToScroll={1}
                      slidesToShow={4}
                   >
-                     {categorias?.map((v, k) => (
-                        <ListGroupItem
-                           className="py-1 d-flex gap-2 align-items-center flex-column position-relative"
-                           onClick={() => {
-                              dispatch(setCategoriaEscolhida(v));
-                           }}
-                           key={k}
-                           action
-                           active={categoriaEscolhida === v}
-                        >
-                           <Image src={fotoDaParteDoCorpo(v)} />
-                           <div style={{ opacity: "15%" }} className="position-absolute bg-dark h-100 w-100"></div>
-                           <span id={styles.textOverlay} className=" fs-6 fw-bold text-uppercase position-absolute">
-                              {v}
-                           </span>
-                        </ListGroupItem>
-                     ))}
+                     {categorias
+                        ? categorias?.map((v, k) => (
+                             <ListGroupItem
+                                className="py-1 d-flex gap-2 align-items-center flex-column position-relative"
+                                onClick={() => {
+                                   dispatch(setCategoriaEscolhida(v));
+                                }}
+                                key={k}
+                                action
+                                active={categoriaEscolhida === v}
+                             >
+                                <Image src={fotoDaParteDoCorpo(v)} />
+                                <div style={{ opacity: "15%" }} className="position-absolute bg-dark h-100 w-100"></div>
+                                <span id={styles.textOverlay} className=" fs-6 fw-bold text-uppercase position-absolute">
+                                   {v}
+                                </span>
+                             </ListGroupItem>
+                          ))
+                        : gerarArray(6).map((v, k) => (
+                             <ListGroupItem key={k} className="py-1 d-flex gap-2 align-items-center flex-column position-relative">
+                                <Placeholder animation="wave" xs={12}>
+                                   <Placeholder xs={12} className={styles.loadCateg} />
+                                </Placeholder>
+                             </ListGroupItem>
+                          ))}
                   </Slider>
                </Container>
 

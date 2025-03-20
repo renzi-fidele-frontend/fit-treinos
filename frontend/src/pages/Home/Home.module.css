@@ -70,6 +70,10 @@
    text-shadow: 0 0 2px black;
 }
 
+.loadCateg {
+   height: 160px;
+}
+
 @media screen and (max-width: 1440px) {
    #fotoBanner {
       height: 650px;
