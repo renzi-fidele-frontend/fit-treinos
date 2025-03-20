@@ -216,14 +216,20 @@ const Home = () => {
                <Container fluid className="mt-5 px-xl-5">
                   <hr className="mx-5" />
                   <Row className="mt-2 mx-xxl-5 mb-5 px-xl-5 g-4 justify-content-center flex-content-stretch">
-                     {exerciciosDeCategoria?.map(
-                        (v, k) =>
-                           k < 7 && (
-                              <Col key={k} sm={6} lg={4} xxl={3}>
-                                 <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
-                              </Col>
-                           )
-                     )}
+                     {exerciciosDeCategoria
+                        ? exerciciosDeCategoria?.map(
+                             (v, k) =>
+                                k < 7 && (
+                                   <Col key={k} sm={6} lg={4} xxl={3}>
+                                      <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
+                                   </Col>
+                                )
+                          )
+                        : gerarArray(7).map((v, k) => (
+                             <Col key={k} sm={6} lg={4} xxl={3}>
+                                <CardExercicio />
+                             </Col>
+                          ))}
                   </Row>
                   <Button as={Link} to="/exercicios" variant="secondary" size="lg">
                      Ver todos
