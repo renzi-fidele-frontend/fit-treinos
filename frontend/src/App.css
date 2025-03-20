@@ -69,8 +69,8 @@ body {
 .slick-disabled {
    opacity: 0 !important;
 }
-[data-bs-theme="dark"] .slick-dots {
-   color: white;
+[data-bs-theme="dark"] .slick-dots li button::before {
+   color: white !important;
 }
 
 

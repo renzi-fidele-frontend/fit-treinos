@@ -26,6 +26,7 @@ const Dashboard = () => {
    const [ultimosExerciciosPraticados, setUltimosExerciciosPraticados] = useState(null);
    const { exercicios } = useSelector((state) => state.exercicios);
    const [exercicioMaisTreinado, setExercicioMaisTreinado] = useState(null);
+   const { modoEscuro } = useSelector((state) => state.tema);
 
    useEffect(() => {
       if (exercicios) {
@@ -85,7 +86,7 @@ const Dashboard = () => {
          <Row className="justify-content-center g-3 g-xl-4 flex-wrap flex-xl-nowrap">
             {/* Tempo total de treino */}
             <Col sm={6} xl={4}>
-               <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
+               <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
                   <div className="d-flex justify-content-between">
                      <h6 id={styles.tit} className="mb-0">
                         Tempo total de treino
@@ -102,7 +103,7 @@ const Dashboard = () => {
             </Col>
             {/* Treinamentos feitos hoje */}
             <Col sm={6} xl={4}>
-               <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
+               <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
                   <div className="d-flex justify-content-between">
                      <h6 id={styles.tit} className="mb-0">
                         Treinamentos feitos hoje
@@ -130,7 +131,7 @@ const Dashboard = () => {
             </Col>
             {/* Média do tempo de treino (Desktop) */}
             <Col className="d-none d-xl-block" sm={6} xl={4}>
-               <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
+               <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
                   <div className="d-flex justify-content-between">
                      <h6 id={styles.tit} className="mb-0">
                         Média do tempo de treino
@@ -162,7 +163,7 @@ const Dashboard = () => {
          <Row className="mt-0 mb-5 g-3 g-xl-4">
             {/* Estatísticas da Dedicação Semanal */}
             <Col sm={6} xl={4}>
-               <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
+               <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
                   <h6 id={styles.tit} className="mb-0">
                      Estatísticas da Dedicação Semanal
                   </h6>
@@ -199,7 +200,7 @@ const Dashboard = () => {
             </Col>
             {/* Partes do corpo mais treinadas */}
             <Col sm={6} xl={4}>
-               <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
+               <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
                   <h6 id={styles.tit} className="mb-0">
                      Partes do corpo mais treinadas
                   </h6>
@@ -221,7 +222,7 @@ const Dashboard = () => {
             </Col>
             {/* Exercício mais praticado */}
             <Col sm={6} xl={4}>
-               <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
+               <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
                   <h6 id={styles.tit} className="mb-0">
                      Exercício mais praticado
                   </h6>
@@ -235,7 +236,7 @@ const Dashboard = () => {
             </Col>
             {/* Média do tempo de treino (Mobile) */}
             <Col sm={6} className="d-xl-none">
-               <div className="border border-2 px-3 py-4 shadow-sm rounded-2 h-100">
+               <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
                   <div className="d-flex justify-content-between">
                      <h6 id={styles.tit} className="mb-0">
                         Média do tempo de treino
@@ -279,7 +280,14 @@ const Dashboard = () => {
                   dots
                >
                   {ultimosExerciciosPraticados?.map((v, k) => (
-                     <CardExercicio customClass="me-4" titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles?.slice(0, 2)} key={k} />
+                     <CardExercicio
+                        customClass="me-4"
+                        titulo={v?.name}
+                        id={v?.id}
+                        foto={v?.gifUrl}
+                        categoria={v?.secondaryMuscles?.slice(0, 2)}
+                        key={k}
+                     />
                   ))}
                </Slider>
             </Col>
