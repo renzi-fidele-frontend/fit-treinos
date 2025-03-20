@@ -14,13 +14,14 @@ import { setExercicios, setExerciciosPaginados } from "../../state/exercicios/ex
 import ModalFiltragem from "../../components/ModalFiltragem/ModalFiltragem";
 import useFiltrarExercicios from "../../hooks/useFiltrarExercicios";
 import noFilter from "../../assets/noFilter.webp";
+import BannerTopo from "../../components/BannerTopo/BannerTopo";
 
 const Exercicios = () => {
    const { categorias: partesCorpo, equipamentos, musculoAlvo, filtros, paginaAtual } = useSelector((state) => state.configs);
    const { exercicios, exerciciosFiltrados, exerciciosPaginados } = useSelector((state) => state.exercicios);
    const dispatch = useDispatch();
    const { filtrarExercicios } = useFiltrarExercicios();
-   const { modoEscuro } = useSelector((state) => state.tema);
+   
 
    // Modais de filtragem
    const [modalParteDoCorpo, setModalParteDoCorpo] = useState(false);
@@ -49,27 +50,7 @@ const Exercicios = () => {
    return (
       <div>
          {/*  Banner inicial */}
-         <div
-            id={styles.banner}
-            className="position-relative overflow-hidden 
-  pb-0"
-         >
-            <div className={`pt-4 pt-sm-5 ${modoEscuro ? "bg-dark bg-opacity-75" : "bg-light bg-opacity-50"} `}>
-               <div className="container-md">
-                  <Row className="position-relative px-2 px-sm-5 px-md-0">
-                     <Col xs={8} sm={7} className="justify-content-center flex-column gap-1 gap-sm-3 d-flex">
-                        <h2 className={modoEscuro && styles.txtShadow} id={styles.titBanner}>Está na hora de dar aquela melhorada no seu físico</h2>
-                        <p className="fs-4 mb-3 mb-sm-0" id={styles.bannerSub}>
-                           Mais de 1000 exercícios foram preparados para você
-                        </p>
-                     </Col>
-                     <Col className="text-end pe-md-5">
-                        <Image id={styles.fotoBanner} src={fotoBanner} />
-                     </Col>
-                  </Row>
-               </div>
-            </div>
-         </div>
+         <BannerTopo titulo="Está na hora de dar aquela melhorada no seu físico" descricao="Mais de 1000 exercícios foram preparados para você" fotoModelo={fotoBanner} />
          <Container fluid>
             <Row className="py-4 py-sm-5">
                <Col className="text-center">
