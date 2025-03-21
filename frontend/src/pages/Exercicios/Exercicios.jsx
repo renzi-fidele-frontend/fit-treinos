@@ -15,13 +15,13 @@ import ModalFiltragem from "../../components/ModalFiltragem/ModalFiltragem";
 import useFiltrarExercicios from "../../hooks/useFiltrarExercicios";
 import noFilter from "../../assets/noFilter.webp";
 import BannerTopo from "../../components/BannerTopo/BannerTopo";
+import { gerarArray } from "../../utils/gerarArray";
 
 const Exercicios = () => {
    const { categorias: partesCorpo, equipamentos, musculoAlvo, filtros, paginaAtual } = useSelector((state) => state.configs);
    const { exercicios, exerciciosFiltrados, exerciciosPaginados } = useSelector((state) => state.exercicios);
    const dispatch = useDispatch();
    const { filtrarExercicios } = useFiltrarExercicios();
-   
 
    // Modais de filtragem
    const [modalParteDoCorpo, setModalParteDoCorpo] = useState(false);
@@ -50,7 +50,11 @@ const Exercicios = () => {
    return (
       <div>
          {/*  Banner inicial */}
-         <BannerTopo titulo="Está na hora de dar aquela melhorada no seu físico" descricao="Mais de 1000 exercícios foram preparados para você" fotoModelo={fotoBanner} />
+         <BannerTopo
+            titulo="Está na hora de dar aquela melhorada no seu físico"
+            descricao="Mais de 1000 exercícios foram preparados para você"
+            fotoModelo={fotoBanner}
+         />
          <Container fluid>
             <Row className="py-4 py-sm-5">
                <Col className="text-center">
@@ -112,17 +116,25 @@ const Exercicios = () => {
                   <Container fluid className="mt-5 px-xxl-5">
                      <hr className="mx-5" />
                      <Row className="mt-2 mb-5 px-0 px-sm-1 px-md-4 px-xxl-5 g-4 justify-content-center flex-content-stretch">
-                        {exerciciosPaginados?.length > 0 ? (
-                           exerciciosPaginados?.map((v, k) => (
+                        {exercicios ? (
+                           exerciciosPaginados?.length > 0 ? (
+                              exerciciosPaginados?.map((v, k) => (
+                                 <Col key={k} sm={6} lg={4} xl={3}>
+                                    <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
+                                 </Col>
+                              ))
+                           ) : (
+                              <div>
+                                 <Image className="mb-4" src={noFilter} />
+                                 <Alert variant="secondary">Nenhum exercício corresponde com os filtros definidos!</Alert>
+                              </div>
+                           )
+                        ) : (
+                           gerarArray(8).map((v, k) => (
                               <Col key={k} sm={6} lg={4} xl={3}>
-                                 <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
+                                 <CardExercicio />
                               </Col>
                            ))
-                        ) : (
-                           <div>
-                              <Image className="mb-4" src={noFilter} />
-                              <Alert variant="secondary">Nenhum exercício corresponde com os filtros definidos!</Alert>
-                           </div>
                         )}
                      </Row>
 
