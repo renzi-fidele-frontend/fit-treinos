@@ -26,6 +26,25 @@
    display: block !important;
 }
 
+.parteDoCorpoLoad {
+   display: block !important;
+   height: 220px;
+   width: 350px;
+}
+
+.loadEquipamento {
+   display: block !important;
+   height: 220px;
+   width: 350px;
+   margin-inline: auto;
+}
+
+@media screen and (max-width: 1400px) {
+   .loadEquipamento {
+      height: 170px;
+   }
+}
+
 @media screen and (max-width: 1200px) {
    .equipamento {
       width: 200px;
@@ -34,6 +53,24 @@
    .loadFotoExercicio {
       width: 400px;
       height: 400px;
+   }
+
+   .loadEquipamento {
+      width: 300px;
+   }
+
+   .parteDoCorpoLoad {
+      height: 160px;
+   }
+}
+
+@media screen and (max-width: 992px) {
+   .parteDoCorpoLoad {
+      width: 230px;
+   }
+
+   .loadEquipamento {
+      width: 190px;
    }
 }
 
@@ -48,6 +85,11 @@
 
    #tit2 {
       font-size: 1.6rem !important;
+   }
+
+   .loadEquipamento {
+      height: 160px;
+      width: 135px;
    }
 }
 

@@ -183,21 +183,55 @@ const DetalhesExercicio = () => {
          <Row className="mt-5 text-center">
             <Col sm={7}>
                <h2 className="fw-medium mb-3 mb-sm-4 fs-3" id={styles.labelDetalhes}>
-                  Parte do corpo que irá se desenvolver: <span className="text-secondary text-capitalize">{exercicio?.bodyPart}</span>
+                  Parte do corpo que irá se desenvolver:{" "}
+                  <span className="text-secondary text-capitalize">
+                     {!exercicio ? (
+                        exercicio?.bodyPart
+                     ) : (
+                        <Placeholder animation="wave">
+                           <Placeholder xs={2} />
+                        </Placeholder>
+                     )}
+                  </span>
                </h2>
-               <Image
-                  className="border-3 shadow-lg border rounded-2 mb-5 mb-sm-0"
-                  src={fotoDaParteDoCorpo(exercicio?.bodyPart)}
-                  alt={exercicio?.bodyPart}
-                  fluid
-               />
+               {!exercicio ? (
+                  <Image
+                     className="border-3 shadow-lg border rounded-2 mb-5 mb-sm-0"
+                     src={fotoDaParteDoCorpo(exercicio?.bodyPart)}
+                     alt={exercicio?.bodyPart}
+                     fluid
+                  />
+               ) : (
+                  <div className="d-flex">
+                     <Placeholder animation="wave" className="mx-auto">
+                        <Placeholder className={styles.parteDoCorpoLoad + " border-3 shadow-lg border rounded-2 mb-5 mb-sm-0"} />
+                     </Placeholder>
+                  </div>
+               )}
             </Col>
             <div className="vr px-1 bg-gradient mx-4 rounded d-none d-sm-block"></div>
             <Col>
                <h2 className="fw-medium mb-3 mb-sm-4 fs-3" id={styles.labelDetalhes}>
-                  Equipamento necessário: <span className="text-secondary text-capitalize">{exercicio?.equipment}</span>
+                  Equipamento necessário:{" "}
+                  <span className="text-secondary text-capitalize">
+                     {!exercicio ? (
+                        exercicio?.equipment
+                     ) : (
+                        <Placeholder animation="wave">
+                           <Placeholder sm={2} xl={6} xxl={2} />
+                        </Placeholder>
+                     )}
+                  </span>
                </h2>
-               <Image className={styles.equipamento} src={fotoEquipamento(exercicio?.equipment)} />
+               {!exercicio ? (
+                  <Image className={styles.equipamento} src={fotoEquipamento(exercicio?.equipment)} />
+               ) : (
+                  <div className="d-flex flex-column justify-content-center">
+                     <Placeholder animation="wave">
+                        <Placeholder className={styles.loadEquipamento} />
+                     </Placeholder>
+                  </div>
+               )}
             </Col>
          </Row>
          {/* Separador do Mobile */}
@@ -209,8 +243,17 @@ const DetalhesExercicio = () => {
                   style={{ width: "fit-content" }}
                   className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-danger shadow-sm rounded-3 mx-auto"
                >
-                  <Image className={styles.musculo + " border rounded-2"} src={fotoMusculo(exercicio?.target)} />
-                  <span>{exercicio?.target}</span>
+                  {!exercicio ? (
+                     <>
+                        {" "}
+                        <Image className={styles.musculo + " border rounded-2"} src={fotoMusculo(exercicio?.target)} />
+                        <span>{exercicio?.target}</span>
+                     </>
+                  ) : (
+                     <Placeholder animation="wave">
+                        <Placeholder className={styles.parteDoCorpoLoad} />
+                     </Placeholder>
+                  )}
                </div>
             </Col>
             {/* Separador vertical do desktop */}
@@ -218,22 +261,30 @@ const DetalhesExercicio = () => {
             <Col className="text-center">
                <h4 className="fw-semibold mb-4 mt-4 mt-xl-0">Músculos secundários que serão afetados:</h4>
                <div className="d-flex gap-2  gap-lg-5 justify-content-center flex-wrap flex-md-nowrap">
-                  {exercicio?.secondaryMuscles?.map((v, key) =>
-                     fotoMusculo(v) || fotoDaParteDoCorpo(v) ? (
-                        <div className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-secondary shadow-sm rounded-3" key={key}>
-                           <Image className={styles.musculo + " border rounded-2"} src={fotoMusculo(v) || fotoDaParteDoCorpo(v)} />
-                           <span>{v}</span>
-                        </div>
-                     ) : (
-                        <div
-                           className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-secondary shadow-sm rounded-3 position-relative"
-                           key={key}
-                        >
-                           <Image className={styles.musculo + " border rounded-2"} src={noPhoto} />
+                  {!exercicio ? (
+                     exercicio?.secondaryMuscles?.map((v, key) =>
+                        fotoMusculo(v) || fotoDaParteDoCorpo(v) ? (
+                           <div className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-secondary shadow-sm rounded-3" key={key}>
+                              <Image className={styles.musculo + " border rounded-2"} src={fotoMusculo(v) || fotoDaParteDoCorpo(v)} />
+                              <span>{v}</span>
+                           </div>
+                        ) : (
+                           <div
+                              className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-secondary shadow-sm rounded-3 position-relative"
+                              key={key}
+                           >
+                              <Image className={styles.musculo + " border rounded-2"} src={noPhoto} />
 
-                           <span>{v}</span>
-                        </div>
+                              <span>{v}</span>
+                           </div>
+                        )
                      )
+                  ) : (
+                     <div className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-secondary shadow-sm rounded-3 position-relative">
+                        <Placeholder animation="wave">
+                           <Placeholder className={styles.parteDoCorpoLoad} />
+                        </Placeholder>
+                     </div>
                   )}
                </div>
             </Col>
