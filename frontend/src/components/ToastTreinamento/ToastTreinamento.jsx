@@ -45,7 +45,7 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo }) => {
    }, []);
 
    useEffect(() => {
-      if (idExercicio) {
+      if (idExercicio && user) {
          const res = apanharNoBackendComAuth(`actions/retornarTempoTotalDeTreinoDeExercicio/${idExercicio}`, "GET").then((v) =>
             setTempoTotal(v.tempoTotalDeTreino)
          );

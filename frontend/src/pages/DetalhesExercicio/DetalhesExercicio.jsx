@@ -47,7 +47,7 @@ const DetalhesExercicio = () => {
             )
             .then((v) => setVideos(v.contents));
       }
-      if (user.favoritos.includes(exercicio?.id)) setFavorito(true);
+      if (user?.favoritos?.includes(exercicio?.id)) setFavorito(true);
    }, [exercicio]);
 
    useEffect(() => {
@@ -124,23 +124,25 @@ const DetalhesExercicio = () => {
                </ListGroup>
 
                {/* Ações */}
-               <div className="d-flex gap-3 mt-4 flex-wrap flex-sm-row justify-content-center justify-content-md-start">
-                  <Button variant="warning" onClick={iniciarTreino}>
-                     <i className="bi bi-person-arms-up me-1"></i> Iniciar exercício
-                  </Button>
-                  {!favorito ? (
-                     <Button variant="secondary" onClick={adicionarAosFavoritos}>
-                        <i className="bi bi-heart me-1"></i> Adicionar aos favoritos
+               {user && (
+                  <div className="d-flex gap-3 mt-4 flex-wrap flex-sm-row justify-content-center justify-content-md-start">
+                     <Button variant="warning" onClick={iniciarTreino}>
+                        <i className="bi bi-person-arms-up me-1"></i> Iniciar exercício
                      </Button>
-                  ) : (
-                     <Button variant="danger" onClick={removerDosFavoritos}>
-                        <i className="bi bi-trash me-1"></i> Remover dos favoritos
+                     {!favorito ? (
+                        <Button variant="secondary" onClick={adicionarAosFavoritos}>
+                           <i className="bi bi-heart me-1"></i> Adicionar aos favoritos
+                        </Button>
+                     ) : (
+                        <Button variant="danger" onClick={removerDosFavoritos}>
+                           <i className="bi bi-trash me-1"></i> Remover dos favoritos
+                        </Button>
+                     )}
+                     <Button variant="dark" className="bg-gradient">
+                        <i className="bi bi-plus-circle me-1"></i> Adicionar a sessão de treino
                      </Button>
-                  )}
-                  <Button variant="dark" className="bg-gradient">
-                     <i className="bi bi-plus-circle me-1"></i> Adicionar a sessão de treino
-                  </Button>
-               </div>
+                  </div>
+               )}
             </Col>
          </Row>
 
