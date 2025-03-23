@@ -1,15 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setModoEscuro } from "../../state/theme/themeSlice";
+import { useEffect } from "react";
 
 const MudarTemaBtn = () => {
    const dispatch = useDispatch();
    const { modoEscuro } = useSelector((state) => state.tema);
 
    function alternarTema() {
+      const tema = !modoEscuro ? "dark" : "light";
       dispatch(setModoEscuro(!modoEscuro));
-      let tema = modoEscuro ? "light" : "dark";
       document.documentElement.setAttribute("data-bs-theme", tema);
    }
+
+   useEffect(() => {
+      const tema = modoEscuro ? "dark" : "light";
+      document.documentElement.setAttribute("data-bs-theme", tema);
+   }, []);
 
    return (
       <>
