@@ -360,7 +360,7 @@ const Dashboard = () => {
          </Row>
 
          {/* Últimos exercícios praticados */}
-         <Row className="mb-5 px-sm-4">
+         <Row className="mb-5">
             <Col>
                <h2 className="fw-semibold mb-4">Últimos exercícios praticados</h2>
                <Slider
@@ -373,16 +373,18 @@ const Dashboard = () => {
                   infinite={false}
                   dots
                >
-                  {ultimosExerciciosPraticados?.map((v, k) => (
-                     <CardExercicio
-                        customClass="me-4"
-                        titulo={v?.name}
-                        id={v?.id}
-                        foto={v?.gifUrl}
-                        categoria={v?.secondaryMuscles?.slice(0, 2)}
-                        key={k}
-                     />
-                  ))}
+                  {ultimosExerciciosPraticados
+                     ? ultimosExerciciosPraticados?.map((v, k) => (
+                          <CardExercicio
+                             customClass="me-4"
+                             titulo={v?.name}
+                             id={v?.id}
+                             foto={v?.gifUrl}
+                             categoria={v?.secondaryMuscles?.slice(0, 2)}
+                             key={k}
+                          />
+                       ))
+                     : gerarArray(4).map((v, k) => <CardExercicio customClass="me-4" key={k} />)}
                </Slider>
             </Col>
          </Row>

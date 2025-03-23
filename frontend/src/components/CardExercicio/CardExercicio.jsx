@@ -21,7 +21,7 @@ const CardExercicio = ({ foto, categoria, titulo, id, truncado = false, customCl
          </Card.Footer>
       </Card>
    ) : (
-      <Card className="h-100">
+      <Card className={`h-100 ` + customClass}>
          <Placeholder animation="wave" xs={12}>
             <Placeholder xs={12} className={styles.exImg} />
          </Placeholder>
@@ -35,8 +35,7 @@ const CardExercicio = ({ foto, categoria, titulo, id, truncado = false, customCl
          <Card.Footer>
             <Card.Title className="text-start fw-semibold text-capitalize text-truncate">
                <Placeholder animation="wave" xs={12}>
-                  <Placeholder xs={11} />
-                  {" "}...
+                  <Placeholder xs={11} /> ...
                </Placeholder>
             </Card.Title>
          </Card.Footer>
