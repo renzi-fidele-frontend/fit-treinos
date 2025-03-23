@@ -1,4 +1,4 @@
-import { Col, Image, Row } from "react-bootstrap";
+import { Col, Image, Placeholder, Row } from "react-bootstrap";
 import styles from "./Dashboard.module.css";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
@@ -16,11 +16,11 @@ Chart.register(CategoryScale);
 
 const Dashboard = () => {
    const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
-   const [tempoTotalTreino, setTempoTotalTreino] = useState(0);
-   const [nrTreinosHoje, setNrTreinosHoje] = useState(0);
-   const [difPercentualDiasDeTreino, setDifPercentualDiasDeTreino] = useState(0);
-   const [mediaTempoPorDia, setMediaTempoPorDia] = useState(0);
-   const [diferencialPercentualTempo, setDiferencialPercentualTempo] = useState(0);
+   const [tempoTotalTreino, setTempoTotalTreino] = useState(null);
+   const [nrTreinosHoje, setNrTreinosHoje] = useState(null);
+   const [difPercentualDiasDeTreino, setDifPercentualDiasDeTreino] = useState(null);
+   const [mediaTempoPorDia, setMediaTempoPorDia] = useState(null);
+   const [diferencialPercentualTempo, setDiferencialPercentualTempo] = useState(null);
    const [estatisticasDaSemana, setEstatisticasDaSemana] = useState(null);
    const [partesDoCorpoTreinadas, setPartesDoCorpoTreinadas] = useState(null);
    const [ultimosExerciciosPraticados, setUltimosExerciciosPraticados] = useState(null);
@@ -39,7 +39,7 @@ const Dashboard = () => {
             setEstatisticasDaSemana(v.estatisticasDaSemana);
             setPartesDoCorpoTreinadas(v.partesDoCorpoTreinadas);
             setExercicioMaisTreinado(v.exercicioMaisTreinado);
-            setUltimosExerciciosPraticados( 
+            setUltimosExerciciosPraticados(
                v.ultimosExerciciosPraticados.map((exId) => {
                   return exercicios.find((obj) => obj.id === exId);
                })
@@ -95,7 +95,17 @@ const Dashboard = () => {
                         <i className="bi bi-clock fs-3 "></i>
                      </div>
                   </div>
-                  <h5 className="fs-1 fw-bold mb-3">{segundosParaFormatoHumanizado(tempoTotalTreino)}</h5>
+                  {!tempoTotalTreino ? (
+                     <h5 className="fs-1 fw-bold mb-3">{segundosParaFormatoHumanizado(tempoTotalTreino)}</h5>
+                  ) : (
+                     <h5 className="fs-1 fw-bold mb-3">
+                        <Placeholder animation="wave">
+                           <Placeholder className={styles.loadtit} xs={2} />
+                           min <Placeholder className={styles.loadtit} xs={2} />s
+                        </Placeholder>
+                     </h5>
+                  )}
+
                   <p className="text-secondary mb-0" id={styles.small}>
                      O tempo acumulado praticando exercícios
                   </p>
@@ -112,18 +122,32 @@ const Dashboard = () => {
                         <i className="bi bi-person-arms-up fs-3"></i>
                      </div>
                   </div>
-                  <h5 className="fs-1 fw-bold mb-3">
-                     {nrTreinosHoje}{" "}
-                     {difPercentualDiasDeTreino >= 0 ? (
-                        <span id={styles.small} className={"text-small text-success"}>
-                           (+{difPercentualDiasDeTreino}%)
-                        </span>
-                     ) : (
-                        <span id={styles.small} className={"text-small text-danger"}>
-                           ({difPercentualDiasDeTreino}%)
-                        </span>
-                     )}
-                  </h5>
+                  {!difPercentualDiasDeTreino ? (
+                     <h5 className="fs-1 fw-bold mb-3">
+                        {nrTreinosHoje}{" "}
+                        {difPercentualDiasDeTreino >= 0 ? (
+                           <span id={styles.small} className={"text-small text-success"}>
+                              (+{difPercentualDiasDeTreino}%)
+                           </span>
+                        ) : (
+                           <span id={styles.small} className={"text-small text-danger"}>
+                              ({difPercentualDiasDeTreino}%)
+                           </span>
+                        )}
+                     </h5>
+                  ) : (
+                     <h5 className="fs-1 fw-bold mb-3">
+                        <Placeholder animation="wave">
+                           <Placeholder xs={2} />{" "}
+                           <span id={styles.small} className={"text-small text-success"}>
+                              (+
+                              <Placeholder xs={2} />
+                              %)
+                           </span>
+                        </Placeholder>
+                     </h5>
+                  )}
+
                   <p className="text-secondary mb-0" id={styles.small}>
                      Total de treinamentos executados hoje
                   </p>
@@ -140,18 +164,32 @@ const Dashboard = () => {
                         <i className="bi bi-hourglass-split fs-3"></i>
                      </div>
                   </div>
-                  <h5 className="fs-1 fw-bold mb-3">
-                     {segundosParaFormatoHumanizado(mediaTempoPorDia)}{" "}
-                     {diferencialPercentualTempo >= 0 ? (
-                        <span id={styles.small} className={"text-small text-success"}>
-                           (+{diferencialPercentualTempo}%)
-                        </span>
-                     ) : (
-                        <span id={styles.small} className={"text-small text-danger"}>
-                           ({diferencialPercentualTempo}%)
-                        </span>
-                     )}
-                  </h5>
+                  {!diferencialPercentualTempo ? (
+                     <h5 className="fs-1 fw-bold mb-3">
+                        {segundosParaFormatoHumanizado(mediaTempoPorDia)}{" "}
+                        {diferencialPercentualTempo >= 0 ? (
+                           <span id={styles.small} className={"text-small text-success"}>
+                              (+{diferencialPercentualTempo}%)
+                           </span>
+                        ) : (
+                           <span id={styles.small} className={"text-small text-danger"}>
+                              ({diferencialPercentualTempo}%)
+                           </span>
+                        )}
+                     </h5>
+                  ) : (
+                     <h5 className="fs-1 fw-bold mb-3">
+                        <Placeholder animation="wave">
+                           <Placeholder className={styles.loadtit} xs={2} />
+                           min <Placeholder className={styles.loadtit} xs={2} />s{" "}
+                           <span id={styles.small} className={"text-small text-success"}>
+                              (+
+                              <Placeholder xs={2} />
+                              %)
+                           </span>
+                        </Placeholder>
+                     </h5>
+                  )}
                   <p className="text-secondary mb-0" id={styles.small}>
                      Tempo dedicado ao treinamento por dia
                   </p>
