@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
-import { Button, Col, Container, Image, ListGroup, ListGroupItem, Row } from "react-bootstrap";
+import { Button, Col, Container, Image, ListGroup, ListGroupItem, Placeholder, Row } from "react-bootstrap";
 import styles from "./DetalhesExercicio.module.css";
 import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
 import { YoutubeVideosApiOptions } from "../../services/YoutubeVideosApi";
@@ -16,6 +16,7 @@ import noPhoto from "../../assets/musculos/noPhoto.jpg";
 import { setExercicios } from "../../state/exercicios/exerciciosSlice";
 import { setUser } from "../../state/auth/authSlice";
 import ToastTreinamento from "../../components/ToastTreinamento/ToastTreinamento";
+import { gerarArray } from "../../utils/gerarArray";
 
 // FIXME: A requisição está sendo feita duas vezes
 
@@ -106,21 +107,50 @@ const DetalhesExercicio = () => {
                id={styles.left}
             >
                {/* Foto de desktop */}
-               <Image className="d-none d-xl-block" src={exercicio?.gifUrl} alt={exercicio?.name} fluid />
+               {!exercicio ? (
+                  <Image className="d-none d-xl-block" src={exercicio?.gifUrl} alt={exercicio?.name} fluid />
+               ) : (
+                  <Placeholder animation="wave" xs={12}>
+                     <Placeholder className={styles.loadFotoExercicio} />
+                  </Placeholder>
+               )}
             </Col>
             <Col>
                <h1 className="fw-bold mb-2 mb-xl-4 pt-3">
-                  Como praticar o: <span className="text-capitalize text-secondary">{exercicio?.name}</span>
+                  Como praticar o:{" "}
+                  <span className="text-capitalize text-secondary">
+                     {!exercicio ? (
+                        exercicio?.name
+                     ) : (
+                        <Placeholder animation="wave">
+                           <Placeholder xs={9} xl={6} />
+                        </Placeholder>
+                     )}
+                  </span>
                </h1>
                {/* Foto do mobile */}
-               <Image className="d-xl-none mb-3" src={exercicio?.gifUrl} alt={exercicio?.name} fluid />
+               {!exercicio ? (
+                  <Image className="d-xl-none mb-3" src={exercicio?.gifUrl} alt={exercicio?.name} fluid />
+               ) : (
+                  <Placeholder animation="wave" className="d-xl-none mb-3">
+                     <Placeholder className={styles.loadFotoExercicio} />
+                  </Placeholder>
+               )}
                {/* Instruções */}
                <ListGroup>
-                  {exercicio?.instructions?.map((v, key) => (
-                     <ListGroupItem key={key}>
-                        <span className="fw-bold text-secondary">{key + 1}</span> - {v}
-                     </ListGroupItem>
-                  ))}
+                  {!exercicio
+                     ? exercicio?.instructions?.map((v, key) => (
+                          <ListGroupItem key={key}>
+                             <span className="fw-bold text-secondary">{key + 1}</span> - {v}
+                          </ListGroupItem>
+                       ))
+                     : gerarArray(5).map((v, k) => (
+                          <ListGroupItem key={k}>
+                             <Placeholder animation="wave">
+                                <span className="fw-bold text-secondary">{v}</span> - <Placeholder xs={10} sm={11} />
+                             </Placeholder>
+                          </ListGroupItem>
+                       ))}
                </ListGroup>
 
                {/* Ações */}

@@ -21,9 +21,19 @@
    border-style: dashed !important;
 }
 
+.loadFotoExercicio {
+   height: 100%;
+   display: block !important;
+}
+
 @media screen and (max-width: 1200px) {
    .equipamento {
       width: 200px;
+   }
+
+   .loadFotoExercicio {
+      width: 400px;
+      height: 400px;
    }
 }
 
@@ -44,5 +54,17 @@
 @media screen and (max-width: 576px) {
    #tit2 {
       font-size: 1.4rem !important;
+   }
+
+   .loadFotoExercicio {
+      width: 400px;
+      height: 300px;
+      margin-bottom: 0.8rem;
+   }
+}
+
+@media screen and (max-width: 410px) {
+   .loadFotoExercicio {
+      height: 230px;
    }
 }
