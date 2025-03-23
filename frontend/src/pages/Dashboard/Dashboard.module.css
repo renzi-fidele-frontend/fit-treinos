@@ -18,6 +18,12 @@
    object-fit: cover;
 }
 
+.fotoLoad {
+   height: 330px;
+   width: 100%;
+   display: block !important;
+}
+
 #ct i {
    line-height: 0 !important;
 }
@@ -37,6 +43,20 @@
    color: #572552 !important;
 }
 
+.chartLoad {
+   height: 230px;
+   width: 100%;
+   display: block !important;
+   border-radius: 5px;
+}
+
+.pieChartLoad {
+   width: 100%;
+   height: 300px;
+   display: block !important;
+   border-radius: 5%;
+}
+
 @media screen and (max-width: 1400px) {
    .foto {
       height: 250px;
@@ -51,17 +71,29 @@
    .foto {
       height: 350px;
    }
+
+   .fotoLoad {
+      height: 390px;
+   }
 }
 
 @media screen and (max-width: 992px) {
    .foto {
       height: 320px;
    }
+
+   .fotoLoad {
+      height: 350px;
+   }
 }
 
 @media screen and (max-width: 830px) {
    .foto {
       height: 270px;
+   }
+
+   .fotoLoad {
+      height: 300px;
    }
 }
 

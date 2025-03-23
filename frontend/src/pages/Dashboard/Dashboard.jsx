@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { segundosParaFormatoHumanizado } from "../../utils/segundosParaFormatoHumanizado";
 import { Link } from "react-router-dom";
 import mediaTreinos from "../../assets/mediaTreinos.png";
+import { gerarArray } from "../../utils/gerarArray";
 Chart.register(CategoryScale);
 
 const Dashboard = () => {
@@ -52,7 +53,7 @@ const Dashboard = () => {
    const CardExercicioMaisTreinado = ({ exercicio, tempoDeTreino }) => {
       const musculoSecundario = exercicio?.secondaryMuscles?.slice(0, 1)[0];
 
-      return (
+      return exercicio ? (
          <div className="mt-3">
             <Link to={`/exercicio/${exercicio?.id}`} className="position-relative h-100 d-flex justify-content-end align-items-end">
                <Image className={styles.foto + " border rounded-1"} src={exercicio?.gifUrl} />
@@ -74,12 +75,37 @@ const Dashboard = () => {
             </div>
             <p className="fs-5 fw-semibold text-capitalize mt-2 text-truncate mb-0">{exercicio?.name}</p>
          </div>
+      ) : (
+         <div className="mt-3">
+            <div to={`/exercicio/${exercicio?.id}`} className="position-relative h-100 d-flex justify-content-end align-items-end">
+               <Placeholder animation="wave" xs={12}>
+                  <Placeholder className={styles.fotoLoad + " border rounded-1"} />
+               </Placeholder>
+               {/* Tag mobile */}
+               <p className="text-capitalize text-bg-secondary px-2 py-1 rounded small mb-0 position-absolute d-xxl-none me-1 mb-1 shadow-lg">
+                  <Placeholder>......</Placeholder>
+               </p>
+            </div>
+            <div className="d-flex align-items-center mt-2">
+               <div className="d-flex gap-2">
+                  {/* Tag desktop */}
+                  <p className="text-capitalize text-bg-secondary px-2 py-1 rounded small mb-0 d-none d-xxl-block ">
+                     <Placeholder>......</Placeholder>
+                  </p>
+               </div>
+               <div className="vr mx-2 d-none d-xxl-block"></div>
+               <p className="mb-0">
+                  Tempo de treino: <span className="fw-medium fst-italic border rounded px-1 shadow-sm">Carregando...</span>
+               </p>
+            </div>
+            <p className="fs-5 fw-semibold text-capitalize mt-2 text-truncate mb-0">{exercicio?.name}</p>
+         </div>
       );
    };
 
    return (
       <div id={styles.ct} className="h-100  py-4 py-md-5 px-3  px-md-5 px-lg-0 container-lg">
-         <h2 className="fw-semibold mb-3 text-center text-xl-start ">Progresso do treinamento</h2>
+         <h2 className="fw-semibold mb-4 text-center text-xl-start ">Progresso do treinamento</h2>
          {/* Separador Mobile */}
          <hr className="d-xl-none mb-4" />
          {/* Primeira linha */}
@@ -95,7 +121,7 @@ const Dashboard = () => {
                         <i className="bi bi-clock fs-3 "></i>
                      </div>
                   </div>
-                  {!tempoTotalTreino ? (
+                  {tempoTotalTreino ? (
                      <h5 className="fs-1 fw-bold mb-3">{segundosParaFormatoHumanizado(tempoTotalTreino)}</h5>
                   ) : (
                      <h5 className="fs-1 fw-bold mb-3">
@@ -122,7 +148,7 @@ const Dashboard = () => {
                         <i className="bi bi-person-arms-up fs-3"></i>
                      </div>
                   </div>
-                  {!difPercentualDiasDeTreino ? (
+                  {difPercentualDiasDeTreino ? (
                      <h5 className="fs-1 fw-bold mb-3">
                         {nrTreinosHoje}{" "}
                         {difPercentualDiasDeTreino >= 0 ? (
@@ -164,7 +190,7 @@ const Dashboard = () => {
                         <i className="bi bi-hourglass-split fs-3"></i>
                      </div>
                   </div>
-                  {!diferencialPercentualTempo ? (
+                  {diferencialPercentualTempo ? (
                      <h5 className="fs-1 fw-bold mb-3">
                         {segundosParaFormatoHumanizado(mediaTempoPorDia)}{" "}
                         {diferencialPercentualTempo >= 0 ? (
@@ -205,26 +231,32 @@ const Dashboard = () => {
                   <h6 id={styles.tit} className="mb-0">
                      Estatísticas da Dedicação Semanal
                   </h6>
-
                   <div className="my-4">
-                     <Line
-                        data={{
-                           labels: estatisticasDaSemana?.map((v) => v?.dia),
-                           datasets: [
-                              {
-                                 label: "Tempo de treino",
-                                 data: estatisticasDaSemana?.map((v) => v?.tempoTreinadoNoDia),
-                                 fill: true,
-                                 tension: 0.4,
-                                 borderColor: "rgb(135, 142, 163)",
-                                 backgroundColor: "rgba(116, 126, 211, 0.5)",
-                                 pointBackgroundColor: "#ffffff",
-                              },
-                           ],
-                        }}
-                        options={{ responsive: true }}
-                        className={styles.chart}
-                     />
+                     {estatisticasDaSemana ? (
+                        <Line
+                           data={{
+                              labels: estatisticasDaSemana?.map((v) => v?.dia),
+                              datasets: [
+                                 {
+                                    label: "Tempo de treino",
+                                    data: estatisticasDaSemana?.map((v) => v?.tempoTreinadoNoDia),
+                                    fill: true,
+                                    tension: 0.4,
+                                    borderColor: "rgb(135, 142, 163)",
+                                    backgroundColor: "rgba(116, 126, 211, 0.5)",
+                                    pointBackgroundColor: "#ffffff",
+                                 },
+                              ],
+                           }}
+                           options={{ responsive: true }}
+                           className={styles.chart}
+                        />
+                     ) : (
+                        <Placeholder animation="wave" className="d-flex align-items-center justify-content-center position-relative" xs={12}>
+                           <Placeholder className={styles.chartLoad} />
+                           <p className="mb-0 position-absolute">Carregando o gráfico...</p>
+                        </Placeholder>
+                     )}
                   </div>
                   <p className="text-secondary small">* A Unidade do tempo de treino está em segundos</p>
                   <hr className="mt-4" />
@@ -251,9 +283,17 @@ const Dashboard = () => {
                            }}
                         />
                      ) : (
-                        <div>
-                           <p>Gráfico carregando...</p>
-                        </div>
+                        <Placeholder animation="wave" className="" xs={12}>
+                           <div className="mb-4 d-flex gap-2 justify-content-center flex-wrap">
+                              {gerarArray(10).map((v, k) => (
+                                 <Placeholder xs={2} key={k} />
+                              ))}
+                           </div>
+                           <div className="d-flex align-items-center justify-content-center position-relative">
+                              <Placeholder className={styles.pieChartLoad} />
+                              <p className="mb-0 position-absolute">Carregando o gráfico...</p>
+                           </div>
+                        </Placeholder>
                      )}
                   </div>
                </div>
@@ -264,11 +304,13 @@ const Dashboard = () => {
                   <h6 id={styles.tit} className="mb-0">
                      Exercício mais praticado
                   </h6>
-                  {exercicios && (
+                  {exercicios ? (
                      <CardExercicioMaisTreinado
                         exercicio={exercicios?.filter((v) => v.id === exercicioMaisTreinado?.id)?.[0]}
                         tempoDeTreino={exercicioMaisTreinado?.tempoTotalDeTreinoMaisPraticado}
                      />
+                  ) : (
+                     <CardExercicioMaisTreinado />
                   )}
                </div>
             </Col>
@@ -283,18 +325,32 @@ const Dashboard = () => {
                         <i className="bi bi-hourglass-split fs-3"></i>
                      </div>
                   </div>
-                  <h5 className="fs-1 fw-bold mb-3">
-                     {segundosParaFormatoHumanizado(mediaTempoPorDia)}{" "}
-                     {diferencialPercentualTempo >= 0 ? (
-                        <span id={styles.small} className={"text-small text-success"}>
-                           (+{diferencialPercentualTempo}%)
-                        </span>
-                     ) : (
-                        <span id={styles.small} className={"text-small text-danger"}>
-                           ({diferencialPercentualTempo}%)
-                        </span>
-                     )}
-                  </h5>
+                  {mediaTempoPorDia && diferencialPercentualTempo ? (
+                     <h5 className="fs-1 fw-bold mb-3">
+                        {segundosParaFormatoHumanizado(mediaTempoPorDia)}{" "}
+                        {diferencialPercentualTempo >= 0 ? (
+                           <span id={styles.small} className={"text-small text-success"}>
+                              (+{diferencialPercentualTempo}%)
+                           </span>
+                        ) : (
+                           <span id={styles.small} className={"text-small text-danger"}>
+                              ({diferencialPercentualTempo}%)
+                           </span>
+                        )}
+                     </h5>
+                  ) : (
+                     <h5 className="fs-1 fw-bold mb-3">
+                        <Placeholder animation="wave">
+                           <Placeholder className={styles.loadtit} xs={2} />
+                           min <Placeholder className={styles.loadtit} xs={2} />s{" "}
+                           <span id={styles.small} className={"text-small text-success"}>
+                              (+
+                              <Placeholder xs={2} />
+                              %)
+                           </span>
+                        </Placeholder>
+                     </h5>
+                  )}
                   <p className="text-secondary mb-0" id={styles.small}>
                      Tempo dedicado ao treinamento por dia
                   </p>
