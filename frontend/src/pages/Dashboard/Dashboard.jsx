@@ -43,7 +43,7 @@ const Dashboard = () => {
    }, [apanharExercicios.data]);
 
    useEffect(() => {
-      if (!fetched) {
+      if (!fetched && exercicios) {
          const apanharEstatisticasDeTreino = apanharNoBackendComAuth("actions/retornarDadosTreinamento").then((v) => {
             setTempoTotalTreino(v.tempoTotalAbsoluto);
             setNrTreinosHoje(v.nrTreinosHoje);
@@ -61,7 +61,7 @@ const Dashboard = () => {
             setFetched(true);
          });
       }
-   }, []);
+   }, [exercicios]);
 
    const CardExercicioMaisTreinado = ({ exercicio, tempoDeTreino }) => {
       const musculoSecundario = exercicio?.secondaryMuscles?.slice(0, 1)[0];
