@@ -28,9 +28,10 @@ const Dashboard = () => {
    const { exercicios } = useSelector((state) => state.exercicios);
    const [exercicioMaisTreinado, setExercicioMaisTreinado] = useState(null);
    const { modoEscuro } = useSelector((state) => state.tema);
+   const [fetched, setFetched] = useState(false);
 
    useEffect(() => {
-      if (exercicios) {
+      if (!fetched) {
          const apanharEstatisticasDeTreino = apanharNoBackendComAuth("actions/retornarDadosTreinamento").then((v) => {
             setTempoTotalTreino(v.tempoTotalAbsoluto);
             setNrTreinosHoje(v.nrTreinosHoje);
@@ -45,10 +46,10 @@ const Dashboard = () => {
                   return exercicios.find((obj) => obj.id === exId);
                })
             );
-            console.log(v.ultimosExerciciosPraticados);
+            setFetched(true);
          });
       }
-   }, [exercicios]);
+   }, []);
 
    const CardExercicioMaisTreinado = ({ exercicio, tempoDeTreino }) => {
       const musculoSecundario = exercicio?.secondaryMuscles?.slice(0, 1)[0];

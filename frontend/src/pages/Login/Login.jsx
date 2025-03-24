@@ -1,4 +1,4 @@
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Row, Spinner } from "react-bootstrap";
 import styles from "./Login.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import ftBanner from "../../assets/modelo.png";
@@ -37,7 +37,9 @@ const Login = () => {
       <Container>
          <Row className="gap-3 gap-md-5 flex-column-reverse flex-md-row pb-5 pb-md-0">
             <Col md={6} className="justify-content-center d-flex flex-column pe-5">
-               <h1 id={styles.tit2} className="fw-bold">Entre na sua conta</h1>
+               <h1 id={styles.tit2} className="fw-bold">
+                  Entre na sua conta
+               </h1>
                <p id={styles.subtit} className="fs-5">
                   Você ainda não tem uma conta criada? <Link to="/cadastro">Crie uma conta</Link>
                </p>
@@ -58,9 +60,15 @@ const Login = () => {
                   <Form onSubmit={fazerLogin} className="mt-3">
                      <Form.Control ref={emailRef} className="my-3" type="email" placeholder="Insira seu email" />
                      <Form.Control ref={passwordRef} type="password" placeholder="Insira a palavra-chave" />
-                     <Button variant="secondary" className="mt-4" type="submit">
-                        Continuar treinamento
-                     </Button>
+                     {!loading ? (
+                        <Button variant="secondary" className="mt-4" type="submit">
+                           Continuar treinamento
+                        </Button>
+                     ) : (
+                        <Button variant="secondary" className="mt-4" type="submit">
+                           <Spinner />
+                        </Button>
+                     )}
                   </Form>
                </div>
             </Col>
