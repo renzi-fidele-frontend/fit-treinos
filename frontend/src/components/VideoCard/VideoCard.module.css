@@ -1,0 +1,11 @@
+.imgLoad {
+   display: block !important;
+   width: 100%;
+   height: 270px;
+}
+
+@media screen and (max-width: 992px) {
+   .imgLoad {
+      height: 220px;
+   }
+}

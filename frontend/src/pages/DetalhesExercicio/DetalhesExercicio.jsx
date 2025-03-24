@@ -297,7 +297,16 @@ const DetalhesExercicio = () => {
          <Row className="px-2">
             <Col>
                <h1 className="mb-4" id={styles.tit2}>
-                  Assista vídeos de treinamento do: <span className="text-secondary fw-semibold text-capitalize">{exercicio?.name}</span>
+                  Assista vídeos de treinamento do:{" "}
+                  <span className="text-secondary fw-semibold text-capitalize">
+                     {!exercicio ? (
+                        exercicio?.name
+                     ) : (
+                        <Placeholder animation="wave">
+                           <Placeholder xl={4} />
+                        </Placeholder>
+                     )}
+                  </span>
                </h1>
                <Slider
                   swipeToSlide
@@ -311,20 +320,22 @@ const DetalhesExercicio = () => {
                   infinite={false}
                   dots
                >
-                  {videos?.map(
-                     ({ video }, k) =>
-                        video?.thumbnails?.[1]?.url && (
-                           <VideoCard
-                              key={k}
-                              visualizacoes={video?.viewCountText}
-                              canal={video?.channelName}
-                              thumbnail={video?.thumbnails?.[1]?.url}
-                              titulo={video?.title}
-                              videoId={video?.videoId}
-                              descricao={video?.description}
-                           />
-                        )
-                  )}
+                  {!videos
+                     ? videos?.map(
+                          ({ video }, k) =>
+                             video?.thumbnails?.[1]?.url && (
+                                <VideoCard
+                                   key={k}
+                                   visualizacoes={video?.viewCountText}
+                                   canal={video?.channelName}
+                                   thumbnail={video?.thumbnails?.[1]?.url}
+                                   titulo={video?.title}
+                                   videoId={video?.videoId}
+                                   descricao={video?.description}
+                                />
+                             )
+                       )
+                     : gerarArray(8).map((v, k) => <VideoCard key={k} />)}
                </Slider>
 
                <div className="pt-5"></div>
