@@ -9,7 +9,7 @@ import { formatarTempo } from "../../utils/formatarSegundos";
 const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo }) => {
    const dispatch = useDispatch();
    const { user } = useSelector((state) => state.auth);
-   // Contabilizar o treino durante a sessão
+   const { modoEscuro } = useSelector((state) => state.tema);
    const [tempo, setTempo] = useState(0);
    const [ativo, setAtivo] = useState(false);
    const intervalRef = useRef(null);
@@ -63,7 +63,7 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo }) => {
             <Toast.Body>
                <div className="position-relative w-auto">
                   <Image className="rounded" src={gif} />
-                  <div className="w-100 position-absolute text-bg-dark bottom-0 rounded-bottom text-center py-1">
+                  <div className={`w-100 position-absolute ${modoEscuro ? "bg-black" : "text-bg-dark"} bottom-0 rounded-bottom text-center py-1`}>
                      <span>
                         Tempo total: <span className="ms-1 text-bg-secondary rounded px-1">{formatarTempo(tempoTotal)}</span>
                      </span>
@@ -78,7 +78,7 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo }) => {
                   {/* Ações */}
                   <div className="d-flex gap-2">
                      {ativo ? (
-                        <Button size="sm" variant="dark" onClick={pausarTreino}>
+                        <Button size="sm" variant={modoEscuro ? "secondary" : "dark"} onClick={pausarTreino}>
                            <i className="bi bi-pause"></i> Pausar
                         </Button>
                      ) : (
@@ -91,7 +91,7 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo }) => {
                                  </Button>
                               </OverlayTrigger>
                            )}
-                           <Button size="sm" variant="dark" onClick={iniciarTreino}>
+                           <Button size="sm" variant={modoEscuro ? "secondary" : "dark"} onClick={iniciarTreino}>
                               <i className="bi bi-play"></i> Iniciar
                            </Button>
                         </>
