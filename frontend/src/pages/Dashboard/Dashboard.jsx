@@ -1,10 +1,10 @@
-import { Alert, Col, Image, Placeholder, Row } from "react-bootstrap";
+import { Col, Image, Placeholder, Row } from "react-bootstrap";
 import styles from "./Dashboard.module.css";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import { CategoryScale } from "chart.js";
 import { Pie } from "react-chartjs-2";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import useFetch from "../../hooks/useFetch";
@@ -15,11 +15,14 @@ import mediaTreinos from "../../assets/mediaTreinos.png";
 import noProgress from "../../assets/noProgress.png";
 import noBestTrain from "../../assets/noBestTrain.png";
 import { gerarArray } from "../../utils/gerarArray";
+import { exercisesFetchOptions } from "../../services/ExercicesApi";
+import { setExercicios } from "../../state/exercicios/exerciciosSlice";
 
 Chart.register(CategoryScale);
 
 const Dashboard = () => {
    const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
+   const dispatch = useDispatch();
    const [tempoTotalTreino, setTempoTotalTreino] = useState(null);
    const [nrTreinosHoje, setNrTreinosHoje] = useState(null);
    const [difPercentualDiasDeTreino, setDifPercentualDiasDeTreino] = useState(null);
@@ -29,9 +32,15 @@ const Dashboard = () => {
    const [partesDoCorpoTreinadas, setPartesDoCorpoTreinadas] = useState(null);
    const [ultimosExerciciosPraticados, setUltimosExerciciosPraticados] = useState(null);
    const { exercicios } = useSelector((state) => state.exercicios);
-   const [exercicioMaisTreinado, setExercicioMaisTreinado] = useState(null);
    const { modoEscuro } = useSelector((state) => state.tema);
+   const [exercicioMaisTreinado, setExercicioMaisTreinado] = useState(null);
    const [fetched, setFetched] = useState(false);
+   const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises?limit=1000", exercisesFetchOptions, exercicios);
+
+   // Armazenando os dados da api
+   useEffect(() => {
+      if (!exercicios) dispatch(setExercicios(apanharExercicios.data));
+   }, [apanharExercicios.data]);
 
    useEffect(() => {
       if (!fetched) {
@@ -328,6 +337,8 @@ const Dashboard = () => {
                         <p className="mb-0 tex-light bg-secondary-subtle px-3 py-1 rounded">Você ainda não treinou! </p>
                      </div>
                   )}
+
+                  {exercicioMaisTreinado === null && <CardExercicioMaisTreinado />}
                </div>
             </Col>
             {/* Média do tempo de treino (Mobile) */}
