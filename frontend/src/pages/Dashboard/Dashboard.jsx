@@ -1,4 +1,4 @@
-import { Col, Image, Placeholder, Row } from "react-bootstrap";
+import { Alert, Col, Image, Placeholder, Row } from "react-bootstrap";
 import styles from "./Dashboard.module.css";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
@@ -12,7 +12,10 @@ import { useEffect, useState } from "react";
 import { segundosParaFormatoHumanizado } from "../../utils/segundosParaFormatoHumanizado";
 import { Link } from "react-router-dom";
 import mediaTreinos from "../../assets/mediaTreinos.png";
+import noProgress from "../../assets/noProgress.png";
+import noBestTrain from "../../assets/noBestTrain.png";
 import { gerarArray } from "../../utils/gerarArray";
+
 Chart.register(CategoryScale);
 
 const Dashboard = () => {
@@ -122,7 +125,7 @@ const Dashboard = () => {
                         <i className="bi bi-clock fs-3 "></i>
                      </div>
                   </div>
-                  {tempoTotalTreino ? (
+                  {tempoTotalTreino !== null ? (
                      <h5 className="fs-1 fw-bold mb-3">{segundosParaFormatoHumanizado(tempoTotalTreino)}</h5>
                   ) : (
                      <h5 className="fs-1 fw-bold mb-3">
@@ -149,7 +152,7 @@ const Dashboard = () => {
                         <i className="bi bi-person-arms-up fs-3"></i>
                      </div>
                   </div>
-                  {difPercentualDiasDeTreino ? (
+                  {difPercentualDiasDeTreino !== null ? (
                      <h5 className="fs-1 fw-bold mb-3">
                         {nrTreinosHoje}{" "}
                         {difPercentualDiasDeTreino >= 0 ? (
@@ -277,12 +280,19 @@ const Dashboard = () => {
                   </h6>
                   <div className="mt-4">
                      {partesDoCorpoTreinadas ? (
-                        <Pie
-                           data={{
-                              labels: partesDoCorpoTreinadas?.map((v) => v?.nome),
-                              datasets: [{ data: partesDoCorpoTreinadas?.map((v) => v?.tempoDeTreino) }],
-                           }}
-                        />
+                        partesDoCorpoTreinadas?.length > 0 ? (
+                           <Pie
+                              data={{
+                                 labels: partesDoCorpoTreinadas?.map((v) => v?.nome),
+                                 datasets: [{ data: partesDoCorpoTreinadas?.map((v) => v?.tempoDeTreino) }],
+                              }}
+                           />
+                        ) : (
+                           <div className={styles.noProgress + " d-flex flex-column align-items-center w-100 gap-3 "}>
+                              <Image src={noProgress} />
+                              <p className="mb-0 tex-light bg-secondary-subtle px-3 py-1 rounded">Você ainda não treinou! </p>
+                           </div>
+                        )
                      ) : (
                         <Placeholder animation="wave" className="" xs={12}>
                            <div className="mb-4 d-flex gap-2 justify-content-center flex-wrap">
@@ -305,13 +315,18 @@ const Dashboard = () => {
                   <h6 id={styles.tit} className="mb-0">
                      Exercício mais praticado
                   </h6>
-                  {exercicios ? (
+                  {exercicios && exercicioMaisTreinado && (
                      <CardExercicioMaisTreinado
                         exercicio={exercicios?.filter((v) => v.id === exercicioMaisTreinado?.id)?.[0]}
                         tempoDeTreino={exercicioMaisTreinado?.tempoTotalDeTreinoMaisPraticado}
                      />
-                  ) : (
-                     <CardExercicioMaisTreinado />
+                  )}
+
+                  {exercicioMaisTreinado === false && (
+                     <div className="d-flex flex-column gap-3 align-items-center justify-content-center h-100">
+                        <Image src={noBestTrain} className={styles.noBestTrain} />
+                        <p className="mb-0 tex-light bg-secondary-subtle px-3 py-1 rounded">Você ainda não treinou! </p>
+                     </div>
                   )}
                </div>
             </Col>
@@ -326,7 +341,7 @@ const Dashboard = () => {
                         <i className="bi bi-hourglass-split fs-3"></i>
                      </div>
                   </div>
-                  {mediaTempoPorDia && diferencialPercentualTempo ? (
+                  {mediaTempoPorDia !== null && diferencialPercentualTempo !== null ? (
                      <h5 className="fs-1 fw-bold mb-3">
                         {segundosParaFormatoHumanizado(mediaTempoPorDia)}{" "}
                         {diferencialPercentualTempo >= 0 ? (

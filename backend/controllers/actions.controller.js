@@ -90,8 +90,8 @@ const atualizarProgresso = async (req, res) => {
 
       // Calculando a parte do corpo mais treinada
       // Caso seja a primeira vez
-      let partesDoCorpoTreinadas;
-      if (user.partesDoCorpoTreinadas.length === 0) {
+      let partesDoCorpoTreinadas = user.partesDoCorpoTreinadas;
+      if (partesDoCorpoTreinadas.length === 0) {
          partesDoCorpoTreinadas = [
             { nome: "back", tempoDeTreino: 0 },
             { nome: "cardio", tempoDeTreino: 0 },
@@ -105,7 +105,8 @@ const atualizarProgresso = async (req, res) => {
             { nome: "waist", tempoDeTreino: 0 },
          ];
       }
-      partesDoCorpoTreinadas = user.partesDoCorpoTreinadas.map((v) => {
+      // FIXME
+      partesDoCorpoTreinadas = partesDoCorpoTreinadas.map((v) => {
          if (v.nome === parteDoCorpo) {
             return { ...v, tempoDeTreino: v.tempoDeTreino + tempoDeTreino };
          } else {
@@ -155,6 +156,20 @@ const retornarDadosTreinamento = async (req, res) => {
 
    try {
       const user = await Usuario.findById(userId);
+      // Caso ainda não haja nenhum progresso do treinamento
+      if (user.progresso.length === 0)
+         return res.json({
+            nrTreinosHoje: 0,
+            diferencialPercentual: 0,
+            mediaTempoPorDia: 0,
+            diferencialPercentualTempo: 0,
+            tempoTotalAbsoluto: 0,
+            estatisticasDaSemana: [],
+            partesDoCorpoTreinadas: [],
+            exercicioMaisTreinado: false,
+            ultimosExerciciosPraticados: [],
+         });
+
       // Calculando o tempo total absoluto
       let tempoTotalAbsoluto = 0;
       user.progresso.forEach((v) => {
@@ -258,7 +273,7 @@ const retornarDadosTreinamento = async (req, res) => {
          });
       });
 
-      res.json({
+      const progresso = {
          nrTreinosHoje,
          diferencialPercentual,
          mediaTempoPorDia,
@@ -271,9 +286,11 @@ const retornarDadosTreinamento = async (req, res) => {
             tempoTotalDeTreinoMaisPraticado,
          },
          ultimosExerciciosPraticados: user.ultimosExerciciosPraticados,
-      });
+      };
+
+      res.json(progresso);
    } catch (error) {
-      res.status(500).json({ message: "Erro ao retornar o nr de treinos realizados hoje" });
+      res.status(500).json({ message: "Erro ao retornar os dados do progresso de treino" });
    }
 };
 

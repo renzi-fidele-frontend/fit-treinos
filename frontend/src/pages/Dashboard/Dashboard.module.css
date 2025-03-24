@@ -57,6 +57,15 @@
    border-radius: 5%;
 }
 
+.noProgress > img {
+   width: 85%;
+   max-width: 330px;
+}
+
+.noBestTrain {
+   width: 83%;
+}
+
 @media screen and (max-width: 1400px) {
    .foto {
       height: 250px;
@@ -64,6 +73,11 @@
 
    #small {
       font-size: 15px !important;
+   }
+
+   .noProgress > img,
+   .noBestTrain {
+      width: 98%;
    }
 }
 
@@ -74,6 +88,14 @@
 
    .fotoLoad {
       height: 390px;
+   }
+
+   .noProgress > img {
+      width: 75%;
+   }
+
+   .noBestTrain {
+      width: 95%;
    }
 }
 
@@ -95,6 +117,10 @@
    .fotoLoad {
       height: 300px;
    }
+
+   .noProgress > img {
+      width: 95%;
+   }
 }
 
 @media screen and (max-width: 666px) {
@@ -106,5 +132,10 @@
 @media screen and (max-width: 570px) {
    .foto {
       height: auto;
+   }
+
+   .noBestTrain {
+      width: 80%;
+      margin-top: 1rem;
    }
 }
