@@ -5,7 +5,7 @@ import YouTube from "react-youtube";
 
 const VideoCard = ({ thumbnail, titulo, canal, videoId, visualizacoes, descricao }) => {
    const [show, setShow] = useState(false);
-   return thumbnail && titulo && canal && videoId && visualizacoes && descricao ? (
+   return thumbnail ? (
       <>
          <Card title={titulo} role="button" className="position-relative m-2 h-100" onClick={() => setShow(true)}>
             <Card.Img src={thumbnail} />

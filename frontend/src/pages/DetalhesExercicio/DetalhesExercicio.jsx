@@ -107,7 +107,7 @@ const DetalhesExercicio = () => {
                id={styles.left}
             >
                {/* Foto de desktop */}
-               {!exercicio ? (
+               {exercicio ? (
                   <Image className="d-none d-xl-block" src={exercicio?.gifUrl} alt={exercicio?.name} fluid />
                ) : (
                   <Placeholder animation="wave" xs={12}>
@@ -119,7 +119,7 @@ const DetalhesExercicio = () => {
                <h1 className="fw-bold mb-2 mb-xl-4 pt-3">
                   Como praticar o:{" "}
                   <span className="text-capitalize text-secondary">
-                     {!exercicio ? (
+                     {exercicio ? (
                         exercicio?.name
                      ) : (
                         <Placeholder animation="wave">
@@ -129,7 +129,7 @@ const DetalhesExercicio = () => {
                   </span>
                </h1>
                {/* Foto do mobile */}
-               {!exercicio ? (
+               {exercicio ? (
                   <Image className="d-xl-none mb-3" src={exercicio?.gifUrl} alt={exercicio?.name} fluid />
                ) : (
                   <Placeholder animation="wave" className="d-xl-none mb-3">
@@ -138,7 +138,7 @@ const DetalhesExercicio = () => {
                )}
                {/* Instruções */}
                <ListGroup>
-                  {!exercicio
+                  {exercicio
                      ? exercicio?.instructions?.map((v, key) => (
                           <ListGroupItem key={key}>
                              <span className="fw-bold text-secondary">{key + 1}</span> - {v}
@@ -185,7 +185,7 @@ const DetalhesExercicio = () => {
                <h2 className="fw-medium mb-3 mb-sm-4 fs-3" id={styles.labelDetalhes}>
                   Parte do corpo que irá se desenvolver:{" "}
                   <span className="text-secondary text-capitalize">
-                     {!exercicio ? (
+                     {exercicio ? (
                         exercicio?.bodyPart
                      ) : (
                         <Placeholder animation="wave">
@@ -194,7 +194,7 @@ const DetalhesExercicio = () => {
                      )}
                   </span>
                </h2>
-               {!exercicio ? (
+               {exercicio ? (
                   <Image
                      className="border-3 shadow-lg border rounded-2 mb-5 mb-sm-0"
                      src={fotoDaParteDoCorpo(exercicio?.bodyPart)}
@@ -214,7 +214,7 @@ const DetalhesExercicio = () => {
                <h2 className="fw-medium mb-3 mb-sm-4 fs-3" id={styles.labelDetalhes}>
                   Equipamento necessário:{" "}
                   <span className="text-secondary text-capitalize">
-                     {!exercicio ? (
+                     {exercicio ? (
                         exercicio?.equipment
                      ) : (
                         <Placeholder animation="wave">
@@ -223,7 +223,7 @@ const DetalhesExercicio = () => {
                      )}
                   </span>
                </h2>
-               {!exercicio ? (
+               {exercicio ? (
                   <Image className={styles.equipamento} src={fotoEquipamento(exercicio?.equipment)} />
                ) : (
                   <div className="d-flex flex-column justify-content-center">
@@ -243,7 +243,7 @@ const DetalhesExercicio = () => {
                   style={{ width: "fit-content" }}
                   className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-danger shadow-sm rounded-3 mx-auto"
                >
-                  {!exercicio ? (
+                  {exercicio ? (
                      <>
                         {" "}
                         <Image className={styles.musculo + " border rounded-2"} src={fotoMusculo(exercicio?.target)} />
@@ -261,7 +261,7 @@ const DetalhesExercicio = () => {
             <Col className="text-center">
                <h4 className="fw-semibold mb-4 mt-4 mt-xl-0">Músculos secundários que serão afetados:</h4>
                <div className="d-flex gap-2  gap-lg-5 justify-content-center flex-wrap flex-md-nowrap">
-                  {!exercicio ? (
+                  {exercicio ? (
                      exercicio?.secondaryMuscles?.map((v, key) =>
                         fotoMusculo(v) || fotoDaParteDoCorpo(v) ? (
                            <div className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-secondary shadow-sm rounded-3" key={key}>
@@ -299,7 +299,7 @@ const DetalhesExercicio = () => {
                <h1 className="mb-4" id={styles.tit2}>
                   Assista vídeos de treinamento do:{" "}
                   <span className="text-secondary fw-semibold text-capitalize">
-                     {!exercicio ? (
+                     {exercicio ? (
                         exercicio?.name
                      ) : (
                         <Placeholder animation="wave">
@@ -320,7 +320,7 @@ const DetalhesExercicio = () => {
                   infinite={false}
                   dots
                >
-                  {!videos
+                  {videos
                      ? videos?.map(
                           ({ video }, k) =>
                              video?.thumbnails?.[1]?.url && (
@@ -351,7 +351,7 @@ const DetalhesExercicio = () => {
                   Exercícios que fortalecem o músculo alvo:{" "}
                   <span className="text-capitalize text-secondary fw-bold text-decoration-underline">{exercicio?.target}</span>
                </h1>
-               <Row className="px-4 px-sm-0">
+               <Row>
                   <Col>
                      <Slider
                         responsive={[
@@ -363,16 +363,18 @@ const DetalhesExercicio = () => {
                         infinite={false}
                         dots
                      >
-                        {exerciciosFiltrados?.map((v, k) => (
-                           <CardExercicio
-                              customClass=" me-sm-3"
-                              titulo={v?.name}
-                              id={v?.id}
-                              foto={v?.gifUrl}
-                              categoria={v?.secondaryMuscles}
-                              key={k}
-                           />
-                        ))}
+                        {exerciciosFiltrados
+                           ? exerciciosFiltrados?.map((v, k) => (
+                                <CardExercicio
+                                   customClass=" me-sm-3"
+                                   titulo={v?.name}
+                                   id={v?.id}
+                                   foto={v?.gifUrl}
+                                   categoria={v?.secondaryMuscles}
+                                   key={k}
+                                />
+                             ))
+                           : gerarArray(6).map((v, k) => <CardExercicio customClass="me-3" />)}
                      </Slider>
                   </Col>
                </Row>
