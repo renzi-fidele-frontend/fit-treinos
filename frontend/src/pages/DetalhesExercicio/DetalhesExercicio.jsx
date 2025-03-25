@@ -221,7 +221,9 @@ const DetalhesExercicio = () => {
                   </span>
                </h2>
                {exercicio ? (
-                  <Image className={styles.equipamento} src={fotoEquipamento(exercicio?.equipment)} />
+                  <div className={modoEscuro && "bg-secondary"}>
+                     <Image className={styles.equipamento} src={fotoEquipamento(exercicio?.equipment)} />
+                  </div>
                ) : (
                   <div className="d-flex flex-column justify-content-center">
                      <Placeholder animation="wave">
