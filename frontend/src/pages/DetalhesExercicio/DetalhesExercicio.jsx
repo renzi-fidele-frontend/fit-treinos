@@ -17,6 +17,7 @@ import { setExercicios } from "../../state/exercicios/exerciciosSlice";
 import { setUser } from "../../state/auth/authSlice";
 import ToastTreinamento from "../../components/ToastTreinamento/ToastTreinamento";
 import { gerarArray } from "../../utils/gerarArray";
+import { traduzirTexto } from "../../utils/traduzirTexto";
 
 // FIXME: A requisição está sendo feita duas vezes
 
@@ -31,7 +32,8 @@ const DetalhesExercicio = () => {
    const [favorito, setFavorito] = useState(null);
    const [mostrar, setMostrar] = useState(false);
    const { modoEscuro } = useSelector((state) => state.tema);
-
+   const [instrucoes, setInstrucoes] = useState(null);
+   // Requisições
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
    const apanharExercicios = useFetch(null, exercisesFetchOptions, exercicios, "manual");
    const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
@@ -40,6 +42,11 @@ const DetalhesExercicio = () => {
       if (exercicio) {
          filtrarPorMusculoAlvo(exercicios);
          setFavorito(verificarFavorito(exercicio?.id));
+         // Traduzindo os dados da API
+         traduzirTexto(exercicio?.instructions?.join("!")).then((v) => {
+            console.log(v?.split("!"));
+            setInstrucoes(v?.split("!"));
+         });
       }
       if (!videos && exercicio) {
          apanharVideos
@@ -138,8 +145,8 @@ const DetalhesExercicio = () => {
                )}
                {/* Instruções */}
                <ListGroup>
-                  {exercicio
-                     ? exercicio?.instructions?.map((v, key) => (
+                  {instrucoes
+                     ? instrucoes?.map((v, key) => (
                           <ListGroupItem key={key}>
                              <span className="fw-bold text-secondary">{key + 1}</span> - {v}
                           </ListGroupItem>
