@@ -43,7 +43,7 @@ const DetalhesExercicio = () => {
          filtrarPorMusculoAlvo(exercicios);
          setFavorito(verificarFavorito(exercicio?.id));
          // Traduzindo os dados da API
-         traduzirTexto(exercicio?.instructions?.join("!")).then((v) => {
+         traduzirTexto(exercicio?.instructions?.join(" ! ")).then((v) => {
             console.log(v?.split("!"));
             setInstrucoes(v?.split("!"));
          });
