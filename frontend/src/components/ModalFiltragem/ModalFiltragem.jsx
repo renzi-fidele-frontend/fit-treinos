@@ -11,6 +11,7 @@ import useFiltrarExercicios from "../../hooks/useFiltrarExercicios";
 const ModalFiltragem = ({ mostrar, onClose, modo, array }) => {
    const dispatch = useDispatch();
    const { filtros } = useSelector((state) => state.configs);
+   const { modoEscuro } = useSelector((state) => state.tema);
    const [selecionado, setSelecionado] = useState(verificarModo());
    const { filtrarExercicios } = useFiltrarExercicios();
 
@@ -64,17 +65,24 @@ const ModalFiltragem = ({ mostrar, onClose, modo, array }) => {
                <ListGroup.Item onClick={() => setSelecionado("todos")} className="text-center" active={selecionado === "todos"} action>
                   <i className="bi bi-ban-fill text-danger mx-auto" id={styles.noFilterIco}></i>
                </ListGroup.Item>
-               {array?.map((v, k) => (
-                  <ListGroup.Item onClick={() => setSelecionado(v)} className="" active={selecionado === v} key={k} action>
-                     <div className="position-relative d-flex align-items-center justify-content-center">
-                        <Image src={processarFoto(v)} />
-                        <div className="z-1 w-100 h-100 position-absolute bg-black opacity-25"></div>
-                        <p className="mb-0 fs-5 position-absolute z-2 shadow-lg text-light fw-bold " id={styles.txt}>
-                           {v}
-                        </p>
-                     </div>
-                  </ListGroup.Item>
-               ))}
+               {array?.map(
+                  (v, k) =>
+                     processarFoto(v) && (
+                        <ListGroup.Item onClick={() => setSelecionado(v)} className="" active={selecionado === v} key={k} action>
+                           <div
+                              className={`position-relative d-flex align-items-end justify-content-center ${
+                                 modoEscuro ? "bg-secondary" : "bg-secondary-subtle"
+                              } `}
+                           >
+                              <Image src={processarFoto(v)} />
+                              <div className="z-1 w-100 position-absolute bg-black opacity-75" style={{ height: "30px" }}></div>
+                              <p className="mb-0 fs-6 position-absolute z-2 shadow-lg text-light fw-bold text-capitalize mb-1" id={styles.txt}>
+                                 {v}
+                              </p>
+                           </div>
+                        </ListGroup.Item>
+                     )
+               )}
             </ListGroup>
          </Modal.Body>
          <Modal.Footer>
