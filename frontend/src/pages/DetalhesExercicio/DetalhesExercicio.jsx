@@ -168,9 +168,6 @@ const DetalhesExercicio = () => {
                            <i className="bi bi-trash me-1"></i> Remover dos favoritos
                         </Button>
                      )}
-                     <Button variant="dark" className="bg-gradient">
-                        <i className="bi bi-plus-circle me-1"></i> Adicionar a sessão de treino
-                     </Button>
                   </div>
                )}
             </Col>
