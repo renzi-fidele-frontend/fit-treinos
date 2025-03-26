@@ -1,4 +1,4 @@
-import { Button, Image, OverlayTrigger, Toast, ToastContainer, Tooltip } from "react-bootstrap";
+import { Button, Image, OverlayTrigger, Spinner, Toast, ToastContainer, Tooltip } from "react-bootstrap";
 import gif from "../../assets/illustration.jpg";
 import { useState, useEffect, useRef } from "react";
 import useFetch from "../../hooks/useFetch";
@@ -13,7 +13,7 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo }) => {
    const [tempo, setTempo] = useState(0);
    const [ativo, setAtivo] = useState(false);
    const intervalRef = useRef(null);
-   const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
+   const { apanharNoBackendComAuth, loading } = useFetch(null, null, null, "manual");
    const [tempoTotal, setTempoTotal] = useState(0);
 
    function iniciarTreino() {
@@ -63,7 +63,9 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo }) => {
             <Toast.Body>
                <div className="position-relative w-auto">
                   <Image className="rounded" src={gif} />
-                  <div className={`w-100 position-absolute ${modoEscuro ? "bg-black" : "text-bg-dark"} bottom-0 rounded-bottom text-center py-1`}>
+                  <div
+                     className={`w-100 position-absolute ${modoEscuro ? "bg-black" : "text-bg-dark"} bottom-0 rounded-bottom text-center py-1`}
+                  >
                      <span>
                         Tempo total: <span className="ms-1 text-bg-secondary rounded px-1">{formatarTempo(tempoTotal)}</span>
                      </span>
@@ -82,12 +84,12 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo }) => {
                            <i className="bi bi-pause"></i> Pausar
                         </Button>
                      ) : (
-                        // TODO: Mostrar loading da atualização do progresso do treinamento
+                        
                         <>
                            {tempo > 1 && (
                               <OverlayTrigger overlay={<Tooltip style={{ zIndex: 2000 }}>Salvar progresso</Tooltip>}>
                                  <Button size="sm" variant="warning" className="border border-black" onClick={atualizarProgresso}>
-                                    <i className="bi bi-floppy"></i>
+                                    {loading ? <Spinner size="sm" /> : <i className="bi bi-floppy"></i>}
                                  </Button>
                               </OverlayTrigger>
                            )}

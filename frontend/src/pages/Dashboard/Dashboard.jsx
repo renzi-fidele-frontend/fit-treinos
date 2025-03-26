@@ -386,6 +386,7 @@ const Dashboard = () => {
             </Col>
          </Row>
 
+         {/* TODO: Mostrar ilustração caso nenhum exercício tenha sido praticado */}
          {/* Últimos exercícios praticados */}
          <Row className="mb-5">
             <Col>
