@@ -1,4 +1,4 @@
-import { Col, Image, Placeholder, Row } from "react-bootstrap";
+import { Alert, Col, Image, Placeholder, Row } from "react-bootstrap";
 import styles from "./Dashboard.module.css";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import mediaTreinos from "../../assets/mediaTreinos.png";
 import noProgress from "../../assets/noProgress.png";
 import noBestTrain from "../../assets/noBestTrain.png";
+import noLastExs from "../../assets/gif.gif";
 import { gerarArray } from "../../utils/gerarArray";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
 import { setExercicios } from "../../state/exercicios/exerciciosSlice";
@@ -386,7 +387,6 @@ const Dashboard = () => {
             </Col>
          </Row>
 
-         {/* TODO: Mostrar ilustração caso nenhum exercício tenha sido praticado */}
          {/* Últimos exercícios praticados */}
          <Row className="mb-5">
             <Col>
@@ -401,18 +401,24 @@ const Dashboard = () => {
                   infinite={false}
                   dots
                >
-                  {ultimosExerciciosPraticados
-                     ? ultimosExerciciosPraticados?.map((v, k) => (
-                          <CardExercicio
-                             customClass="me-4"
-                             titulo={v?.name}
-                             id={v?.id}
-                             foto={v?.gifUrl}
-                             categoria={v?.secondaryMuscles?.slice(0, 2)}
-                             key={k}
-                          />
-                       ))
-                     : gerarArray(4).map((v, k) => <CardExercicio customClass="me-4" key={k} />)}
+                  {ultimosExerciciosPraticados &&
+                     ultimosExerciciosPraticados?.map((v, k) => (
+                        <CardExercicio
+                           customClass="me-4"
+                           titulo={v?.name}
+                           id={v?.id}
+                           foto={v?.gifUrl}
+                           categoria={v?.secondaryMuscles?.slice(0, 2)}
+                           key={k}
+                        />
+                     ))}
+                  {ultimosExerciciosPraticados?.length === 0 && (
+                     <div className="text-center">
+                        <Image src={noLastExs} />
+                        <Alert variant="warning"> Você ainda não treinou!</Alert>
+                     </div>
+                  )}
+                  {ultimosExerciciosPraticados === null && gerarArray(4).map((v, k) => <CardExercicio customClass="me-4" key={k} />)}
                </Slider>
             </Col>
          </Row>

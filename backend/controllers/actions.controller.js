@@ -105,7 +105,6 @@ const atualizarProgresso = async (req, res) => {
             { nome: "waist", tempoDeTreino: 0 },
          ];
       }
-      // FIXME
       partesDoCorpoTreinadas = partesDoCorpoTreinadas.map((v) => {
          if (v.nome === parteDoCorpo) {
             return { ...v, tempoDeTreino: v.tempoDeTreino + tempoDeTreino };

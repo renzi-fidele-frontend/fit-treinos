@@ -72,7 +72,8 @@ const Cadastro = () => {
       <>
          <h1 className="fw-bold">Crie a sua conta</h1>
          <p className="fs-5">
-            Já tens uma conta criada?<br className="d-sm-none" /> <Link to="/entrar">Faça Login</Link>
+            Já tens uma conta criada?
+            <br className="d-sm-none" /> <Link to="/entrar">Faça Login</Link>
          </p>
          <div className="mt-1">
             <h6 className="fw-semibold">Cadastre-se usando uma rede social</h6>
@@ -105,7 +106,9 @@ const Cadastro = () => {
 
    const Step2 = () => (
       <>
-         <h1 className="fw-bold mb-3 mb-xl-5" id={styles.tit2}>Quase lá! Agora adicione a sua foto de perfil</h1>
+         <h1 className="fw-bold mb-3 mb-xl-5" id={styles.tit2}>
+            Quase lá! Agora adicione a sua foto de perfil
+         </h1>
          {/* Prévia */}
          <div id={styles.ctFoto} className="mb-2 rounded border">
             <Image ref={fotoPreviaRef} src={profilepic} className="rounded-circle" />
@@ -138,18 +141,7 @@ const Cadastro = () => {
       <Container className="pb-5 pb-lg-0">
          <Row className="gap-3 gap-sm-4 gap-lg-5 flex-column-reverse flex-lg-row">
             <Col lg={6} className="justify-content-center d-flex flex-column pe-lg-5">
-               {!loading ? (
-                  step === 1 ? (
-                     <Step1 />
-                  ) : (
-                     <Step2 />
-                  )
-               ) : (
-                  <>
-                     {/* TODO: Adicionar loading ao se criar a conta */}
-                     <p>Carregando...</p>
-                  </>
-               )}
+               {!loading ? step === 1 ? <Step1 /> : <Step2 /> : <p>Carregando...</p>}
             </Col>
             <Col className="pt-3 pt-sm-5 shadow-sm text-center rounded-5 bg-secondary-subtle bg-gradient">
                <Image id={styles.fotoBanner} src={ftBanner} />
