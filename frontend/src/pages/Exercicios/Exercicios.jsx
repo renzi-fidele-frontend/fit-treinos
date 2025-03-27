@@ -29,18 +29,18 @@ const Exercicios = () => {
    const [modalMusculosAlvo, setModalMusculosAlvo] = useState(false);
 
    // Requisições
-   // const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises?limit=1000", exercisesFetchOptions, exercicios);
+   const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises?limit=1000", exercisesFetchOptions, exercicios);
    const apanharPartesCorpo = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, partesCorpo);
    const apanharEquipamentos = useFetch("https://exercisedb.p.rapidapi.com/exercises/equipmentList", exercisesFetchOptions, equipamentos);
    const apanharMusculoAlvo = useFetch("https://exercisedb.p.rapidapi.com/exercises/targetList", exercisesFetchOptions, musculoAlvo);
 
- /*  // Armazenando os dados da api
+   // Armazenando os dados da api
    useEffect(() => {
-      // if (!exercicios) dispatch(setExercicios(apanharExercicios.data));
+      if (!exercicios) dispatch(setExercicios(apanharExercicios.data));
       if (!partesCorpo) dispatch(setCategorias(apanharPartesCorpo.data));
       if (!equipamentos) dispatch(setEquipamentos(apanharEquipamentos.data));
       if (!musculoAlvo) dispatch(setMusculoAlvo(apanharMusculoAlvo.data));
-   }, [apanharPartesCorpo.data, apanharEquipamentos.data, apanharMusculoAlvo.data, apanharExercicios.data]);*/
+   }, [apanharPartesCorpo.data, apanharEquipamentos.data, apanharMusculoAlvo.data, apanharExercicios.data]);
 
    // Caso a página carrege e hajam filtros
    useEffect(() => {
