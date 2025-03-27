@@ -1,4 +1,4 @@
-import { Button, Image, ListGroup, Modal } from "react-bootstrap";
+import { Button, ListGroup, Modal } from "react-bootstrap";
 import styles from "./ModalFiltragem.module.css";
 import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import { setFiltros } from "../../state/configs/configsSlice";
 import { fotoEquipamento } from "../../utils/fotoEquipamento";
 import { fotoMusculo } from "../../utils/fotoMusculo";
 import useFiltrarExercicios from "../../hooks/useFiltrarExercicios";
+import ImagePreloader from "./ImagePreloader";
 
 const ModalFiltragem = ({ mostrar, onClose, modo, array }) => {
    const dispatch = useDispatch();
@@ -74,7 +75,7 @@ const ModalFiltragem = ({ mostrar, onClose, modo, array }) => {
                                  modoEscuro ? "bg-secondary" : "bg-secondary-subtle"
                               } `}
                            >
-                              <Image src={processarFoto(v)} />
+                              <ImagePreloader src={processarFoto(v)} />
                               <div className="z-1 w-100 position-absolute bg-black opacity-75" style={{ height: "30px" }}></div>
                               <p className="mb-0 fs-6 position-absolute z-2 shadow-lg text-light fw-bold text-capitalize mb-1" id={styles.txt}>
                                  {v}

@@ -1,29 +1,41 @@
 .ct {
-
 }
 
 .modalBd {
-    max-height: 70dvh;
-    overflow-y: auto;
+   max-height: 70dvh;
+   overflow-y: auto;
 }
 
 #noFilterIco {
-    font-size: 6rem;
+   font-size: 6rem;
 }
 
 #grupo > button {
-    flex-basis: 33.3% !important;
+   flex-basis: 33.3% !important;
+}
+
+.imgPreloader {
+   height: 320px;
+}
+
+.imgPreloader i {
+   font-size: 4rem;
+}
+
+@media screen and (max-width: 1200px) {
+    .imgPreloader {
+        height: 250px;
+     }
 }
 
 @media screen and (max-width: 992px) {
-    #grupo > button {
-        flex-basis: 50% !important;
-    }
- 
+   #grupo > button {
+      flex-basis: 50% !important;
+   }
 }
 
 @media screen and (max-width: 470px) {
-    #grupo > button {
-        flex-basis: 100% !important;
-    }
+   #grupo > button {
+      flex-basis: 100% !important;
+   }
 }
