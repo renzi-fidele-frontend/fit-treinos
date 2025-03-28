@@ -1,5 +1,6 @@
-# Fit Treinos
+![fit-treinos git](https://github.com/user-attachments/assets/c059adf9-b0ba-4674-9909-ce30a304a827)
 
+# Fit Treinos
 Site de ginástica com funcionalidade de controle de treinamentos feito com ReactJs, Bootstrap, NodeJs, Express, MongoDB e integrando diversas Apis do RapidApi.
 
 ## Descrição
