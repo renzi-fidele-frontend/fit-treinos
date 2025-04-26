@@ -11,18 +11,22 @@ import { persistor, store } from "./state/store";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Suspense } from "react";
+import Preloader from "./components/Preloader/Preloader";
 
 function App() {
    return (
       <Provider store={store}>
          <PersistGate persistor={persistor} loading={null}>
-            <BrowserRouter>
-               <Header />
-               <ScrollTop>
-                  <Router />
-               </ScrollTop>
-               <Footer />
-            </BrowserRouter>
+            <Suspense fallback={<Preloader />}>
+               <BrowserRouter>
+                  <Header />
+                  <ScrollTop>
+                     <Router />
+                  </ScrollTop>
+                  <Footer />
+               </BrowserRouter>
+            </Suspense>
          </PersistGate>
       </Provider>
    );
