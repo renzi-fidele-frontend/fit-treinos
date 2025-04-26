@@ -8,8 +8,12 @@ import { fotoEquipamento } from "../../utils/fotoEquipamento";
 import { fotoMusculo } from "../../utils/fotoMusculo";
 import useFiltrarExercicios from "../../hooks/useFiltrarExercicios";
 import ImagePreloader from "./ImagePreloader";
+import { useTranslation } from "react-i18next";
 
 const ModalFiltragem = ({ mostrar, onClose, modo, array }) => {
+   const { t } = useTranslation();
+   const { sectionFiltros } = t("exercicios");
+   const { tit, aplicar, cancelar } = sectionFiltros;
    const dispatch = useDispatch();
    const { filtros } = useSelector((state) => state.configs);
    const { modoEscuro } = useSelector((state) => state.tema);
@@ -58,7 +62,8 @@ const ModalFiltragem = ({ mostrar, onClose, modo, array }) => {
       <Modal size="xl" className={styles.ct} centered show={mostrar} onHide={onClose}>
          <Modal.Header closeButton>
             <Modal.Title>
-               Selecione as opções de filtragem de: <span className="text-danger">{modo}</span>
+               {tit}
+               <span className="text-danger">{modo}</span>
             </Modal.Title>
          </Modal.Header>
          <Modal.Body className={styles.modalBd}>

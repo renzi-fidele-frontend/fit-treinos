@@ -1,7 +1,6 @@
 import { Pagination } from "react-bootstrap";
 import { gerarArray } from "../../utils/gerarArray";
 
-// TODO: Melhorar a paginação para que mostre no máximo 9 páginas
 const Paginacao = ({ onPageClick, paginaAtual, totalPaginas }) => {
    function processarPaginacao() {
       if (paginaAtual < 5) return [1, 5];
@@ -27,8 +26,8 @@ const Paginacao = ({ onPageClick, paginaAtual, totalPaginas }) => {
       </Pagination>
    ) : (
       <Pagination className="justify-content-center flex-wrap">
-         <Pagination.First disabled={paginaAtual === 1} onClick={() => onPageClick(1)} />
-         <Pagination.Prev disabled={paginaAtual === 1} onClick={() => onPageClick(paginaAtual - 1)} />
+         {/* <Pagination.First disabled={paginaAtual === 1} onClick={() => onPageClick(1)} />
+         <Pagination.Prev disabled={paginaAtual === 1} onClick={() => onPageClick(paginaAtual - 1)} /> */}
          <Pagination.Item active={1 === paginaAtual} onClick={() => onPageClick(1)}>
             1
          </Pagination.Item>
@@ -46,13 +45,13 @@ const Paginacao = ({ onPageClick, paginaAtual, totalPaginas }) => {
          <Pagination.Item active={totalPaginas === paginaAtual} onClick={() => onPageClick(totalPaginas)}>
             {totalPaginas}
          </Pagination.Item>
-         <Pagination.Next disabled={paginaAtual === totalPaginas} onClick={() => onPageClick(paginaAtual + 1)} />
+         {/* <Pagination.Next disabled={paginaAtual === totalPaginas} onClick={() => onPageClick(paginaAtual + 1)} />
          <Pagination.Last
             disabled={paginaAtual === totalPaginas}
             onClick={() => {
                onPageClick(totalPaginas - 1);
             }}
-         />
+         /> */}
       </Pagination>
    );
 };
