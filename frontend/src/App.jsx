@@ -13,6 +13,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Suspense } from "react";
 import Preloader from "./components/Preloader/Preloader";
+import i18n from "./i18n/i18n";
 
 function App() {
    return (

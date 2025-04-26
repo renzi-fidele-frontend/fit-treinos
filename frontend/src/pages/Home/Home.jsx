@@ -16,11 +16,10 @@ import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
 import useSocialAuth from "../../hooks/useSocialAuth";
 import { setExercicios, setExerciciosDeCategoria } from "../../state/exercicios/exerciciosSlice";
 import { gerarArray } from "../../utils/gerarArray";
-import { testemunhos, vantagens } from "./data";
 
+import { useTranslation } from "react-i18next";
 
-
-const CardTestemunho = ({ foto, nome, testemunho }) => {
+const CardTestemunho = ({ nome, testemunho }) => {
    const { modoEscuro } = useSelector((state) => state.tema);
    return (
       <div
@@ -28,7 +27,7 @@ const CardTestemunho = ({ foto, nome, testemunho }) => {
             modoEscuro ? "bg-dark" : "bg-light"
          } mx-2 p-3 rounded-5 shadow-sm d-flex flex-column gap-3 align-items-center`}
       >
-         <Image className="border border-2" src={foto} roundedCircle width="100" height="100" />
+         {/* <Image className="border border-2" src={foto} roundedCircle width="100" height="100" /> */}
          <h4>{nome}</h4>
          <p className="fst-italic">{testemunho}</p>
       </div>
@@ -36,6 +35,8 @@ const CardTestemunho = ({ foto, nome, testemunho }) => {
 };
 
 const Home = () => {
+   const { t } = useTranslation();
+   const { secaoInicial, vantagens, testemunhos, titExercicios } = t("home");
    const dispatch = useDispatch();
    const verificar = useSocialAuth();
    const { categorias, categoriaEscolhida } = useSelector((state) => state.configs);
@@ -88,20 +89,25 @@ const Home = () => {
                className="d-flex flex-column justify-content-center ps-2 ps-xxl-5 position-relative text-center text-lg-start pb-5 pb-lg-0 pt-4 pt-lg-0"
             >
                <div className="ps-lg-3 ps-xxl-5 pe-lg-4">
-                  <h1 className="" id={styles.titulo}>
-                     Transpire, sorria
-                     <br className="d-none d-lg-block" /> e fique saudável
+                  <h1 id={styles.titulo}>
+                     {secaoInicial.tit1}
+                     <br className="d-none d-lg-block" />
+                     {secaoInicial.tit2}
                   </h1>
-                  <p className="mb-4 mb-sm-5 mt-4 mt-lg-5 fs-5">
-                     Descubra os exercícios que mais dão resultados, de maneira simples e organizada
-                  </p>
+                  <p className="mb-4 mb-sm-5 mt-4 mt-lg-5 fs-5">{secaoInicial.descricao}</p>
                   <Button as={Link} to="/exercicios" variant="secondary" size="lg" className="align-self-baseline mb-5 mb-lg-0">
-                     Descobrir Exercícios
+                     {secaoInicial.cta}
                   </Button>
                   <div className="mb-5 mb-lg-0"></div>
                   <div id={styles.animacao} className="mb-xxl-3">
                      <span id={styles.textoOverflow}>
-                        Treine Pesado <b>·</b> Tenha consistência <b>·</b> Tenha determinação
+                        {secaoInicial.animacao.map((v, k) => (
+                           <>
+                              {" "}
+                              {v}
+                              {k - 1 < secaoInicial.animacao.length && <b> .</b>}
+                           </>
+                        ))}
                      </span>
                   </div>
                </div>
@@ -113,7 +119,7 @@ const Home = () => {
 
          <Row className="mt-0 mt-md-5 py-5">
             <Col className="text-center">
-               <Titulo texto="Exercícios incríveis para você Treinar " />
+               <Titulo texto={titExercicios} />
 
                {/*  Filtragem */}
                {/* TODO: Traduzir as partes do corpo */}
@@ -197,15 +203,14 @@ const Home = () => {
             </Col>
             <Col style={{ zIndex: "2" }} xxl={7} className="pe-xxl-5 px-3 px-sm-5 px-xxl-0 justify-content-center gap-3 d-flex flex-column">
                <h3 className="me-sm-5" id={styles.titbanner}>
-                  O melhor lugar para você ficar em forma
+                  {vantagens.tit}
                </h3>
                <p id={styles.subBanner} className={"fs-5 "}>
-                  Descubra o jeito mais divertido e prático de atingir seus objetivos fitness! Aqui você encontra uma plataforma completa com
-                  exercícios detalhados
+                  {vantagens.descricao}
                </p>
 
                <Row className="mt-lg-3 mb-4 g-3">
-                  {vantagens.map(({ titulo, texto }, k) => (
+                  {vantagens.items.map(({ titulo, texto }, k) => (
                      <Col sm={6} key={k}>
                         <Card className="h-100 border-top pt-0 border-5">
                            <Card.Body className="pt-2">
@@ -223,7 +228,7 @@ const Home = () => {
          {/*  Seção dos testemunhos  */}
          <Row id={styles.bg2} className="text-center position-relative ">
             <Col className="py-5 px-5" id={modoEscuro && styles.bgdark}>
-               <h2 className="fw-semibold fs-1 mb-5 ">Testemunhos dos usuários do site</h2>
+               <h2 className="fw-semibold fs-1 mb-5 ">{testemunhos.tit}</h2>
                <Slider
                   className="mb-5"
                   autoplay
@@ -233,8 +238,8 @@ const Home = () => {
                      { breakpoint: 600, settings: { slidesToShow: 1 } },
                   ]}
                >
-                  {testemunhos.map(({ nome, foto, testemunho }, k) => (
-                     <CardTestemunho nome={nome} foto={foto} testemunho={testemunho} key={k} />
+                  {testemunhos.items.map(({ nome, testemunho }, k) => (
+                     <CardTestemunho nome={nome} testemunho={testemunho} key={k} />
                   ))}
                </Slider>
             </Col>

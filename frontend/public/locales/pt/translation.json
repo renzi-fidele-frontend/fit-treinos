@@ -1,0 +1,63 @@
+{
+   "home": {
+      "secaoInicial": {
+         "tit1": "Transpire, sorria",
+         "tit2": "e fique saudável",
+         "descricao": "Descubra os exercícios que mais dão resultados, de maneira simples e organizada",
+         "cta": "Descobrir Exercícios",
+         "animacao": ["Treine Pesado", "Tenha consistência", "Tenha determinação"]
+      },
+      "titExercicios": "Exercícios incríveis para você Treinar",
+      "vantagens": {
+         "tit": " O melhor lugar para você ficar em forma",
+         "descricao": "Descubra o jeito mais divertido e prático de atingir seus objetivos fitness! Aqui você encontra uma plataforma completa com exercícios detalhados",
+         "items": [
+            {
+               "titulo": "Exercícios Detalhados",
+               "texto": "Encontre descrições claras e passo a passo de exercícios para todos os níveis. Seja iniciante ou avançado, temos o treino perfeito para você!"
+            },
+            {
+               "titulo": "Tutoriais em Vídeo",
+               "texto": "Acompanhe tutoriais no YouTube criados por profissionais. Aprenda a executar os movimentos com segurança e eficiência."
+            },
+            {
+               "titulo": "Controle Personalizados",
+               "texto": "Filtre exercícios por categorias, como força, cardio ou alongamento. Economize tempo e encontre exatamente o que precisa!"
+            },
+            {
+               "titulo": "Rastreio do treinamento",
+               "texto": "Acompanhe seu progresso com facilidade! Registre seus treinos, visualize estatísticas e mantenha-se motivado enquanto atinge suas metas."
+            }
+         ]
+      },
+      "testemunhos": {
+         "tit": "Testemunhos dos usuários do site",
+         "items": [
+            {
+               "nome": "Ana Carolina",
+               "testemunho": "Nunca imaginei que pudesse me sentir tão confiante treinando em casa. Os tutoriais são incríveis, e os filtros me ajudam a encontrar exatamente o que preciso. Já perdi 5 kg e ganhei muito mais energia!"
+            },
+            {
+               "nome": "Rafael Monteiro",
+               "testemunho": "Eu era completamente sedentário, mas o site tornou tudo tão simples e prático. Adoro acompanhar meu progresso com o rastreio de treinamento. Hoje, minha saúde é outra!"
+            },
+            {
+               "nome": "Mariana Costa",
+               "testemunho": "Os vídeos são super didáticos e motivadores. Consigo fazer exercícios de forma segura, mesmo sem ir à academia. É como ter um personal trainer em casa!"
+            },
+            {
+               "nome": "Felipe Almeida",
+               "testemunho": "Com a rotina corrida, eu precisava de algo rápido e eficiente. Encontrei tudo aqui! Os exercícios são fáceis de seguir, e a variedade é impressionante."
+            },
+            {
+               "nome": "Camila Rodrigues",
+               "testemunho": "A possibilidade de filtrar exercícios por categoria foi um divisor de águas para mim. Agora consigo alternar entre treinos de força e alongamento sem perder tempo!"
+            },
+            {
+               "nome": "Pedro Henrique",
+               "testemunho": "As dicas e tendências me mantêm motivado. É como ter um guia fitness atualizado sempre à mão. Já recomendei para vários amigos!"
+            }
+         ]
+      }
+   }
+}
