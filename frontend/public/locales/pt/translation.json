@@ -59,5 +59,18 @@
             }
          ]
       }
+   },
+   "exercicios": {
+      "tit": "Está na hora de dar aquela melhorada no seu físico",
+      "subtit": "Mais de 1000 exercícios foram preparados para você",
+      "titEx": "Encontre todos os exercícios",
+      "sectionFiltros": {
+         "items": ["Parte do corpo", "Equipamento", "Músculo a fortificar"],
+         "escolher": "Escolher",
+         "tit": "Selecione as opções de filtragem de: ",
+         "aplicar": "Aplicar",
+         "cancelar": "Cancelar",
+         "noFilter": "Nenhum exercício corresponde com os filtros definidos!"
+      }
    }
 }

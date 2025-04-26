@@ -16,8 +16,11 @@ import useFiltrarExercicios from "../../hooks/useFiltrarExercicios";
 import noFilter from "../../assets/noFilter.webp";
 import BannerTopo from "../../components/BannerTopo/BannerTopo";
 import { gerarArray } from "../../utils/gerarArray";
+import { useTranslation } from "react-i18next";
 
 const Exercicios = () => {
+   const { t } = useTranslation();
+   const { tit, subtit, titEx, sectionFiltros } = t("exercicios");
    const { categorias: partesCorpo, equipamentos, musculoAlvo, filtros, paginaAtual } = useSelector((state) => state.configs);
    const { exercicios, exerciciosFiltrados, exerciciosPaginados } = useSelector((state) => state.exercicios);
    const dispatch = useDispatch();
@@ -50,61 +53,57 @@ const Exercicios = () => {
    return (
       <div>
          {/*  Banner inicial */}
-         <BannerTopo
-            titulo="Está na hora de dar aquela melhorada no seu físico"
-            descricao="Mais de 1000 exercícios foram preparados para você"
-            fotoModelo={fotoBanner}
-         />
+         <BannerTopo titulo={tit} descricao={subtit} fotoModelo={fotoBanner} />
          <Container fluid>
             <Row className="py-4 py-sm-5">
                <Col className="text-center">
-                  <Titulo texto="Encontre todos os exercícios" />
+                  <Titulo texto={titEx} />
                   {/*  Filtragem  */}
                   <Container className="mb-5 mt-5 px-2 ">
                      <Row className="px-sm-5 g-5 justify-content-center">
                         <Col xs={6} lg={4} className="mt-4 mt-xxl-5">
                            <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>
-                              Parte do corpo
+                              {sectionFiltros.items[0]}
                            </h6>
                            <p className="mb-2 text-secondary text-capitalize">[{filtros.parteDoCorpo}]</p>
                            <Button variant="outline-primary" onClick={() => setModalParteDoCorpo(true)}>
-                              Escolher...
+                              {sectionFiltros.escolher}...
                            </Button>
                            <ModalFiltragem
                               mostrar={modalParteDoCorpo}
                               onClose={() => setModalParteDoCorpo(false)}
-                              modo="Parte do corpo"
+                              modo={sectionFiltros.items[0]}
                               array={partesCorpo}
                            />
                         </Col>
                         <Col xs={6} lg={4} className="mt-4 mt-xxl-5" id={styles.border}>
                            <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>
-                              Equipamento
+                              {sectionFiltros.items[1]}
                            </h6>
                            <p className="mb-2 text-secondary text-capitalize">[{filtros.equipamento}]</p>
                            <Button variant="outline-primary" onClick={() => setModalEquipamentos(true)}>
-                              Escolher...
+                              {sectionFiltros.escolher}...
                            </Button>
                            <ModalFiltragem
                               mostrar={modalEquipamentos}
                               onClose={() => setModalEquipamentos(false)}
-                              modo="Equipamento"
+                              modo={sectionFiltros.items[1]}
                               array={equipamentos}
                            />
                         </Col>
                         <Col xs={6} lg={4} className="mt-4 mt-xxl-5">
                            <Form.Group>
                               <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>
-                                 Músculo a fortificar
+                                 {sectionFiltros.items[2]}
                               </h6>
                               <p className="mb-2 text-secondary text-capitalize">[{filtros.musculoAlvo}]</p>
                               <Button variant="outline-primary" onClick={() => setModalMusculosAlvo(true)}>
-                                 Escolher...
+                                 {sectionFiltros.escolher}...
                               </Button>
                               <ModalFiltragem
                                  mostrar={modalMusculosAlvo}
                                  onClose={() => setModalMusculosAlvo(false)}
-                                 modo="Músculo a fortificar"
+                                 modo={sectionFiltros.items[2]}
                                  array={musculoAlvo}
                               />
                            </Form.Group>
@@ -126,7 +125,7 @@ const Exercicios = () => {
                            ) : (
                               <div>
                                  <Image className="mb-4" src={noFilter} />
-                                 <Alert variant="secondary">Nenhum exercício corresponde com os filtros definidos!</Alert>
+                                 <Alert variant="secondary">{sectionFiltros.noFilter}</Alert>
                               </div>
                            )
                         ) : (
