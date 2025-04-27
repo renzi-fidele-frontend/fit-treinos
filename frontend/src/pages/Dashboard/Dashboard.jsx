@@ -86,7 +86,7 @@ const Dashboard = () => {
                </div>
                <div className="vr mx-2 d-none d-xxl-block"></div>
                <p className="mb-0">
-                  Tempo de treino:{" "}
+                  {card4.tempo}{" "}
                   <span className="fw-medium fst-italic border rounded px-1 shadow-sm">{segundosParaFormatoHumanizado(tempoDeTreino)}</span>
                </p>
             </div>

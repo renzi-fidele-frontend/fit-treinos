@@ -118,7 +118,7 @@
       },
       "card4": {
          "stat": "Estatísticas da Dedicação Semanal",
-         "tempo": "Tempo de treino",
+         "tempo": "Tempo de treino:",
          "load": "Carregando o gráfico...",
          "desc": "* A Unidade do tempo de treino está em segundos",
          "bestDay": "Melhor dia da semana:",
@@ -130,5 +130,11 @@
       },
       "card6": { "stat": "Exercício mais praticado", "tempo": "Tempo de treino:" },
       "tit2": "Últimos exercícios praticados"
+   },
+   "favoritos": {
+      "tit": "Veja os seus exercícios favoritos",
+      "desc": "Sempre que você ver algo de interessante podes guardar por aqui",
+      "subtit": "Exercícios favoritos",
+      "noTrain": "Ainda não existem exercícios favoritos."
    }
 }
