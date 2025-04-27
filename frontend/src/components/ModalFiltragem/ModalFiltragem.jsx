@@ -92,9 +92,9 @@ const ModalFiltragem = ({ mostrar, onClose, modo, array }) => {
             </ListGroup>
          </Modal.Body>
          <Modal.Footer>
-            <Button onClick={atualizarFiltros}>Aplicar</Button>
+            <Button onClick={atualizarFiltros}>{aplicar}</Button>
             <Button variant="secondary" onClick={onClose}>
-               Cancelar
+               {cancelar}
             </Button>
          </Modal.Footer>
       </Modal>

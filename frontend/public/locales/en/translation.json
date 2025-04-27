@@ -1,0 +1,150 @@
+{
+   "home": {
+      "secaoInicial": {
+         "tit1": "Transpire, smile",
+         "tit2": "And get healthy",
+         "descricao": "Discover the exercises that give the most results, in a simple and organized way",
+         "cta": "Discover",
+         "animacao": ["Heavy training", "Have consistency", "Have determination"]
+      },
+      "titExercicios": "Amazing exercises for you to train",
+      "vantagens": {
+         "tit": " The best place for you to get in shape",
+         "descricao": "Find out the most fun and practical way to achieve your fitness goals! ",
+         "items": [
+            {
+               "titulo": "Detailed exercises",
+               "texto": "Find clear descriptions and step -by -step exercise for all levels. "
+            },
+            {
+               "titulo": "Video Tutorials",
+               "texto": "Follow youtube tutorials created by professionals. "
+            },
+            {
+               "titulo": "Personalized Control",
+               "texto": "Filters exercises by categories such as strength, cardio or stretching. "
+            },
+            {
+               "titulo": "Training Tracking",
+               "texto": "Follow your progress easily! "
+            }
+         ]
+      },
+      "testemunhos": {
+         "tit": "Site Users Testimonies",
+         "items": [
+            {
+               "nome": "Ana Carolina",
+               "testemunho": "I never imagined that I could feel so confident training at home. "
+            },
+            {
+               "nome": "Rafael Monteiro",
+               "testemunho": "I was completely sedentary, but the site made everything so simple and practical. "
+            },
+            {
+               "nome": "Mariana Costa",
+               "testemunho": "The videos are super didactic and motivating. "
+            },
+            {
+               "nome": "FELIPE ALMEIDA",
+               "testemunho": "With the running routine, I needed something fast and efficient. "
+            },
+            {
+               "nome": "CAMILA RODRIGUES",
+               "testemunho": "The possibility of filtering exercises by category was a watershed for me. "
+            },
+            {
+               "nome": "Pedro Henrique",
+               "testemunho": "The tips and trends keep me motivated. "
+            }
+         ]
+      }
+   },
+   "exercicios": {
+      "tit": "It's time to give that improved your physique",
+      "subtit": "More than 1000 exercises have been prepared for you",
+      "titEx": "Find all exercises",
+      "sectionFiltros": {
+         "items": ["Body part", "Equipment", "Fortifying muscle"],
+         "escolher": "To choose",
+         "tit": "Select the filtration options from: ",
+         "aplicar": "Apply",
+         "cancelar": "Cancel",
+         "noFilter": "No exercise corresponds to the defined filters!"
+      }
+   },
+   "cadastro": {
+      "tit": "Create your account",
+      "tit2": "Almost there! ",
+      "foto": "Click below to select the photo:",
+      "subtit": "Do you already have an account created?",
+      "subtit2": "Login",
+      "social": "Sign up using a social network",
+      "email": "Or use email and password",
+      "form": {
+         "nome": "First name",
+         "sobre": "Surname",
+         "email": "E-mail",
+         "pass": "Enter your password",
+         "btn": "Start training",
+         "btn2": "Conclude registration"
+      }
+   },
+   "login": {
+      "tit": "Enter your account",
+      "subtit": "Do you not have a created account yet?",
+      "subtit2": "Create an account",
+      "social": "Enter a social network",
+      "pass": "Or use email and password",
+      "form": {
+         "email": "Enter your email",
+         "pass": "Enter the keyword",
+         "btn": "Continue training"
+      }
+   },
+   "dashboard": {
+      "tit": "Training Progress",
+      "card1": {
+         "stat": "Total training time",
+         "desc": "The accumulated time practicing exercises"
+      },
+      "card2": {
+         "stat": "Training done today",
+         "desc": "Total training performed today"
+      },
+      "card3": {
+         "stat": "Average training time",
+         "desc": "Time dedicated to training per day"
+      },
+      "card4": {
+         "stat": "Weekly dedication statistics",
+         "tempo": "Training Time:",
+         "load": "Loading the chart ...",
+         "desc": "* The training time unit is in seconds",
+         "bestDay": "Best day of the week:",
+         "last": "Last training session:"
+      },
+      "card5": {
+         "stat": "Most trained body parts",
+         "noTrain": "You haven't trained yet!"
+      },
+      "card6": {
+         "stat": "Most practiced exercise",
+         "tempo": "Training Time:"
+      },
+      "tit2": "Last exercises practiced"
+   },
+   "favoritos": {
+      "tit": "See your favorite exercises",
+      "desc": "Whenever you see something interesting you can save here",
+      "subtit": "Favorite Exercises",
+      "noTrain": "There are no favorite exercises yet."
+   },
+   "header": {
+      "links": ["Start", "Exercises", "Register", "To enter", "Training Progress", "Favorites"]
+   },
+   "footer": {
+      "copy": "All rights reserved",
+      "dev": "Developer:"
+   }
+}
