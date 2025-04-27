@@ -18,10 +18,13 @@ import noLastExs from "../../assets/gif.gif";
 import { gerarArray } from "../../utils/gerarArray";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
 import { setExercicios } from "../../state/exercicios/exerciciosSlice";
+import { useTranslation } from "react-i18next";
 
 Chart.register(CategoryScale);
 
 const Dashboard = () => {
+   const { t } = useTranslation();
+   const { tit, tit2, card1, card2, card3, card4, card5, card6 } = t("dashboard");
    const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
    const dispatch = useDispatch();
    const [tempoTotalTreino, setTempoTotalTreino] = useState(null);
@@ -119,7 +122,7 @@ const Dashboard = () => {
 
    return (
       <div id={styles.ct} className="h-100  py-4 py-md-5 px-3  px-md-5 px-lg-0 container-lg">
-         <h2 className="fw-semibold mb-4 text-center text-xl-start ">Progresso do treinamento</h2>
+         <h2 className="fw-semibold mb-4 text-center text-xl-start ">{tit}</h2>
          {/* Separador Mobile */}
          <hr className="d-xl-none mb-4" />
          {/* Primeira linha */}
@@ -129,7 +132,7 @@ const Dashboard = () => {
                <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
                   <div className="d-flex justify-content-between">
                      <h6 id={styles.tit} className="mb-0">
-                        Tempo total de treino
+                        {card1.stat}
                      </h6>
                      <div className="p-2 rounded" id={styles.icon1}>
                         <i className="bi bi-clock fs-3 "></i>
@@ -145,9 +148,8 @@ const Dashboard = () => {
                         </Placeholder>
                      </h5>
                   )}
-
                   <p className="text-secondary mb-0" id={styles.small}>
-                     O tempo acumulado praticando exercícios
+                     {card1.desc}
                   </p>
                </div>
             </Col>
@@ -156,7 +158,7 @@ const Dashboard = () => {
                <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
                   <div className="d-flex justify-content-between">
                      <h6 id={styles.tit} className="mb-0">
-                        Treinamentos feitos hoje
+                        {card2.stat}
                      </h6>
                      <div className="p-2 rounded" id={styles.icon2}>
                         <i className="bi bi-person-arms-up fs-3"></i>
@@ -189,7 +191,7 @@ const Dashboard = () => {
                   )}
 
                   <p className="text-secondary mb-0" id={styles.small}>
-                     Total de treinamentos executados hoje
+                     {card2.desc}
                   </p>
                </div>
             </Col>
@@ -198,7 +200,7 @@ const Dashboard = () => {
                <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
                   <div className="d-flex justify-content-between">
                      <h6 id={styles.tit} className="mb-0">
-                        Média do tempo de treino
+                        {card3.stat}
                      </h6>
                      <div className="p-2 rounded" id={styles.icon3}>
                         <i className="bi bi-hourglass-split fs-3"></i>
@@ -231,7 +233,7 @@ const Dashboard = () => {
                      </h5>
                   )}
                   <p className="text-secondary mb-0" id={styles.small}>
-                     Tempo dedicado ao treinamento por dia
+                     {card3.desc}
                   </p>
                </div>
             </Col>
@@ -243,7 +245,7 @@ const Dashboard = () => {
             <Col sm={6} xl={4}>
                <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
                   <h6 id={styles.tit} className="mb-0">
-                     Estatísticas da Dedicação Semanal
+                     {card4.stat}
                   </h6>
                   <div className="my-4">
                      {estatisticasDaSemana ? (
@@ -268,17 +270,19 @@ const Dashboard = () => {
                      ) : (
                         <Placeholder animation="wave" className="d-flex align-items-center justify-content-center position-relative" xs={12}>
                            <Placeholder className={styles.chartLoad} />
-                           <p className="mb-0 position-absolute">Carregando o gráfico...</p>
+                           <p className="mb-0 position-absolute">{card4.load}</p>
                         </Placeholder>
                      )}
                   </div>
-                  <p className="text-secondary small">* A Unidade do tempo de treino está em segundos</p>
+                  <p className="text-secondary small">{card4.desc}</p>
                   <hr className="mt-4" />
+                  {/* TODO: Atualizar o dia da semana com mais treinos */}
                   <p className="text-secondary mb-0" id={styles.small}>
-                     <span className="fw-semibold">Melhor dia da semana:</span> <i className="bi bi-calendar-day"></i> Qua
+                     <span className="fw-semibold">{card4.bestDay}</span> <i className="bi bi-calendar-day"></i> Qua
                   </p>
+                  {/* TODO: Atualizar o dia da última sessão de treino, (Se possível implementar com momentJs) */}
                   <p className="text-secondary mb-0" id={styles.small}>
-                     <span className="fw-semibold">Última sessão de treino:</span> 10/02/2025
+                     <span className="fw-semibold">{card4.last}</span> 10/02/2025
                   </p>
                </div>
             </Col>
@@ -286,7 +290,7 @@ const Dashboard = () => {
             <Col sm={6} xl={4}>
                <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
                   <h6 id={styles.tit} className="mb-0">
-                     Partes do corpo mais treinadas
+                     {card5.stat}
                   </h6>
                   <div className="mt-4">
                      {partesDoCorpoTreinadas ? (
@@ -300,7 +304,7 @@ const Dashboard = () => {
                         ) : (
                            <div className={styles.noProgress + " d-flex flex-column align-items-center w-100 gap-3 "}>
                               <Image src={noProgress} />
-                              <p className="mb-0 tex-light bg-secondary-subtle px-3 py-1 rounded">Você ainda não treinou! </p>
+                              <p className="mb-0 tex-light bg-secondary-subtle px-3 py-1 rounded">{card5.noTrain}</p>
                            </div>
                         )
                      ) : (
@@ -312,7 +316,7 @@ const Dashboard = () => {
                            </div>
                            <div className="d-flex align-items-center justify-content-center position-relative">
                               <Placeholder className={styles.pieChartLoad} />
-                              <p className="mb-0 position-absolute">Carregando o gráfico...</p>
+                              <p className="mb-0 position-absolute">{card4.load}</p>
                            </div>
                         </Placeholder>
                      )}
@@ -323,7 +327,7 @@ const Dashboard = () => {
             <Col sm={6} xl={4}>
                <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
                   <h6 id={styles.tit} className="mb-0">
-                     Exercício mais praticado
+                     {card6.stat}
                   </h6>
                   {exercicios && exercicioMaisTreinado && (
                      <CardExercicioMaisTreinado
@@ -335,7 +339,7 @@ const Dashboard = () => {
                   {exercicioMaisTreinado === false && (
                      <div className="d-flex flex-column gap-3 align-items-center justify-content-center h-100">
                         <Image src={noBestTrain} className={styles.noBestTrain} />
-                        <p className="mb-0 tex-light bg-secondary-subtle px-3 py-1 rounded">Você ainda não treinou! </p>
+                        <p className="mb-0 tex-light bg-secondary-subtle px-3 py-1 rounded">{card5.noTrain}</p>
                      </div>
                   )}
 
@@ -347,7 +351,7 @@ const Dashboard = () => {
                <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
                   <div className="d-flex justify-content-between">
                      <h6 id={styles.tit} className="mb-0">
-                        Média do tempo de treino
+                        {card3.stat}
                      </h6>
                      <div className="p-2 rounded" id={styles.icon3}>
                         <i className="bi bi-hourglass-split fs-3"></i>
@@ -380,7 +384,7 @@ const Dashboard = () => {
                      </h5>
                   )}
                   <p className="text-secondary mb-0" id={styles.small}>
-                     Tempo dedicado ao treinamento por dia
+                     {card3.desc}
                   </p>
                   <Image className="mt-4" src={mediaTreinos} />
                </div>
@@ -390,7 +394,7 @@ const Dashboard = () => {
          {/* Últimos exercícios praticados */}
          <Row className="mb-5">
             <Col>
-               <h2 className="fw-semibold mb-4">Últimos exercícios praticados</h2>
+               <h2 className="fw-semibold mb-4">{tit2}</h2>
                <Slider
                   swipeToSlide
                   slidesToShow={3}
@@ -415,7 +419,7 @@ const Dashboard = () => {
                   {ultimosExerciciosPraticados?.length === 0 && (
                      <div className="text-center">
                         <Image src={noLastExs} />
-                        <Alert variant="warning"> Você ainda não treinou!</Alert>
+                        <Alert variant="warning">{card5.noTrain}</Alert>
                      </div>
                   )}
                   {ultimosExerciciosPraticados === null && gerarArray(4).map((v, k) => <CardExercicio customClass="me-4" key={k} />)}

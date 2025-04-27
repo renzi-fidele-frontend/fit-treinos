@@ -101,5 +101,34 @@
          "pass": "Insira a palavra-chave",
          "btn": "Continuar treinamento"
       }
+   },
+   "dashboard": {
+      "tit": "Progresso do treinamento",
+      "card1": {
+         "stat": "Tempo total de treino",
+         "desc": "O tempo acumulado praticando exercícios"
+      },
+      "card2": {
+         "stat": "Treinamentos feitos hoje",
+         "desc": "Total de treinamentos executados hoje"
+      },
+      "card3": {
+         "stat": "Média do tempo de treino",
+         "desc": "Tempo dedicado ao treinamento por dia"
+      },
+      "card4": {
+         "stat": "Estatísticas da Dedicação Semanal",
+         "tempo": "Tempo de treino",
+         "load": "Carregando o gráfico...",
+         "desc": "* A Unidade do tempo de treino está em segundos",
+         "bestDay": "Melhor dia da semana:",
+         "last": "Última sessão de treino:"
+      },
+      "card5": {
+         "stat": "Partes do corpo mais treinadas",
+         "noTrain": "Você ainda não treinou!"
+      },
+      "card6": { "stat": "Exercício mais praticado", "tempo": "Tempo de treino:" },
+      "tit2": "Últimos exercícios praticados"
    }
 }
