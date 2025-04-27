@@ -8,8 +8,11 @@ import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../../state/auth/authSlice";
 import Notificacao from "../../components/Notificacao/Notificacao";
 import { facebookAuth, googleAuth } from "../../services/SocialAuth";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
+   const { t } = useTranslation();
+   const { tit, subtit, subtit2, social, pass, form } = t("login");
    const navegar = useNavigate();
    const dispatch = useDispatch();
    const emailRef = useRef();
@@ -38,13 +41,13 @@ const Login = () => {
          <Row className="gap-3 gap-md-5 flex-column-reverse flex-md-row pb-5 pb-md-0">
             <Col md={6} className="justify-content-center d-flex flex-column pe-5">
                <h1 id={styles.tit2} className="fw-bold">
-                  Entre na sua conta
+                  {tit}
                </h1>
                <p id={styles.subtit} className="fs-5">
-                  Você ainda não tem uma conta criada? <Link to="/cadastro">Crie uma conta</Link>
+                  {subtit} <Link to="/cadastro">{subtit2}</Link>
                </p>
                <div className="mt-1">
-                  <h6 className="fw-semibold">Entre com uma rede social</h6>
+                  <h6 className="fw-semibold">{social}</h6>
                   <div className="d-flex gap-3">
                      <Button onClick={googleAuth} size="sm" variant="outline-danger">
                         <i className="bi bi-google"></i> Google
@@ -56,13 +59,13 @@ const Login = () => {
                </div>
                <hr className="my-3" />
                <div>
-                  <h6 className="fw-semibold">Ou utilize email e password</h6>
+                  <h6 className="fw-semibold">{pass}</h6>
                   <Form onSubmit={fazerLogin} className="mt-3">
-                     <Form.Control ref={emailRef} className="my-3" type="email" placeholder="Insira seu email" />
-                     <Form.Control ref={passwordRef} type="password" placeholder="Insira a palavra-chave" />
+                     <Form.Control ref={emailRef} className="my-3" type="email" placeholder={form.email} />
+                     <Form.Control ref={passwordRef} type="password" placeholder={form.pass} />
                      {!loading ? (
                         <Button variant="secondary" className="mt-4" type="submit">
-                           Continuar treinamento
+                           {form.btn}
                         </Button>
                      ) : (
                         <Button variant="secondary" className="mt-4" type="submit">

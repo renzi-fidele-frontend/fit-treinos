@@ -89,5 +89,17 @@
          "btn": "Começar treinamento",
          "btn2": "Concluir cadastro"
       }
+   },
+   "login": {
+      "tit": "Entre na sua conta",
+      "subtit": "Você ainda não tem uma conta criada?",
+      "subtit2": "Crie uma conta",
+      "social": "Entre com uma rede social",
+      "pass": "Ou utilize email e password",
+      "form": {
+         "email": "Insira seu email",
+         "pass": "Insira a palavra-chave",
+         "btn": "Continuar treinamento"
+      }
    }
 }
