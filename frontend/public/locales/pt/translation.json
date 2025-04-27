@@ -136,5 +136,9 @@
       "desc": "Sempre que você ver algo de interessante podes guardar por aqui",
       "subtit": "Exercícios favoritos",
       "noTrain": "Ainda não existem exercícios favoritos."
-   }
+   },
+   "header": {
+      "links": ["Início", "Exercícios", "Cadastrar", "Entrar", "Progresso do treinamento", "Favoritos"]
+   },
+   "footer": {}
 }
