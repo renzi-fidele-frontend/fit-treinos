@@ -9,8 +9,11 @@ import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../../state/auth/authSlice";
 import Notificacao from "../../components/Notificacao/Notificacao";
 import { facebookAuth, googleAuth } from "../../services/SocialAuth";
+import { useTranslation } from "react-i18next";
 
 const Cadastro = () => {
+   const { t } = useTranslation();
+   const { tit, tit2, foto, subtit, subtit2, social, email, form } = t("cadastro");
    const navegar = useNavigate();
    const dispatch = useDispatch();
    const [step, setStep] = useState(1);
@@ -70,13 +73,13 @@ const Cadastro = () => {
 
    const Step1 = () => (
       <>
-         <h1 className="fw-bold">Crie a sua conta</h1>
+         <h1 className="fw-bold">{tit}</h1>
          <p className="fs-5">
-            Já tens uma conta criada?
-            <br className="d-sm-none" /> <Link to="/entrar">Faça Login</Link>
+            {subtit}
+            <br className="d-sm-none" /> <Link to="/entrar">{subtit2}</Link>
          </p>
          <div className="mt-1">
-            <h6 className="fw-semibold">Cadastre-se usando uma rede social</h6>
+            <h6 className="fw-semibold">{social}</h6>
             <div className="d-flex gap-3">
                <Button onClick={() => googleAuth()} size="sm" variant="outline-danger">
                   <i className="bi bi-google"></i> Google
@@ -88,16 +91,16 @@ const Cadastro = () => {
          </div>
          <hr className="my-3" />
          <div>
-            <h6 className="fw-semibold">Ou utilize email e password</h6>
+            <h6 className="fw-semibold">{email}</h6>
             <Form onSubmit={handleSubmit1} className="mt-3">
                <div className="d-flex gap-3">
-                  <Form.Control required ref={nomeRef} type="text" placeholder="Primeiro nome" />
-                  <Form.Control required ref={sobrenomeRef} type="text" placeholder="Sobrenome" />
+                  <Form.Control required ref={nomeRef} type="text" placeholder={form.nome} />
+                  <Form.Control required ref={sobrenomeRef} type="text" placeholder={form.sobre} />
                </div>
-               <Form.Control required ref={emailRef} className="my-3" type="email" placeholder="E-mail" />
-               <Form.Control required ref={passwordRef} type="password" placeholder="Insira sua senha" />
+               <Form.Control required ref={emailRef} className="my-3" type="email" placeholder={form.email} />
+               <Form.Control required ref={passwordRef} type="password" placeholder={form.pass} />
                <Button variant="secondary" className="mt-4" type="submit">
-                  Começar treinamento
+                  {form.btn}
                </Button>
             </Form>
          </div>
@@ -107,16 +110,17 @@ const Cadastro = () => {
    const Step2 = () => (
       <>
          <h1 className="fw-bold mb-3 mb-xl-5" id={styles.tit2}>
-            Quase lá! Agora adicione a sua foto de perfil
+            {tit2}
          </h1>
          {/* Prévia */}
          <div id={styles.ctFoto} className="mb-2 rounded border">
             <Image ref={fotoPreviaRef} src={profilepic} className="rounded-circle" />
          </div>
          <Form className="mb-3" onSubmit={handleSubmit2}>
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-4">
                <Form.Label>
-                  <i className="bi bi-arrow-down me-2"></i>Clique abaixo para selecionar a foto:
+                  <i className="bi bi-arrow-down me-2"></i>
+                  {foto}
                </Form.Label>
                <Form.Control
                   id="foto"
@@ -129,7 +133,7 @@ const Cadastro = () => {
                />
             </Form.Group>
             <Button variant="secondary" type="submit">
-               Concluir cadastro
+               {form.btn2}
             </Button>
          </Form>
 

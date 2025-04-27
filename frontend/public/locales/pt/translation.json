@@ -72,5 +72,22 @@
          "cancelar": "Cancelar",
          "noFilter": "Nenhum exercício corresponde com os filtros definidos!"
       }
+   },
+   "cadastro": {
+      "tit": "Crie a sua conta",
+      "tit2": "Quase lá! Agora adicione a sua foto de perfil",
+      "foto": "Clique abaixo para selecionar a foto:",
+      "subtit": "Já tens uma conta criada?",
+      "subtit2": "Faça Login",
+      "social": "Cadastre-se usando uma rede social",
+      "email": "Ou utilize email e password",
+      "form": {
+         "nome": "Primeiro nome",
+         "sobre": "Sobrenome",
+         "email": "E-mail",
+         "pass": "Insira sua senha",
+         "btn": "Começar treinamento",
+         "btn2": "Concluir cadastro"
+      }
    }
 }
