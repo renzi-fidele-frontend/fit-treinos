@@ -1,9 +1,12 @@
 import { Col, Container, Image, Row } from "react-bootstrap";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
-import styles from "./Footer.module.css"
+import styles from "./Footer.module.css";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+   const { t } = useTranslation();
+   const { copy, dev } = t("footer");
    return (
       <div className="text-bg-dark pt-3 pb-4">
          <Container>
@@ -13,11 +16,13 @@ const Footer = () => {
                   <Link to="/">
                      <Image className="me-lg-3" src={logo} />
                   </Link>
-                  <p className="fs-5 mb-0" id={styles.copywright}>© 2025 - Todos os direitos reservados</p>
+                  <p className="fs-5 mb-0" id={styles.copywright}>
+                     © 2025 - {copy}
+                  </p>
                </Col>
                <Col className="text-center text-lg-end mt-2 mt-lg-0">
                   <h2 className="fs-5 fw-bold">
-                     Desenvolvedor: <span className="fw-normal text-decoration-underline">Renzi Fidele</span>{" "}
+                     {dev} <span className="fw-normal text-decoration-underline">Renzi Fidele</span>{" "}
                   </h2>
                </Col>
             </Row>

@@ -140,5 +140,8 @@
    "header": {
       "links": ["Início", "Exercícios", "Cadastrar", "Entrar", "Progresso do treinamento", "Favoritos"]
    },
-   "footer": {}
+   "footer": {
+      "copy": "Todos os direitos reservados",
+      "dev": "Desenvolvedor:"
+   }
 }
