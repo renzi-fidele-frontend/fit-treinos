@@ -7,6 +7,7 @@ import DropDownBtn from "../ui/DropDownBtn";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import IdiomaBtn from "../ui/IdiomaBtn";
 
 const Header = () => {
    const { t } = useTranslation();
@@ -54,6 +55,7 @@ const Header = () => {
                   <Image id={styles.logo} src={logo} alt="Logo do site" />
                </Navbar.Brand>
                <div className="d-flex align-items-center">
+                  {/* Toggle */}
                   <i
                      role="button"
                      className="bi bi-list border rounded d-block d-lg-none"
@@ -61,7 +63,10 @@ const Header = () => {
                      onClick={() => setMostrar(true)}
                   ></i>
                   <MyNav />
-                  {user && <DropDownBtn />}
+                  <div className="d-none d-sm-block">{user && <DropDownBtn />}</div>
+                  <div className="mx-sm-3 mx-2">
+                     <IdiomaBtn />
+                  </div>
                   <MudarTemaBtn />
                </div>
             </div>

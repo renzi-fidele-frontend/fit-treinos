@@ -1,35 +1,46 @@
-import { Dropdown } from "react-bootstrap";
-import { ContextValue } from "../../context/Provider";
+import { Dropdown, Image } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { setIdioma } from "../../state/language/languageSlice";
+import i18n from "../../i18n/i18n";
+import pt from "../../assets/pt.webp";
+import en from "../../assets/usa.webp";
 
 const IdiomaBtn = () => {
-   const { idioma, dispatch } = ContextValue();
+   const { idioma } = useSelector((state) => state.idioma);
+   const { modoEscuro } = useSelector((state) => state.tema);
 
-   function mudarIdioma(lng) {
+   const dispatch = useDispatch();
 
+   i18n.on("languageChanged", (lng) => dispatch(setIdioma(lng)));
+
+   function mudarIdioma(novoIdioma) {
+      i18n.changeLanguage(novoIdioma);
    }
 
    return (
       <Dropdown>
-         <Dropdown.Toggle variant="outline-light">
+         <Dropdown.Toggle className="py-1 px-2 border-secondary" variant={modoEscuro ? "outline-light" : "outline-dark"}>
             <i className="bi bi-globe"></i>
          </Dropdown.Toggle>
 
          <Dropdown.Menu>
             <Dropdown.Item
-               active={idioma === "en"}
+               active={idioma.includes("en")}
                onClick={() => {
                   mudarIdioma("en");
                }}
+               className="d-flex align-items-center gap-2"
             >
-               🇬🇧 English
+               <Image width={23} src={en} /> English
             </Dropdown.Item>
             <Dropdown.Item
-               active={idioma === "pt"}
+               active={idioma.includes("pt")}
                onClick={() => {
-                  mudarIdioma("de");
+                  mudarIdioma("pt");
                }}
+               className="d-flex align-items-center gap-2"
             >
-               🇵🇹 Português
+               <Image width={23} src={pt} /> Português
             </Dropdown.Item>
          </Dropdown.Menu>
       </Dropdown>
