@@ -18,10 +18,13 @@ import { setUser } from "../../state/auth/authSlice";
 import ToastTreinamento from "../../components/ToastTreinamento/ToastTreinamento";
 import { gerarArray } from "../../utils/gerarArray";
 import { traduzirTexto } from "../../utils/traduzirTexto";
+import { useTranslation } from "react-i18next";
 
 // FIXME: A requisição está sendo feita duas vezes
 
 const DetalhesExercicio = () => {
+   const { t } = useTranslation();
+   const { tit, actions, detalhes, youtube, related } = t("exercicio");
    const { id } = useParams();
    const dispatch = useDispatch();
    const { exercicios } = useSelector((state) => state.exercicios);
@@ -37,21 +40,23 @@ const DetalhesExercicio = () => {
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
    const apanharExercicios = useFetch(null, exercisesFetchOptions, exercicios, "manual");
    const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
+   const { idioma } = useSelector((state) => state.idioma);
 
    useEffect(() => {
       if (exercicio) {
          filtrarPorMusculoAlvo(exercicios);
          setFavorito(verificarFavorito(exercicio?.id));
          // Traduzindo os dados da API
-         traduzirTexto(exercicio?.instructions?.join(" ! ")).then((v) => {
-            console.log(v?.split("!"));
-            setInstrucoes(v?.split("!"));
-         });
+         idioma.includes("pt") &&
+            traduzirTexto(exercicio?.instructions?.join(" ! ")).then((v) => {
+               setInstrucoes(v?.split("!"));
+            });
+         idioma.includes("en") && setInstrucoes(exercicio?.instructions);
       }
       if (!videos && exercicio) {
          apanharVideos
             .apanharDadosComParam(
-               `https://youtube-search-and-download.p.rapidapi.com/search?query=${exercicio?.name}%20exercise&hl=pt&type=video`
+               `https://youtube-search-and-download.p.rapidapi.com/search?query=${exercicio?.name}%20exercise&hl=${idioma}&type=video`
             )
             .then((v) => setVideos(v.contents));
       }
@@ -124,7 +129,7 @@ const DetalhesExercicio = () => {
             </Col>
             <Col>
                <h1 className="fw-bold mb-2 mb-xl-4 pt-3">
-                  Como praticar o:{" "}
+                  {tit}{" "}
                   <span className="text-capitalize text-secondary">
                      {exercicio ? (
                         exercicio?.name
@@ -164,15 +169,15 @@ const DetalhesExercicio = () => {
                {user && (
                   <div className="d-flex gap-3 mt-4 flex-wrap flex-sm-row justify-content-center justify-content-md-start">
                      <Button variant="warning" onClick={iniciarTreino}>
-                        <i className="bi bi-person-arms-up me-1"></i> Iniciar exercício
+                        <i className="bi bi-person-arms-up me-1"></i> {actions[0]}
                      </Button>
                      {!favorito ? (
                         <Button variant="secondary" onClick={adicionarAosFavoritos}>
-                           <i className="bi bi-heart me-1"></i> Adicionar aos favoritos
+                           <i className="bi bi-heart me-1"></i> {actions[1]}
                         </Button>
                      ) : (
                         <Button variant="danger" onClick={removerDosFavoritos}>
-                           <i className="bi bi-trash me-1"></i> Remover dos favoritos
+                           <i className="bi bi-trash me-1"></i> {actions[2]}
                         </Button>
                      )}
                   </div>
@@ -187,7 +192,7 @@ const DetalhesExercicio = () => {
          <Row className="mt-5 text-center">
             <Col sm={7}>
                <h2 className="fw-medium mb-3 mb-sm-4 fs-3" id={styles.labelDetalhes}>
-                  Parte do corpo que irá se desenvolver:{" "}
+                  {detalhes[0]}{" "}
                   <span className="text-secondary text-capitalize">
                      {exercicio ? (
                         exercicio?.bodyPart
@@ -216,7 +221,7 @@ const DetalhesExercicio = () => {
             <div className="vr px-1 bg-gradient mx-4 rounded d-none d-sm-block"></div>
             <Col>
                <h2 className="fw-medium mb-3 mb-sm-4 fs-3" id={styles.labelDetalhes}>
-                  Equipamento necessário:{" "}
+                  {detalhes[1]}{" "}
                   <span className="text-secondary text-capitalize">
                      {exercicio ? (
                         exercicio?.equipment
@@ -244,7 +249,7 @@ const DetalhesExercicio = () => {
          <div className="d-sm-none border mt-4" id={styles.sepMobile}></div>
          <Row className="pt-4 pt-sm-5">
             <Col className="text-center" xl={5}>
-               <h4 className=" fw-semibold mb-4">Principal músculo que será afectado:</h4>
+               <h4 className=" fw-semibold mb-4">{detalhes[2]}</h4>
                <div
                   style={{ width: "fit-content" }}
                   className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-danger shadow-sm rounded-3 mx-auto"
@@ -265,7 +270,7 @@ const DetalhesExercicio = () => {
             {/* Separador vertical do desktop */}
             <div className="vr px-1 bg-gradient mx-4 rounded d-none d-xl-block"></div>
             <Col className="text-center">
-               <h4 className="fw-semibold mb-4 mt-4 mt-xl-0">Músculos secundários que serão afetados:</h4>
+               <h4 className="fw-semibold mb-4 mt-4 mt-xl-0">{detalhes[3]}</h4>
                <div className="d-flex gap-2  gap-lg-5 justify-content-center flex-wrap flex-md-nowrap">
                   {exercicio ? (
                      exercicio?.secondaryMuscles?.map((v, key) =>
@@ -280,7 +285,6 @@ const DetalhesExercicio = () => {
                               key={key}
                            >
                               <Image className={styles.musculo + " border rounded-2"} src={noPhoto} />
-
                               <span>{v}</span>
                            </div>
                         )
@@ -303,7 +307,7 @@ const DetalhesExercicio = () => {
          <Row className="px-2">
             <Col>
                <h1 className="mb-4" id={styles.tit2}>
-                  Assista vídeos de treinamento do:{" "}
+                  {youtube.tit}{" "}
                   <span className="text-secondary fw-semibold text-capitalize">
                      {exercicio ? (
                         exercicio?.name
@@ -354,8 +358,7 @@ const DetalhesExercicio = () => {
          <Row className="mt-2 pb-5 mb-3">
             <Col>
                <h1 className="mb-4" id={styles.tit2}>
-                  Exercícios que fortalecem o músculo alvo:{" "}
-                  <span className="text-capitalize text-secondary fw-bold text-decoration-underline">{exercicio?.target}</span>
+                  {related.tit} <span className="text-capitalize text-secondary fw-bold text-decoration-underline">{exercicio?.target}</span>
                </h1>
                <Row>
                   <Col>
@@ -380,7 +383,7 @@ const DetalhesExercicio = () => {
                                    key={k}
                                 />
                              ))
-                           : gerarArray(6).map((v, k) => <CardExercicio customClass="me-3" />)}
+                           : gerarArray(6).map((v, k) => <CardExercicio key={k} customClass="me-3" />)}
                      </Slider>
                   </Col>
                </Row>

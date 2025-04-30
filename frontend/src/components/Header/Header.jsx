@@ -17,7 +17,7 @@ const Header = () => {
    const [mostrar, setMostrar] = useState(false);
 
    const MyNav = ({ offcanvas }) => (
-      <Nav className={`gap-3 fs-5 ${!offcanvas ? "d-none d-lg-flex" : "d-flex"} `} activeKey={loc.pathname}>
+      <Nav className={`gap-3 fs-5 ${!offcanvas ? "d-none d-lg-flex align-items-center" : "d-flex"} `} activeKey={loc.pathname}>
          <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/"} as={Link} to={"/"}>
             <i className="me-2 d-lg-none bi bi-house-fill"></i> {links[0]}
          </Nav.Link>
@@ -26,11 +26,12 @@ const Header = () => {
          </Nav.Link>
          {!user && (
             <>
-               <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/cadastro"} as={Link} to={"/cadastro"}>
+               <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/entrar"} as={Link} to={"/entrar"}>
                   <i className="me-2 d-lg-none bi bi-person-add"></i> {links[2]}
                </Nav.Link>
-               <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/entrar"} as={Link} to={"/entrar"}>
-                  <i className="me-2 d-lg-none bi bi-person-fill-lock"></i> {links[3]}
+
+               <Nav.Link className={`${offcanvas && "border-bottom pb-4 "}`} active={loc.pathname === "/cadastro"} as={Link} to={"/cadastro"}>
+                  <i className="me-2 d-lg-none bi bi-person-fill-lock"></i> <Button variant="secondary">{links[3]}</Button>
                </Nav.Link>
             </>
          )}

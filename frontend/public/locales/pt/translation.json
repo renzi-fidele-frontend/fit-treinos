@@ -137,8 +137,22 @@
       "subtit": "Exercícios favoritos",
       "noTrain": "Ainda não existem exercícios favoritos."
    },
+   "exercicio": {
+      "tit": "Como praticar o:",
+      "actions": ["Iniciar exercício", "Adicionar aos favoritos", "Remover dos favoritos"],
+      "detalhes": [
+         "Parte do corpo que irá se desenvolver:",
+         "Equipamento necessário",
+         "Principal músculo que será afectado:",
+         "Músculos secundários que serão afetados:"
+      ],
+      "youtube": { "tit": "Assista vídeos de treinamento do:" },
+      "related": {
+         "tit": "Exercícios que fortalecem o músculo alvo:"
+      }
+   },
    "header": {
-      "links": ["Início", "Exercícios", "Cadastrar", "Entrar", "Progresso do treinamento", "Favoritos"]
+      "links": ["Início", "Exercícios", "Entrar", "Cadastrar", "Progresso do treinamento", "Favoritos"]
    },
    "footer": {
       "copy": "Todos os direitos reservados",

@@ -140,8 +140,25 @@
       "subtit": "Favorite Exercises",
       "noTrain": "There are no favorite exercises yet."
    },
+
+   "exercicio": {
+      "tit": "How to practice:",
+      "actions": ["Start training", "Add to favorites", "Remove from favorites"],
+      "detalhes": [
+         "Part of the body that will develop:",
+         "Necessary equipment",
+         "Main muscle that will be affected:",
+         "Secondary muscles that will be affected:"
+      ],
+      "youtube": {
+         "tit": "Watch training videos of:"
+      },
+      "related": {
+         "tit": "Exercises that strengthen the target muscle:"
+      }
+   },
    "header": {
-      "links": ["Home", "Exercises", "Sign Up", "Login", "Training Progress", "Favorites"]
+      "links": ["Home", "Exercises", "Log In", "Sign Up", "Training Progress", "Favorites"]
    },
    "footer": {
       "copy": "All rights reserved",
