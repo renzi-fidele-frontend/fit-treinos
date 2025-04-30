@@ -143,6 +143,7 @@ const Exercicios = () => {
                            if (pagina === paginaAtual) return;
                            dispatch(setPaginaAtual(pagina));
                            dispatch(setExerciciosPaginados(paginarArray(exerciciosFiltrados, pagina, 12)));
+                           window.scroll({ top: 0, behavior: "smooth" });
                         }}
                         paginaAtual={paginaAtual}
                         totalPaginas={Math.ceil(exerciciosFiltrados?.length / 12)}
