@@ -61,7 +61,7 @@
       }
    },
    "exercicios": {
-      "tit": "It's time to give that improved your physique",
+      "tit": "It's time to give that improvement to your physique",
       "subtit": "More than 1000 exercises have been prepared for you",
       "titEx": "Find all exercises",
       "sectionFiltros": {
@@ -141,7 +141,7 @@
       "noTrain": "There are no favorite exercises yet."
    },
    "header": {
-      "links": ["Home", "Exercises", "Register", "To enter", "Training Progress", "Favorites"]
+      "links": ["Home", "Exercises", "Sign Up", "Login", "Training Progress", "Favorites"]
    },
    "footer": {
       "copy": "All rights reserved",
