@@ -23,7 +23,7 @@ const MudarTemaBtn = () => {
             role="button"
             style={{ height: "fit-content", lineHeight: "0" }}
             onClick={alternarTema}
-            className="rounded-circle d-flex align-items-center border p-2"
+            className="rounded-circle d-flex align-items-center border border-secondary p-2"
          >
             {!modoEscuro ? <i className="bi bi-moon-stars-fill"></i> : <i className="bi bi-brightness-high-fill"></i>}
          </div>

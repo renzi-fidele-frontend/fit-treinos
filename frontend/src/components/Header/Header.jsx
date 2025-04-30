@@ -1,4 +1,4 @@
-import { CloseButton, Container, Image, Nav, Navbar, Offcanvas } from "react-bootstrap";
+import { Button, CloseButton, Container, Image, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import styles from "./Header.module.css";
 import logo from "../../assets/logo.png";
@@ -76,8 +76,21 @@ const Header = () => {
                <Image id={styles.logo} src={logo} alt="Logo do site" />
                <CloseButton onClick={() => setMostrar(false)} />
             </Offcanvas.Header>
-            <Offcanvas.Body onClick={() => setMostrar(false)} className="h-100 pt-4">
-               <MyNav offcanvas={true} />
+            <Offcanvas.Body className="h-100 pt-4">
+               <div onClick={() => setMostrar(false)}>
+                  <MyNav offcanvas={true} />
+               </div>
+               {user && (
+                  <div className="border-bottom py-3 d-flex align-items-center gap-3">
+                     <DropDownBtn />{" "}
+                     <div>
+                        <h6 className="fst-italic fw-medium">{user.nome}</h6>
+                        <Button size="sm" variant="danger">
+                           Deslogar
+                        </Button>
+                     </div>
+                  </div>
+               )}
             </Offcanvas.Body>
          </Offcanvas>
       </Navbar>

@@ -14,7 +14,7 @@ const DropDownBtn = ({ customClass }) => {
    }
 
    return (
-      <Dropdown drop="start" className={"d-flex align-items-center ms-4 " + customClass}>
+      <Dropdown drop="start" className={"d-flex align-items-center ms-sm-4 " + customClass}>
          <Dropdown.Toggle id={styles.seta} as="a">
             <Image className="border border-secondary border-1 rounded-circle object-fit-cover " id={styles.fotoUsuario} src={user?.foto} />
          </Dropdown.Toggle>
@@ -23,7 +23,6 @@ const DropDownBtn = ({ customClass }) => {
             <NavLink as={Link} to="editar_perfil">
                <Dropdown.Item>Editar perfil</Dropdown.Item>
             </NavLink>
-
             <Dropdown.Item onClick={deslogar} className="text-danger">
                Deslogar
             </Dropdown.Item>

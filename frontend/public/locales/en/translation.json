@@ -141,7 +141,7 @@
       "noTrain": "There are no favorite exercises yet."
    },
    "header": {
-      "links": ["Start", "Exercises", "Register", "To enter", "Training Progress", "Favorites"]
+      "links": ["Home", "Exercises", "Register", "To enter", "Training Progress", "Favorites"]
    },
    "footer": {
       "copy": "All rights reserved",
