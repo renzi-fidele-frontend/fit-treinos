@@ -155,6 +155,15 @@
       },
       "related": {
          "tit": "Exercises that strengthen the target muscle:"
+      },
+      "controle": {
+         "tit": "Training Panel",
+         "time": "Total Time:",
+         "info": "Follow the instructions on how to practice the exercise or watch training videos.",
+         "current": "Training time:",
+         "start": "Start",
+         "pause": "Pause",
+         "save": "Save progress"
       }
    },
    "header": {

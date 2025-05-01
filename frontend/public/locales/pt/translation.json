@@ -149,6 +149,15 @@
       "youtube": { "tit": "Assista vídeos de treinamento do:" },
       "related": {
          "tit": "Exercícios que fortalecem o músculo alvo:"
+      },
+      "controle": {
+         "tit": "Controle do treinamento",
+         "time": "Tempo total:",
+         "info": "Siga as instruções de como praticar o exercício ou assista os vídeos de treinamento.",
+         "current": "Tempo de treino:",
+         "start": "Iniciar",
+         "pause": "Pausar",
+         "save": "Salvar progresso"
       }
    },
    "header": {

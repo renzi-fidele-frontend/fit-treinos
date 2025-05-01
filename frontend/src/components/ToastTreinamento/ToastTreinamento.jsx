@@ -5,8 +5,11 @@ import useFetch from "../../hooks/useFetch";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../state/auth/authSlice";
 import { formatarTempo } from "../../utils/formatarSegundos";
+import { useTranslation } from "react-i18next";
 
 const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo }) => {
+   const { t } = useTranslation();
+   const { controle } = t("exercicio");
    const dispatch = useDispatch();
    const { user } = useSelector((state) => state.auth);
    const { modoEscuro } = useSelector((state) => state.tema);
@@ -57,7 +60,8 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo }) => {
          <Toast show={mostrar} onClose={onClose} className="me-4 mb-4">
             <Toast.Header className="d-flex justify-content-between">
                <strong>
-                  <i className="bi bi-alarm me-2"></i>Controle do treinamento
+                  <i className="bi bi-alarm me-2"></i>
+                  {controle.tit}
                </strong>
             </Toast.Header>
             <Toast.Body>
@@ -67,34 +71,33 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo }) => {
                      className={`w-100 position-absolute ${modoEscuro ? "bg-black" : "text-bg-dark"} bottom-0 rounded-bottom text-center py-1`}
                   >
                      <span>
-                        Tempo total: <span className="ms-1 text-bg-secondary rounded px-1">{formatarTempo(tempoTotal)}</span>
+                        {controle.time} <span className="ms-1 text-bg-secondary rounded px-1">{formatarTempo(tempoTotal)}</span>
                      </span>
                   </div>
                </div>
-               <p className="mt-2 mb-0">Siga as instruções de como praticar o exercício ou assista os vídeos de treinamento.</p>
+               <p className="mt-2 mb-0">{controle.info}</p>
                <hr className="my-2" />
                <div className="d-flex justify-content-between align-items-center">
                   <strong className="fw-medium">
-                     Tempo de treino: <span className="ms-1 mb-0 p-1 rounded text-bg-success">{formatarTempo(tempo)}</span>
+                     {controle.current} <span className="ms-1 mb-0 p-1 rounded text-bg-success">{formatarTempo(tempo)}</span>
                   </strong>
                   {/* Ações */}
                   <div className="d-flex gap-2">
                      {ativo ? (
                         <Button size="sm" variant={modoEscuro ? "secondary" : "dark"} onClick={pausarTreino}>
-                           <i className="bi bi-pause"></i> Pausar
+                           <i className="bi bi-pause"></i> {controle.pause}
                         </Button>
                      ) : (
-                        
                         <>
                            {tempo > 1 && (
-                              <OverlayTrigger overlay={<Tooltip style={{ zIndex: 2000 }}>Salvar progresso</Tooltip>}>
+                              <OverlayTrigger overlay={<Tooltip style={{ zIndex: 2000 }}>{controle.save}</Tooltip>}>
                                  <Button size="sm" variant="warning" className="border border-black" onClick={atualizarProgresso}>
                                     {loading ? <Spinner size="sm" /> : <i className="bi bi-floppy"></i>}
                                  </Button>
                               </OverlayTrigger>
                            )}
                            <Button size="sm" variant={modoEscuro ? "secondary" : "dark"} onClick={iniciarTreino}>
-                              <i className="bi bi-play"></i> Iniciar
+                              <i className="bi bi-play"></i> {controle.start}
                            </Button>
                         </>
                      )}
