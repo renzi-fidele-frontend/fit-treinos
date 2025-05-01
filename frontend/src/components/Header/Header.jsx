@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import styles from "./Header.module.css";
 import logo from "../../assets/logo.png";
 import MudarTemaBtn from "../ui/MudarTemaBtn";
-import DropDownBtn from "../ui/DropDownBtn";
+import UserDropdown from "../ui/DropDownBtn";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -17,7 +17,7 @@ const Header = () => {
    const [mostrar, setMostrar] = useState(false);
 
    const MyNav = ({ offcanvas }) => (
-      <Nav className={`gap-3 fs-5 ${!offcanvas ? "d-none d-lg-flex align-items-center" : "d-flex"} `} activeKey={loc.pathname}>
+      <Nav className={`gap-3 fs-5 ${!offcanvas ? "d-none d-xl-flex align-items-center" : "d-flex"} `} activeKey={loc.pathname}>
          <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/"} as={Link} to={"/"}>
             <i className="me-2 d-lg-none bi bi-house-fill"></i> {links[0]}
          </Nav.Link>
@@ -59,12 +59,12 @@ const Header = () => {
                   {/* Toggle */}
                   <i
                      role="button"
-                     className="bi bi-list border rounded d-block d-lg-none"
+                     className="bi bi-list border rounded d-block d-xl-none"
                      id={styles.toggle}
                      onClick={() => setMostrar(true)}
                   ></i>
                   <MyNav />
-                  <div className="d-none d-sm-block">{user && <DropDownBtn />}</div>
+                  <div className="d-none d-sm-block">{user && <UserDropdown />}</div>
                   <div className="mx-sm-3 mx-2">
                      <IdiomaBtn />
                   </div>
@@ -82,8 +82,8 @@ const Header = () => {
                   <MyNav offcanvas={true} />
                </div>
                {user && (
-                  <div className="border-bottom py-3 d-flex align-items-center gap-3">
-                     <DropDownBtn />{" "}
+                  <div className="border-bottom py-3 d-flex d-sm-none align-items-center gap-3">
+                     <UserDropdown />{" "}
                      <div>
                         <h6 className="fst-italic fw-medium">{user.nome}</h6>
                         <Button size="sm" variant="danger">

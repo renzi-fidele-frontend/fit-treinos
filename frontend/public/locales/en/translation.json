@@ -66,7 +66,7 @@
       "titEx": "Find all exercises",
       "sectionFiltros": {
          "items": ["Body part", "Equipment", "Fortifying muscle"],
-         "escolher": "To choose",
+         "escolher": "Select",
          "tit": "Select the filtration options from: ",
          "aplicar": "Apply",
          "cancelar": "Cancel",

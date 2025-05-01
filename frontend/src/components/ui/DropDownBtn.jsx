@@ -4,7 +4,7 @@ import { Dropdown, Image, NavLink } from "react-bootstrap";
 import styles from "./DropDownBtn.module.css";
 import { Link } from "react-router-dom";
 
-const DropDownBtn = ({ customClass }) => {
+const UserDropdown = ({ customClass }) => {
    const dispatch = useDispatch();
    const { user } = useSelector((state) => state.auth);
    function deslogar() {
@@ -30,4 +30,4 @@ const DropDownBtn = ({ customClass }) => {
       </Dropdown>
    );
 };
-export default DropDownBtn;
+export default UserDropdown;

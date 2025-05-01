@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
    key: "root",
    storage,
-   blacklist: ["exercicios"],
+   blacklist: ["exercicios", "idioma"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

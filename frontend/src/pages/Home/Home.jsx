@@ -92,7 +92,7 @@ const Home = () => {
                   <h1 id={styles.titulo}>
                      {secaoInicial.tit1}
                      <br className="d-none d-lg-block" />
-                     {secaoInicial.tit2}
+                     {" "}{secaoInicial.tit2}
                   </h1>
                   <p className="mb-4 mb-sm-5 mt-4 mt-lg-5 fs-5">{secaoInicial.descricao}</p>
                   <Button as={Link} to="/exercicios" variant="secondary" size="lg" className="align-self-baseline mb-5 mb-lg-0">

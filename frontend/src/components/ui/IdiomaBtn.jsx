@@ -18,7 +18,7 @@ const IdiomaBtn = () => {
    }
 
    return (
-      <Dropdown>
+      <Dropdown align={{xl: "start"}}>
          <Dropdown.Toggle className="py-1 px-2 border-secondary" variant={modoEscuro ? "outline-light" : "outline-dark"}>
             <i className="bi bi-globe"></i>
          </Dropdown.Toggle>
