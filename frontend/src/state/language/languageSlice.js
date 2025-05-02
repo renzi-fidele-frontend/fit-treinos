@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import i18n from "../../i18n/i18n";
 
 const initialState = {
-   idioma: "pt",
+   idioma: i18n.language,
 };
 
 const languageSlice = createSlice({
