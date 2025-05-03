@@ -36,7 +36,7 @@ const CardTestemunho = ({ nome, testemunho }) => {
 
 const Home = () => {
    const { t } = useTranslation();
-   const { secaoInicial, vantagens, testemunhos, titExercicios } = t("home");
+   const { secaoInicial, vantagens, testemunhos, titExercicios, ctaExercicios } = t("home");
    const dispatch = useDispatch();
    const verificar = useSocialAuth();
    const { categorias, categoriaEscolhida } = useSelector((state) => state.configs);
@@ -91,8 +91,7 @@ const Home = () => {
                <div className="ps-lg-3 ps-xxl-5 pe-lg-4">
                   <h1 id={styles.titulo}>
                      {secaoInicial.tit1}
-                     <br className="d-none d-lg-block" />
-                     {" "}{secaoInicial.tit2}
+                     <br className="d-none d-lg-block" /> {secaoInicial.tit2}
                   </h1>
                   <p className="mb-4 mb-sm-5 mt-4 mt-lg-5 fs-5">{secaoInicial.descricao}</p>
                   <Button as={Link} to="/exercicios" variant="secondary" size="lg" className="align-self-baseline mb-5 mb-lg-0">
@@ -185,7 +184,7 @@ const Home = () => {
                           ))}
                   </Row>
                   <Button as={Link} to="/exercicios" variant="secondary" size="lg">
-                     Ver todos
+                     {ctaExercicios}
                   </Button>
                </Container>
             </Col>

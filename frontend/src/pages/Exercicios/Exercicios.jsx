@@ -23,6 +23,7 @@ const Exercicios = () => {
    const { tit, subtit, titEx, sectionFiltros } = t("exercicios");
    const { categorias: partesCorpo, equipamentos, musculoAlvo, filtros, paginaAtual } = useSelector((state) => state.configs);
    const { exercicios, exerciciosFiltrados, exerciciosPaginados } = useSelector((state) => state.exercicios);
+   const { idioma } = useSelector((state) => state.idioma);
    const dispatch = useDispatch();
    const { filtrarExercicios } = useFiltrarExercicios();
 
@@ -50,6 +51,18 @@ const Exercicios = () => {
       if (!exerciciosFiltrados && exercicios) filtrarExercicios(filtros);
    }, [exercicios, filtros]);
 
+   function processarFiltro(filtro) {
+      if (idioma.includes("pt")) {
+         return filtro;
+      } else {
+         if (filtro === "todos") {
+            return "All";
+         } else {
+            return filtro;
+         }
+      }
+   }
+
    return (
       <div>
          {/*  Banner inicial */}
@@ -65,7 +78,7 @@ const Exercicios = () => {
                            <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>
                               {sectionFiltros.items[0]}
                            </h6>
-                           <p className="mb-2 text-secondary text-capitalize">[{filtros.parteDoCorpo}]</p>
+                           <p className="mb-2 text-secondary text-capitalize">[{processarFiltro(filtros.parteDoCorpo)}]</p>
                            <Button variant="outline-primary" onClick={() => setModalParteDoCorpo(true)}>
                               {sectionFiltros.escolher}...
                            </Button>
@@ -80,7 +93,7 @@ const Exercicios = () => {
                            <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>
                               {sectionFiltros.items[1]}
                            </h6>
-                           <p className="mb-2 text-secondary text-capitalize">[{filtros.equipamento}]</p>
+                           <p className="mb-2 text-secondary text-capitalize">[{processarFiltro(filtros.equipamento)}]</p>
                            <Button variant="outline-primary" onClick={() => setModalEquipamentos(true)}>
                               {sectionFiltros.escolher}...
                            </Button>
@@ -96,7 +109,7 @@ const Exercicios = () => {
                               <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>
                                  {sectionFiltros.items[2]}
                               </h6>
-                              <p className="mb-2 text-secondary text-capitalize">[{filtros.musculoAlvo}]</p>
+                              <p className="mb-2 text-secondary text-capitalize">[{processarFiltro(filtros.musculoAlvo)}]</p>
                               <Button variant="outline-primary" onClick={() => setModalMusculosAlvo(true)}>
                                  {sectionFiltros.escolher}...
                               </Button>
