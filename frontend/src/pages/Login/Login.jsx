@@ -38,8 +38,8 @@ const Login = () => {
    }
    return (
       <Container>
-         <Row className="gap-3 gap-md-5 flex-column-reverse flex-md-row pb-5 pb-md-0">
-            <Col md={6} className="justify-content-center d-flex flex-column pe-5">
+         <Row className="gap-3 gap-lg-5 flex-column-reverse flex-lg-row pb-5 pb-lg-0">
+            <Col lg={6} className="justify-content-center d-flex flex-column pe-5">
                <h1 id={styles.tit2} className="fw-bold">
                   {tit}
                </h1>
