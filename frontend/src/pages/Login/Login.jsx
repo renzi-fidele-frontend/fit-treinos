@@ -1,7 +1,7 @@
 import { Button, Col, Container, Form, Image, Row, Spinner } from "react-bootstrap";
 import styles from "./Login.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import ftBanner from "../../assets/modelo.png";
+import ftBanner from "../../assets/login.webp";
 import { useRef, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useDispatch } from "react-redux";

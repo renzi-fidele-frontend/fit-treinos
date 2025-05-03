@@ -1,6 +1,6 @@
 import { Button, Col, Container, Form, Image, ProgressBar, Row } from "react-bootstrap";
 import styles from "./Cadastro.module.css";
-import ftBanner from "../../assets/modelo.png";
+import ftBanner from "../../assets/register.webp";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import profilepic from "../../assets/profile.jpg";
