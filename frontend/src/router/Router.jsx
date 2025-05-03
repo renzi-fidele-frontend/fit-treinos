@@ -7,6 +7,7 @@ import Login from "../pages/Login/Login";
 import { useSelector } from "react-redux";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Favoritos from "../pages/Favoritos/Favoritos";
+import PoliticaDePrivacidade from "../pages/PoliticaDePrivacidade/PoliticaDePrivacidade";
 
 const Router = () => {
    const { user } = useSelector((state) => state.auth);
@@ -20,6 +21,7 @@ const Router = () => {
          <Route path="/entrar" element={!user ? <Login /> : <Navigate to="/" />} />
          <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/entrar" />} />
          <Route path="/favoritos" element={user ? <Favoritos /> : <Navigate to="/entrar" />} />
+         <Route path="/privacy" element={<PoliticaDePrivacidade />} />
       </Routes>
    );
 };

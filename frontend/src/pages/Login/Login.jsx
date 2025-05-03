@@ -74,6 +74,11 @@ const Login = () => {
                      )}
                   </Form>
                </div>
+               <div>
+                  <p className="mt-4 mb-0 small">
+                     {form.privacy} <Link to="/privacy">{form.privacy2}</Link>.
+                  </p>
+               </div>
             </Col>
             <Col id={styles.ctFoto} className="pt-3 pt-sm-5 text-center rounded-5 bg-secondary-subtle bg-gradient">
                <Image id={styles.fotoBanner} src={ftBanner} />

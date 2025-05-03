@@ -99,7 +99,9 @@
       "form": {
          "email": "Insira seu email",
          "pass": "Insira a palavra-chave",
-         "btn": "Continuar treinamento"
+         "btn": "Continuar treinamento",
+         "privacy": "* Ao utilizar uma rede social para conectar-se a este site, você está concordando com a nossa",
+         "privacy2": "Política de privacidade"
       }
    },
    "dashboard": {
@@ -166,5 +168,27 @@
    "footer": {
       "copy": "Todos os direitos reservados",
       "dev": "Desenvolvedor:"
+   },
+   "privacy": {
+      "tit": "Política de privacidade",
+      "subtit": "Saiba como coletamos, utilizamos e protegemos suas informações.",
+      "dados": [
+         {
+            "tit": "Coleta de Informações",
+            "subtit": "<p>Durante o processo de autenticação, coletamos informações como nome, endereço de e-mail e foto de perfil. Esses dados são experiência personalizada dentro da aplicação.</p>"
+         },
+         {
+            "tit": "Uso das Informações",
+            "subtit": "<p>As informações coletadas são utilizadas exclusivamente para fins de autenticação e personalização da experiência do usuário. Garantimos que os dados não serão compartilhados com terceiros sem o consentimento prévio do usuário, exceto em casos exigidos por lei.</p>"
+         },
+         {
+            "tit": "Segurança dos Dados",
+            "subtit": "<p>Implementamos medidas de segurança para proteger as informações dos usuários contra acesso não autorizado, alteração divulgação ou destruição. No entanto, é importante ressaltar que nenhum sistema é completamente seguro, e recomendamos que os usuários também tomem precauções para proteger suas informações.</p>"
+         },
+         {
+            "tit": "Consentimento",
+            "subtit": "<p>Ao utilizar esta aplicação, o usuário concorda com a coleta e uso das informações conforme descrito nesta política de privacidade. Caso o usuário tenha dúvidas ou preocupações, pode entrar em contato conosco para esclarecimentos.</p> <p>Esta aplicação utiliza serviços de autenticação fornecidos pelo Meta (Facebook) e Google. Durante o processo de autenticação, informações como nome, endereço de e-mail e foto de perfil podem ser coletadas para identificar o usuário e fornecer uma experiência personalizada.</p> <p>Garantimos que esses dados serão utilizados exclusivamente para fins de autenticação e não serão compartilhados com terceiros sem o consentimento do usuário, exceto quando exigido por lei.</p>"
+         }
+      ]
    }
 }

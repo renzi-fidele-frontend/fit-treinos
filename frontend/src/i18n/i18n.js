@@ -14,9 +14,6 @@ i18n
       },
       returnObjects: true,
       debug: false,
-   })
-   .then((v) => {
-      console.log(`O idioma é: ${i18n.language}`);
    });
 
 export default i18n;

@@ -78,7 +78,7 @@
       "tit2": "Almost there! ",
       "foto": "Click below to select the photo:",
       "subtit": "Do you already have an account created?",
-      "subtit2": "Login",
+      "subtit2": "Log In",
       "social": "Sign up using a social network",
       "email": "Or use email and password",
       "form": {
@@ -99,7 +99,9 @@
       "form": {
          "email": "Enter your email",
          "pass": "Enter the keyword",
-         "btn": "Continue training"
+         "btn": "Continue training",
+         "privacy": "* By using a social network to connect with this site, you are agreeing with our",
+         "privacy2": "Privacy Policy"
       }
    },
    "dashboard": {
@@ -172,5 +174,27 @@
    "footer": {
       "copy": "All rights reserved",
       "dev": "Developer:"
+   },
+   "privacy": {
+      "tit": "Privacy Policy",
+      "subtit": "Learn how we collect, use and protect your information.",
+      "dados": [
+         {
+            "tit": "Information collection",
+            "subtit": "<p>During the authentication process, we collect information such as name, e-mail address and profile picture. This data is a personalized experience within the application.</p>"
+         },
+         {
+            "tit": "Use of information",
+            "subtit": "<p>The information collected is used exclusively for the purposes of authentication and personalization of the user experience. We guarantee that the data will not be shared with third parties without the user's prior consent, except in cases required by law.</p>"
+         },
+         {
+            "tit": "Data security",
+            "subtit": "<p>We have implemented security measures to protect user information from unauthorized access, alteration, disclosure or destruction. However, it is important to note that no system is completely secure, and we recommend that users also take precautions to protect their information.</p>"
+         },
+         {
+            "tit": "Consent",
+            "subtit": "<p>By using this application, the user agrees to the collection and use of information as described in this privacy policy. If the user has any questions or concerns, they can contact us for clarification.</p> <p>This application uses authentication services provided by Meta (Facebook) and Google. During the authentication process, information such as name, email address and profile picture may be collected in order to identify the user and provide a personalized experience.</p> <p>We guarantee that this data will be used exclusively for authentication purposes and will not be shared with third parties without the user's consent, except when required by law.</p>"
+         }
+      ]
    }
 }

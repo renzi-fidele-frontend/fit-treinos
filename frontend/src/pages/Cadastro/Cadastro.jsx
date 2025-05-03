@@ -14,6 +14,7 @@ import { useTranslation } from "react-i18next";
 const Cadastro = () => {
    const { t } = useTranslation();
    const { tit, tit2, foto, subtit, subtit2, social, email, form } = t("cadastro");
+   const { form: form2 } = t("login");
    const navegar = useNavigate();
    const dispatch = useDispatch();
    const [step, setStep] = useState(1);
@@ -146,6 +147,11 @@ const Cadastro = () => {
          <Row className="gap-3 gap-sm-4 gap-lg-5 flex-column-reverse flex-lg-row">
             <Col lg={6} className="justify-content-center d-flex flex-column pe-lg-5">
                {!loading ? step === 1 ? <Step1 /> : <Step2 /> : <p>Carregando...</p>}
+               <div>
+                  <p className="mt-4 mb-0 small">
+                     {form2.privacy} <Link to="/privacy">{form2.privacy2}</Link>.
+                  </p>
+               </div>
             </Col>
             <Col className="pt-3 pt-sm-5 shadow-sm text-center rounded-5 bg-secondary-subtle bg-gradient">
                <Image id={styles.fotoBanner} src={ftBanner} />
