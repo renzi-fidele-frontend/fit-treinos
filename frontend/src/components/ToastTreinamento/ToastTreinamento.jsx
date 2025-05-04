@@ -7,6 +7,9 @@ import { setUser } from "../../state/auth/authSlice";
 import { formatarTempo } from "../../utils/formatarSegundos";
 import { useTranslation } from "react-i18next";
 
+// TODO: Ao minimizar o toast de treino, mostrar que o exercício já sendo contabilizado.
+// TODO: Avisar que vais perder o tempo contabilizado caso o usuário saia da página sem salvar o tempo.
+
 const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo }) => {
    const { t } = useTranslation();
    const { controle } = t("exercicio");

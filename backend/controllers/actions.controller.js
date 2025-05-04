@@ -252,6 +252,19 @@ const retornarDadosTreinamento = async (req, res) => {
          return { tempoTreinadoNoDia, dia: verificarDiaDaSemana(dia.getDay()) };
       });
 
+      // Calculando o dia da semana no qual se treinou por mais tempo
+      const tempoPorDiaDaSemana = {};
+      user.progresso.forEach((v) => {
+         const diaSemana = verificarDiaDaSemana(new Date(v.dataDoTreino).getDay());
+         if (!tempoPorDiaDaSemana[diaSemana]) {
+            tempoPorDiaDaSemana[diaSemana] = 0;
+         }
+         v.treinos.forEach((treino) => {
+            tempoPorDiaDaSemana[diaSemana] += Number(treino.tempoDeTreino);
+         });
+      });
+      const diaMaisTreinado = Object.keys(tempoPorDiaDaSemana).reduce((a, b) => (tempoPorDiaDaSemana[a] > tempoPorDiaDaSemana[b] ? a : b));
+
       // Verificar o exercício mais treinado de todos (de acordo com o tempo Treinado)
       const exerciciosTreinados = {};
       user.progresso.forEach((v) => {
@@ -272,8 +285,6 @@ const retornarDadosTreinamento = async (req, res) => {
          });
       });
 
-      
-
       const progresso = {
          nrTreinosHoje,
          diferencialPercentual,
@@ -287,6 +298,7 @@ const retornarDadosTreinamento = async (req, res) => {
             tempoTotalDeTreinoMaisPraticado,
          },
          ultimosExerciciosPraticados: user.ultimosExerciciosPraticados,
+         diaMaisTreinado,
       };
 
       res.json(progresso);

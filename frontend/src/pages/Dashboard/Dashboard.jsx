@@ -35,6 +35,7 @@ const Dashboard = () => {
    const [estatisticasDaSemana, setEstatisticasDaSemana] = useState(null);
    const [partesDoCorpoTreinadas, setPartesDoCorpoTreinadas] = useState(null);
    const [ultimosExerciciosPraticados, setUltimosExerciciosPraticados] = useState(null);
+   const [diaMaisTreinado, setDiaMaisTreinado] = useState(null);
    const { exercicios } = useSelector((state) => state.exercicios);
    const { modoEscuro } = useSelector((state) => state.tema);
    const [exercicioMaisTreinado, setExercicioMaisTreinado] = useState(null);
@@ -62,6 +63,7 @@ const Dashboard = () => {
                   return exercicios.find((obj) => obj.id === exId);
                })
             );
+            setDiaMaisTreinado(v.diaMaisTreinado);
             setFetched(true);
          });
       }
@@ -279,7 +281,7 @@ const Dashboard = () => {
                      <hr className="mt-4" />
                      {/* TODO: Atualizar o dia da semana com mais treinos */}
                      <p className="text-secondary mb-0" id={styles.small}>
-                        <span className="fw-semibold">{card4.bestDay}</span> <i className="bi bi-calendar-day"></i> Qua
+                        <span className="fw-semibold">{card4.bestDay}</span> <i className="bi bi-calendar-day"></i> {diaMaisTreinado}
                      </p>
                      {/* TODO: Atualizar o dia da última sessão de treino, (Se possível implementar com momentJs) */}
                      <p className="text-secondary mb-0" id={styles.small}>
