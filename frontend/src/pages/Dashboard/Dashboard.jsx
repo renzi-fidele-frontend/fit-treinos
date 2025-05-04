@@ -121,311 +121,313 @@ const Dashboard = () => {
    };
 
    return (
-      <div id={styles.ct} className="h-100  py-4 py-md-5 px-3  px-md-5 px-lg-0 container-lg">
-         <h2 className="fw-semibold mb-4 text-center text-xl-start ">{tit}</h2>
-         {/* Separador Mobile */}
-         <hr className="d-xl-none mb-4" />
-         {/* Primeira linha */}
-         <Row className="justify-content-center g-3 g-xl-4 flex-wrap flex-xl-nowrap">
-            {/* Tempo total de treino */}
-            <Col sm={6} xl={4}>
-               <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
-                  <div className="d-flex justify-content-between">
-                     <h6 id={styles.tit} className="mb-0">
-                        {card1.stat}
-                     </h6>
-                     <div className="p-2 rounded" id={styles.icon1}>
-                        <i className="bi bi-clock fs-3 "></i>
+      <div id={styles.ct}>
+         <div className="h-100  py-4 py-md-5 px-3  px-md-5 px-lg-0 container-lg">
+            <h2 className="fw-semibold mb-4 text-center text-xl-start ">{tit}</h2>
+            {/* Separador Mobile */}
+            <hr className="d-xl-none mb-4" />
+            {/* Primeira linha */}
+            <Row className="justify-content-center g-3 g-xl-4 flex-wrap flex-xl-nowrap">
+               {/* Tempo total de treino */}
+               <Col sm={6} xl={4}>
+                  <div className={`px-3 py-4  rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
+                     <div className="d-flex justify-content-between">
+                        <h6 id={styles.tit} className="mb-0">
+                           {card1.stat}
+                        </h6>
+                        <div className="p-2 rounded" id={styles.icon1}>
+                           <i className="bi bi-clock fs-3 "></i>
+                        </div>
                      </div>
-                  </div>
-                  {tempoTotalTreino !== null ? (
-                     <h5 className="fs-1 fw-bold mb-3">{segundosParaFormatoHumanizado(tempoTotalTreino)}</h5>
-                  ) : (
-                     <h5 className="fs-1 fw-bold mb-3">
-                        <Placeholder animation="wave">
-                           <Placeholder className={styles.loadtit} xs={2} />
-                           min <Placeholder className={styles.loadtit} xs={2} />s
-                        </Placeholder>
-                     </h5>
-                  )}
-                  <p className="text-secondary mb-0" id={styles.small}>
-                     {card1.desc}
-                  </p>
-               </div>
-            </Col>
-            {/* Treinamentos feitos hoje */}
-            <Col sm={6} xl={4}>
-               <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
-                  <div className="d-flex justify-content-between">
-                     <h6 id={styles.tit} className="mb-0">
-                        {card2.stat}
-                     </h6>
-                     <div className="p-2 rounded" id={styles.icon2}>
-                        <i className="bi bi-person-arms-up fs-3"></i>
-                     </div>
-                  </div>
-                  {difPercentualDiasDeTreino !== null ? (
-                     <h5 className="fs-1 fw-bold mb-3">
-                        {nrTreinosHoje}{" "}
-                        {difPercentualDiasDeTreino >= 0 ? (
-                           <span id={styles.small} className={"text-small text-success"}>
-                              (+{difPercentualDiasDeTreino}%)
-                           </span>
-                        ) : (
-                           <span id={styles.small} className={"text-small text-danger"}>
-                              ({difPercentualDiasDeTreino}%)
-                           </span>
-                        )}
-                     </h5>
-                  ) : (
-                     <h5 className="fs-1 fw-bold mb-3">
-                        <Placeholder animation="wave">
-                           <Placeholder xs={2} />{" "}
-                           <span id={styles.small} className={"text-small text-success"}>
-                              (+
-                              <Placeholder xs={2} />
-                              %)
-                           </span>
-                        </Placeholder>
-                     </h5>
-                  )}
-
-                  <p className="text-secondary mb-0" id={styles.small}>
-                     {card2.desc}
-                  </p>
-               </div>
-            </Col>
-            {/* Média do tempo de treino (Desktop) */}
-            <Col className="d-none d-xl-block" sm={6} xl={4}>
-               <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
-                  <div className="d-flex justify-content-between">
-                     <h6 id={styles.tit} className="mb-0">
-                        {card3.stat}
-                     </h6>
-                     <div className="p-2 rounded" id={styles.icon3}>
-                        <i className="bi bi-hourglass-split fs-3"></i>
-                     </div>
-                  </div>
-                  {diferencialPercentualTempo ? (
-                     <h5 className="fs-1 fw-bold mb-3">
-                        {segundosParaFormatoHumanizado(mediaTempoPorDia)}{" "}
-                        {diferencialPercentualTempo >= 0 ? (
-                           <span id={styles.small} className={"text-small text-success"}>
-                              (+{diferencialPercentualTempo}%)
-                           </span>
-                        ) : (
-                           <span id={styles.small} className={"text-small text-danger"}>
-                              ({diferencialPercentualTempo}%)
-                           </span>
-                        )}
-                     </h5>
-                  ) : (
-                     <h5 className="fs-1 fw-bold mb-3">
-                        <Placeholder animation="wave">
-                           <Placeholder className={styles.loadtit} xs={2} />
-                           min <Placeholder className={styles.loadtit} xs={2} />s{" "}
-                           <span id={styles.small} className={"text-small text-success"}>
-                              (+
-                              <Placeholder xs={2} />
-                              %)
-                           </span>
-                        </Placeholder>
-                     </h5>
-                  )}
-                  <p className="text-secondary mb-0" id={styles.small}>
-                     {card3.desc}
-                  </p>
-               </div>
-            </Col>
-         </Row>
-
-         {/* Segunda linha */}
-         <Row className="mt-0 mb-5 g-3 g-xl-4">
-            {/* Estatísticas da Dedicação Semanal */}
-            <Col sm={6} xl={4}>
-               <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
-                  <h6 id={styles.tit} className="mb-0">
-                     {card4.stat}
-                  </h6>
-                  <div className="my-4">
-                     {estatisticasDaSemana ? (
-                        <Line
-                           data={{
-                              labels: estatisticasDaSemana?.map((v) => v?.dia),
-                              datasets: [
-                                 {
-                                    label: "Tempo de treino",
-                                    data: estatisticasDaSemana?.map((v) => v?.tempoTreinadoNoDia),
-                                    fill: true,
-                                    tension: 0.4,
-                                    borderColor: "rgb(135, 142, 163)",
-                                    backgroundColor: "rgba(116, 126, 211, 0.5)",
-                                    pointBackgroundColor: "#ffffff",
-                                 },
-                              ],
-                           }}
-                           options={{ responsive: true }}
-                           className={styles.chart}
-                        />
+                     {tempoTotalTreino !== null ? (
+                        <h5 className="fs-1 fw-bold mb-3">{segundosParaFormatoHumanizado(tempoTotalTreino)}</h5>
                      ) : (
-                        <Placeholder animation="wave" className="d-flex align-items-center justify-content-center position-relative" xs={12}>
-                           <Placeholder className={styles.chartLoad} />
-                           <p className="mb-0 position-absolute">{card4.load}</p>
-                        </Placeholder>
+                        <h5 className="fs-1 fw-bold mb-3">
+                           <Placeholder animation="wave">
+                              <Placeholder className={styles.loadtit} xs={2} />
+                              min <Placeholder className={styles.loadtit} xs={2} />s
+                           </Placeholder>
+                        </h5>
                      )}
+                     <p className="text-secondary mb-0" id={styles.small}>
+                        {card1.desc}
+                     </p>
                   </div>
-                  <p className="text-secondary small">{card4.desc}</p>
-                  <hr className="mt-4" />
-                  {/* TODO: Atualizar o dia da semana com mais treinos */}
-                  <p className="text-secondary mb-0" id={styles.small}>
-                     <span className="fw-semibold">{card4.bestDay}</span> <i className="bi bi-calendar-day"></i> Qua
-                  </p>
-                  {/* TODO: Atualizar o dia da última sessão de treino, (Se possível implementar com momentJs) */}
-                  <p className="text-secondary mb-0" id={styles.small}>
-                     <span className="fw-semibold">{card4.last}</span> 10/02/2025
-                  </p>
-               </div>
-            </Col>
-            {/* Partes do corpo mais treinadas */}
-            <Col sm={6} xl={4}>
-               <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
-                  <h6 id={styles.tit} className="mb-0">
-                     {card5.stat}
-                  </h6>
-                  <div className="mt-4">
-                     {partesDoCorpoTreinadas ? (
-                        partesDoCorpoTreinadas?.length > 0 ? (
-                           <Pie
+               </Col>
+               {/* Treinamentos feitos hoje */}
+               <Col sm={6} xl={4}>
+                  <div className={`px-3 py-4  rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
+                     <div className="d-flex justify-content-between">
+                        <h6 id={styles.tit} className="mb-0">
+                           {card2.stat}
+                        </h6>
+                        <div className="p-2 rounded" id={styles.icon2}>
+                           <i className="bi bi-person-arms-up fs-3"></i>
+                        </div>
+                     </div>
+                     {difPercentualDiasDeTreino !== null ? (
+                        <h5 className="fs-1 fw-bold mb-3">
+                           {nrTreinosHoje}{" "}
+                           {difPercentualDiasDeTreino >= 0 ? (
+                              <span id={styles.small} className={"text-small text-success"}>
+                                 (+{difPercentualDiasDeTreino}%)
+                              </span>
+                           ) : (
+                              <span id={styles.small} className={"text-small text-danger"}>
+                                 ({difPercentualDiasDeTreino}%)
+                              </span>
+                           )}
+                        </h5>
+                     ) : (
+                        <h5 className="fs-1 fw-bold mb-3">
+                           <Placeholder animation="wave">
+                              <Placeholder xs={2} />{" "}
+                              <span id={styles.small} className={"text-small text-success"}>
+                                 (+
+                                 <Placeholder xs={2} />
+                                 %)
+                              </span>
+                           </Placeholder>
+                        </h5>
+                     )}
+
+                     <p className="text-secondary mb-0" id={styles.small}>
+                        {card2.desc}
+                     </p>
+                  </div>
+               </Col>
+               {/* Média do tempo de treino (Desktop) */}
+               <Col className="d-none d-xl-block" sm={6} xl={4}>
+                  <div className={`px-3 py-4  rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
+                     <div className="d-flex justify-content-between">
+                        <h6 id={styles.tit} className="mb-0">
+                           {card3.stat}
+                        </h6>
+                        <div className="p-2 rounded" id={styles.icon3}>
+                           <i className="bi bi-hourglass-split fs-3"></i>
+                        </div>
+                     </div>
+                     {diferencialPercentualTempo ? (
+                        <h5 className="fs-1 fw-bold mb-3">
+                           {segundosParaFormatoHumanizado(mediaTempoPorDia)}{" "}
+                           {diferencialPercentualTempo >= 0 ? (
+                              <span id={styles.small} className={"text-small text-success"}>
+                                 (+{diferencialPercentualTempo}%)
+                              </span>
+                           ) : (
+                              <span id={styles.small} className={"text-small text-danger"}>
+                                 ({diferencialPercentualTempo}%)
+                              </span>
+                           )}
+                        </h5>
+                     ) : (
+                        <h5 className="fs-1 fw-bold mb-3">
+                           <Placeholder animation="wave">
+                              <Placeholder className={styles.loadtit} xs={2} />
+                              min <Placeholder className={styles.loadtit} xs={2} />s{" "}
+                              <span id={styles.small} className={"text-small text-success"}>
+                                 (+
+                                 <Placeholder xs={2} />
+                                 %)
+                              </span>
+                           </Placeholder>
+                        </h5>
+                     )}
+                     <p className="text-secondary mb-0" id={styles.small}>
+                        {card3.desc}
+                     </p>
+                  </div>
+               </Col>
+            </Row>
+
+            {/* Segunda linha */}
+            <Row className="mt-0 mb-5 g-3 g-xl-4">
+               {/* Estatísticas da Dedicação Semanal */}
+               <Col sm={6} xl={4}>
+                  <div className={`px-3 py-4  rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
+                     <h6 id={styles.tit} className="mb-0">
+                        {card4.stat}
+                     </h6>
+                     <div className="my-4">
+                        {estatisticasDaSemana ? (
+                           <Line
                               data={{
-                                 labels: partesDoCorpoTreinadas?.map((v) => v?.nome),
-                                 datasets: [{ data: partesDoCorpoTreinadas?.map((v) => v?.tempoDeTreino) }],
+                                 labels: estatisticasDaSemana?.map((v) => v?.dia),
+                                 datasets: [
+                                    {
+                                       label: "Tempo de treino",
+                                       data: estatisticasDaSemana?.map((v) => v?.tempoTreinadoNoDia),
+                                       fill: true,
+                                       tension: 0.4,
+                                       borderColor: "rgb(135, 142, 163)",
+                                       backgroundColor: "rgba(116, 126, 211, 0.5)",
+                                       pointBackgroundColor: "#ffffff",
+                                    },
+                                 ],
                               }}
+                              options={{ responsive: true }}
+                              className={styles.chart}
                            />
                         ) : (
-                           <div className={styles.noProgress + " d-flex flex-column align-items-center w-100 gap-3 "}>
-                              <Image src={noProgress} />
-                              <p className="mb-0 tex-light bg-secondary-subtle px-3 py-1 rounded">{card5.noTrain}</p>
-                           </div>
-                        )
-                     ) : (
-                        <Placeholder animation="wave" className="" xs={12}>
-                           <div className="mb-4 d-flex gap-2 justify-content-center flex-wrap">
-                              {gerarArray(10).map((v, k) => (
-                                 <Placeholder xs={2} key={k} />
-                              ))}
-                           </div>
-                           <div className="d-flex align-items-center justify-content-center position-relative">
-                              <Placeholder className={styles.pieChartLoad} />
+                           <Placeholder animation="wave" className="d-flex align-items-center justify-content-center position-relative" xs={12}>
+                              <Placeholder className={styles.chartLoad} />
                               <p className="mb-0 position-absolute">{card4.load}</p>
-                           </div>
-                        </Placeholder>
-                     )}
-                  </div>
-               </div>
-            </Col>
-            {/* Exercício mais praticado */}
-            <Col sm={6} xl={4}>
-               <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
-                  <h6 id={styles.tit} className="mb-0">
-                     {card6.stat}
-                  </h6>
-                  {exercicios && exercicioMaisTreinado && (
-                     <CardExercicioMaisTreinado
-                        exercicio={exercicios?.filter((v) => v.id === exercicioMaisTreinado?.id)?.[0]}
-                        tempoDeTreino={exercicioMaisTreinado?.tempoTotalDeTreinoMaisPraticado}
-                     />
-                  )}
-
-                  {exercicioMaisTreinado === false && (
-                     <div className="d-flex flex-column gap-3 align-items-center justify-content-center h-100">
-                        <Image src={noBestTrain} className={styles.noBestTrain} />
-                        <p className="mb-0 tex-light bg-secondary-subtle px-3 py-1 rounded">{card5.noTrain}</p>
-                     </div>
-                  )}
-
-                  {exercicioMaisTreinado === null && <CardExercicioMaisTreinado />}
-               </div>
-            </Col>
-            {/* Média do tempo de treino (Mobile) */}
-            <Col sm={6} className="d-xl-none">
-               <div className={`border border-2 px-3 py-4 shadow-sm rounded-2 h-100 ${modoEscuro && "bg-black"}`}>
-                  <div className="d-flex justify-content-between">
-                     <h6 id={styles.tit} className="mb-0">
-                        {card3.stat}
-                     </h6>
-                     <div className="p-2 rounded" id={styles.icon3}>
-                        <i className="bi bi-hourglass-split fs-3"></i>
-                     </div>
-                  </div>
-                  {mediaTempoPorDia !== null && diferencialPercentualTempo !== null ? (
-                     <h5 className="fs-1 fw-bold mb-3">
-                        {segundosParaFormatoHumanizado(mediaTempoPorDia)}{" "}
-                        {diferencialPercentualTempo >= 0 ? (
-                           <span id={styles.small} className={"text-small text-success"}>
-                              (+{diferencialPercentualTempo}%)
-                           </span>
-                        ) : (
-                           <span id={styles.small} className={"text-small text-danger"}>
-                              ({diferencialPercentualTempo}%)
-                           </span>
+                           </Placeholder>
                         )}
-                     </h5>
-                  ) : (
-                     <h5 className="fs-1 fw-bold mb-3">
-                        <Placeholder animation="wave">
-                           <Placeholder className={styles.loadtit} xs={2} />
-                           min <Placeholder className={styles.loadtit} xs={2} />s{" "}
-                           <span id={styles.small} className={"text-small text-success"}>
-                              (+
-                              <Placeholder xs={2} />
-                              %)
-                           </span>
-                        </Placeholder>
-                     </h5>
-                  )}
-                  <p className="text-secondary mb-0" id={styles.small}>
-                     {card3.desc}
-                  </p>
-                  <Image className="mt-4" src={mediaTreinos} />
-               </div>
-            </Col>
-         </Row>
-
-         {/* Últimos exercícios praticados */}
-         <Row className="mb-5">
-            <Col>
-               <h2 className="fw-semibold mb-4">{tit2}</h2>
-               <Slider
-                  swipeToSlide
-                  slidesToShow={3}
-                  responsive={[
-                     { breakpoint: 992, settings: { slidesToShow: 2 } },
-                     { breakpoint: 576, settings: { slidesToShow: 1 } },
-                  ]}
-                  infinite={false}
-                  dots
-               >
-                  {ultimosExerciciosPraticados &&
-                     ultimosExerciciosPraticados?.map((v, k) => (
-                        <CardExercicio
-                           customClass="me-4"
-                           titulo={v?.name}
-                           id={v?.id}
-                           foto={v?.gifUrl}
-                           categoria={v?.secondaryMuscles?.slice(0, 2)}
-                           key={k}
-                        />
-                     ))}
-                  {ultimosExerciciosPraticados?.length === 0 && (
-                     <div className="text-center">
-                        <Image src={noLastExs} />
-                        <Alert variant="warning">{card5.noTrain}</Alert>
                      </div>
-                  )}
-                  {ultimosExerciciosPraticados === null && gerarArray(4).map((v, k) => <CardExercicio customClass="me-4" key={k} />)}
-               </Slider>
-            </Col>
-         </Row>
+                     <p className="text-secondary small">{card4.desc}</p>
+                     <hr className="mt-4" />
+                     {/* TODO: Atualizar o dia da semana com mais treinos */}
+                     <p className="text-secondary mb-0" id={styles.small}>
+                        <span className="fw-semibold">{card4.bestDay}</span> <i className="bi bi-calendar-day"></i> Qua
+                     </p>
+                     {/* TODO: Atualizar o dia da última sessão de treino, (Se possível implementar com momentJs) */}
+                     <p className="text-secondary mb-0" id={styles.small}>
+                        <span className="fw-semibold">{card4.last}</span> 10/02/2025
+                     </p>
+                  </div>
+               </Col>
+               {/* Partes do corpo mais treinadas */}
+               <Col sm={6} xl={4}>
+                  <div className={`px-3 py-4  rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
+                     <h6 id={styles.tit} className="mb-0">
+                        {card5.stat}
+                     </h6>
+                     <div className="mt-4">
+                        {partesDoCorpoTreinadas ? (
+                           partesDoCorpoTreinadas?.length > 0 ? (
+                              <Pie
+                                 data={{
+                                    labels: partesDoCorpoTreinadas?.map((v) => v?.nome),
+                                    datasets: [{ data: partesDoCorpoTreinadas?.map((v) => v?.tempoDeTreino) }],
+                                 }}
+                              />
+                           ) : (
+                              <div className={styles.noProgress + " d-flex flex-column align-items-center w-100 gap-3 "}>
+                                 <Image src={noProgress} />
+                                 <p className="mb-0 tex-light bg-secondary-subtle px-3 py-1 rounded">{card5.noTrain}</p>
+                              </div>
+                           )
+                        ) : (
+                           <Placeholder animation="wave" className="" xs={12}>
+                              <div className="mb-4 d-flex gap-2 justify-content-center flex-wrap">
+                                 {gerarArray(10).map((v, k) => (
+                                    <Placeholder xs={2} key={k} />
+                                 ))}
+                              </div>
+                              <div className="d-flex align-items-center justify-content-center position-relative">
+                                 <Placeholder className={styles.pieChartLoad} />
+                                 <p className="mb-0 position-absolute">{card4.load}</p>
+                              </div>
+                           </Placeholder>
+                        )}
+                     </div>
+                  </div>
+               </Col>
+               {/* Exercício mais praticado */}
+               <Col sm={6} xl={4}>
+                  <div className={`px-3 py-4  rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
+                     <h6 id={styles.tit} className="mb-0">
+                        {card6.stat}
+                     </h6>
+                     {exercicios && exercicioMaisTreinado && (
+                        <CardExercicioMaisTreinado
+                           exercicio={exercicios?.filter((v) => v.id === exercicioMaisTreinado?.id)?.[0]}
+                           tempoDeTreino={exercicioMaisTreinado?.tempoTotalDeTreinoMaisPraticado}
+                        />
+                     )}
+
+                     {exercicioMaisTreinado === false && (
+                        <div className="d-flex flex-column gap-3 align-items-center justify-content-center h-100">
+                           <Image src={noBestTrain} className={styles.noBestTrain} />
+                           <p className="mb-0 tex-light bg-secondary-subtle px-3 py-1 rounded">{card5.noTrain}</p>
+                        </div>
+                     )}
+
+                     {exercicioMaisTreinado === null && <CardExercicioMaisTreinado />}
+                  </div>
+               </Col>
+               {/* Média do tempo de treino (Mobile) */}
+               <Col sm={6} className="d-xl-none">
+                  <div className={`px-3 py-4  rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
+                     <div className="d-flex justify-content-between">
+                        <h6 id={styles.tit} className="mb-0">
+                           {card3.stat}
+                        </h6>
+                        <div className="p-2 rounded" id={styles.icon3}>
+                           <i className="bi bi-hourglass-split fs-3"></i>
+                        </div>
+                     </div>
+                     {mediaTempoPorDia !== null && diferencialPercentualTempo !== null ? (
+                        <h5 className="fs-1 fw-bold mb-3">
+                           {segundosParaFormatoHumanizado(mediaTempoPorDia)}{" "}
+                           {diferencialPercentualTempo >= 0 ? (
+                              <span id={styles.small} className={"text-small text-success"}>
+                                 (+{diferencialPercentualTempo}%)
+                              </span>
+                           ) : (
+                              <span id={styles.small} className={"text-small text-danger"}>
+                                 ({diferencialPercentualTempo}%)
+                              </span>
+                           )}
+                        </h5>
+                     ) : (
+                        <h5 className="fs-1 fw-bold mb-3">
+                           <Placeholder animation="wave">
+                              <Placeholder className={styles.loadtit} xs={2} />
+                              min <Placeholder className={styles.loadtit} xs={2} />s{" "}
+                              <span id={styles.small} className={"text-small text-success"}>
+                                 (+
+                                 <Placeholder xs={2} />
+                                 %)
+                              </span>
+                           </Placeholder>
+                        </h5>
+                     )}
+                     <p className="text-secondary mb-0" id={styles.small}>
+                        {card3.desc}
+                     </p>
+                     <Image className="mt-4" src={mediaTreinos} />
+                  </div>
+               </Col>
+            </Row>
+
+            {/* Últimos exercícios praticados */}
+            <Row className="mb-5">
+               <Col>
+                  <h2 className="fw-semibold mb-4">{tit2}</h2>
+                  <Slider
+                     swipeToSlide
+                     slidesToShow={3}
+                     responsive={[
+                        { breakpoint: 992, settings: { slidesToShow: 2 } },
+                        { breakpoint: 576, settings: { slidesToShow: 1 } },
+                     ]}
+                     infinite={false}
+                     dots
+                  >
+                     {ultimosExerciciosPraticados &&
+                        ultimosExerciciosPraticados?.map((v, k) => (
+                           <CardExercicio
+                              customClass="me-4"
+                              titulo={v?.name}
+                              id={v?.id}
+                              foto={v?.gifUrl}
+                              categoria={v?.secondaryMuscles?.slice(0, 2)}
+                              key={k}
+                           />
+                        ))}
+                     {ultimosExerciciosPraticados?.length === 0 && (
+                        <div className="text-center">
+                           <Image src={noLastExs} />
+                           <Alert variant="warning">{card5.noTrain}</Alert>
+                        </div>
+                     )}
+                     {ultimosExerciciosPraticados === null && gerarArray(4).map((v, k) => <CardExercicio customClass="me-4" key={k} />)}
+                  </Slider>
+               </Col>
+            </Row>
+         </div>
       </div>
    );
 };

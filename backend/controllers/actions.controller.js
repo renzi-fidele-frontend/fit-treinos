@@ -272,6 +272,8 @@ const retornarDadosTreinamento = async (req, res) => {
          });
       });
 
+      
+
       const progresso = {
          nrTreinosHoje,
          diferencialPercentual,

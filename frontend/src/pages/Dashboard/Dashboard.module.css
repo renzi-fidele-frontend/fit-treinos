@@ -1,3 +1,20 @@
+[data-bs-theme="dark"] #ct {
+   background-color: rgb(31, 30, 30);
+   background-image: radial-gradient(at 19% 60%, hsla(323, 38%, 11%, 1) 0px, transparent 50%),
+      radial-gradient(at 82% 41%, hsla(262, 33%, 17%, 1) 0px, transparent 50%);
+}
+
+[data-bs-theme="light"] #ct {
+   background-color: hsla(253, 0%, 99%, 1);
+   background-image: radial-gradient(at 13% 56%, hsla(0, 2%, 91%, 1) 0px, transparent 50%),
+      radial-gradient(at 65% 45%, hsla(25, 21%, 88%, 1) 0px, transparent 50%),
+      radial-gradient(at 46% 6%, hsla(321, 8%, 91%, 1) 0px, transparent 50%),
+      radial-gradient(at 33% 18%, hsla(13, 0%, 100%, 1) 0px, transparent 50%),
+      radial-gradient(at 79% 26%, hsla(180, 22%, 86%, 1) 0px, transparent 50%),
+      radial-gradient(at 2% 37%, hsla(34, 21%, 92%, 1) 0px, transparent 50%),
+      radial-gradient(at 59% 30%, hsla(111, 18%, 89%, 1) 0px, transparent 50%);
+}
+
 #tit {
    color: #1f6bc1;
    font-weight: 600;
