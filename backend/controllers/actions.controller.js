@@ -114,9 +114,13 @@ const atualizarProgresso = async (req, res) => {
       });
 
       // Atualizando os últimos exercícios praticados
+      const data = new Date();
       let ultimosExerciciosPraticados = user.ultimosExerciciosPraticados;
-      if (ultimosExerciciosPraticados.slice(-1)[0] !== idExercicio) {
-         ultimosExerciciosPraticados = [...ultimosExerciciosPraticados, idExercicio];
+      if (ultimosExerciciosPraticados.slice(-1)[0]?.idExercicio !== idExercicio) {
+         ultimosExerciciosPraticados = [...ultimosExerciciosPraticados, { idExercicio, data }];
+      } else {
+         ultimosExerciciosPraticados.pop();
+         ultimosExerciciosPraticados = [...ultimosExerciciosPraticados, { idExercicio, data }];
       }
 
       const atualizar = await Usuario.findByIdAndUpdate(userId, {

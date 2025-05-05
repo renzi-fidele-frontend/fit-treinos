@@ -19,12 +19,14 @@ import { gerarArray } from "../../utils/gerarArray";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
 import { setExercicios } from "../../state/exercicios/exerciciosSlice";
 import { useTranslation } from "react-i18next";
-
+import moment from "moment";
+import "moment/dist/locale/pt";
 Chart.register(CategoryScale);
 
 const Dashboard = () => {
    const { t } = useTranslation();
    const { tit, tit2, card1, card2, card3, card4, card5, card6 } = t("dashboard");
+   const { idioma } = useSelector((state) => state.idioma);
    const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
    const dispatch = useDispatch();
    const [tempoTotalTreino, setTempoTotalTreino] = useState(null);
@@ -35,6 +37,7 @@ const Dashboard = () => {
    const [estatisticasDaSemana, setEstatisticasDaSemana] = useState(null);
    const [partesDoCorpoTreinadas, setPartesDoCorpoTreinadas] = useState(null);
    const [ultimosExerciciosPraticados, setUltimosExerciciosPraticados] = useState(null);
+   const [ultimoTreino, setUltimoTreino] = useState(null);
    const [diaMaisTreinado, setDiaMaisTreinado] = useState(null);
    const { exercicios } = useSelector((state) => state.exercicios);
    const { modoEscuro } = useSelector((state) => state.tema);
@@ -59,15 +62,21 @@ const Dashboard = () => {
             setPartesDoCorpoTreinadas(v.partesDoCorpoTreinadas);
             setExercicioMaisTreinado(v.exercicioMaisTreinado);
             setUltimosExerciciosPraticados(
-               v.ultimosExerciciosPraticados.map((exId) => {
-                  return exercicios.find((obj) => obj.id === exId);
+               v.ultimosExerciciosPraticados.map((v) => {
+                  return exercicios.find((obj) => obj.id === v.idExercicio);
                })
             );
             setDiaMaisTreinado(v.diaMaisTreinado);
+            setUltimoTreino(moment(v.ultimosExerciciosPraticados.slice(-1)[0].data).fromNow());
             setFetched(true);
          });
       }
    }, [exercicios]);
+
+   useEffect(() => {
+      if (idioma?.includes("pt")) moment.locale("pt");
+      if (idioma?.includes("en")) moment.locale("en");
+   }, [idioma]);
 
    const CardExercicioMaisTreinado = ({ exercicio, tempoDeTreino }) => {
       const musculoSecundario = exercicio?.secondaryMuscles?.slice(0, 1)[0];
@@ -279,13 +288,11 @@ const Dashboard = () => {
                      </div>
                      <p className="text-secondary small">{card4.desc}</p>
                      <hr className="mt-4" />
-                     {/* TODO: Atualizar o dia da semana com mais treinos */}
                      <p className="text-secondary mb-0" id={styles.small}>
                         <span className="fw-semibold">{card4.bestDay}</span> <i className="bi bi-calendar-day"></i> {diaMaisTreinado}
                      </p>
-                     {/* TODO: Atualizar o dia da última sessão de treino, (Se possível implementar com momentJs) */}
                      <p className="text-secondary mb-0" id={styles.small}>
-                        <span className="fw-semibold">{card4.last}</span> 10/02/2025
+                        <span className="fw-semibold">{card4.last}</span> {ultimoTreino}
                      </p>
                   </div>
                </Col>
