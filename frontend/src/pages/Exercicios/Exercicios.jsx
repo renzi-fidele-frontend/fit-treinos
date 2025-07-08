@@ -74,6 +74,7 @@ const Exercicios = () => {
                   {/*  Filtragem  */}
                   <Container className="mb-5 mt-5 px-2 ">
                      <Row className="px-sm-5 g-5 justify-content-center">
+                        {/* Parte do corpo */}
                         <Col xs={6} lg={4} className="mt-4 mt-xxl-5">
                            <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>
                               {sectionFiltros.items[0]}
@@ -85,10 +86,12 @@ const Exercicios = () => {
                            <ModalFiltragem
                               mostrar={modalParteDoCorpo}
                               onClose={() => setModalParteDoCorpo(false)}
-                              modo={sectionFiltros.items[0]}
+                              escolhido={sectionFiltros.items[0]}
+                              modo="parteDoCorpo"
                               array={partesCorpo}
                            />
                         </Col>
+                        {/* Equipamento */}
                         <Col xs={6} lg={4} className="mt-4 mt-xxl-5" id={styles.border}>
                            <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>
                               {sectionFiltros.items[1]}
@@ -100,10 +103,12 @@ const Exercicios = () => {
                            <ModalFiltragem
                               mostrar={modalEquipamentos}
                               onClose={() => setModalEquipamentos(false)}
-                              modo={sectionFiltros.items[1]}
+                              escolhido={sectionFiltros.items[1]}
+                              modo="equipamento"
                               array={equipamentos}
                            />
                         </Col>
+                        {/* Músculo a fortificar */}
                         <Col xs={6} lg={4} className="mt-4 mt-xxl-5">
                            <Form.Group>
                               <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>
@@ -116,7 +121,8 @@ const Exercicios = () => {
                               <ModalFiltragem
                                  mostrar={modalMusculosAlvo}
                                  onClose={() => setModalMusculosAlvo(false)}
-                                 modo={sectionFiltros.items[2]}
+                                 escolhido={sectionFiltros.items[2]}
+                                 modo="musculoAlvo"
                                  array={musculoAlvo}
                               />
                            </Form.Group>

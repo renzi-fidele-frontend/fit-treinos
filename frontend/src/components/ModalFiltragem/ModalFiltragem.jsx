@@ -10,7 +10,7 @@ import useFiltrarExercicios from "../../hooks/useFiltrarExercicios";
 import ImagePreloader from "./ImagePreloader";
 import { useTranslation } from "react-i18next";
 
-const ModalFiltragem = ({ mostrar, onClose, modo, array }) => {
+const ModalFiltragem = ({ mostrar, onClose, modo, array, escolhido }) => {
    const { t } = useTranslation();
    const { sectionFiltros } = t("exercicios");
    const { tit, aplicar, cancelar } = sectionFiltros;
@@ -22,11 +22,11 @@ const ModalFiltragem = ({ mostrar, onClose, modo, array }) => {
 
    function verificarModo() {
       switch (modo) {
-         case "Parte do corpo":
+         case "parteDoCorpo":
             return filtros.parteDoCorpo;
-         case "Equipamento":
+         case "equipamento":
             return filtros.equipamento;
-         case "Músculo a fortificar":
+         case "musculoAlvo":
             return filtros.musculoAlvo;
          default:
             return null;
@@ -35,25 +35,24 @@ const ModalFiltragem = ({ mostrar, onClose, modo, array }) => {
 
    function atualizarFiltros() {
       let filtrosAtualizados;
-      if (modo === "Músculo a fortificar") {
+      if (modo === "musculoAlvo") {
          filtrosAtualizados = { ...filtros, musculoAlvo: selecionado };
-      } else if (modo === "Equipamento") {
+      } else if (modo === "equipamento") {
          filtrosAtualizados = { ...filtros, equipamento: selecionado };
-      } else if (modo === "Parte do corpo") {
+      } else if (modo === "parteDoCorpo") {
          filtrosAtualizados = { ...filtros, parteDoCorpo: selecionado };
       }
-      console.log(filtrosAtualizados);
       dispatch(setFiltros(filtrosAtualizados));
       filtrarExercicios(filtrosAtualizados);
       onClose();
    }
 
    function processarFoto(nome) {
-      if (modo === "Músculo a fortificar") {
+      if (modo === "musculoAlvo") {
          return fotoMusculo(nome);
-      } else if (modo === "Equipamento") {
+      } else if (modo === "equipamento") {
          return fotoEquipamento(nome);
-      } else if (modo === "Parte do corpo") {
+      } else if (modo === "parteDoCorpo") {
          return fotoDaParteDoCorpo(nome);
       }
    }
@@ -63,7 +62,7 @@ const ModalFiltragem = ({ mostrar, onClose, modo, array }) => {
          <Modal.Header closeButton>
             <Modal.Title>
                {tit}
-               <span className="text-danger">{modo}</span>
+               <span className="text-danger">{escolhido}</span>
             </Modal.Title>
          </Modal.Header>
          <Modal.Body className={styles.modalBd}>
