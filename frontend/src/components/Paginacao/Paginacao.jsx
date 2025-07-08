@@ -26,17 +26,15 @@ const Paginacao = ({ onPageClick, paginaAtual, totalPaginas }) => {
       </Pagination>
    ) : (
       <Pagination className="justify-content-center flex-wrap">
-         {/* <Pagination.First disabled={paginaAtual === 1} onClick={() => onPageClick(1)} />
-         <Pagination.Prev disabled={paginaAtual === 1} onClick={() => onPageClick(paginaAtual - 1)} /> */}
          <Pagination.Item active={1 === paginaAtual} onClick={() => onPageClick(1)}>
             1
          </Pagination.Item>
          {paginaAtual > 4 && <Pagination.Ellipsis onClick={() => onPageClick(1)} />}
          {gerarArray(totalPaginas)
             .slice(...processarPaginacao())
-            .map((v, k) => (
+            .map((v) => (
                <>
-                  <Pagination.Item active={v === paginaAtual} onClick={() => onPageClick(v)} key={k}>
+                  <Pagination.Item active={v === paginaAtual} onClick={() => onPageClick(v)}>
                      {v}
                   </Pagination.Item>
                </>
@@ -45,13 +43,6 @@ const Paginacao = ({ onPageClick, paginaAtual, totalPaginas }) => {
          <Pagination.Item active={totalPaginas === paginaAtual} onClick={() => onPageClick(totalPaginas)}>
             {totalPaginas}
          </Pagination.Item>
-         {/* <Pagination.Next disabled={paginaAtual === totalPaginas} onClick={() => onPageClick(paginaAtual + 1)} />
-         <Pagination.Last
-            disabled={paginaAtual === totalPaginas}
-            onClick={() => {
-               onPageClick(totalPaginas - 1);
-            }}
-         /> */}
       </Pagination>
    );
 };
