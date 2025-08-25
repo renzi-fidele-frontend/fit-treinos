@@ -10,14 +10,13 @@ import { useTranslation } from "react-i18next";
 // TODO: Ao minimizar o toast de treino, mostrar que o exercício já sendo contabilizado.
 // TODO: Avisar que vais perder o tempo contabilizado caso o usuário saia da página sem salvar o tempo.
 
-const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo }) => {
+const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo, tempo, setTempo, ativo, setAtivo }) => {
    const { t } = useTranslation();
    const { controle } = t("exercicio");
    const dispatch = useDispatch();
    const { user } = useSelector((state) => state.auth);
    const { modoEscuro } = useSelector((state) => state.tema);
-   const [tempo, setTempo] = useState(0);
-   const [ativo, setAtivo] = useState(false);
+
    const intervalRef = useRef(null);
    const { apanharNoBackendComAuth, loading } = useFetch(null, null, null, "manual");
    const [tempoTotal, setTempoTotal] = useState(0);
@@ -25,7 +24,7 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo }) => {
    function iniciarTreino() {
       setAtivo(true);
       intervalRef.current = setInterval(() => {
-         setTempo((prevTempo) => prevTempo + 1);
+         setTempo((prevState) => prevState + 1);
       }, 1000);
    }
 

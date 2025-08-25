@@ -21,6 +21,7 @@ import { traduzirTexto } from "../../utils/traduzirTexto";
 import { useTranslation } from "react-i18next";
 
 // FIXME: A requisição está sendo feita duas vezes
+// TODO: Mostrar loading caso se adicione um exercício a lista de favoritos
 
 const DetalhesExercicio = () => {
    const { t } = useTranslation();
@@ -34,6 +35,8 @@ const DetalhesExercicio = () => {
    const [exerciciosFiltrados, setExerciciosFiltrados] = useState(null);
    const [favorito, setFavorito] = useState(null);
    const [mostrar, setMostrar] = useState(false);
+   const [tempo, setTempo] = useState(0);
+   const [ativo, setAtivo] = useState(false);
    const { modoEscuro } = useSelector((state) => state.tema);
    const [instrucoes, setInstrucoes] = useState(null);
    // Requisições
@@ -389,7 +392,16 @@ const DetalhesExercicio = () => {
                </Row>
             </Col>
          </Row>
-         <ToastTreinamento mostrar={mostrar} onClose={() => setMostrar(false)} parteDoCorpo={exercicio?.bodyPart} idExercicio={exercicio?.id} />
+         <ToastTreinamento
+            mostrar={mostrar}
+            onClose={() => setMostrar(false)}
+            parteDoCorpo={exercicio?.bodyPart}
+            idExercicio={exercicio?.id}
+            ativo={ativo}
+            setAtivo={setAtivo}
+            tempo={tempo}
+            setTempo={setTempo}
+         />
       </Container>
    );
 };
