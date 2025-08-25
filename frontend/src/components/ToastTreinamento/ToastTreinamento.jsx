@@ -7,7 +7,6 @@ import { setUser } from "../../state/auth/authSlice";
 import { formatarTempo } from "../../utils/formatarSegundos";
 import { useTranslation } from "react-i18next";
 
-// TODO: Ao minimizar o toast de treino, mostrar que o exercício já sendo contabilizado.
 // TODO: Avisar que vais perder o tempo contabilizado caso o usuário saia da página sem salvar o tempo.
 
 const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo, tempo, setTempo, ativo, setAtivo }) => {
@@ -57,57 +56,74 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo, tempo, 
       }
    }, [idExercicio]);
 
+   const Acoes = () => (
+      <div className={`d-flex gap-2 ${!mostrar && "justify-content-center mt-2"}`}>
+         {ativo ? (
+            <Button size="sm" variant={modoEscuro ? "secondary" : "dark"} onClick={pausarTreino}>
+               <i className="bi bi-pause"></i> {controle.pause}
+            </Button>
+         ) : (
+            <>
+               {tempo > 1 && (
+                  <OverlayTrigger overlay={<Tooltip style={{ zIndex: 2000 }}>{controle.save}</Tooltip>}>
+                     <Button size="sm" variant="warning" className="border border-black " onClick={atualizarProgresso}>
+                        {loading ? <Spinner size="sm" /> : <i className="bi bi-floppy"></i>}
+                     </Button>
+                  </OverlayTrigger>
+               )}
+               <Button size="sm" variant={modoEscuro ? "secondary" : "dark"} onClick={iniciarTreino}>
+                  <i className="bi bi-play"></i> {controle.start}
+               </Button>
+            </>
+         )}
+      </div>
+   );
+
    return (
-      <ToastContainer position="bottom-end" className="position-fixed">
-         <Toast show={mostrar} onClose={onClose} className="me-4 mb-4">
-            <Toast.Header className="d-flex justify-content-between">
-               <strong>
-                  <i className="bi bi-alarm me-2"></i>
-                  {controle.tit}
-               </strong>
-            </Toast.Header>
-            <Toast.Body>
-               <div className="position-relative w-auto">
-                  <Image className="rounded" src={gif} />
-                  <div
-                     className={`w-100 position-absolute ${modoEscuro ? "bg-black" : "text-bg-dark"} bottom-0 rounded-bottom text-center py-1`}
-                  >
-                     <span>
-                        {controle.time} <span className="ms-1 text-bg-secondary rounded px-1">{formatarTempo(tempoTotal)}</span>
-                     </span>
-                  </div>
-               </div>
-               <p className="mt-2 mb-0">{controle.info}</p>
-               <hr className="my-2" />
-               <div className="d-flex justify-content-between align-items-center">
-                  <strong className="fw-medium">
-                     {controle.current} <span className="ms-1 mb-0 p-1 rounded text-bg-success">{formatarTempo(tempo)}</span>
+      <div>
+         {!mostrar && tempo > 0 && (
+            <div className="position-fixed end-0 bottom-0 me-4 mb-4 text-center border shadow-lg p-2 rounded">
+               <h6 className="border-bottom pb-1">
+                  <i className="bi bi-alarm me-1"></i> {controle.current}
+               </h6>
+               <p className="mb-0 text-bg-success rounded">{formatarTempo(tempo)}</p>
+               <Acoes />
+            </div>
+         )}
+
+         <ToastContainer position="bottom-end" className="position-fixed">
+            <Toast show={mostrar} onClose={onClose} className="me-4 mb-4">
+               <Toast.Header className="d-flex justify-content-between">
+                  <strong>
+                     <i className="bi bi-alarm me-2"></i>
+                     {controle.tit}
                   </strong>
-                  {/* Ações */}
-                  <div className="d-flex gap-2">
-                     {ativo ? (
-                        <Button size="sm" variant={modoEscuro ? "secondary" : "dark"} onClick={pausarTreino}>
-                           <i className="bi bi-pause"></i> {controle.pause}
-                        </Button>
-                     ) : (
-                        <>
-                           {tempo > 1 && (
-                              <OverlayTrigger overlay={<Tooltip style={{ zIndex: 2000 }}>{controle.save}</Tooltip>}>
-                                 <Button size="sm" variant="warning" className="border border-black" onClick={atualizarProgresso}>
-                                    {loading ? <Spinner size="sm" /> : <i className="bi bi-floppy"></i>}
-                                 </Button>
-                              </OverlayTrigger>
-                           )}
-                           <Button size="sm" variant={modoEscuro ? "secondary" : "dark"} onClick={iniciarTreino}>
-                              <i className="bi bi-play"></i> {controle.start}
-                           </Button>
-                        </>
-                     )}
+               </Toast.Header>
+               <Toast.Body>
+                  <div className="position-relative w-auto">
+                     <Image className="rounded" src={gif} />
+                     <div
+                        className={`w-100 position-absolute ${
+                           modoEscuro ? "bg-black" : "text-bg-dark"
+                        } bottom-0 rounded-bottom text-center py-1`}
+                     >
+                        <span>
+                           {controle.time} <span className="ms-1 text-bg-secondary rounded px-1">{formatarTempo(tempoTotal)}</span>
+                        </span>
+                     </div>
                   </div>
-               </div>
-            </Toast.Body>
-         </Toast>
-      </ToastContainer>
+                  <p className="mt-2 mb-0">{controle.info}</p>
+                  <hr className="my-2" />
+                  <div className="d-flex justify-content-between align-items-center">
+                     <strong className="fw-medium">
+                        {controle.current} <span className="ms-1 mb-0 p-1 rounded text-bg-success">{formatarTempo(tempo)}</span>
+                     </strong>
+                     <Acoes />
+                  </div>
+               </Toast.Body>
+            </Toast>
+         </ToastContainer>
+      </div>
    );
 };
 export default ToastTreinamento;
