@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setToken, setUser } from "../../state/auth/authSlice";
-import { Dropdown, Image, NavLink } from "react-bootstrap";
+import { Dropdown, Image } from "react-bootstrap";
 import styles from "./DropDownBtn.module.css";
 import { Link } from "react-router-dom";
 
 const UserDropdown = ({ customClass }) => {
    const dispatch = useDispatch();
    const { user } = useSelector((state) => state.auth);
+
    function deslogar() {
       dispatch(setUser(null));
       dispatch(setToken(null));
@@ -20,9 +21,10 @@ const UserDropdown = ({ customClass }) => {
          </Dropdown.Toggle>
 
          <Dropdown.Menu>
-            <NavLink as={Link} to="editar_perfil">
-               <Dropdown.Item>Editar perfil</Dropdown.Item>
-            </NavLink>
+            <Dropdown.Item as={Link} to="/usuario/editar_perfil">
+               Editar perfil
+            </Dropdown.Item>
+
             <Dropdown.Item onClick={deslogar} className="text-danger">
                Deslogar
             </Dropdown.Item>

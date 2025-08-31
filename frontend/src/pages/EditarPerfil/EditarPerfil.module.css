@@ -1,0 +1,9 @@
+#ctFoto img {
+   width: 170px;
+   height: 170px;
+}
+
+#ctFoto {
+   border-radius: 50%;
+   width: fit-content;
+}
