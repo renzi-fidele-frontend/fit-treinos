@@ -1,24 +1,54 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./EditarPerfil.module.css";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { useRef } from "react";
 import profilepic from "../../assets/profile.jpg";
 import fotoModelo from "../../assets/modeloEditarPerfil.webp";
 import { Link } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
+import { setToken, setUser } from "../../state/auth/authSlice";
 
 // TODO: refactor: Separar a utilidade de renderizar prévia de foto carrega para um input field
 
 const EditarPerfil = () => {
    const { user } = useSelector((state) => state.auth);
+   const dispatch = useDispatch();
    const inputFotoPerfilRef = useRef();
    const fotoPreviaRef = useRef();
+   const nomeRef = useRef();
+   const passwordRef = useRef();
+   const { apanharNoBackend, loading } = useFetch(null, null, null, "manual");
 
+   /** Renderiza a prévia no componente de imagem sempre que se carrega uma foto ao input field. */
    function renderizarPrevia() {
       const reader = new FileReader();
       reader.onloadend = () => {
          fotoPreviaRef.current.src = reader.result;
       };
       reader.readAsDataURL(inputFotoPerfilRef.current.files[0]);
+   }
+
+   function editarPerfil(e) {
+      e.preventDefault();
+      const estadoAtual = {
+         nome: nomeRef.current.value,
+         senha: passwordRef.current.value,
+         foto: inputFotoPerfilRef.current.files[0],
+      };
+      const atualizar = apanharNoBackend("auth/usuario/editarPerfil", "PATCH", {
+         headers: { "Content-Type": "multipart/form-data" },
+         data: estadoAtual,
+      }).then((res) => {
+         console.log(res);
+         if (res.error) {
+            // TODO: Renderizar o erro que ocorre ao tentar se atualizar a foto do perfil do usuário
+            return;
+         }
+
+         // TODO: Rnderizar mensageNo caso de sucesso ao se atualizar a foto de perfil deverei
+         dispatch(setUser(res.usuario));
+         dispatch(setToken(res.token));
+      });
    }
 
    return (
@@ -33,7 +63,7 @@ const EditarPerfil = () => {
                   <div id={styles.ctFoto} className="mb-2 rounded border p-2">
                      <Image ref={fotoPreviaRef} src={profilepic} className="rounded-circle" />
                   </div>
-                  <Form className="mb-4" onSubmit={() => {}}>
+                  <Form className="mb-4" onSubmit={editarPerfil}>
                      {/* Input upload  */}
                      <Form.Group className="mb-4">
                         <Form.Label>
@@ -53,13 +83,13 @@ const EditarPerfil = () => {
                      {/* Credenciais do usuário */}
                      <Form.Group className="mb-4">
                         <Form.Label className="fw-semibold">Suas credencias de usuário</Form.Label>
-                        <Form.Control required ref={null} type="text" placeholder="Insira seu novo nome de usuário" className="mb-2" />
-                        <Form.Control required ref={null} type="text" placeholder="Insira sua nova palavra-chave" />
+                        <Form.Control required ref={nomeRef} type="text" placeholder="Insira seu novo nome de usuário" className="mb-2" />
+                        <Form.Control required ref={passwordRef} type="text" placeholder="Insira sua nova palavra-chave" />
                      </Form.Group>
                      {/* Ações */}
                      <div className="d-flex gap-3">
                         <Button type="submit">
-                           <i className="bi bi-floppy me-1"></i> Salvar mudanças
+                           <i className="bi bi-floppy me-1"></i> Salvar alterações
                         </Button>
                         <Button variant="secondary" as={Link} to="/">
                            <i className="bi bi-x-lg me-1"></i> Cancelar
