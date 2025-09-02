@@ -1,5 +1,5 @@
 const express = require("express");
-const { cadastrarUsuario, loginUsuario } = require("../controllers/auth.controller");
+const { cadastrarUsuario, loginUsuario, editarPerfil } = require("../controllers/auth.controller");
 const multer = require("../middlewares/multer");
 const passport = require("../middlewares/passport");
 const Usuario = require("../models/Usuario");
@@ -7,7 +7,7 @@ const verificarToken = require("../middlewares/auth");
 
 const authRoute = express.Router();
 
-// Rotas públicas
+// Rotas públicas ---------------------
 authRoute.post("/cadastro", multer.single("foto"), cadastrarUsuario);
 authRoute.post("/login", loginUsuario);
 
@@ -41,5 +41,7 @@ authRoute.get("/success/social", async (req, res) => {
       res.status(500).json({ message: "Erro ao encontrar o usuário logado na rede social!" });
    }
 });
+
+authRoute.patch("/editarPerfil", editarPerfil);
 
 module.exports = authRoute;

@@ -1,4 +1,4 @@
-const { uploadImage } = require("../middlewares/cloudinary");
+const { uploadImage, removerFoto } = require("../middlewares/cloudinary");
 const Usuario = require("../models/Usuario");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -64,5 +64,41 @@ const loginUsuario = async (req, res) => {
    }
 };
 
+const editarPerfil = async (req, res) => {
+   const uid = req.userId;
+   const { nome, password } = req.body;
+   // No caso de se adicionar uma nova foto de perfil
+   const fotoRemovida = req?.body?.fotoRemovida;
+   const foto = req?.file?.path;
+
+   // Criando a nova sennha encriptada
+   let novaSenhaEncriptada;
+   try {
+      novaSenhaEncriptada = await bcrypt.hash(password, 10);
+   } catch (error) {
+      console.log("Erro ao encriptar nova senha");
+   }
+
+   let dadosAtualizados = {
+      nome,
+      password: novaSenhaEncriptada,
+   };
+   // Carregando a nova foto de perfil no cloudinary
+   if (foto) {
+      const carregarFoto = await uploadImage(foto);
+      dadosAtualizados.foto = carregarFoto.url;
+   }
+
+   try {
+      const perfilAtualizado = await Usuario.findByIdAndUpdate(uid, dadosAtualizados, { new: true });
+      if (foto) {
+         const removerFotoDePerfilAntiga = await removerFoto(fotoRemovida.split("/").slice(-1)[0].split(".")[0]);
+      }
+      res.json({ message: "Perfil atualizado com sucesso!", usuario: { ...perfilAtualizado.toObject(), password } });
+   } catch (error) {
+      res.status(500).json({ mensagem: "Erro ao atualizar o perfil" });
+   }
+};
 exports.cadastrarUsuario = cadastrarUsuario;
 exports.loginUsuario = loginUsuario;
+exports.editarPerfil = editarPerfil;

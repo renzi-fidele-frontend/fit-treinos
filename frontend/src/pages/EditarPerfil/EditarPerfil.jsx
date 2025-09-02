@@ -17,7 +17,7 @@ const EditarPerfil = () => {
    const fotoPreviaRef = useRef();
    const nomeRef = useRef();
    const passwordRef = useRef();
-   const { apanharNoBackend, loading } = useFetch(null, null, null, "manual");
+   const { apanharNoBackendComAuth, loading } = useFetch(null, null, null, "manual");
 
    /** Renderiza a prévia no componente de imagem sempre que se carrega uma foto ao input field. */
    function renderizarPrevia() {
@@ -32,10 +32,16 @@ const EditarPerfil = () => {
       e.preventDefault();
       const estadoAtual = {
          nome: nomeRef.current.value,
-         senha: passwordRef.current.value,
-         foto: inputFotoPerfilRef.current.files[0],
+         password: passwordRef.current.value,
       };
-      const atualizar = apanharNoBackend("auth/usuario/editarPerfil", "PATCH", {
+
+      // No caso de se adicionar uma nova foto de perfil
+      if (inputFotoPerfilRef.current.files[0]) {
+         estadoAtual.foto = inputFotoPerfilRef.current.files[0];
+         estadoAtual.fotoRemovida = user.foto;
+      }
+
+      const atualizar = apanharNoBackendComAuth("auth/editarPerfil", "PATCH", {
          headers: { "Content-Type": "multipart/form-data" },
          data: estadoAtual,
       }).then((res) => {
@@ -45,9 +51,12 @@ const EditarPerfil = () => {
             return;
          }
 
-         // TODO: Rnderizar mensageNo caso de sucesso ao se atualizar a foto de perfil deverei
+         // TODO: Renderizar mensagem no caso de sucesso ao se atualizar a foto de perfil deverei
+
+         /*
          dispatch(setUser(res.usuario));
          dispatch(setToken(res.token));
+         */
       });
    }
 
@@ -75,7 +84,6 @@ const EditarPerfil = () => {
                            ref={inputFotoPerfilRef}
                            onChange={renderizarPrevia}
                            accept="image/*"
-                           required
                            className="shadow-sm"
                            type="file"
                         />
