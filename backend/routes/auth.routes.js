@@ -42,6 +42,6 @@ authRoute.get("/success/social", async (req, res) => {
    }
 });
 
-authRoute.patch("/editarPerfil", editarPerfil);
+authRoute.patch("/editarPerfil", multer.single("foto"), editarPerfil);
 
 module.exports = authRoute;

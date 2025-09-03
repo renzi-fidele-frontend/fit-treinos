@@ -70,11 +70,14 @@ const editarPerfil = async (req, res) => {
    // No caso de se adicionar uma nova foto de perfil
    const fotoRemovida = req?.body?.fotoRemovida;
    const foto = req?.file?.path;
+   console.log("A foto é: ", foto);
 
-   // Criando a nova sennha encriptada
+   // Criando a nova sennha encriptada e novo token
    let novaSenhaEncriptada;
+   let token;
    try {
       novaSenhaEncriptada = await bcrypt.hash(password, 10);
+      token = jwt.sign({ userId: uid, password }, process.env.JWT_SECRET);
    } catch (error) {
       console.log("Erro ao encriptar nova senha");
    }
@@ -94,7 +97,7 @@ const editarPerfil = async (req, res) => {
       if (foto) {
          const removerFotoDePerfilAntiga = await removerFoto(fotoRemovida.split("/").slice(-1)[0].split(".")[0]);
       }
-      res.json({ message: "Perfil atualizado com sucesso!", usuario: { ...perfilAtualizado.toObject(), password } });
+      res.json({ message: "Perfil atualizado com sucesso!", usuario: { ...perfilAtualizado.toObject(), password }, token });
    } catch (error) {
       res.status(500).json({ mensagem: "Erro ao atualizar o perfil" });
    }

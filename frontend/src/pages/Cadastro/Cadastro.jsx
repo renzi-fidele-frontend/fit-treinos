@@ -46,6 +46,7 @@ const Cadastro = () => {
    function handleSubmit2(e) {
       e.preventDefault();
       const data = { ...estadoForm, foto: inputFotoPerfilRef.current.files[0] };
+      console.log(data);
       const cadastrar = apanharNoBackend("auth/cadastro", "POST", {
          headers: {
             "Content-Type": "multipart/form-data",

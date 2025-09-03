@@ -30,20 +30,21 @@ const EditarPerfil = () => {
 
    function editarPerfil(e) {
       e.preventDefault();
-      const estadoAtual = {
-         nome: nomeRef.current.value,
-         password: passwordRef.current.value,
-      };
+
+      const formData = new FormData();
+      formData.append("nome", nomeRef.current.value);
+      formData.append("password", passwordRef.current.value);
 
       // No caso de se adicionar uma nova foto de perfil
-      if (inputFotoPerfilRef.current.files[0]) {
-         estadoAtual.foto = inputFotoPerfilRef.current.files[0];
-         estadoAtual.fotoRemovida = user.foto;
+      const foto = inputFotoPerfilRef.current.files[0];
+      if (foto) {
+         formData.append("foto", foto);
+         formData.append("fotoRemovida", user.foto);
       }
 
       const atualizar = apanharNoBackendComAuth("auth/editarPerfil", "PATCH", {
          headers: { "Content-Type": "multipart/form-data" },
-         data: estadoAtual,
+         data: formData,
       }).then((res) => {
          console.log(res);
          if (res.error) {
@@ -53,10 +54,8 @@ const EditarPerfil = () => {
 
          // TODO: Renderizar mensagem no caso de sucesso ao se atualizar a foto de perfil deverei
 
-         /*
          dispatch(setUser(res.usuario));
          dispatch(setToken(res.token));
-         */
       });
    }
 
