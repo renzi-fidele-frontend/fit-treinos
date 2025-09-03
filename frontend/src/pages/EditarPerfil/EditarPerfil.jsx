@@ -90,8 +90,8 @@ const EditarPerfil = () => {
                      {/* Credenciais do usuário */}
                      <Form.Group className="mb-4">
                         <Form.Label className="fw-semibold">Suas credencias de usuário</Form.Label>
-                        <Form.Control required ref={nomeRef} type="text" placeholder="Insira seu novo nome de usuário" className="mb-2" />
-                        <Form.Control required ref={passwordRef} type="text" placeholder="Insira sua nova palavra-chave" />
+                        <Form.Control required ref={nomeRef} type="text" placeholder="Insira seu novo nome de usuário" className="mb-2" defaultValue={user.nome} />
+                        <Form.Control required ref={passwordRef} type="text" placeholder="Insira sua nova palavra-chave" defaultValue={user.password} />
                      </Form.Group>
                      {/* Ações */}
                      <div className="d-flex gap-3">
