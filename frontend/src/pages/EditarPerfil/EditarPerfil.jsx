@@ -69,7 +69,7 @@ const EditarPerfil = () => {
                <div>
                   {/* Prévia da foto de perfil */}
                   <div id={styles.ctFoto} className="mb-2 rounded border p-2">
-                     <Image ref={fotoPreviaRef} src={profilepic} className="rounded-circle" />
+                     <Image ref={fotoPreviaRef} src={user.foto || profilepic} className="rounded-circle" />
                   </div>
                   <Form className="mb-4" onSubmit={editarPerfil}>
                      {/* Input upload  */}
