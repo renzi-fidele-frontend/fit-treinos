@@ -62,7 +62,8 @@ const EditarPerfil = () => {
 
    function deletarConta() {
       const deletar = apanharNoBackendComAuth("auth/deletarPerfil", "DELETE").then((v) => {
-         console.log("Sucesso ao remover o perfil do usuário! ", v);
+         dispatch(setUser(null));
+         dispatch(setToken(null));
       });
    }
 
@@ -125,7 +126,6 @@ const EditarPerfil = () => {
                   </Form>
                </div>
                {/* Deletar conta */}
-               {/* TODO: Implementar a funcionalidade de remover a conta do usuário */}
                <div>
                   <h6 className="fw-semibold">Ação sensível</h6>
                   <Button variant="danger" size="sm" onClick={() => setShowModalConfirmacao(true)}>

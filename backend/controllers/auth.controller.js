@@ -70,7 +70,6 @@ const editarPerfil = async (req, res) => {
    // No caso de se adicionar uma nova foto de perfil
    const fotoRemovida = req?.body?.fotoRemovida;
    const foto = req?.file?.path;
-   console.log("A foto é: ", foto);
 
    // Criando a nova sennha encriptada e novo token
    let novaSenhaEncriptada;
@@ -102,6 +101,19 @@ const editarPerfil = async (req, res) => {
       res.status(500).json({ mensagem: "Erro ao atualizar o perfil" });
    }
 };
+
+const deletarPerfil = async (req, res) => {
+   const uid = req.userId;
+   try {
+      const deletar = await Usuario.findByIdAndDelete(uid);
+      const removerFotoDePerfilAntiga = await removerFoto(deletar.foto.split("/").slice(-1)[0].split(".")[0]);
+      res.json({ message: "Conta removida com sucesso" });
+   } catch (error) {
+      res.status(500).json({ message: "Erro ao remover a conta!" });
+   }
+};
+
 exports.cadastrarUsuario = cadastrarUsuario;
 exports.loginUsuario = loginUsuario;
 exports.editarPerfil = editarPerfil;
+exports.deletarPerfil = deletarPerfil;

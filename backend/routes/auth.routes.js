@@ -1,5 +1,5 @@
 const express = require("express");
-const { cadastrarUsuario, loginUsuario, editarPerfil } = require("../controllers/auth.controller");
+const { cadastrarUsuario, loginUsuario, editarPerfil, deletarPerfil } = require("../controllers/auth.controller");
 const multer = require("../middlewares/multer");
 const passport = require("../middlewares/passport");
 const Usuario = require("../models/Usuario");
@@ -43,5 +43,7 @@ authRoute.get("/success/social", async (req, res) => {
 });
 
 authRoute.patch("/editarPerfil", multer.single("foto"), editarPerfil);
+
+authRoute.delete("/deletarPerfil", deletarPerfil);
 
 module.exports = authRoute;
