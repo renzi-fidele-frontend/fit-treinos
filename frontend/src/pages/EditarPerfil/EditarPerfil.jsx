@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./EditarPerfil.module.css";
-import { Button, Col, Container, Form, Image, Row, Spinner } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Row, Spinner, Modal } from "react-bootstrap";
 import { useRef, useState } from "react";
 import profilepic from "../../assets/profile.jpg";
 import fotoModelo from "../../assets/modeloEditarPerfil.webp";
@@ -60,11 +60,7 @@ const EditarPerfil = () => {
       });
    }
 
-   function deletarConta() {
-      // TODO: Adicionar modal de confirmação de remoção de conta
-      setShowModalConfirmacao(true);
-      
-   }
+   function deletarConta() {}
 
    return (
       <Container>
@@ -128,10 +124,30 @@ const EditarPerfil = () => {
                {/* TODO: Implementar a funcionalidade de remover a conta do usuário */}
                <div>
                   <h6 className="fw-semibold">Ação sensível</h6>
-                  <Button variant="danger" size="sm">
+                  <Button variant="danger" size="sm" onClick={() => setShowModalConfirmacao(true)}>
                      <i className="bi bi-trash me-1"></i> Deletar conta
                   </Button>
                   <p className="mb-0 mt-2">* Depois de excluir sua conta, não há como voltar atrás.</p>
+                  {/* Modal de confirmação */}
+                  <Modal show={showModalConfirmacao} centered onHide={() => setShowModalConfirmacao(false)}>
+                     <Modal.Header closeButton>
+                        <Modal.Title>
+                           <i className="bi bi-trash"></i> Remover a conta?
+                        </Modal.Title>
+                     </Modal.Header>
+                     <Modal.Body>
+                        Você tem a certeza de deseja remover esta conta? Você perderá todo o seu histório progresso de treinamento, exercícios
+                        favoritos e qualquer informação aqui guardada
+                     </Modal.Body>
+                     <Modal.Footer>
+                        <Button variant="secondary" onClick={() => setShowModalConfirmacao(false)}>
+                           Cancelar
+                        </Button>
+                        <Button variant="danger" onClick={deletarConta}>
+                           Deletar conta
+                        </Button>
+                     </Modal.Footer>
+                  </Modal>
                </div>
             </Col>
             <Col className="pt-3 pt-sm-5 shadow-sm text-center rounded-5 bg-secondary-subtle bg-gradient">

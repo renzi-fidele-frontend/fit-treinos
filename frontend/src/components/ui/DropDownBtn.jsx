@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setToken, setUser } from "../../state/auth/authSlice";
 import { Dropdown, Image } from "react-bootstrap";
 import styles from "./DropDownBtn.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const UserDropdown = ({ customClass }) => {
    const dispatch = useDispatch();
@@ -14,6 +14,8 @@ const UserDropdown = ({ customClass }) => {
       localStorage.clear();
    }
 
+   const location = useLocation();
+
    return (
       <Dropdown drop="start" className={"d-flex align-items-center ms-sm-4 " + customClass}>
          <Dropdown.Toggle id={styles.seta} as="a">
@@ -21,12 +23,12 @@ const UserDropdown = ({ customClass }) => {
          </Dropdown.Toggle>
 
          <Dropdown.Menu>
-            <Dropdown.Item as={Link} to="/usuario/editar_perfil">
+            <Dropdown.Item active={location.pathname === "/usuario/editar_perfil"} as={Link} to="/usuario/editar_perfil">
                Editar perfil
             </Dropdown.Item>
 
             <Dropdown.Item onClick={deslogar} className="text-danger">
-               Deslogar
+               <i className="bi bi-box-arrow-in-left"></i> Deslogar
             </Dropdown.Item>
          </Dropdown.Menu>
       </Dropdown>
