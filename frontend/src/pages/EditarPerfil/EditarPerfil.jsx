@@ -60,7 +60,11 @@ const EditarPerfil = () => {
       });
    }
 
-   function deletarConta() {}
+   function deletarConta() {
+      const deletar = apanharNoBackendComAuth("auth/deletarPerfil", "DELETE").then((v) => {
+         console.log("Sucesso ao remover o perfil do usuário! ", v);
+      });
+   }
 
    return (
       <Container>
