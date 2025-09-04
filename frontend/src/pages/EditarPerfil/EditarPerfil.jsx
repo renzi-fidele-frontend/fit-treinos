@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./EditarPerfil.module.css";
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
-import { useRef } from "react";
+import { Button, Col, Container, Form, Image, Row, Spinner } from "react-bootstrap";
+import { useRef, useState } from "react";
 import profilepic from "../../assets/profile.jpg";
 import fotoModelo from "../../assets/modeloEditarPerfil.webp";
 import { Link } from "react-router-dom";
@@ -17,7 +17,8 @@ const EditarPerfil = () => {
    const fotoPreviaRef = useRef();
    const nomeRef = useRef();
    const passwordRef = useRef();
-   const { apanharNoBackendComAuth, loading } = useFetch(null, null, null, "manual");
+   const { apanharNoBackendComAuth, loading: loadingSave } = useFetch(null, null, null, "manual");
+   const [showModalConfirmacao, setShowModalConfirmacao] = useState(false);
 
    /** Renderiza a prévia no componente de imagem sempre que se carrega uma foto ao input field. */
    function renderizarPrevia() {
@@ -59,6 +60,12 @@ const EditarPerfil = () => {
       });
    }
 
+   function deletarConta() {
+      // TODO: Adicionar modal de confirmação de remoção de conta
+      setShowModalConfirmacao(true);
+      
+   }
+
    return (
       <Container>
          <Row className="g-3 g-sm-4 g-lg-5 flex-column-reverse flex-lg-row">
@@ -90,13 +97,26 @@ const EditarPerfil = () => {
                      {/* Credenciais do usuário */}
                      <Form.Group className="mb-4">
                         <Form.Label className="fw-semibold">Suas credencias de usuário</Form.Label>
-                        <Form.Control required ref={nomeRef} type="text" placeholder="Insira seu novo nome de usuário" className="mb-2" defaultValue={user.nome} />
-                        <Form.Control required ref={passwordRef} type="text" placeholder="Insira sua nova palavra-chave" defaultValue={user.password} />
+                        <Form.Control
+                           required
+                           ref={nomeRef}
+                           type="text"
+                           placeholder="Insira seu novo nome de usuário"
+                           className="mb-2"
+                           defaultValue={user.nome}
+                        />
+                        <Form.Control
+                           required
+                           ref={passwordRef}
+                           type="text"
+                           placeholder="Insira sua nova palavra-chave"
+                           defaultValue={user.password}
+                        />
                      </Form.Group>
                      {/* Ações */}
                      <div className="d-flex gap-3">
                         <Button type="submit">
-                           <i className="bi bi-floppy me-1"></i> Salvar alterações
+                           {loadingSave ? <Spinner size="sm" className="me-1" /> : <i className="bi bi-floppy me-1"></i>} Salvar alterações
                         </Button>
                         <Button variant="secondary" as={Link} to="/">
                            <i className="bi bi-x-lg me-1"></i> Cancelar
