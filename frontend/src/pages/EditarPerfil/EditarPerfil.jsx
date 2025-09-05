@@ -7,10 +7,13 @@ import fotoModelo from "../../assets/modeloEditarPerfil.webp";
 import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { setToken, setUser } from "../../state/auth/authSlice";
+import { useTranslation } from "react-i18next";
 
 // TODO: refactor: Separar a utilidade de renderizar prévia de foto carrega para um input field
 
 const EditarPerfil = () => {
+   const { t } = useTranslation();
+   const { tit, ctaFoto, credentials, placeSenha, placeNome, save, cancel, sensivel, deleteBtn, aviso, modal } = t("editarPerfil");
    const { user } = useSelector((state) => state.auth);
    const dispatch = useDispatch();
    const inputFotoPerfilRef = useRef();
@@ -72,7 +75,7 @@ const EditarPerfil = () => {
          <Row className="g-3 g-sm-4 g-lg-5 flex-column-reverse flex-lg-row">
             <Col className="pe-5" lg={6}>
                <h1 className="fw-bold mb-3 mb-xl-3" id={styles.tit2}>
-                  Edite o seu perfil
+                  {tit}
                </h1>
                <div>
                   {/* Prévia da foto de perfil */}
@@ -84,7 +87,7 @@ const EditarPerfil = () => {
                      <Form.Group className="mb-4">
                         <Form.Label>
                            <i className="bi bi-arrow-down me-2"></i>
-                           Clique abaixo para editar a sua foto de perfil
+                           {ctaFoto}
                         </Form.Label>
                         <Form.Control
                            id="foto"
@@ -97,58 +100,43 @@ const EditarPerfil = () => {
                      </Form.Group>
                      {/* Credenciais do usuário */}
                      <Form.Group className="mb-4">
-                        <Form.Label className="fw-semibold">Suas credencias de usuário</Form.Label>
-                        <Form.Control
-                           required
-                           ref={nomeRef}
-                           type="text"
-                           placeholder="Insira seu novo nome de usuário"
-                           className="mb-2"
-                           defaultValue={user.nome}
-                        />
-                        <Form.Control
-                           required
-                           ref={passwordRef}
-                           type="text"
-                           placeholder="Insira sua nova palavra-chave"
-                           defaultValue={user.password}
-                        />
+                        <Form.Label className="fw-semibold">{credentials}</Form.Label>
+                        <Form.Control required ref={nomeRef} type="text" placeholder={placeNome} className="mb-2" defaultValue={user.nome} />
+                        <Form.Control required ref={passwordRef} type="text" placeholder={placeSenha} defaultValue={user.password} />
                      </Form.Group>
                      {/* Ações */}
                      <div className="d-flex gap-3">
                         <Button type="submit">
-                           {loadingSave ? <Spinner size="sm" className="me-1" /> : <i className="bi bi-floppy me-1"></i>} Salvar alterações
+                           {loadingSave ? <Spinner size="sm" className="me-1" /> : <i className="bi bi-floppy me-1"></i>} {save}
                         </Button>
                         <Button variant="secondary" as={Link} to="/">
-                           <i className="bi bi-x-lg me-1"></i> Cancelar
+                           <i className="bi bi-x-lg me-1"></i> {cancel}
                         </Button>
                      </div>
                   </Form>
                </div>
                {/* Deletar conta */}
+               {/* TODO: Terminar de internacionalizar */}
                <div>
-                  <h6 className="fw-semibold">Ação sensível</h6>
+                  <h6 className="fw-semibold">{sensivel}</h6>
                   <Button variant="danger" size="sm" onClick={() => setShowModalConfirmacao(true)}>
-                     <i className="bi bi-trash me-1"></i> Deletar conta
+                     <i className="bi bi-trash me-1"></i> {deleteBtn}
                   </Button>
-                  <p className="mb-0 mt-2">* Depois de excluir sua conta, não há como voltar atrás.</p>
+                  <p className="mb-0 mt-2">{aviso}</p>
                   {/* Modal de confirmação */}
                   <Modal show={showModalConfirmacao} centered onHide={() => setShowModalConfirmacao(false)}>
                      <Modal.Header closeButton>
                         <Modal.Title>
-                           <i className="bi bi-trash"></i> Remover a conta?
+                           <i className="bi bi-trash"></i> {modal.tit}
                         </Modal.Title>
                      </Modal.Header>
-                     <Modal.Body>
-                        Você tem a certeza de deseja remover esta conta? Você perderá todo o seu histório progresso de treinamento, exercícios
-                        favoritos e qualquer informação aqui guardada
-                     </Modal.Body>
+                     <Modal.Body>{modal.descricao}</Modal.Body>
                      <Modal.Footer>
                         <Button variant="secondary" onClick={() => setShowModalConfirmacao(false)}>
-                           Cancelar
+                           {cancel}
                         </Button>
                         <Button variant="danger" onClick={deletarConta}>
-                           Deletar conta
+                           {deleteBtn}
                         </Button>
                      </Modal.Footer>
                   </Modal>

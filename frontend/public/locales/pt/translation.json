@@ -105,6 +105,22 @@
          "privacy2": "Política de privacidade"
       }
    },
+   "editarPerfil": {
+      "tit": "Edite o seu perfil",
+      "ctaFoto": "Clique abaixo para editar a sua foto de perfil",
+      "credentials": "Suas credencias de usuário",
+      "save": "Salvar alterações",
+      "cancel": "Cancelar",
+      "sensivel": "Ação sensível",
+      "deleteBtn": "Deletar conta",
+      "aviso": "* Depois de excluir sua conta, não há como voltar atrás.",
+      "placeNome": "Insira seu novo nome de usuário",
+      "placeSenha": "Insira sua nova palavra-passe",
+      "modal": {
+         "tit": "Remover a conta?",
+         "descricao": "Você tem a certeza de deseja remover esta conta? Você perderá todo o seu histório progresso de treinamento, exercícios favoritos e qualquer informação aqui guardada."
+      }
+   },
    "dashboard": {
       "tit": "Progresso do treinamento",
       "card1": {
@@ -164,7 +180,9 @@
       }
    },
    "header": {
-      "links": ["Início", "Exercícios", "Entrar", "Cadastrar", "Progresso do treinamento", "Favoritos"]
+      "links": ["Início", "Exercícios", "Entrar", "Cadastrar", "Progresso do treinamento", "Favoritos"],
+      "editar": "Editar perfil",
+      "sair": "Deslogar"
    },
    "footer": {
       "copy": "Todos os direitos reservados",

@@ -3,8 +3,11 @@ import { setToken, setUser } from "../../state/auth/authSlice";
 import { Dropdown, Image } from "react-bootstrap";
 import styles from "./DropDownBtn.module.css";
 import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const UserDropdown = ({ customClass }) => {
+   const { t } = useTranslation();
+   const { editar, sair } = t("header");
    const dispatch = useDispatch();
    const { user } = useSelector((state) => state.auth);
 
@@ -24,11 +27,11 @@ const UserDropdown = ({ customClass }) => {
 
          <Dropdown.Menu>
             <Dropdown.Item active={location.pathname === "/usuario/editar_perfil"} as={Link} to="/usuario/editar_perfil">
-               Editar perfil
+               {editar}
             </Dropdown.Item>
 
             <Dropdown.Item onClick={deslogar} className="text-danger">
-               <i className="bi bi-box-arrow-in-left"></i> Deslogar
+               <i className="bi bi-box-arrow-in-left"></i> {sair}
             </Dropdown.Item>
          </Dropdown.Menu>
       </Dropdown>
