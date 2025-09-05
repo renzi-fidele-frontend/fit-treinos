@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
-import { Button, Col, Container, Image, ListGroup, ListGroupItem, Placeholder, Row } from "react-bootstrap";
+import { Button, Col, Container, Image, ListGroup, ListGroupItem, Placeholder, Row, Spinner } from "react-bootstrap";
 import styles from "./DetalhesExercicio.module.css";
 import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
 import { YoutubeVideosApiOptions } from "../../services/YoutubeVideosApi";
@@ -21,7 +21,6 @@ import { traduzirTexto } from "../../utils/traduzirTexto";
 import { useTranslation } from "react-i18next";
 
 // FIXME: A requisição está sendo feita duas vezes
-// TODO: Mostrar loading caso se adicione um exercício a lista de favoritos
 
 const DetalhesExercicio = () => {
    const { t } = useTranslation();
@@ -42,7 +41,7 @@ const DetalhesExercicio = () => {
    // Requisições
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
    const apanharExercicios = useFetch(null, exercisesFetchOptions, exercicios, "manual");
-   const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
+   const { apanharNoBackendComAuth, loading: loadingFavorito } = useFetch(null, null, null, "manual");
    const { idioma } = useSelector((state) => state.idioma);
 
    useEffect(() => {
@@ -176,11 +175,11 @@ const DetalhesExercicio = () => {
                      </Button>
                      {!favorito ? (
                         <Button variant="secondary" onClick={adicionarAosFavoritos}>
-                           <i className="bi bi-heart me-1"></i> {actions[1]}
+                           {loadingFavorito ? <Spinner className="me-1" size="sm" /> : <i className="bi bi-heart me-1"></i>} {actions[1]}
                         </Button>
                      ) : (
                         <Button variant="danger" onClick={removerDosFavoritos}>
-                           <i className="bi bi-trash me-1"></i> {actions[2]}
+                           {loadingFavorito ? <Spinner className="me-1" size="sm" /> : <i className="bi bi-trash me-1"></i>} {actions[2]}
                         </Button>
                      )}
                   </div>
