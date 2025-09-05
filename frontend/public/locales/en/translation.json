@@ -92,7 +92,7 @@
       }
    },
    "login": {
-      "tit": "Enter your account",
+      "tit": "Login to your account",
       "subtit": "Do you not have a created account yet?",
       "subtit2": "Create an account",
       "social": "Enter a social network",
@@ -103,6 +103,22 @@
          "btn": "Continue training",
          "privacy": "* By using a social network to connect with this site, you are agreeing with our",
          "privacy2": "Privacy Policy"
+      }
+   },
+   "editarPerfil": {
+      "tit": "Edit your profile",
+      "ctaFoto": "Click below to edit your profile photo",
+      "credentials": "Your user accredits",
+      "save": "Save changes",
+      "cancel": "Cancel",
+      "sensivel": "Sensitive action",
+      "deleteBtn": "Delete",
+      "aviso": "* After excluding your account, there is no turning back.",
+      "placeNome": "Enter your new username",
+      "placeSenha": "Enter your new password",
+      "modal": {
+         "tit": "Remove the account?",
+         "descricao": "Are you sure you want to remove this account? "
       }
    },
    "dashboard": {
@@ -170,7 +186,9 @@
       }
    },
    "header": {
-      "links": ["Home", "Exercises", "Log In", "Sign Up", "Training Progress", "Favorites"]
+      "links": ["Home", "Exercises", "Log In", "Sign Up", "Training Progress", "Favorites"],
+      "editar": "Edit profile",
+      "sair": "Logout"
    },
    "footer": {
       "copy": "All rights reserved",
