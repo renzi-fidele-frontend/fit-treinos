@@ -4,6 +4,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
 const jwt = require("jsonwebtoken");
 
+// Estratégia do Google
 passport.use(
    new GoogleStrategy(
       {
@@ -22,7 +23,6 @@ passport.use(
                   email: profile?.emails[0]?.value,
                   googleId: profile.id,
                   foto: profile?.photos[0]?.value,
-                  
                });
                usuarioAdicionado.save();
                const token = jwt.sign({ userId: usuarioAdicionado.id }, process.env.JWT_SECRET);
@@ -37,6 +37,8 @@ passport.use(
       }
    )
 );
+
+// Estratégia do Facebook
 passport.use(
    new FacebookStrategy(
       {
@@ -56,13 +58,15 @@ passport.use(
                   email: profile?.emails[0]?.value,
                   facebookId: profile.id,
                   foto: profile?.photos[0]?.value,
+                  _id: profile?.id,
                });
                usuarioAdicionado.save();
-               const token = jwt.sign({ userId: usuarioAdicionado.id }, process.env.JWT_SECRET);
-               done(false, { user: usuarioAdicionado.toObject(), token });
+
+               const token = jwt.sign({ userId: usuarioAdicionado.id, accessToken }, process.env.JWT_SECRET);
+               done(false, { user: usuarioAdicionado.toObject(), token, accessToken });
             } else {
-               const token = jwt.sign({ userId: existeUser.id }, process.env.JWT_SECRET);
-               done(false, { user: existeUser.toObject(), token });
+               const token = jwt.sign({ userId: existeUser.id, accessToken }, process.env.JWT_SECRET);
+               done(false, { user: existeUser.toObject(), token, accessToken });
             }
          } catch (error) {
             done(error, false);
