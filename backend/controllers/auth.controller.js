@@ -105,18 +105,28 @@ const editarPerfil = async (req, res) => {
 const deletarPerfil = async (req, res) => {
    const uid = req.userId;
    const { accessToken } = req;
+   console.log(`O accessToken é: ${accessToken}`);
+   let contaRemovida;
    try {
-      const contaRemovida = await Usuario.findByIdAndDelete(uid);
+      contaRemovida = await Usuario.findByIdAndDelete(uid);
       const removerFotoDePerfilAntiga = await removerFoto(contaRemovida.foto.split("/").slice(-1)[0].split(".")[0]);
-      if (contaRemovida.facebookId) {
-         const removerPermissoesDoFacebook = await fetch(`https://graph.facebook.com/v23.0/${uid}/permissions?access_token=${accessToken}`, {
-            method: "DELETE",
-         });
-      }
-      res.json({ message: "Conta removida com sucesso" });
    } catch (error) {
       res.status(500).json({ message: "Erro ao remover a conta!" });
    }
+
+   if (contaRemovida?.facebookId) {
+      try {
+         const url = `https://graph.facebook.com/v23.0/${contaRemovida.facebookId}/permissions?access_token=${accessToken}`;
+         const removerPermissoesDoFacebook = await fetch(url, {
+            method: "DELETE",
+         });
+      } catch (error) {
+         console.log("Erro ao remover as credenciais do facebookId!");
+         console.log(error);
+      }
+   }
+
+   res.json({ message: "Conta removida com sucesso" });
 };
 
 exports.cadastrarUsuario = cadastrarUsuario;

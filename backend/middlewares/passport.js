@@ -52,21 +52,21 @@ passport.use(
          try {
             let existeUser = await Usuario.findOne({ facebookId: profile.id });
             let usuarioAdicionado;
+            console.log(`O access token é: ${accessToken}`);
             if (!existeUser) {
                usuarioAdicionado = new Usuario({
                   nome: profile?.name?.givenName + " " + profile?.name?.familyName,
                   email: profile?.emails[0]?.value,
-                  facebookId: profile.id,
+                  facebookId: profile?.id,
                   foto: profile?.photos[0]?.value,
-                  _id: profile?.id,
                });
                usuarioAdicionado.save();
 
                const token = jwt.sign({ userId: usuarioAdicionado.id, accessToken }, process.env.JWT_SECRET);
-               done(false, { user: usuarioAdicionado.toObject(), token, accessToken });
+               done(false, { user: usuarioAdicionado.toObject(), token });
             } else {
                const token = jwt.sign({ userId: existeUser.id, accessToken }, process.env.JWT_SECRET);
-               done(false, { user: existeUser.toObject(), token, accessToken });
+               done(false, { user: existeUser.toObject(), token });
             }
          } catch (error) {
             done(error, false);
