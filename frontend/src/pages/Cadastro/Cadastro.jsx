@@ -10,6 +10,7 @@ import { setToken, setUser } from "../../state/auth/authSlice";
 import Notificacao from "../../components/Notificacao/Notificacao";
 import { facebookAuth, googleAuth } from "../../services/SocialAuth";
 import { useTranslation } from "react-i18next";
+import { renderizarPrevia } from "../../utils/renderizarPrevia";
 
 const Cadastro = () => {
    const { t } = useTranslation();
@@ -63,14 +64,6 @@ const Cadastro = () => {
          dispatch(setToken(res.token));
          if (res.usuario && res.token) navegar("/");
       });
-   }
-
-   function renderizarPrevia() {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-         fotoPreviaRef.current.src = reader.result;
-      };
-      reader.readAsDataURL(inputFotoPerfilRef.current.files[0]);
    }
 
    const Step1 = () => (
@@ -127,7 +120,7 @@ const Cadastro = () => {
                <Form.Control
                   id="foto"
                   ref={inputFotoPerfilRef}
-                  onChange={renderizarPrevia}
+                  onChange={() => renderizarPrevia(fotoPreviaRef, inputFotoPerfilRef)}
                   accept="image/*"
                   required
                   className="shadow-sm"

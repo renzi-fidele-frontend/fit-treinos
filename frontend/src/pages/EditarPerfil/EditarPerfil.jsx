@@ -8,8 +8,7 @@ import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { setToken, setUser } from "../../state/auth/authSlice";
 import { useTranslation } from "react-i18next";
-
-// TODO: refactor: Separar a utilidade de renderizar prévia de foto carrega para um input field
+import { renderizarPrevia } from "../../utils/renderizarPrevia";
 
 const EditarPerfil = () => {
    const { t } = useTranslation();
@@ -22,15 +21,6 @@ const EditarPerfil = () => {
    const passwordRef = useRef();
    const { apanharNoBackendComAuth, loading: loadingSave } = useFetch(null, null, null, "manual");
    const [showModalConfirmacao, setShowModalConfirmacao] = useState(false);
-
-   /** Renderiza a prévia no componente de imagem sempre que se carrega uma foto ao input field. */
-   function renderizarPrevia() {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-         fotoPreviaRef.current.src = reader.result;
-      };
-      reader.readAsDataURL(inputFotoPerfilRef.current.files[0]);
-   }
 
    function editarPerfil(e) {
       e.preventDefault();
@@ -92,7 +82,7 @@ const EditarPerfil = () => {
                         <Form.Control
                            id="foto"
                            ref={inputFotoPerfilRef}
-                           onChange={renderizarPrevia}
+                           onChange={() => renderizarPrevia(fotoPreviaRef, inputFotoPerfilRef)}
                            accept="image/*"
                            className="shadow-sm"
                            type="file"
