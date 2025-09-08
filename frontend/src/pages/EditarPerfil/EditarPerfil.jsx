@@ -9,6 +9,7 @@ import useFetch from "../../hooks/useFetch";
 import { setToken, setUser } from "../../state/auth/authSlice";
 import { useTranslation } from "react-i18next";
 import { renderizarPrevia } from "../../utils/renderizarPrevia";
+import Notificacao from "../../components/Notificacao/Notificacao";
 
 const EditarPerfil = () => {
    const { t } = useTranslation();
@@ -21,6 +22,9 @@ const EditarPerfil = () => {
    const passwordRef = useRef();
    const { apanharNoBackendComAuth, loading: loadingSave } = useFetch(null, null, null, "manual");
    const [showModalConfirmacao, setShowModalConfirmacao] = useState(false);
+   // Possíveis erros
+   const [mensagemAviso, setMensagemAviso] = useState(null);
+   const [mostrarNotificacao, setMostrarNotificacao] = useState(false);
 
    function editarPerfil(e) {
       e.preventDefault();
@@ -42,12 +46,10 @@ const EditarPerfil = () => {
       }).then((res) => {
          console.log(res);
          if (res.error) {
-            // TODO: Renderizar o erro que ocorre ao tentar se atualizar a foto do perfil do usuário
-            return;
+            // TODO: Renderizar o erro que ocorre ao tentar se atualizar os dados do perfil
          }
-
-         // TODO: Renderizar mensagem no caso de sucesso ao se atualizar a foto de perfil deverei
-
+         setMostrarNotificacao(true);
+         setMensagemAviso(res.message);
          dispatch(setUser(res.usuario));
          dispatch(setToken(res.token));
       });
@@ -135,6 +137,8 @@ const EditarPerfil = () => {
                <Image id={styles.fotoBanner} src={fotoModelo} />
             </Col>
          </Row>
+         {/* Mensagem de noficação de succeso de edição */}
+         <Notificacao variant="success" mensagem={mensagemAviso} mostrar={mostrarNotificacao} onClose={() => setMostrarNotificacao(false)} />
       </Container>
    );
 };

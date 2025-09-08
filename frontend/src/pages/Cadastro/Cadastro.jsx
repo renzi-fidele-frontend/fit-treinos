@@ -151,7 +151,7 @@ const Cadastro = () => {
                <Image id={styles.fotoBanner} src={ftBanner} />
             </Col>
          </Row>
-         <Notificacao mostrar={mostrarErro} onClose={() => setMostrarErro(false)} mensagem={erro} />
+         <Notificacao variant="warning" mostrar={mostrarErro} onClose={() => setMostrarErro(false)} mensagem={erro} />
       </Container>
    );
 };

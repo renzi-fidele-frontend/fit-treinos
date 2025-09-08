@@ -84,7 +84,7 @@ const Login = () => {
                <Image id={styles.fotoBanner} src={ftBanner} />
             </Col>
          </Row>
-         <Notificacao mensagem={erro} mostrar={mostrarErro} onClose={() => setMostrarErro(false)} />
+         <Notificacao variant="warning" mensagem={erro} mostrar={mostrarErro} onClose={() => setMostrarErro(false)} />
       </Container>
    );
 };
