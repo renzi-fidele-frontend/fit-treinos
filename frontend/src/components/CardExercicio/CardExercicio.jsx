@@ -14,7 +14,7 @@ const CardExercicio = ({ foto, categoria, titulo, id, truncado = false, customCl
    const { idioma } = useSelector((state) => state.idioma);
 
    useEffect(() => {
-      if (titulo && idioma?.includes("en")) traduzirTexto(titulo).then((res) => setTituloTraduzido(res));
+      if (titulo && idioma?.includes("pt")) traduzirTexto(titulo).then((res) => setTituloTraduzido(res));
    }, [titulo, idioma]);
 
    return (foto, categoria, titulo, id) ? (
@@ -28,7 +28,9 @@ const CardExercicio = ({ foto, categoria, titulo, id, truncado = false, customCl
             ))}
          </Card.Body>
          <Card.Footer>
-            <Card.Title className="text-start fw-semibold text-capitalize text-truncate">{idioma?.includes("en") ? titulo : tituloTraduzido}</Card.Title>
+            <Card.Title className="text-start fw-semibold text-capitalize text-truncate">
+               {idioma?.includes("en") ? titulo : tituloTraduzido}
+            </Card.Title>
          </Card.Footer>
       </Card>
    ) : (
