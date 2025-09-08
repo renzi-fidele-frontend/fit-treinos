@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-   categorias: null,
-   categoriaEscolhida: null,
+   partesDoCorpo: null,
+   parteDoCorpoEscolhida: null,
    filtros: { equipamento: "todos", musculoAlvo: "todos", parteDoCorpo: "todos" },
    equipamentos: null,
    musculoAlvo: null,
@@ -13,11 +13,11 @@ const configsSlice = createSlice({
    name: "Configs",
    initialState,
    reducers: {
-      setCategorias: (state, action) => {
-         state.categorias = action.payload;
+      setPartesDoCorpo: (state, action) => {
+         state.partesDoCorpo = action.payload;
       },
-      setCategoriaEscolhida: (state, action) => {
-         state.categoriaEscolhida = action.payload;
+      setParteDoCorpoEscolhida: (state, action) => {
+         state.parteDoCorpoEscolhida = action.payload;
       },
       setFiltros: (state, action) => {
          state.filtros = action.payload;
@@ -34,6 +34,6 @@ const configsSlice = createSlice({
    },
 });
 
-export const { setCategorias, setCategoriaEscolhida, setFiltros, setEquipamentos, setMusculoAlvo, setPaginaAtual } = configsSlice.actions;
+export const { setPartesDoCorpo, setParteDoCorpoEscolhida, setFiltros, setEquipamentos, setMusculoAlvo, setPaginaAtual } = configsSlice.actions;
 
 export default configsSlice.reducer;

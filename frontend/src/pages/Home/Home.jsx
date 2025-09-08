@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
-import { setCategorias, setCategoriaEscolhida } from "../../state/configs/configsSlice";
+import { setPartesDoCorpo, setParteDoCorpoEscolhida } from "../../state/configs/configsSlice";
 import Slider from "react-slick";
 import bg1 from "../../assets/bg1.jpg";
 import fotoAtleta from "../../assets/atleta.png";
@@ -39,32 +39,32 @@ const Home = () => {
    const { secaoInicial, vantagens, testemunhos, titExercicios, ctaExercicios } = t("home");
    const dispatch = useDispatch();
    const verificar = useSocialAuth();
-   const { categorias, categoriaEscolhida } = useSelector((state) => state.configs);
+   const { partesDoCorpo, parteDoCorpoEscolhida } = useSelector((state) => state.configs);
    const { exerciciosDeCategoria, exercicios } = useSelector((state) => state.exercicios);
    const { modoEscuro } = useSelector((state) => state.tema);
 
-   const apanharCategorias = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, categorias);
+   const apanharPartesDoCorpo = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, partesDoCorpo);
 
    const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises?limit=1000", exercisesFetchOptions, exercicios);
 
-   function alterarCategoriaSelecionada(categoria) {
+   function alterarParteDoCorpoSelecionada(categoria) {
       dispatch(setExerciciosDeCategoria(exercicios?.filter((v) => v?.bodyPart?.includes(categoria))));
    }
    // Controlador da mudança de categoria escolhida
    useEffect(() => {
-      if (categoriaEscolhida) {
-         alterarCategoriaSelecionada(categoriaEscolhida);
+      if (parteDoCorpoEscolhida) {
+         alterarParteDoCorpoSelecionada(parteDoCorpoEscolhida);
       }
-   }, [categoriaEscolhida]);
+   }, [parteDoCorpoEscolhida]);
 
    function definirCategorias() {
-      if (!categorias) {
-         dispatch(setCategorias(apanharCategorias.data));
-         dispatch(setCategoriaEscolhida(apanharCategorias.data?.[0]));
+      if (!partesDoCorpo) {
+         dispatch(setPartesDoCorpo(apanharPartesDoCorpo.data));
+         dispatch(setParteDoCorpoEscolhida(apanharPartesDoCorpo.data?.[0]));
       }
       // Ao se chegar da página de exercícios será recapturada a categoria escolhida
-      if (!categoriaEscolhida && categorias) {
-         dispatch(setCategoriaEscolhida(categorias?.[0]));
+      if (!parteDoCorpoEscolhida && partesDoCorpo) {
+         dispatch(setParteDoCorpoEscolhida(partesDoCorpo?.[0]));
       }
    }
 
@@ -72,9 +72,9 @@ const Home = () => {
       definirCategorias();
       if (!exercicios) {
          dispatch(setExercicios(apanharExercicios.data));
-         dispatch(setExerciciosDeCategoria(apanharExercicios.data?.filter((v) => v?.bodyPart?.includes(categoriaEscolhida))));
+         dispatch(setExerciciosDeCategoria(apanharExercicios.data?.filter((v) => v?.bodyPart?.includes(parteDoCorpoEscolhida))));
       }
-   }, [apanharCategorias.data, apanharExercicios.data, exercicios]);
+   }, [apanharPartesDoCorpo.data, apanharExercicios.data, exercicios]);
 
    return (
       <Container fluid>
@@ -136,16 +136,16 @@ const Home = () => {
                      slidesToScroll={1}
                      slidesToShow={4}
                   >
-                     {categorias
-                        ? categorias?.map((v, k) => (
+                     {partesDoCorpo
+                        ? partesDoCorpo?.map((v, k) => (
                              <ListGroupItem
                                 className="py-1 d-flex gap-2 align-items-center flex-column position-relative"
                                 onClick={() => {
-                                   dispatch(setCategoriaEscolhida(v));
+                                   dispatch(setParteDoCorpoEscolhida(v));
                                 }}
                                 key={k}
                                 action
-                                active={categoriaEscolhida === v}
+                                active={parteDoCorpoEscolhida === v}
                              >
                                 <Image src={fotoDaParteDoCorpo(v)} />
                                 <div style={{ opacity: "15%" }} className="position-absolute bg-dark h-100 w-100"></div>

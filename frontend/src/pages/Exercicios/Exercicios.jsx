@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { exercisesFetchOptions } from "../../services/ExercicesApi";
 import useFetch from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
-import { setCategorias, setEquipamentos, setMusculoAlvo, setPaginaAtual } from "../../state/configs/configsSlice";
+import { setPartesDoCorpo, setEquipamentos, setMusculoAlvo, setPaginaAtual } from "../../state/configs/configsSlice";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import Paginacao from "../../components/Paginacao/Paginacao";
 import { paginarArray } from "../../utils/paginarArray";
@@ -21,7 +21,7 @@ import { useTranslation } from "react-i18next";
 const Exercicios = () => {
    const { t } = useTranslation();
    const { tit, subtit, titEx, sectionFiltros } = t("exercicios");
-   const { categorias: partesCorpo, equipamentos, musculoAlvo, filtros, paginaAtual } = useSelector((state) => state.configs);
+   const { partesCorpo, equipamentos, musculoAlvo, filtros, paginaAtual } = useSelector((state) => state.configs);
    const { exercicios, exerciciosFiltrados, exerciciosPaginados } = useSelector((state) => state.exercicios);
    const { idioma } = useSelector((state) => state.idioma);
    const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const Exercicios = () => {
    // Armazenando os dados da api
    useEffect(() => {
       if (!exercicios) dispatch(setExercicios(apanharExercicios.data));
-      if (!partesCorpo) dispatch(setCategorias(apanharPartesCorpo.data));
+      if (!partesCorpo) dispatch(setPartesDoCorpo(apanharPartesCorpo.data));
       if (!equipamentos) dispatch(setEquipamentos(apanharEquipamentos.data));
       if (!musculoAlvo) dispatch(setMusculoAlvo(apanharMusculoAlvo.data));
    }, [apanharPartesCorpo.data, apanharEquipamentos.data, apanharMusculoAlvo.data, apanharExercicios.data]);
