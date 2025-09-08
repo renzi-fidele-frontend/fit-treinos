@@ -2,10 +2,21 @@ import { Badge, Card, Placeholder } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { gerarArray } from "../../utils/gerarArray";
 import styles from "./CardExercicio.module.css";
+import { traduzirTexto } from "../../utils/traduzirTexto";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 // TODO: Adicionar um placeholder caso a foto não exista
 
 const CardExercicio = ({ foto, categoria, titulo, id, truncado = false, customClass }) => {
+   const [tituloTraduzido, setTituloTraduzido] = useState();
+   const { idioma } = useSelector((state) => state.idioma);
+
+   useEffect(() => {
+      if (titulo && idioma?.includes("en")) traduzirTexto(titulo).then((res) => setTituloTraduzido(res));
+   }, [titulo, idioma]);
+
    return (foto, categoria, titulo, id) ? (
       <Card className={"h-100 " + customClass} as={Link} to={`/exercicio/${id}`}>
          <Card.Img src={foto} />
@@ -17,7 +28,7 @@ const CardExercicio = ({ foto, categoria, titulo, id, truncado = false, customCl
             ))}
          </Card.Body>
          <Card.Footer>
-            <Card.Title className="text-start fw-semibold text-capitalize text-truncate">{titulo}</Card.Title>
+            <Card.Title className="text-start fw-semibold text-capitalize text-truncate">{idioma?.includes("en") ? titulo : tituloTraduzido}</Card.Title>
          </Card.Footer>
       </Card>
    ) : (

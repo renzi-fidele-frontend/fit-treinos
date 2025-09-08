@@ -9,8 +9,6 @@ import useFetch from "../../hooks/useFetch";
 import { setToken, setUser } from "../../state/auth/authSlice";
 import { useTranslation } from "react-i18next";
 
-// TODO: refactor: Separar a utilidade de renderizar prévia de foto carrega para um input field
-
 const EditarPerfil = () => {
    const { t } = useTranslation();
    const { tit, ctaFoto, credentials, placeSenha, placeNome, save, cancel, sensivel, deleteBtn, aviso, modal } = t("editarPerfil");

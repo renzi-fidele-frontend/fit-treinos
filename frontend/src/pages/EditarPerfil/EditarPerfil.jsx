@@ -45,9 +45,6 @@ const EditarPerfil = () => {
          data: formData,
       }).then((res) => {
          console.log(res);
-         if (res.error) {
-            // TODO: Renderizar o erro que ocorre ao tentar se atualizar os dados do perfil
-         }
          setMostrarNotificacao(true);
          setMensagemAviso(res.message);
          dispatch(setUser(res.usuario));
