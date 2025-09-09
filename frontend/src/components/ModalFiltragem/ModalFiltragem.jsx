@@ -19,6 +19,7 @@ const ModalFiltragem = ({ mostrar, onClose, modo, array, escolhido }) => {
    const { modoEscuro } = useSelector((state) => state.tema);
    const [selecionado, setSelecionado] = useState(verificarModo());
    const { filtrarExercicios } = useFiltrarExercicios();
+   const { idioma } = useSelector((state) => state.idioma);
 
    function verificarModo() {
       switch (modo) {
@@ -72,17 +73,22 @@ const ModalFiltragem = ({ mostrar, onClose, modo, array, escolhido }) => {
                </ListGroup.Item>
                {array?.map(
                   (v, k) =>
-                     processarFoto(v) && (
-                        <ListGroup.Item onClick={() => setSelecionado(v)} className="" active={selecionado === v} key={k} action>
+                     processarFoto(modo === "parteDoCorpo" ? v?.en : v) && (
+                        <ListGroup.Item
+                           onClick={() => setSelecionado(modo === "parteDoCorpo" ? v?.en : v)}
+                           active={modo === "parteDoCorpo" ? selecionado === v?.en : selecionado === v}
+                           key={k}
+                           action
+                        >
                            <div
                               className={`position-relative d-flex align-items-end justify-content-center ${
                                  modoEscuro ? "bg-secondary" : "bg-secondary-subtle"
                               } `}
                            >
-                              <ImagePreloader src={processarFoto(v)} />
+                              <ImagePreloader src={processarFoto(modo === "parteDoCorpo" ? v?.en : v)} />
                               <div className="z-1 w-100 position-absolute bg-black opacity-75" style={{ height: "30px" }}></div>
                               <p className="mb-0 fs-6 position-absolute z-2 shadow-lg text-light fw-bold text-capitalize mb-1" id={styles.txt}>
-                                 {v}
+                                 {modo === "parteDoCorpo" ? (idioma?.includes("en") ? v?.en : v?.pt) : v}
                               </p>
                            </div>
                         </ListGroup.Item>

@@ -17,11 +17,12 @@ import noFilter from "../../assets/noFilter.webp";
 import BannerTopo from "../../components/BannerTopo/BannerTopo";
 import { gerarArray } from "../../utils/gerarArray";
 import { useTranslation } from "react-i18next";
+import { traduzirTexto } from "../../utils/traduzirTexto";
 
 const Exercicios = () => {
    const { t } = useTranslation();
    const { tit, subtit, titEx, sectionFiltros } = t("exercicios");
-   const { partesCorpo, equipamentos, musculoAlvo, filtros, paginaAtual } = useSelector((state) => state.configs);
+   const { partesDoCorpo, equipamentos, musculoAlvo, filtros, paginaAtual } = useSelector((state) => state.configs);
    const { exercicios, exerciciosFiltrados, exerciciosPaginados } = useSelector((state) => state.exercicios);
    const { idioma } = useSelector((state) => state.idioma);
    const dispatch = useDispatch();
@@ -34,17 +35,24 @@ const Exercicios = () => {
 
    // Requisições
    const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises?limit=1000", exercisesFetchOptions, exercicios);
-   const apanharPartesCorpo = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, partesCorpo);
+   const apanharPartesDoCorpo = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, partesDoCorpo);
    const apanharEquipamentos = useFetch("https://exercisedb.p.rapidapi.com/exercises/equipmentList", exercisesFetchOptions, equipamentos);
    const apanharMusculoAlvo = useFetch("https://exercisedb.p.rapidapi.com/exercises/targetList", exercisesFetchOptions, musculoAlvo);
 
    // Armazenando os dados da api
    useEffect(() => {
       if (!exercicios) dispatch(setExercicios(apanharExercicios.data));
-      if (!partesCorpo) dispatch(setPartesDoCorpo(apanharPartesCorpo.data));
+      let partesDoCorpoTraduzidas;
+      if (!partesDoCorpo) {
+         traduzirTexto(apanharPartesDoCorpo.data?.join(" * ")).then((res) => {
+            dispatch(setPartesDoCorpo(res.split(" * ").map((v, k) => ({ pt: v, en: apanharPartesDoCorpo.data[k] }))));
+         });
+         dispatch(setPartesDoCorpo(partesDoCorpoTraduzidas));
+      }
+
       if (!equipamentos) dispatch(setEquipamentos(apanharEquipamentos.data));
       if (!musculoAlvo) dispatch(setMusculoAlvo(apanharMusculoAlvo.data));
-   }, [apanharPartesCorpo.data, apanharEquipamentos.data, apanharMusculoAlvo.data, apanharExercicios.data]);
+   }, [apanharPartesDoCorpo.data, apanharEquipamentos.data, apanharMusculoAlvo.data, apanharExercicios.data]);
 
    // Caso a página carrege e hajam filtros
    useEffect(() => {
@@ -88,7 +96,7 @@ const Exercicios = () => {
                               onClose={() => setModalParteDoCorpo(false)}
                               escolhido={sectionFiltros.items[0]}
                               modo="parteDoCorpo"
-                              array={partesCorpo}
+                              array={partesDoCorpo}
                            />
                         </Col>
                         {/* Equipamento */}

@@ -16,8 +16,8 @@ import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
 import useSocialAuth from "../../hooks/useSocialAuth";
 import { setExercicios, setExerciciosDeCategoria } from "../../state/exercicios/exerciciosSlice";
 import { gerarArray } from "../../utils/gerarArray";
-
 import { useTranslation } from "react-i18next";
+import { traduzirTexto } from "../../utils/traduzirTexto";
 
 const CardTestemunho = ({ nome, testemunho }) => {
    const { modoEscuro } = useSelector((state) => state.tema);
@@ -42,6 +42,7 @@ const Home = () => {
    const { partesDoCorpo, parteDoCorpoEscolhida } = useSelector((state) => state.configs);
    const { exerciciosDeCategoria, exercicios } = useSelector((state) => state.exercicios);
    const { modoEscuro } = useSelector((state) => state.tema);
+   const { idioma } = useSelector((state) => state.idioma);
 
    const apanharPartesDoCorpo = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, partesDoCorpo);
 
@@ -57,18 +58,19 @@ const Home = () => {
       }
    }, [parteDoCorpoEscolhida]);
 
-   function definirCategorias() {
-      if (!partesDoCorpo) {
-         dispatch(setPartesDoCorpo(apanharPartesDoCorpo.data));
-         dispatch(setParteDoCorpoEscolhida(apanharPartesDoCorpo.data?.[0]));
-      }
-      // Ao se chegar da página de exercícios será recapturada a categoria escolhida
-      if (!parteDoCorpoEscolhida && partesDoCorpo) {
-         dispatch(setParteDoCorpoEscolhida(partesDoCorpo?.[0]));
-      }
-   }
-
    useEffect(() => {
+      function definirCategorias() {
+         if (!partesDoCorpo) {
+            traduzirTexto(apanharPartesDoCorpo.data?.join(" * ")).then((res) => {
+               dispatch(setPartesDoCorpo(res.split(" * ").map((v, k) => ({ pt: v, en: apanharPartesDoCorpo.data[k] }))));
+            });
+            dispatch(setParteDoCorpoEscolhida(partesDoCorpo?.[0]?.en));
+         }
+         // Ao se chegar da página de exercícios será recapturada a categoria escolhida
+         if (!parteDoCorpoEscolhida && partesDoCorpo) {
+            dispatch(setParteDoCorpoEscolhida(partesDoCorpo?.[0]));
+         }
+      }
       definirCategorias();
       if (!exercicios) {
          dispatch(setExercicios(apanharExercicios.data));
@@ -119,51 +121,48 @@ const Home = () => {
          <Row className="mt-0 mt-md-5 py-5">
             <Col className="text-center">
                <Titulo texto={titExercicios} />
-
-               {/*  Filtragem */}
-               {/* TODO: Traduzir as partes do corpo */}
-               <Container className="mt-5">
-                  <Slider
-                     draggable={false}
-                     responsive={[
-                        { breakpoint: 1200, settings: { slidesToShow: 3 } },
-                        { breakpoint: 992, settings: { slidesToShow: 2 } },
-                        { breakpoint: 480, settings: { slidesToShow: 1 } },
-                     ]}
-                     arrows={true}
-                     infinite={false}
-                     className="list-group"
-                     slidesToScroll={1}
-                     slidesToShow={4}
-                  >
-                     {partesDoCorpo
-                        ? partesDoCorpo?.map((v, k) => (
-                             <ListGroupItem
-                                className="py-1 d-flex gap-2 align-items-center flex-column position-relative"
-                                onClick={() => {
-                                   dispatch(setParteDoCorpoEscolhida(v));
-                                }}
-                                key={k}
-                                action
-                                active={parteDoCorpoEscolhida === v}
-                             >
-                                <Image src={fotoDaParteDoCorpo(v)} />
-                                <div style={{ opacity: "15%" }} className="position-absolute bg-dark h-100 w-100"></div>
-                                <span id={styles.textOverlay} className=" fs-6 fw-bold text-uppercase position-absolute">
-                                   {v}
-                                </span>
-                             </ListGroupItem>
-                          ))
-                        : gerarArray(6).map((v, k) => (
-                             <ListGroupItem key={k} className="py-1 d-flex gap-2 align-items-center flex-column position-relative">
-                                <Placeholder animation="wave" xs={12}>
-                                   <Placeholder xs={12} className={styles.loadCateg} />
-                                </Placeholder>
-                             </ListGroupItem>
-                          ))}
-                  </Slider>
-               </Container>
-
+               {
+                  /*  Filtragem */
+                  <Container className="mt-5">
+                     <Slider
+                        draggable={false}
+                        responsive={[
+                           { breakpoint: 1200, settings: { slidesToShow: 3 } },
+                           { breakpoint: 992, settings: { slidesToShow: 2 } },
+                           { breakpoint: 480, settings: { slidesToShow: 1 } },
+                        ]}
+                        arrows={true}
+                        infinite={false}
+                        className="list-group"
+                        slidesToScroll={1}
+                        slidesToShow={4}
+                     >
+                        {partesDoCorpo
+                           ? partesDoCorpo?.map((v, k) => (
+                                <ListGroupItem
+                                   className="py-1 d-flex gap-2 align-items-center flex-column position-relative"
+                                   onClick={() => dispatch(setParteDoCorpoEscolhida(v.en))}
+                                   key={k}
+                                   action
+                                   active={parteDoCorpoEscolhida === v.en}
+                                >
+                                   <Image src={fotoDaParteDoCorpo(v.en)} />
+                                   <div style={{ opacity: "15%" }} className="position-absolute bg-dark h-100 w-100"></div>
+                                   <span id={styles.textOverlay} className=" fs-6 fw-bold text-uppercase position-absolute">
+                                      {idioma?.includes("en") ? v.en : v.pt}
+                                   </span>
+                                </ListGroupItem>
+                             ))
+                           : gerarArray(6).map((v, k) => (
+                                <ListGroupItem key={k} className="py-1 d-flex gap-2 align-items-center flex-column position-relative">
+                                   <Placeholder animation="wave" xs={12}>
+                                      <Placeholder xs={12} className={styles.loadCateg} />
+                                   </Placeholder>
+                                </ListGroupItem>
+                             ))}
+                     </Slider>
+                  </Container>
+               }
                {/*  Exercícios  */}
                <Container fluid className="mt-5 px-xl-5">
                   <hr className="mx-5" />

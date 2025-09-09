@@ -54,8 +54,6 @@ const EditarPerfil = () => {
             return;
          }
 
-         // TODO: Renderizar mensagem no caso de sucesso ao se atualizar a foto de perfil deverei
-
          dispatch(setUser(res.usuario));
          dispatch(setToken(res.token));
       });
