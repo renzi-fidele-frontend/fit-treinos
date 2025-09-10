@@ -51,12 +51,15 @@ const Exercicios = () => {
 
       if (!equipamentos) {
          traduzirTexto(apanharEquipamentos.data?.join(" * ")).then((res) => {
-            console.log(res);
             dispatch(setEquipamentos(res.split(" * ").map((v, k) => ({ pt: v, en: apanharEquipamentos.data[k] }))));
          });
       }
 
-      if (!musculoAlvo) dispatch(setMusculoAlvo(apanharMusculoAlvo.data));
+      if (!musculoAlvo) {
+         traduzirTexto(apanharMusculoAlvo.data?.join(" * ")).then((res) => {
+            dispatch(setMusculoAlvo(res.split(" * ").map((v, k) => ({ pt: v, en: apanharMusculoAlvo.data[k] }))));
+         });
+      }
    }, [apanharPartesDoCorpo.data, apanharEquipamentos.data, apanharMusculoAlvo.data, apanharExercicios.data]);
 
    // Caso a página carrege e hajam filtros
