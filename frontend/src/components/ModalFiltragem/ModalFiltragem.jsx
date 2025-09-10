@@ -74,18 +74,12 @@ const ModalFiltragem = ({ mostrar, onClose, modo, array, escolhido }) => {
                {array?.map(
                   (v, k) =>
                      processarFoto(v?.en) && (
-                        // FIXME: Corrigir estrutura do overflow
                         <ListGroup.Item onClick={() => setSelecionado(v?.en)} active={selecionado === v?.en} key={k} action>
-                           <div
-                              className={`position-relative d-flex align-items-end justify-content-center ${
-                                 modoEscuro ? "bg-secondary" : "bg-secondary-subtle"
-                              } `}
-                           >
+                           <div className={`d-flex justify-content-center flex-column ${modoEscuro ? "bg-secondary" : "bg-secondary-subtle"} `}>
                               <ImagePreloader src={processarFoto(v?.en)} />
-                              <div className="z-1 w-100 position-absolute bg-black opacity-75" style={{ height: "30px" }}></div>
-                              <p className="mb-0 fs-6 position-absolute z-2 shadow-lg text-light fw-bold text-capitalize mb-1" id={styles.txt}>
-                                 {idioma?.includes("en") ? v?.en : v?.pt}
-                              </p>
+                              <div className="w-100 text-bg-dark">
+                                 <p className="mb-0 fw-bold text-capitalize">{idioma?.includes("en") ? v?.en : v?.pt}</p>
+                              </div>
                            </div>
                         </ListGroup.Item>
                      )
