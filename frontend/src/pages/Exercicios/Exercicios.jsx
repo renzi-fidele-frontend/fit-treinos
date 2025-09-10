@@ -42,15 +42,20 @@ const Exercicios = () => {
    // Armazenando os dados da api
    useEffect(() => {
       if (!exercicios) dispatch(setExercicios(apanharExercicios.data));
-      let partesDoCorpoTraduzidas;
+
       if (!partesDoCorpo) {
          traduzirTexto(apanharPartesDoCorpo.data?.join(" * ")).then((res) => {
             dispatch(setPartesDoCorpo(res.split(" * ").map((v, k) => ({ pt: v, en: apanharPartesDoCorpo.data[k] }))));
          });
-         dispatch(setPartesDoCorpo(partesDoCorpoTraduzidas));
       }
 
-      if (!equipamentos) dispatch(setEquipamentos(apanharEquipamentos.data));
+      if (!equipamentos) {
+         traduzirTexto(apanharEquipamentos.data?.join(" * ")).then((res) => {
+            console.log(res);
+            dispatch(setEquipamentos(res.split(" * ").map((v, k) => ({ pt: v, en: apanharEquipamentos.data[k] }))));
+         });
+      }
+
       if (!musculoAlvo) dispatch(setMusculoAlvo(apanharMusculoAlvo.data));
    }, [apanharPartesDoCorpo.data, apanharEquipamentos.data, apanharMusculoAlvo.data, apanharExercicios.data]);
 

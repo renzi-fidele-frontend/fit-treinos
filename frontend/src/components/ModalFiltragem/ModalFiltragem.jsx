@@ -73,22 +73,18 @@ const ModalFiltragem = ({ mostrar, onClose, modo, array, escolhido }) => {
                </ListGroup.Item>
                {array?.map(
                   (v, k) =>
-                     processarFoto(modo === "parteDoCorpo" ? v?.en : v) && (
-                        <ListGroup.Item
-                           onClick={() => setSelecionado(modo === "parteDoCorpo" ? v?.en : v)}
-                           active={modo === "parteDoCorpo" ? selecionado === v?.en : selecionado === v}
-                           key={k}
-                           action
-                        >
+                     processarFoto(v?.en) && (
+                        // FIXME: Corrigir estrutura do overflow
+                        <ListGroup.Item onClick={() => setSelecionado(v?.en)} active={selecionado === v?.en} key={k} action>
                            <div
                               className={`position-relative d-flex align-items-end justify-content-center ${
                                  modoEscuro ? "bg-secondary" : "bg-secondary-subtle"
                               } `}
                            >
-                              <ImagePreloader src={processarFoto(modo === "parteDoCorpo" ? v?.en : v)} />
+                              <ImagePreloader src={processarFoto(v?.en)} />
                               <div className="z-1 w-100 position-absolute bg-black opacity-75" style={{ height: "30px" }}></div>
                               <p className="mb-0 fs-6 position-absolute z-2 shadow-lg text-light fw-bold text-capitalize mb-1" id={styles.txt}>
-                                 {modo === "parteDoCorpo" ? (idioma?.includes("en") ? v?.en : v?.pt) : v}
+                                 {idioma?.includes("en") ? v?.en : v?.pt}
                               </p>
                            </div>
                         </ListGroup.Item>
