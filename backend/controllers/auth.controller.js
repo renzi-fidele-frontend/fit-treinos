@@ -83,8 +83,13 @@ const editarPerfil = async (req, res) => {
 
    let dadosAtualizados = {
       nome,
-      password: novaSenhaEncriptada,
    };
+
+   // Caso a conta tenha sido criada utilizando email e password
+   if (password) {
+      dadosAtualizados.password = novaSenhaEncriptada;
+   }
+
    // Carregando a nova foto de perfil no cloudinary
    if (foto) {
       const carregarFoto = await uploadImage(foto);

@@ -13,36 +13,17 @@ const EditarPerfilSocial = () => {
    const { tit, placeNome, save, cancel, sensivel, deleteBtn, aviso, modal } = t("editarPerfil");
    const { user } = useSelector((state) => state.auth);
    const dispatch = useDispatch();
-   const inputFotoPerfilRef = useRef();
    const nomeRef = useRef();
-   const passwordRef = useRef();
    const { apanharNoBackendComAuth, loading: loadingSave } = useFetch(null, null, null, "manual");
    const [showModalConfirmacao, setShowModalConfirmacao] = useState(false);
 
    function editarPerfil(e) {
       e.preventDefault();
 
-      const formData = new FormData();
-      formData.append("nome", nomeRef.current.value);
-      formData.append("password", passwordRef.current.value);
-
-      // No caso de se adicionar uma nova foto de perfil
-      const foto = inputFotoPerfilRef.current.files[0];
-      if (foto) {
-         formData.append("foto", foto);
-         formData.append("fotoRemovida", user.foto);
-      }
-
       const atualizar = apanharNoBackendComAuth("auth/editarPerfil", "PATCH", {
          headers: { "Content-Type": "multipart/form-data" },
-         data: formData,
+         data: { nome: nomeRef.current.value },
       }).then((res) => {
-         console.log(res);
-         if (res.error) {
-            // TODO: Renderizar o erro que ocorre ao tentar se atualizar a foto do perfil do usuário
-            return;
-         }
-
          dispatch(setUser(res.usuario));
          dispatch(setToken(res.token));
       });
