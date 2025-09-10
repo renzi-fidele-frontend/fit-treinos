@@ -2,33 +2,22 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./EditarPerfil.module.css";
 import { Button, Col, Container, Form, Image, Row, Spinner, Modal } from "react-bootstrap";
 import { useRef, useState } from "react";
-import profilepic from "../../assets/profile.jpg";
 import fotoModelo from "../../assets/modeloEditarPerfil.webp";
 import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { setToken, setUser } from "../../state/auth/authSlice";
 import { useTranslation } from "react-i18next";
 
-const EditarPerfil = () => {
+const EditarPerfilSocial = () => {
    const { t } = useTranslation();
-   const { tit, ctaFoto, credentials, placeSenha, placeNome, save, cancel, sensivel, deleteBtn, aviso, modal } = t("editarPerfil");
+   const { tit, placeNome, save, cancel, sensivel, deleteBtn, aviso, modal } = t("editarPerfil");
    const { user } = useSelector((state) => state.auth);
    const dispatch = useDispatch();
    const inputFotoPerfilRef = useRef();
-   const fotoPreviaRef = useRef();
    const nomeRef = useRef();
    const passwordRef = useRef();
    const { apanharNoBackendComAuth, loading: loadingSave } = useFetch(null, null, null, "manual");
    const [showModalConfirmacao, setShowModalConfirmacao] = useState(false);
-
-   /** Renderiza a prévia no componente de imagem sempre que se carrega uma foto ao input field. */
-   function renderizarPrevia() {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-         fotoPreviaRef.current.src = reader.result;
-      };
-      reader.readAsDataURL(inputFotoPerfilRef.current.files[0]);
-   }
 
    function editarPerfil(e) {
       e.preventDefault();
@@ -74,31 +63,31 @@ const EditarPerfil = () => {
                   {tit}
                </h1>
                <div>
-                  {/* Prévia da foto de perfil */}
+                  {/* Foto de perfil */}
                   <div id={styles.ctFoto} className="mb-2 rounded border p-2">
-                     <Image ref={fotoPreviaRef} src={user.foto || profilepic} className="rounded-circle" />
+                     <Image src={user.foto} className="rounded-circle" />
                   </div>
-                  <Form className="mb-4" onSubmit={editarPerfil}>
-                     {/* Input upload  */}
+                  <Form className="mb-4 mt-3" onSubmit={editarPerfil}>
+                     {/* Rede social */}
                      <Form.Group className="mb-4">
-                        <Form.Label>
-                           <i className="bi bi-arrow-down me-2"></i>
-                           {ctaFoto}
-                        </Form.Label>
-                        <Form.Control
-                           id="foto"
-                           ref={inputFotoPerfilRef}
-                           onChange={renderizarPrevia}
-                           accept="image/*"
-                           className="shadow-sm"
-                           type="file"
-                        />
+                        <Form.Label className="fw-semibold">Rede social utilizada para cadastro</Form.Label>
+                        <div className="d-flex gap-2 align-items-center">
+                           <div className="rounded border text-primary border-primary px-2 py-1  ">
+                              <i className="bi bi-facebook "></i> Facebook
+                           </div>
+                           <p className="mb-0">
+                              Cadastrado em{" "}
+                              <span className="fst-italic text-decoration-underline fw-medium">
+                                 {new Date(user?.criadoEm).toLocaleDateString()}
+                              </span>
+                           </p>
+                        </div>
                      </Form.Group>
+                     <hr />
                      {/* Credenciais do usuário */}
                      <Form.Group className="mb-4">
-                        <Form.Label className="fw-semibold">{credentials}</Form.Label>
+                        <Form.Label className="fw-semibold">Suas credencias de usuário</Form.Label>
                         <Form.Control required ref={nomeRef} type="text" placeholder={placeNome} className="mb-2" defaultValue={user.nome} />
-                        <Form.Control required ref={passwordRef} type="text" placeholder={placeSenha} defaultValue={user.password} />
                      </Form.Group>
                      {/* Ações */}
                      <div className="d-flex gap-3">
@@ -111,6 +100,7 @@ const EditarPerfil = () => {
                      </div>
                   </Form>
                </div>
+               <hr />
                {/* Deletar conta */}
                <div>
                   <h6 className="fw-semibold">{sensivel}</h6>
@@ -144,4 +134,4 @@ const EditarPerfil = () => {
       </Container>
    );
 };
-export default EditarPerfil;
+export default EditarPerfilSocial;

@@ -104,6 +104,7 @@ const EditarPerfil = () => {
                      </div>
                   </Form>
                </div>
+               <hr />
                {/* Deletar conta */}
                <div>
                   <h6 className="fw-semibold">{sensivel}</h6>
