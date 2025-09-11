@@ -3,21 +3,19 @@ import styles from "./Exercicios.module.css";
 import fotoBanner from "../../assets/bannerEx.png";
 import Titulo from "../../components/ui/Titulo";
 import { useDispatch, useSelector } from "react-redux";
-import { exercisesFetchOptions } from "../../services/ExercicesApi";
-import useFetch from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
-import { setPartesDoCorpo, setEquipamentos, setMusculoAlvo, setPaginaAtual } from "../../state/configs/configsSlice";
+import { setPaginaAtual } from "../../state/configs/configsSlice";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import Paginacao from "../../components/Paginacao/Paginacao";
 import { paginarArray } from "../../utils/paginarArray";
-import { setExercicios, setExerciciosPaginados } from "../../state/exercicios/exerciciosSlice";
+import { setExerciciosPaginados } from "../../state/exercicios/exerciciosSlice";
 import ModalFiltragem from "../../components/ModalFiltragem/ModalFiltragem";
 import useFiltrarExercicios from "../../hooks/useFiltrarExercicios";
 import noFilter from "../../assets/noFilter.webp";
 import BannerTopo from "../../components/BannerTopo/BannerTopo";
 import { gerarArray } from "../../utils/gerarArray";
 import { useTranslation } from "react-i18next";
-import { traduzirTexto } from "../../utils/traduzirTexto";
+import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 
 const Exercicios = () => {
    const { t } = useTranslation();
@@ -28,39 +26,12 @@ const Exercicios = () => {
    const dispatch = useDispatch();
    const { filtrarExercicios } = useFiltrarExercicios();
 
+   useExercisesApiAndDispatchOnStore();
+
    // Modais de filtragem
    const [modalParteDoCorpo, setModalParteDoCorpo] = useState(false);
    const [modalEquipamentos, setModalEquipamentos] = useState(false);
    const [modalMusculosAlvo, setModalMusculosAlvo] = useState(false);
-
-   // Requisições
-   const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises?limit=1000", exercisesFetchOptions, exercicios);
-   const apanharPartesDoCorpo = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, partesDoCorpo);
-   const apanharEquipamentos = useFetch("https://exercisedb.p.rapidapi.com/exercises/equipmentList", exercisesFetchOptions, equipamentos);
-   const apanharMusculoAlvo = useFetch("https://exercisedb.p.rapidapi.com/exercises/targetList", exercisesFetchOptions, musculoAlvo);
-
-   // Armazenando os dados da api
-   useEffect(() => {
-      if (!exercicios) dispatch(setExercicios(apanharExercicios.data));
-
-      if (!partesDoCorpo) {
-         traduzirTexto(apanharPartesDoCorpo.data?.join(" * ")).then((res) => {
-            dispatch(setPartesDoCorpo(res.split(" * ").map((v, k) => ({ pt: v, en: apanharPartesDoCorpo.data[k] }))));
-         });
-      }
-
-      if (!equipamentos) {
-         traduzirTexto(apanharEquipamentos.data?.join(" * ")).then((res) => {
-            dispatch(setEquipamentos(res.split(" * ").map((v, k) => ({ pt: v, en: apanharEquipamentos.data[k] }))));
-         });
-      }
-
-      if (!musculoAlvo) {
-         traduzirTexto(apanharMusculoAlvo.data?.join(" * ")).then((res) => {
-            dispatch(setMusculoAlvo(res.split(" * ").map((v, k) => ({ pt: v, en: apanharMusculoAlvo.data[k] }))));
-         });
-      }
-   }, [apanharPartesDoCorpo.data, apanharEquipamentos.data, apanharMusculoAlvo.data, apanharExercicios.data]);
 
    // Caso a página carrege e hajam filtros
    useEffect(() => {
