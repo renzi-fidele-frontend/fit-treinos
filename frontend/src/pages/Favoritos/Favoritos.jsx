@@ -1,29 +1,20 @@
 import { Alert, Col, Image, Row } from "react-bootstrap";
 import fotoBanner from "../../assets/myguy.webp";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import noEx from "../../assets/modelo2.webp";
 import BannerTopo from "../../components/BannerTopo/BannerTopo";
 import { gerarArray } from "../../utils/gerarArray";
 import { useTranslation } from "react-i18next";
-import useFetch from "../../hooks/useFetch";
-import { exercisesFetchOptions } from "../../services/ExercicesApi";
-import { useEffect } from "react";
-import { setExercicios } from "../../state/exercicios/exerciciosSlice";
+import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 
 const Favoritos = () => {
    const { t } = useTranslation();
    const { tit, desc, subtit, noTrain } = t("favoritos");
    const { user } = useSelector((state) => state.auth);
    const { exercicios } = useSelector((state) => state.exercicios);
-   const dispatch = useDispatch();
    const favoritos = exercicios?.filter((v) => user?.favoritos?.includes(v?.id));
-   const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises?limit=1000", exercisesFetchOptions, exercicios);
-
-   // Armazenando os dados da api
-   useEffect(() => {
-      if (!exercicios) dispatch(setExercicios(apanharExercicios.data));
-   }, [apanharExercicios.data]);
+   useExercisesApiAndDispatchOnStore();
 
    return (
       <>

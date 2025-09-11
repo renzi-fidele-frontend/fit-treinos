@@ -4,7 +4,7 @@ import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import { CategoryScale } from "chart.js";
 import { Pie } from "react-chartjs-2";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import useFetch from "../../hooks/useFetch";
@@ -16,11 +16,10 @@ import noProgress from "../../assets/noProgress.png";
 import noBestTrain from "../../assets/noBestTrain.png";
 import noLastExs from "../../assets/gif.gif";
 import { gerarArray } from "../../utils/gerarArray";
-import { exercisesFetchOptions } from "../../services/ExercicesApi";
-import { setExercicios } from "../../state/exercicios/exerciciosSlice";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import "moment/dist/locale/pt";
+import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 Chart.register(CategoryScale);
 
 const Dashboard = () => {
@@ -28,7 +27,6 @@ const Dashboard = () => {
    const { tit, tit2, card1, card2, card3, card4, card5, card6 } = t("dashboard");
    const { idioma } = useSelector((state) => state.idioma);
    const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
-   const dispatch = useDispatch();
    const [tempoTotalTreino, setTempoTotalTreino] = useState(null);
    const [nrTreinosHoje, setNrTreinosHoje] = useState(null);
    const [difPercentualDiasDeTreino, setDifPercentualDiasDeTreino] = useState(null);
@@ -43,12 +41,7 @@ const Dashboard = () => {
    const { modoEscuro } = useSelector((state) => state.tema);
    const [exercicioMaisTreinado, setExercicioMaisTreinado] = useState(null);
    const [fetched, setFetched] = useState(false);
-   const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises?limit=1000", exercisesFetchOptions, exercicios);
-
-   // Armazenando os dados da api
-   useEffect(() => {
-      if (!exercicios) dispatch(setExercicios(apanharExercicios.data));
-   }, [apanharExercicios.data]);
+   useExercisesApiAndDispatchOnStore();
 
    useEffect(() => {
       if (!fetched && exercicios) {
@@ -79,21 +72,21 @@ const Dashboard = () => {
    }, [idioma]);
 
    const CardExercicioMaisTreinado = ({ exercicio, tempoDeTreino }) => {
-      const musculoSecundario = exercicio?.secondaryMuscles?.slice(0, 1)[0];
-
       return exercicio ? (
          <div className="mt-3">
             <Link to={`/exercicio/${exercicio?.id}`} className="position-relative h-100 d-flex justify-content-end align-items-end">
                <Image className={styles.foto + " border rounded-1"} src={exercicio?.gifUrl} />
                {/* Tag mobile */}
                <p className="text-capitalize text-bg-secondary px-2 py-1 rounded small mb-0 position-absolute d-xxl-none me-1 mb-1 shadow-lg">
-                  {musculoSecundario}
+                  {exercicio?.secondaryMuscles?.slice(0, 1)[0]}
                </p>
             </Link>
             <div className="d-flex align-items-center mt-2">
                <div className="d-flex gap-2">
                   {/* Tag desktop */}
-                  <p className="text-capitalize text-bg-secondary px-2 py-1 rounded small mb-0 d-none d-xxl-block ">{musculoSecundario}</p>
+                  <p className="text-capitalize text-bg-secondary px-2 py-1 rounded small mb-0 d-none d-xxl-block ">
+                     {exercicio?.secondaryMuscles?.slice(0, 1)[0]}
+                  </p>
                </div>
                <div className="vr mx-2 d-none d-xxl-block"></div>
                <p className="mb-0">

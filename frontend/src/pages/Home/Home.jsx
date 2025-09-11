@@ -4,9 +4,7 @@ import ftBanner from "../../assets/modelo.png";
 import Titulo from "../../components/ui/Titulo";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import useFetch from "../../hooks/useFetch";
-import { exercisesFetchOptions } from "../../services/ExercicesApi";
-import { setPartesDoCorpo, setParteDoCorpoEscolhida } from "../../state/configs/configsSlice";
+import { setParteDoCorpoEscolhida } from "../../state/configs/configsSlice";
 import Slider from "react-slick";
 import bg1 from "../../assets/bg1.jpg";
 import fotoAtleta from "../../assets/atleta.png";
@@ -14,10 +12,10 @@ import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import { Link } from "react-router-dom";
 import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
 import useSocialAuth from "../../hooks/useSocialAuth";
-import { setExercicios, setExerciciosDeCategoria } from "../../state/exercicios/exerciciosSlice";
+import { setExerciciosDeCategoria } from "../../state/exercicios/exerciciosSlice";
 import { gerarArray } from "../../utils/gerarArray";
 import { useTranslation } from "react-i18next";
-import { traduzirTexto } from "../../utils/traduzirTexto";
+import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 
 const CardTestemunho = ({ nome, testemunho }) => {
    const { modoEscuro } = useSelector((state) => state.tema);
@@ -27,7 +25,6 @@ const CardTestemunho = ({ nome, testemunho }) => {
             modoEscuro ? "bg-dark" : "bg-light"
          } mx-2 p-3 rounded-5 shadow-sm d-flex flex-column gap-3 align-items-center`}
       >
-         {/* <Image className="border border-2" src={foto} roundedCircle width="100" height="100" /> */}
          <h4>{nome}</h4>
          <p className="fst-italic">{testemunho}</p>
       </div>
@@ -38,15 +35,12 @@ const Home = () => {
    const { t } = useTranslation();
    const { secaoInicial, vantagens, testemunhos, titExercicios, ctaExercicios } = t("home");
    const dispatch = useDispatch();
-   const verificar = useSocialAuth();
    const { partesDoCorpo, parteDoCorpoEscolhida } = useSelector((state) => state.configs);
    const { exerciciosDeCategoria, exercicios } = useSelector((state) => state.exercicios);
    const { modoEscuro } = useSelector((state) => state.tema);
    const { idioma } = useSelector((state) => state.idioma);
-
-   const apanharPartesDoCorpo = useFetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList", exercisesFetchOptions, partesDoCorpo);
-
-   const apanharExercicios = useFetch("https://exercisedb.p.rapidapi.com/exercises?limit=1000", exercisesFetchOptions, exercicios);
+   useSocialAuth();
+   useExercisesApiAndDispatchOnStore();
 
    function alterarParteDoCorpoSelecionada(categoria) {
       dispatch(setExerciciosDeCategoria(exercicios?.filter((v) => v?.bodyPart?.includes(categoria))));
@@ -60,23 +54,16 @@ const Home = () => {
 
    useEffect(() => {
       function definirCategorias() {
-         if (!partesDoCorpo) {
-            traduzirTexto(apanharPartesDoCorpo.data?.join(" * ")).then((res) => {
-               dispatch(setPartesDoCorpo(res.split(" * ").map((v, k) => ({ pt: v, en: apanharPartesDoCorpo.data[k] }))));
-            });
-            dispatch(setParteDoCorpoEscolhida(partesDoCorpo?.[0]?.en));
-         }
          // Ao se chegar da página de exercícios será recapturada a categoria escolhida
          if (!parteDoCorpoEscolhida && partesDoCorpo) {
             dispatch(setParteDoCorpoEscolhida(partesDoCorpo?.[0]?.en));
          }
       }
       definirCategorias();
-      if (!exercicios) {
-         dispatch(setExercicios(apanharExercicios.data));
-         dispatch(setExerciciosDeCategoria(apanharExercicios.data?.filter((v) => v?.bodyPart?.includes(parteDoCorpoEscolhida))));
+      if (exercicios) {
+         dispatch(setExerciciosDeCategoria(exercicios?.filter((v) => v?.bodyPart?.includes(parteDoCorpoEscolhida))));
       }
-   }, [apanharPartesDoCorpo.data, apanharExercicios.data, exercicios]);
+   }, [partesDoCorpo, exercicios]);
 
    return (
       <Container fluid>

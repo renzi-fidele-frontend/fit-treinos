@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
-import { exercisesFetchOptions } from "../../services/ExercicesApi";
 import { Button, Col, Container, Image, ListGroup, ListGroupItem, Placeholder, Row, Spinner } from "react-bootstrap";
 import styles from "./DetalhesExercicio.module.css";
 import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
@@ -19,6 +18,7 @@ import ToastTreinamento from "../../components/ToastTreinamento/ToastTreinamento
 import { gerarArray } from "../../utils/gerarArray";
 import { traduzirTexto } from "../../utils/traduzirTexto";
 import { useTranslation } from "react-i18next";
+import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 
 // FIXME: A requisição está sendo feita duas vezes
 
@@ -27,6 +27,8 @@ const DetalhesExercicio = () => {
    const { tit, actions, detalhes, youtube, related } = t("exercicio");
    const { id } = useParams();
    const dispatch = useDispatch();
+   const { idioma } = useSelector((state) => state.idioma);
+   const { modoEscuro } = useSelector((state) => state.tema);
    const { exercicios } = useSelector((state) => state.exercicios);
    const { user } = useSelector((state) => state.auth);
    const [exercicio, setExercicio] = useState(null);
@@ -36,13 +38,11 @@ const DetalhesExercicio = () => {
    const [mostrar, setMostrar] = useState(false);
    const [tempo, setTempo] = useState(0);
    const [ativo, setAtivo] = useState(false);
-   const { modoEscuro } = useSelector((state) => state.tema);
    const [instrucoes, setInstrucoes] = useState(null);
    // Requisições
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
-   const apanharExercicios = useFetch(null, exercisesFetchOptions, exercicios, "manual");
    const { apanharNoBackendComAuth, loading: loadingFavorito } = useFetch(null, null, null, "manual");
-   const { idioma } = useSelector((state) => state.idioma);
+   useExercisesApiAndDispatchOnStore();
 
    // Dados traduzidos
    const [titulo, setTitulo] = useState("");
@@ -69,12 +69,6 @@ const DetalhesExercicio = () => {
    }, [exercicio]);
 
    useEffect(() => {
-      if (!exercicios) {
-         apanharExercicios.apanharDadosComParam("https://exercisedb.p.rapidapi.com/exercises?limit=1000").then((v) => {
-            dispatch(setExercicios(v));
-            filtrarPorMusculoAlvo(v);
-         });
-      }
       if (exercicios) {
          setExercicio(exercicios?.filter((v) => v.id === id)[0]);
       }

@@ -28,7 +28,5 @@ const useSocialAuth = () => {
          });
       }
    }, []);
-
-   return null;
 };
 export default useSocialAuth;
