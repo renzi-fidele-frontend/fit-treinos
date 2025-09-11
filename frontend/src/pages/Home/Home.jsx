@@ -68,7 +68,7 @@ const Home = () => {
          }
          // Ao se chegar da página de exercícios será recapturada a categoria escolhida
          if (!parteDoCorpoEscolhida && partesDoCorpo) {
-            dispatch(setParteDoCorpoEscolhida(partesDoCorpo?.[0]));
+            dispatch(setParteDoCorpoEscolhida(partesDoCorpo?.[0]?.en));
          }
       }
       definirCategorias();
