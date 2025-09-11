@@ -44,6 +44,9 @@ const DetalhesExercicio = () => {
    const { apanharNoBackendComAuth, loading: loadingFavorito } = useFetch(null, null, null, "manual");
    const { idioma } = useSelector((state) => state.idioma);
 
+   // Dados traduzidos
+   const [titulo, setTitulo] = useState("");
+
    useEffect(() => {
       if (exercicio) {
          filtrarPorMusculoAlvo(exercicios);
@@ -111,6 +114,11 @@ const DetalhesExercicio = () => {
       return user?.favoritos?.includes(idExercicio);
    }
 
+   // TODO: Traduzir elementos desta página para PT
+   useEffect(() => {
+      if (exercicio && idioma?.includes("pt")) traduzirTexto(exercicio?.name).then((res) => setTitulo(res));
+   }, [exercicio, idioma]);
+
    return (
       <Container className="py-3 py-xl-5">
          {/* Seção inicial */}
@@ -134,7 +142,11 @@ const DetalhesExercicio = () => {
                   {tit}{" "}
                   <span className="text-capitalize text-secondary">
                      {exercicio ? (
-                        exercicio?.name
+                        idioma?.includes("en") ? (
+                           exercicio?.name
+                        ) : (
+                           titulo
+                        )
                      ) : (
                         <Placeholder animation="wave">
                            <Placeholder xs={9} xl={6} />
