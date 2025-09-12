@@ -6,12 +6,14 @@ import { traduzirTexto } from "../../utils/traduzirTexto";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
 
 // TODO: Adicionar um placeholder caso a foto não exista
 
 const CardExercicio = ({ foto, categoria, titulo, id, truncado = false, customClass }) => {
    const [tituloTraduzido, setTituloTraduzido] = useState();
    const { idioma } = useSelector((state) => state.idioma);
+   const { investigarParteDoCorpo, investigarMusculoAlvo } = useAnalisarTraducao();
 
    useEffect(() => {
       if (titulo && idioma?.includes("pt")) traduzirTexto(titulo).then((res) => setTituloTraduzido(res));
@@ -23,7 +25,7 @@ const CardExercicio = ({ foto, categoria, titulo, id, truncado = false, customCl
          <Card.Body className="d-flex flex-wrap gap-3">
             {categoria?.map((v, k) => (
                <Badge style={{ height: "fit-content" }} className=" text-capitalize fs-6 bg-secondary" key={k}>
-                  {v}
+                  {idioma?.includes("en") ? v : investigarParteDoCorpo(v) || investigarMusculoAlvo(v) || v}
                </Badge>
             ))}
          </Card.Body>
