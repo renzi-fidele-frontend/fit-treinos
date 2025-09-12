@@ -18,6 +18,7 @@ import { gerarArray } from "../../utils/gerarArray";
 import { traduzirTexto } from "../../utils/traduzirTexto";
 import { useTranslation } from "react-i18next";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
+import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
 
 // FIXME: A requisição está sendo feita duas vezes
 
@@ -30,7 +31,6 @@ const DetalhesExercicio = () => {
    const { modoEscuro } = useSelector((state) => state.tema);
    const { exercicios } = useSelector((state) => state.exercicios);
    const { user } = useSelector((state) => state.auth);
-   const { partesDoCorpo, equipamentos, musculoAlvo } = useSelector((state) => state.configs);
    const [exercicio, setExercicio] = useState(null);
    const [videos, setVideos] = useState(null);
    const [exerciciosFiltrados, setExerciciosFiltrados] = useState(null);
@@ -39,6 +39,7 @@ const DetalhesExercicio = () => {
    const [tempo, setTempo] = useState(0);
    const [ativo, setAtivo] = useState(false);
    const [instrucoes, setInstrucoes] = useState(null);
+   const { investigarEquipamento, investigarMusculoAlvo, investigarParteDoCorpo } = useAnalisarTraducao();
    // Requisições
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
    const { apanharNoBackendComAuth, loading: loadingFavorito } = useFetch(null, null, null, "manual");
@@ -111,30 +112,6 @@ const DetalhesExercicio = () => {
    useEffect(() => {
       if (exercicio && idioma?.includes("pt")) traduzirTexto(exercicio?.name).then((res) => setTitulo(res));
    }, [exercicio, idioma]);
-
-   function investigarParteDoCorpo(parteDoCorpo) {
-      let parteDoCorpoDescoberta;
-      partesDoCorpo.forEach((v) => {
-         if (v?.en === parteDoCorpo) parteDoCorpoDescoberta = idioma?.includes("en") ? v?.en : v?.pt;
-      });
-      return parteDoCorpoDescoberta;
-   }
-
-   function investigarMusculoAlvo(musculo) {
-      let musculoAlvoDescoberto;
-      musculoAlvo.forEach((v) => {
-         if (v?.en === musculo) musculoAlvoDescoberto = idioma?.includes("en") ? v?.en : v?.pt;
-      });
-      return musculoAlvoDescoberto;
-   }
-
-   function investigarEquipamento(equipamento) {
-      let equipamentoDescoberto;
-      equipamentos.forEach((v) => {
-         if (v?.en === equipamento) equipamentoDescoberto = idioma?.includes("en") ? v?.en : v?.pt;
-      });
-      return equipamentoDescoberto;
-   }
 
    return (
       <Container className="py-3 py-xl-5">
