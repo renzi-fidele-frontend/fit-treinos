@@ -306,12 +306,14 @@ const Dashboard = () => {
                      <h6 id={styles.tit} className="mb-0">
                         {card5.stat}
                      </h6>
-                     <div className="mt-4">
+                     <div className="mt-2">
                         {partesDoCorpoTreinadas ? (
                            partesDoCorpoTreinadas?.length > 0 ? (
                               <Pie
                                  data={{
-                                    labels: partesDoCorpoTreinadas?.map((v) => v?.nome),
+                                    labels: partesDoCorpoTreinadas?.map((v) =>
+                                       idioma?.includes("en") ? v?.nome : investigarParteDoCorpo(v?.nome)
+                                    ),
                                     datasets: [{ data: partesDoCorpoTreinadas?.map((v) => v?.tempoDeTreino) }],
                                  }}
                               />
