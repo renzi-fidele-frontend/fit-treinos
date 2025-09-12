@@ -12,7 +12,6 @@ import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import { fotoEquipamento } from "../../utils/fotoEquipamento";
 import { fotoMusculo } from "../../utils/fotoMusculo";
 import noPhoto from "../../assets/musculos/noPhoto.jpg";
-import { setExercicios } from "../../state/exercicios/exerciciosSlice";
 import { setUser } from "../../state/auth/authSlice";
 import ToastTreinamento from "../../components/ToastTreinamento/ToastTreinamento";
 import { gerarArray } from "../../utils/gerarArray";
@@ -31,6 +30,7 @@ const DetalhesExercicio = () => {
    const { modoEscuro } = useSelector((state) => state.tema);
    const { exercicios } = useSelector((state) => state.exercicios);
    const { user } = useSelector((state) => state.auth);
+   const { partesDoCorpo, equipamentos, musculoAlvo } = useSelector((state) => state.configs);
    const [exercicio, setExercicio] = useState(null);
    const [videos, setVideos] = useState(null);
    const [exerciciosFiltrados, setExerciciosFiltrados] = useState(null);
@@ -45,7 +45,7 @@ const DetalhesExercicio = () => {
    useExercisesApiAndDispatchOnStore();
 
    // Dados traduzidos
-   const [titulo, setTitulo] = useState("");
+   const [titulo, setTitulo] = useState(null);
 
    useEffect(() => {
       if (exercicio) {
@@ -108,10 +108,33 @@ const DetalhesExercicio = () => {
       return user?.favoritos?.includes(idExercicio);
    }
 
-   // TODO: Traduzir elementos desta página para PT
    useEffect(() => {
       if (exercicio && idioma?.includes("pt")) traduzirTexto(exercicio?.name).then((res) => setTitulo(res));
    }, [exercicio, idioma]);
+
+   function investigarParteDoCorpo(parteDoCorpo) {
+      let parteDoCorpoDescoberta;
+      partesDoCorpo.forEach((v) => {
+         if (v?.en === parteDoCorpo) parteDoCorpoDescoberta = idioma?.includes("en") ? v?.en : v?.pt;
+      });
+      return parteDoCorpoDescoberta;
+   }
+
+   function investigarMusculoAlvo(musculo) {
+      let musculoAlvoDescoberto;
+      musculoAlvo.forEach((v) => {
+         if (v?.en === musculo) musculoAlvoDescoberto = idioma?.includes("en") ? v?.en : v?.pt;
+      });
+      return musculoAlvoDescoberto;
+   }
+
+   function investigarEquipamento(equipamento) {
+      let equipamentoDescoberto;
+      equipamentos.forEach((v) => {
+         if (v?.en === equipamento) equipamentoDescoberto = idioma?.includes("en") ? v?.en : v?.pt;
+      });
+      return equipamentoDescoberto;
+   }
 
    return (
       <Container className="py-3 py-xl-5">
@@ -138,8 +161,12 @@ const DetalhesExercicio = () => {
                      {exercicio ? (
                         idioma?.includes("en") ? (
                            exercicio?.name
-                        ) : (
+                        ) : titulo ? (
                            titulo
+                        ) : (
+                           <Placeholder animation="wave">
+                              <Placeholder xs={9} xl={6} />
+                           </Placeholder>
                         )
                      ) : (
                         <Placeholder animation="wave">
@@ -198,12 +225,13 @@ const DetalhesExercicio = () => {
 
          {/* Seção das informações sobre a parte do corpo que será beneficiada ao treinar o exercício  */}
          <Row className="mt-5 text-center">
+            {/* Parte do corpo */}
             <Col sm={7}>
                <h2 className="fw-medium mb-3 mb-sm-4 fs-3" id={styles.labelDetalhes}>
                   {detalhes[0]}{" "}
                   <span className="text-secondary text-capitalize">
                      {exercicio ? (
-                        exercicio?.bodyPart
+                        investigarParteDoCorpo(exercicio?.bodyPart)
                      ) : (
                         <Placeholder animation="wave">
                            <Placeholder xs={2} />
@@ -227,12 +255,13 @@ const DetalhesExercicio = () => {
                )}
             </Col>
             <div className="vr px-1 bg-gradient mx-4 rounded d-none d-sm-block"></div>
+            {/* Equipamento necessário */}
             <Col>
                <h2 className="fw-medium mb-3 mb-sm-4 fs-3" id={styles.labelDetalhes}>
                   {detalhes[1]}{" "}
                   <span className="text-secondary text-capitalize">
                      {exercicio ? (
-                        exercicio?.equipment
+                        investigarEquipamento(exercicio?.equipment)
                      ) : (
                         <Placeholder animation="wave">
                            <Placeholder sm={2} xl={6} xxl={2} />
@@ -256,6 +285,7 @@ const DetalhesExercicio = () => {
          {/* Separador do Mobile */}
          <div className="d-sm-none border mt-4" id={styles.sepMobile}></div>
          <Row className="pt-4 pt-sm-5">
+            {/* Músculo alvo */}
             <Col className="text-center" xl={5}>
                <h4 className=" fw-semibold mb-4">{detalhes[2]}</h4>
                <div
@@ -266,7 +296,7 @@ const DetalhesExercicio = () => {
                      <>
                         {" "}
                         <Image className={styles.musculo + " border rounded-2"} src={fotoMusculo(exercicio?.target)} />
-                        <span>{exercicio?.target}</span>
+                        <span>{investigarMusculoAlvo(exercicio?.target)}</span>
                      </>
                   ) : (
                      <Placeholder animation="wave">
@@ -277,6 +307,7 @@ const DetalhesExercicio = () => {
             </Col>
             {/* Separador vertical do desktop */}
             <div className="vr px-1 bg-gradient mx-4 rounded d-none d-xl-block"></div>
+            {/* Músculos secundários */}
             <Col className="text-center">
                <h4 className="fw-semibold mb-4 mt-4 mt-xl-0">{detalhes[3]}</h4>
                <div className="d-flex gap-2  gap-lg-5 justify-content-center flex-wrap flex-md-nowrap">
@@ -285,7 +316,7 @@ const DetalhesExercicio = () => {
                         fotoMusculo(v) || fotoDaParteDoCorpo(v) ? (
                            <div className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-secondary shadow-sm rounded-3" key={key}>
                               <Image className={styles.musculo + " border rounded-2"} src={fotoMusculo(v) || fotoDaParteDoCorpo(v)} />
-                              <span>{v}</span>
+                              <span>{investigarMusculoAlvo(v) || investigarParteDoCorpo(v) || v}</span>
                            </div>
                         ) : (
                            <div
@@ -293,7 +324,7 @@ const DetalhesExercicio = () => {
                               key={key}
                            >
                               <Image className={styles.musculo + " border rounded-2"} src={noPhoto} />
-                              <span>{v}</span>
+                              <span>{investigarMusculoAlvo(v) || v}</span>
                            </div>
                         )
                      )
@@ -318,7 +349,15 @@ const DetalhesExercicio = () => {
                   {youtube.tit}{" "}
                   <span className="text-secondary fw-semibold text-capitalize">
                      {exercicio ? (
-                        exercicio?.name
+                        idioma?.includes("en") ? (
+                           exercicio?.name
+                        ) : titulo ? (
+                           titulo
+                        ) : (
+                           <Placeholder animation="wave">
+                              <Placeholder xl={4} />
+                           </Placeholder>
+                        )
                      ) : (
                         <Placeholder animation="wave">
                            <Placeholder xl={4} />

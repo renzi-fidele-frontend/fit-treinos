@@ -161,7 +161,7 @@
       "actions": ["Iniciar exercício", "Adicionar aos favoritos", "Remover dos favoritos"],
       "detalhes": [
          "Parte do corpo que irá se desenvolver:",
-         "Equipamento necessário",
+         "Equipamento necessário:",
          "Principal músculo que será afectado:",
          "Músculos secundários que serão afetados:"
       ],
