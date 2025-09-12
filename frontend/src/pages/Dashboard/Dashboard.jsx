@@ -20,6 +20,8 @@ import { useTranslation } from "react-i18next";
 import moment from "moment";
 import "moment/dist/locale/pt";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
+import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
+import { traduzirTexto } from "../../utils/traduzirTexto";
 Chart.register(CategoryScale);
 
 const Dashboard = () => {
@@ -37,10 +39,12 @@ const Dashboard = () => {
    const [ultimosExerciciosPraticados, setUltimosExerciciosPraticados] = useState(null);
    const [ultimoTreino, setUltimoTreino] = useState(null);
    const [diaMaisTreinado, setDiaMaisTreinado] = useState(null);
+   const [titulo, setTitulo] = useState(null);
    const { exercicios } = useSelector((state) => state.exercicios);
    const { modoEscuro } = useSelector((state) => state.tema);
    const [exercicioMaisTreinado, setExercicioMaisTreinado] = useState(null);
    const [fetched, setFetched] = useState(false);
+   const { investigarParteDoCorpo, investigarMusculoAlvo } = useAnalisarTraducao();
    useExercisesApiAndDispatchOnStore();
 
    useEffect(() => {
@@ -69,7 +73,10 @@ const Dashboard = () => {
    useEffect(() => {
       if (idioma?.includes("pt")) moment.locale("pt");
       if (idioma?.includes("en")) moment.locale("en");
-   }, [idioma]);
+      if (exercicioMaisTreinado && idioma?.includes("pt")) {
+         traduzirTexto(exercicios?.filter((v) => v.id === exercicioMaisTreinado?.id)?.[0]?.name).then((v) => setTitulo(v));
+      }
+   }, [idioma, exercicioMaisTreinado]);
 
    const CardExercicioMaisTreinado = ({ exercicio, tempoDeTreino }) => {
       return exercicio ? (
@@ -78,14 +85,18 @@ const Dashboard = () => {
                <Image className={styles.foto + " border rounded-1"} src={exercicio?.gifUrl} />
                {/* Tag mobile */}
                <p className="text-capitalize text-bg-secondary px-2 py-1 rounded small mb-0 position-absolute d-xxl-none me-1 mb-1 shadow-lg">
-                  {exercicio?.secondaryMuscles?.slice(0, 1)[0]}
+                  {investigarMusculoAlvo(exercicio?.secondaryMuscles?.slice(0, 1)[0]) ||
+                     investigarParteDoCorpo(exercicio?.secondaryMuscles?.slice(0, 1)[0]) ||
+                     exercicio?.secondaryMuscles?.slice(0, 1)[0]}
                </p>
             </Link>
             <div className="d-flex align-items-center mt-2">
                <div className="d-flex gap-2">
                   {/* Tag desktop */}
                   <p className="text-capitalize text-bg-secondary px-2 py-1 rounded small mb-0 d-none d-xxl-block ">
-                     {exercicio?.secondaryMuscles?.slice(0, 1)[0]}
+                     {investigarMusculoAlvo(exercicio?.secondaryMuscles?.slice(0, 1)[0]) ||
+                        investigarParteDoCorpo(exercicio?.secondaryMuscles?.slice(0, 1)[0]) ||
+                        exercicio?.secondaryMuscles?.slice(0, 1)[0]}
                   </p>
                </div>
                <div className="vr mx-2 d-none d-xxl-block"></div>
@@ -94,7 +105,7 @@ const Dashboard = () => {
                   <span className="fw-medium fst-italic border rounded px-1 shadow-sm">{segundosParaFormatoHumanizado(tempoDeTreino)}</span>
                </p>
             </div>
-            <p className="fs-5 fw-semibold text-capitalize mt-2 text-truncate mb-0">{exercicio?.name}</p>
+            <p className="fs-5 fw-semibold text-capitalize mt-2 text-truncate mb-0">{idioma?.includes("en") ? exercicio?.name : titulo}</p>
          </div>
       ) : (
          <div className="mt-3">
