@@ -71,24 +71,23 @@ const editarPerfil = async (req, res) => {
    const fotoRemovida = req?.body?.fotoRemovida;
    const foto = req?.file?.path;
 
-   // Criando a nova sennha encriptada e novo token
+   // Criando a nova senha encriptada e novo token caso a conta tenha sido criada utilizando email e password
    let novaSenhaEncriptada;
    let token;
-   try {
-      novaSenhaEncriptada = await bcrypt.hash(password, 10);
-      token = jwt.sign({ userId: uid, password }, process.env.JWT_SECRET);
-   } catch (error) {
-      console.log("Erro ao encriptar nova senha");
+   if (password) {
+      console.log("Tentando encriptar a senha...");
+      try {
+         novaSenhaEncriptada = await bcrypt.hash(password, 10);
+         token = jwt.sign({ userId: uid, password }, process.env.JWT_SECRET);
+         dadosAtualizados.password = novaSenhaEncriptada;
+      } catch (error) {
+         console.log("Erro ao encriptar nova senha");
+      }
    }
 
    let dadosAtualizados = {
       nome,
    };
-
-   // Caso a conta tenha sido criada utilizando email e password
-   if (password) {
-      dadosAtualizados.password = novaSenhaEncriptada;
-   }
 
    // Carregando a nova foto de perfil no cloudinary
    if (foto) {
@@ -98,9 +97,11 @@ const editarPerfil = async (req, res) => {
 
    try {
       const perfilAtualizado = await Usuario.findByIdAndUpdate(uid, dadosAtualizados, { new: true });
+      
       if (foto) {
          const removerFotoDePerfilAntiga = await removerFoto(fotoRemovida.split("/").slice(-1)[0].split(".")[0]);
       }
+      
       res.json({ message: "Perfil atualizado com sucesso!", usuario: { ...perfilAtualizado.toObject(), password }, token });
    } catch (error) {
       res.status(500).json({ mensagem: "Erro ao atualizar o perfil" });

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { setToken, setUser } from "../../state/auth/authSlice";
 import { useTranslation } from "react-i18next";
+import Notificacao from "../../components/Notificacao/Notificacao";
 
 const EditarPerfilSocial = () => {
    const { t } = useTranslation();
@@ -16,6 +17,9 @@ const EditarPerfilSocial = () => {
    const nomeRef = useRef();
    const { apanharNoBackendComAuth, loading: loadingSave } = useFetch(null, null, null, "manual");
    const [showModalConfirmacao, setShowModalConfirmacao] = useState(false);
+   // Possíveis erros
+   const [mensagemAviso, setMensagemAviso] = useState(null);
+   const [mostrarNotificacao, setMostrarNotificacao] = useState(false);
 
    function editarPerfil(e) {
       e.preventDefault();
@@ -24,8 +28,10 @@ const EditarPerfilSocial = () => {
          headers: { "Content-Type": "multipart/form-data" },
          data: { nome: nomeRef.current.value },
       }).then((res) => {
+         setMostrarNotificacao(true);
+         setMensagemAviso(res.message);
          dispatch(setUser(res.usuario));
-         dispatch(setToken(res.token));
+         if (res.token) dispatch(setToken(res.token));
       });
    }
 
@@ -112,6 +118,13 @@ const EditarPerfilSocial = () => {
                <Image id={styles.fotoBanner} src={fotoModelo} />
             </Col>
          </Row>
+         {/* Mensagem de noficação de succeso de edição */}
+         <Notificacao
+            variant="success"
+            mensagem={mensagemAviso}
+            mostrar={mostrarNotificacao}
+            onClose={() => setMostrarNotificacao(false)}
+         />
       </Container>
    );
 };
