@@ -7,3 +7,22 @@
    border-radius: 50%;
    width: fit-content;
 }
+
+@media screen and (max-width: 992px) {
+   #fotoBanner {
+      height: 350px;
+   }
+}
+
+@media screen and (max-width: 760px) {
+   #fotoBanner {
+      height: 270px;
+   }
+}
+
+
+@media screen and (max-width: 400px) {
+   #fotoBanner {
+      height: 210px;
+   }
+}

@@ -72,6 +72,7 @@ const Header = () => {
                </div>
             </div>
          </Container>
+         {/* Offcanvas do mobile */}
          <Offcanvas show={mostrar}>
             <Offcanvas.Header className="d-flex justify-content-between align-items-center border-bottom">
                <Image id={styles.logo} src={logo} alt="Logo do site" />
@@ -86,8 +87,8 @@ const Header = () => {
                      <UserDropdown />{" "}
                      <div>
                         <h6 className="fst-italic fw-medium">{user.nome}</h6>
-                        <Button size="sm" variant="danger">
-                           Deslogar
+                        <Button onClick={() => setMostrar(false)} size="sm" variant="secondary" as={Link} to="/usuario/editar_perfil">
+                           Meu perfil
                         </Button>
                      </div>
                   </div>
