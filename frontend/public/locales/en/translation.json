@@ -213,6 +213,10 @@
          {
             "tit": "Consent",
             "subtit": "<p>By using this application, the user agrees to the collection and use of information as described in this privacy policy. If the user has any questions or concerns, they can contact us for clarification.</p> <p>This application uses authentication services provided by Meta (Facebook) and Google. During the authentication process, information such as name, email address and profile picture may be collected in order to identify the user and provide a personalized experience.</p> <p>We guarantee that this data will be used exclusively for authentication purposes and will not be shared with third parties without the user's consent, except when required by law.</p>"
+         },
+         {
+            "tit": "How to request the deletion of the data from the linked social network themselves?",
+            "subtit": "<p>To delete the data linked to your social media account (Facebook or Google), access the profile editing page within the application. There, you'll find the option to delete your account. Confirming the deletion will remove all stored personal data from the system. After deletion, the deleted information cannot be recovered. </p>"
          }
       ]
    }

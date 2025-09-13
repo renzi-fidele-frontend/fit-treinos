@@ -207,6 +207,10 @@
          {
             "tit": "Consentimento",
             "subtit": "<p>Ao utilizar esta aplicação, o usuário concorda com a coleta e uso das informações conforme descrito nesta política de privacidade. Caso o usuário tenha dúvidas ou preocupações, pode entrar em contato conosco para esclarecimentos.</p> <p>Esta aplicação utiliza serviços de autenticação fornecidos pelo Meta (Facebook) e Google. Durante o processo de autenticação, informações como nome, endereço de e-mail e foto de perfil podem ser coletadas para identificar o usuário e fornecer uma experiência personalizada.</p> <p>Garantimos que esses dados serão utilizados exclusivamente para fins de autenticação e não serão compartilhados com terceiros sem o consentimento do usuário, exceto quando exigido por lei.</p>"
+         },
+         {
+            "tit": "Como solicitar a exclusão dos próprios dados da rede social vinculada?",
+            "subtit": "<p>Para excluir os dados vinculados à sua conta de rede social (Facebook ou Google), acesse a página de edição de perfil dentro da aplicação. Lá, você encontrará a opção de deletar sua conta. Ao confirmar a exclusão, todos os dados pessoais armazenados serão removidos do sistema. Após a exclusão, não será possível recuperar as informações apagadas.</p>"
          }
       ]
    }
