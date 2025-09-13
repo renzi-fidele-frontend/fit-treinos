@@ -4,7 +4,7 @@ import fotoBanner from "../../assets/bannerEx.png";
 import Titulo from "../../components/ui/Titulo";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { setPaginaAtual } from "../../state/configs/configsSlice";
+import { setFiltros, setPaginaAtual } from "../../state/configs/configsSlice";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import Paginacao from "../../components/Paginacao/Paginacao";
 import { paginarArray } from "../../utils/paginarArray";
@@ -50,6 +50,8 @@ const Exercicios = () => {
       }
    }
 
+   // TODO: Adicionar botão de resetar os filtros aplicados
+
    return (
       <div>
          {/*  Banner inicial */}
@@ -59,7 +61,7 @@ const Exercicios = () => {
                <Col className="text-center">
                   <Titulo texto={titEx} />
                   {/*  Filtragem  */}
-                  <Container className="mb-5 mt-5 px-2 ">
+                  <Container className="mb-4 mb-xl-5 mt-5 px-2 ">
                      <Row className="px-sm-5 g-5 justify-content-center">
                         {/* Parte do corpo */}
                         <Col xs={6} lg={4} className="mt-4 mt-xxl-5">
@@ -116,6 +118,17 @@ const Exercicios = () => {
                         </Col>
                      </Row>
                   </Container>
+                  {/* Botão de resetar os filtros */}
+                  {!(filtros?.equipamento === "todos" && filtros?.musculoAlvo === "todos" && filtros?.parteDoCorpo === "todos") && (
+                     <div className="text-center">
+                        <Button
+                           variant="warning"
+                           onClick={() => dispatch(setFiltros({ equipamento: "todos", musculoAlvo: "todos", parteDoCorpo: "todos" }))}
+                        >
+                           <i className="bi bi-arrow-clockwise"></i> Resetar filtragem
+                        </Button>
+                     </div>
+                  )}
 
                   {/* Exercicios */}
                   <Container fluid className="mt-5 px-xxl-5">
