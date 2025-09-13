@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
 
 // TODO: Adicionar um placeholder caso a foto não exista
-
 const CardExercicio = ({ foto, categoria, titulo, id, truncado = false, customClass }) => {
    const [tituloTraduzido, setTituloTraduzido] = useState();
    const { idioma } = useSelector((state) => state.idioma);
