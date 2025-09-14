@@ -159,7 +159,6 @@
       "subtit": "Favorite Exercises",
       "noTrain": "There are no favorite exercises yet."
    },
-
    "exercicio": {
       "tit": "How to practice:",
       "actions": ["Start training", "Add to favorites", "Remove from favorites"],
@@ -183,7 +182,8 @@
          "start": "Start",
          "pause": "Pause",
          "save": "Save progress"
-      }
+      },
+      "aviso": "You haven't saved the training time that was counted yet, are you sure you want to exit?"
    },
    "header": {
       "links": ["Home", "Exercises", "Log In", "Sign Up", "Training Progress", "Favorites"],

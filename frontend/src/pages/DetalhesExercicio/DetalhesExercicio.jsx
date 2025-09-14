@@ -25,7 +25,7 @@ import useUnsavedChanges from "../../hooks/useUnsavedChanges";
 
 const DetalhesExercicio = () => {
    const { t } = useTranslation();
-   const { tit, actions, detalhes, youtube, related } = t("exercicio");
+   const { tit, actions, detalhes, youtube, related, aviso } = t("exercicio");
    const { id } = useParams();
    const dispatch = useDispatch();
    const { idioma } = useSelector((state) => state.idioma);
@@ -45,7 +45,7 @@ const DetalhesExercicio = () => {
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
    const { apanharNoBackendComAuth, loading: loadingFavorito } = useFetch(null, null, null, "manual");
    useExercisesApiAndDispatchOnStore();
-   useUnsavedChanges(tempo > 3 ? false : true, "Você ainda não treinou por tempo suficiente");
+   useUnsavedChanges(tempo > 3 ? false : true, aviso);
 
    // Dados traduzidos
    const [titulo, setTitulo] = useState(null);

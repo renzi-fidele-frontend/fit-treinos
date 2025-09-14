@@ -177,7 +177,8 @@
          "start": "Iniciar",
          "pause": "Pausar",
          "save": "Salvar progresso"
-      }
+      },
+      "aviso": "Você ainda não salvou o tempo de treino que foi contabilizado, tens a certeza de que queres sair?"
    },
    "header": {
       "links": ["Início", "Exercícios", "Entrar", "Cadastrar", "Progresso do treinamento", "Favoritos"],
