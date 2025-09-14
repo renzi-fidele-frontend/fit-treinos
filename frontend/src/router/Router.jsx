@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import DetalhesExercicio from "../pages/DetalhesExercicio/DetalhesExercicio";
 import Exercicios from "../pages/Exercicios/Exercicios";
@@ -10,25 +10,53 @@ import Favoritos from "../pages/Favoritos/Favoritos";
 import PoliticaDePrivacidade from "../pages/PoliticaDePrivacidade/PoliticaDePrivacidade";
 import EditarPerfil from "../pages/EditarPerfil/EditarPerfil";
 import EditarPerfilSocial from "../pages/EditarPerfil/EditarPerfilSocial";
+import App from "../App";
 
-const Router = () => {
+const Router = ({ children }) => {
    const { user } = useSelector((state) => state.auth);
 
-   return (
-      <Routes>
-         <Route exact path="/" element={<Home />} />
-         <Route path="/exercicio/:id" element={<DetalhesExercicio />} />
-         <Route path="/exercicios" element={<Exercicios />} />
-         <Route path="/cadastro" element={!user ? <Cadastro /> : <Navigate to="/" />} />
-         <Route path="/entrar" element={!user ? <Login /> : <Navigate to="/" />} />
-         <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/entrar" />} />
-         <Route path="/favoritos" element={user ? <Favoritos /> : <Navigate to="/entrar" />} />
-         <Route
-            path="/usuario/editar_perfil"
-            element={user ? user?.facebookId || user?.googleId ? <EditarPerfilSocial /> : <EditarPerfil /> : <Navigate to="/entrar" />}
-         />
-         <Route path="/privacy" element={<PoliticaDePrivacidade />} />
-      </Routes>
-   );
+   const router = createBrowserRouter([
+      {
+         path: "/",
+         element: <App />,
+         children: [
+            { path: "/", element: <Home /> },
+            {
+               path: "/exercicio/:id",
+               element: <DetalhesExercicio />,
+            },
+            {
+               path: "/exercicios",
+               element: <Exercicios />,
+            },
+            {
+               path: "/cadastro",
+               element: !user ? <Cadastro /> : <Navigate to="/" />,
+            },
+            {
+               path: "/entrar",
+               element: !user ? <Login /> : <Navigate to="/" />,
+            },
+            {
+               path: "/dashboard",
+               element: user ? <Dashboard /> : <Navigate to="/entrar" />,
+            },
+            {
+               path: "/favoritos",
+               element: user ? <Favoritos /> : <Navigate to="/entrar" />,
+            },
+            {
+               path: "/usuario/editar_perfil",
+               element: user ? user?.facebookId || user?.googleId ? <EditarPerfilSocial /> : <EditarPerfil /> : <Navigate to="/entrar" />,
+            },
+            {
+               path: "/privacy",
+               element: <PoliticaDePrivacidade />,
+            },
+         ],
+      },
+   ]);
+
+   return <RouterProvider router={router}>{children}</RouterProvider>;
 };
 export default Router;
