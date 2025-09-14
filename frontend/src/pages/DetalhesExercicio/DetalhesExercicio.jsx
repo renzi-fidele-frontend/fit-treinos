@@ -19,6 +19,7 @@ import { traduzirTexto } from "../../utils/traduzirTexto";
 import { useTranslation } from "react-i18next";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
+import useUnsavedChanges from "../../hooks/useUnsavedChanges";
 
 // FIXME: A requisição está sendo feita duas vezes
 
@@ -44,6 +45,7 @@ const DetalhesExercicio = () => {
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
    const { apanharNoBackendComAuth, loading: loadingFavorito } = useFetch(null, null, null, "manual");
    useExercisesApiAndDispatchOnStore();
+   useUnsavedChanges(tempo > 3 ? false : true, "Você ainda não treinou por tempo suficiente");
 
    // Dados traduzidos
    const [titulo, setTitulo] = useState(null);

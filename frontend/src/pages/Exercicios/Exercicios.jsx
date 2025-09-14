@@ -50,7 +50,7 @@ const Exercicios = () => {
       }
    }
 
-   // TODO: Adicionar botão de resetar os filtros aplicados
+   // TODO: Avisar que as vezes não é ter preciso para poder realizar treinamentos
 
    return (
       <div>

@@ -7,8 +7,6 @@ import { setUser } from "../../state/auth/authSlice";
 import { formatarTempo } from "../../utils/formatarSegundos";
 import { useTranslation } from "react-i18next";
 
-// TODO: Avisar que vais perder o tempo contabilizado caso o usuário saia da página sem salvar o tempo.
-
 const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo, tempo, setTempo, ativo, setAtivo }) => {
    const { t } = useTranslation();
    const { controle } = t("exercicio");
