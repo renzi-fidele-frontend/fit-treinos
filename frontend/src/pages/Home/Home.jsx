@@ -34,7 +34,7 @@ const CardTestemunho = ({ nome, testemunho }) => {
 
 const Home = () => {
    const { t } = useTranslation();
-   const { secaoInicial, vantagens, testemunhos, titExercicios, ctaExercicios } = t("home");
+   const { secaoInicial, vantagens, testemunhos, titExercicios, ctaExercicios, parteSelecionada } = t("home");
    const dispatch = useDispatch();
    const { partesDoCorpo, parteDoCorpoEscolhida } = useSelector((state) => state.configs);
    const { exerciciosDeCategoria, exercicios } = useSelector((state) => state.exercicios);
@@ -151,7 +151,7 @@ const Home = () => {
                              ))}
                      </Slider>
                      <p className="mt-3 fs-5">
-                        Parte do corpo selecionada:{" "}
+                        {parteSelecionada}{" "}
                         <span className={`px-2 text-capitalize rounded ${modoEscuro ? "text-bg-light" : "text-bg-dark"}`}>
                            {idioma?.includes("en") ? parteDoCorpoEscolhida : investigarParteDoCorpo(parteDoCorpoEscolhida)}
                         </span>
