@@ -16,6 +16,9 @@ import BannerTopo from "../../components/BannerTopo/BannerTopo";
 import { gerarArray } from "../../utils/gerarArray";
 import { useTranslation } from "react-i18next";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
+import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
+import { fotoEquipamento } from "../../utils/fotoEquipamento";
+import { fotoMusculo } from "../../utils/fotoMusculo";
 
 const Exercicios = () => {
    const { t } = useTranslation();
@@ -64,14 +67,45 @@ const Exercicios = () => {
                   <Container className="mb-4 mb-xl-5 mt-5 px-2 ">
                      <Row className="px-sm-5 g-5 justify-content-center">
                         {/* Parte do corpo */}
-                        <Col xs={6} lg={4} className="mt-4 mt-xxl-5">
-                           <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>
-                              {sectionFiltros.items[0]}
-                           </h6>
-                           <p className="mb-2 text-secondary text-capitalize">[{processarFiltro(filtros?.parteDoCorpo)}]</p>
-                           <Button variant="outline-primary" onClick={() => setModalParteDoCorpo(true)}>
-                              {sectionFiltros.escolher}...
-                           </Button>
+                        <Col xs={6} lg={4} className="mt-4 mt-xxl-5 position-relative d-lg-flex flex-column justify-content-center">
+                           {/* Conteúdo interno */}
+                           <div
+                              className={`z-2 position-relative rounded h-100 d-flex flex-column justify-content-center ${
+                                 filtros?.parteDoCorpo !== "todos" && "py-4"
+                              }`}
+                           >
+                              <h6
+                                 className={`fs-4 fw-semibold mb-1 mb-sm-3 z-3 ${filtros?.parteDoCorpo !== "todos" && "text-white"}`}
+                                 id={styles.label}
+                              >
+                                 {sectionFiltros.items[0]}
+                              </h6>
+                              <p className={`mb-2 text-danger text-capitalize ${filtros?.parteDoCorpo !== "todos" && "text-white"}`}>
+                                 [{processarFiltro(filtros?.parteDoCorpo)}]
+                              </p>
+                              <Button
+                                 className="align-self-center"
+                                 variant={filtros?.parteDoCorpo !== "todos" ? "primary" : `outline-primary`}
+                                 onClick={() => setModalParteDoCorpo(true)}
+                              >
+                                 {sectionFiltros.escolher}...
+                              </Button>
+                           </div>
+                           {/* Overlay */}
+                           {filtros?.parteDoCorpo !== "todos" && (
+                              <>
+                                 <Image
+                                    className="z-0 position-absolute rounded start-0 top-0 end-0 bottom-0 object-fit-cover h-100 w-100"
+                                    src={fotoDaParteDoCorpo(filtros?.parteDoCorpo)}
+                                    alt="Foto da parte do corpo"
+                                 />
+                                 <div
+                                    style={{ opacity: "60%" }}
+                                    className="bg-black position-absolute z-1 start-0 top-0 end-0 bottom-0 object-fit-cover h-100 w-100"
+                                 ></div>
+                              </>
+                           )}
+                           {/* Modal */}
                            <ModalFiltragem
                               mostrar={modalParteDoCorpo}
                               onClose={() => setModalParteDoCorpo(false)}
@@ -81,14 +115,50 @@ const Exercicios = () => {
                            />
                         </Col>
                         {/* Equipamento */}
-                        <Col xs={6} lg={4} className="mt-4 mt-xxl-5" id={styles.border}>
-                           <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>
-                              {sectionFiltros.items[1]}
-                           </h6>
-                           <p className="mb-2 text-secondary text-capitalize">[{processarFiltro(filtros?.equipamento)}]</p>
-                           <Button variant="outline-primary" onClick={() => setModalEquipamentos(true)}>
-                              {sectionFiltros.escolher}...
-                           </Button>
+                        <Col
+                           xs={6}
+                           lg={4}
+                           className="mt-4 mt-xxl-5 position-relative d-lg-flex flex-column justify-content-center"
+                           id={styles.border}
+                        >
+                           {/* Conteúdo interno */}
+                           <div
+                              className={`z-2 position-relative rounded h-100 d-flex flex-column justify-content-center ${
+                                 filtros?.equipamento !== "todos" && "py-4"
+                              }`}
+                           >
+                              <h6
+                                 className={`fs-4 fw-semibold mb-1 mb-sm-3 z-3 ${filtros?.equipamento !== "todos" && "text-white"}`}
+                                 id={styles.label}
+                              >
+                                 {sectionFiltros.items[1]}
+                              </h6>
+                              <p className={`mb-2 text-danger text-capitalize ${filtros?.equipamento !== "todos" && "text-white"}`}>
+                                 [{processarFiltro(filtros?.equipamento)}]
+                              </p>
+                              <Button
+                                 className="align-self-center"
+                                 variant={filtros?.equipamento !== "todos" ? "primary" : `outline-primary`}
+                                 onClick={() => setModalEquipamentos(true)}
+                              >
+                                 {sectionFiltros.escolher}...
+                              </Button>
+                           </div>
+                           {/* Overlay */}
+                           {filtros?.equipamento !== "todos" && (
+                              <>
+                                 <Image
+                                    className="z-0 position-absolute rounded start-0 top-0 end-0 bottom-0 object-fit-cover h-100 w-100"
+                                    src={fotoEquipamento(filtros?.equipamento)}
+                                    alt="Foto da parte do corpo"
+                                 />
+                                 <div
+                                    style={{ opacity: "60%" }}
+                                    className="bg-black position-absolute z-1 start-0 top-0 end-0 bottom-0 object-fit-cover h-100 w-100"
+                                 ></div>
+                              </>
+                           )}
+                           {/* Modal */}
                            <ModalFiltragem
                               mostrar={modalEquipamentos}
                               onClose={() => setModalEquipamentos(false)}
@@ -98,15 +168,46 @@ const Exercicios = () => {
                            />
                         </Col>
                         {/* Músculo a fortificar */}
-                        <Col xs={6} lg={4} className="mt-4 mt-xxl-5">
+                        <Col xs={6} lg={4} className="mt-4 mt-xxl-5 position-relative d-lg-flex flex-column justify-content-center">
                            <Form.Group>
-                              <h6 className="fs-4 fw-semibold mb-1 mb-sm-3" id={styles.label}>
-                                 {sectionFiltros.items[2]}
-                              </h6>
-                              <p className="mb-2 text-secondary text-capitalize">[{processarFiltro(filtros?.musculoAlvo)}]</p>
-                              <Button variant="outline-primary" onClick={() => setModalMusculosAlvo(true)}>
-                                 {sectionFiltros.escolher}...
-                              </Button>
+                              {/* Conteúdo interno */}
+                              <div
+                                 className={`z-2 position-relative rounded h-100 d-flex flex-column justify-content-center  ${
+                                    filtros?.musculoAlvo !== "todos" && "py-4"
+                                 }`}
+                              >
+                                 <h6
+                                    className={`fs-4 fw-semibold mb-1 mb-sm-3 z-3 ${filtros?.musculoAlvo !== "todos" && "text-white"}`}
+                                    id={styles.label}
+                                 >
+                                    {sectionFiltros.items[2]}
+                                 </h6>
+                                 <p className={`mb-2 text-danger text-capitalize ${filtros?.musculoAlvo !== "todos" && "text-white"}`}>
+                                    [{processarFiltro(filtros?.musculoAlvo)}]
+                                 </p>
+                                 <Button
+                                    className="align-self-center"
+                                    variant={filtros?.musculoAlvo !== "todos" ? "primary" : "outline-primary"}
+                                    onClick={() => setModalMusculosAlvo(true)}
+                                 >
+                                    {sectionFiltros.escolher}...
+                                 </Button>
+                              </div>
+                              {/* Overlay  */}
+                              {filtros?.musculoAlvo !== "todos" && (
+                                 <>
+                                    <Image
+                                       className="z-0 position-absolute rounded start-0 top-0 end-0 bottom-0 object-fit-cover h-100 w-100"
+                                       src={fotoMusculo(filtros?.musculoAlvo)}
+                                       alt="Foto da parte do corpo"
+                                    />
+                                    <div
+                                       style={{ opacity: "60%" }}
+                                       className="bg-black position-absolute z-1 start-0 top-0 end-0 bottom-0 object-fit-cover h-100 w-100"
+                                    ></div>
+                                 </>
+                              )}
+                              {/* Modal */}
                               <ModalFiltragem
                                  mostrar={modalMusculosAlvo}
                                  onClose={() => setModalMusculosAlvo(false)}
@@ -123,7 +224,10 @@ const Exercicios = () => {
                      <div className="text-center">
                         <Button
                            variant="warning"
-                           onClick={() => dispatch(setFiltros({ equipamento: "todos", musculoAlvo: "todos", parteDoCorpo: "todos" }))}
+                           onClick={() => {
+                              dispatch(setFiltros({ equipamento: "todos", musculoAlvo: "todos", parteDoCorpo: "todos" }));
+                              filtrarExercicios({ equipamento: "todos", musculoAlvo: "todos", parteDoCorpo: "todos" });
+                           }}
                         >
                            <i className="bi bi-arrow-clockwise"></i> Resetar filtragem
                         </Button>
