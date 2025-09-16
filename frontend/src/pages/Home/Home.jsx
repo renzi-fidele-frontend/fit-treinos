@@ -16,6 +16,7 @@ import { setExerciciosDeCategoria } from "../../state/exercicios/exerciciosSlice
 import { gerarArray } from "../../utils/gerarArray";
 import { useTranslation } from "react-i18next";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
+import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
 
 const CardTestemunho = ({ nome, testemunho }) => {
    const { modoEscuro } = useSelector((state) => state.tema);
@@ -39,6 +40,7 @@ const Home = () => {
    const { exerciciosDeCategoria, exercicios } = useSelector((state) => state.exercicios);
    const { modoEscuro } = useSelector((state) => state.tema);
    const { idioma } = useSelector((state) => state.idioma);
+   const { investigarParteDoCorpo } = useAnalisarTraducao();
    useSocialAuth();
    useExercisesApiAndDispatchOnStore();
 
@@ -148,6 +150,12 @@ const Home = () => {
                                 </ListGroupItem>
                              ))}
                      </Slider>
+                     <p className="mt-3 fs-5">
+                        Parte do corpo selecionada:{" "}
+                        <span className={`px-2 text-capitalize rounded ${modoEscuro ? "text-bg-light" : "text-bg-dark"}`}>
+                           {idioma?.includes("en") ? parteDoCorpoEscolhida : investigarParteDoCorpo(parteDoCorpoEscolhida)}
+                        </span>
+                     </p>
                   </Container>
                }
                {/*  Exercícios  */}
