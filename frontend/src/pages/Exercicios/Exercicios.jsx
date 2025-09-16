@@ -19,6 +19,7 @@ import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDis
 import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
 import { fotoEquipamento } from "../../utils/fotoEquipamento";
 import { fotoMusculo } from "../../utils/fotoMusculo";
+import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
 
 const Exercicios = () => {
    const { t } = useTranslation();
@@ -28,7 +29,7 @@ const Exercicios = () => {
    const { idioma } = useSelector((state) => state.idioma);
    const dispatch = useDispatch();
    const { filtrarExercicios } = useFiltrarExercicios();
-
+   const { investigarEquipamento, investigarMusculoAlvo, investigarParteDoCorpo } = useAnalisarTraducao();
    useExercisesApiAndDispatchOnStore();
 
    // Modais de filtragem
@@ -43,7 +44,7 @@ const Exercicios = () => {
 
    function processarFiltro(filtro) {
       if (idioma?.includes("pt")) {
-         return filtro;
+         return investigarEquipamento(filtro) || investigarMusculoAlvo(filtro) || investigarParteDoCorpo(filtro) || filtro;
       } else {
          if (filtro === "todos") {
             return "All";
