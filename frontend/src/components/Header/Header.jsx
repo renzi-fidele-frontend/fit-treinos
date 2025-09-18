@@ -45,6 +45,9 @@ const Header = () => {
                </Nav.Link>
             </>
          )}
+         <Nav.Link as={Link} to="/leaderboard" className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/leaderboard"}>
+            <i className="me-2 d-lg-none bi trophy-fill"></i> Liderança
+         </Nav.Link>
       </Nav>
    );
 

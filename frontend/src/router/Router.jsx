@@ -11,6 +11,7 @@ import PoliticaDePrivacidade from "../pages/PoliticaDePrivacidade/PoliticaDePriv
 import EditarPerfil from "../pages/EditarPerfil/EditarPerfil";
 import EditarPerfilSocial from "../pages/EditarPerfil/EditarPerfilSocial";
 import App from "../App";
+import TabelaDeClassificacao from "../pages/TabelaDeClassificacao/TabelaDeClassificacao";
 
 const Router = ({ children }) => {
    const { user } = useSelector((state) => state.auth);
@@ -44,6 +45,10 @@ const Router = ({ children }) => {
             {
                path: "/favoritos",
                element: user ? <Favoritos /> : <Navigate to="/entrar" />,
+            },
+            {
+               path: "/leaderboard",
+               element: <TabelaDeClassificacao />,
             },
             {
                path: "/usuario/editar_perfil",
