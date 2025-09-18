@@ -6,9 +6,13 @@ const {
    atualizarProgresso,
    retornarTempoTotalDeTreinoDeExercicio,
    retornarDadosTreinamento,
+   retornarUsuariosClassificados,
 } = require("../controllers/actions.controller");
 
 const actionsRoute = express.Router();
+
+// Rotas públicas
+actionsRoute.get("/retornarUsuariosClassificados", retornarUsuariosClassificados);
 
 // Rotas privadas
 actionsRoute.use(verificarToken);
