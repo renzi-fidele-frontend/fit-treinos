@@ -1,3 +1,47 @@
 #ct td {
-    vertical-align: middle;
+   vertical-align: middle;
+}
+
+#ct table th {
+   font-size: 16px;
+}
+
+#ct table {
+   font-size: 20px;
+}
+
+#ct table * {
+   white-space: nowrap;
+}
+
+#foto {
+   width: 42px;
+   height: 42px;
+}
+
+@media screen and (max-width: 1200px) {
+   #ct table th {
+      font-size: 16px;
+   }
+   #ct table {
+      font-size: 17px;
+   }
+}
+
+@media screen and (max-width: 992px) {
+   #tableWrapper {
+      max-width: 100%;
+      overflow-x: scroll;
+   }
+}
+
+@media screen and (max-width: 500px) {
+   #foto {
+      width: 35px;
+      height: 35px;
+   }
+
+   #ct table, #ct table th {
+      font-size: 14px;
+   }
 }
