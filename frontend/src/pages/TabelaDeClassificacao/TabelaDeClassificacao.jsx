@@ -53,7 +53,7 @@ const TabelaDeClassificacao = () => {
                      <tbody>
                         {usuarios?.map((v, k) => (
                            <tr key={k}>
-                              <td>{k + 1}º lugar </td>
+                              <td className="fst-italic">{k + 1}º lugar</td>
                               <td>
                                  <div className="d-flex align-items-center gap-3">
                                     <Image className="rounded" style={{ width: 50, height: 50 }} thumbnail src={v?.foto} />

@@ -315,12 +315,19 @@ const retornarUsuariosClassificados = async (req, res) => {
    try {
       let usuarios = await Usuario.find({}, "-password -email -favoritos");
       const usuariosClassificados = usuarios.map((usuario, k) => {
-         // Calculando o tempo total absoluto de cada usuario
          let tempoTotalAbsoluto = 0;
+         let nrTreinosRealizados = 0;
+
          usuario.progresso.forEach((v) => {
-            v.treinos.forEach((v) => (tempoTotalAbsoluto += Number(v.tempoDeTreino)));
+            // Calculando o tempo total absoluto
+            v.treinos.forEach((v) => {
+               tempoTotalAbsoluto += Number(v.tempoDeTreino);
+            });
+            // Calculando o número total de treinamentos
+            nrTreinosRealizados += Number(v.treinos.length);
          });
-         return { ...usuario.toObject(), tempoTotalAbsoluto };
+
+         return { ...usuario.toObject(), tempoTotalAbsoluto, nrTreinosRealizados };
       });
       res.json({ usuariosClassificados });
    } catch {
