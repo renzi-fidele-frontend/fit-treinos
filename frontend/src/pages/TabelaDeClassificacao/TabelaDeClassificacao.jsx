@@ -31,7 +31,7 @@ const TabelaDeClassificacao = () => {
                <Col>
                   <h2 className="fw-semibold mb-4">Tabela de classificação</h2>
                   <hr />
-                  <Table striped className="mt-5 fs-5" bordered>
+                  <Table striped className="mt-5 fs-5" bordered responsive>
                      <thead className="fs-6 fst-italic">
                         <tr>
                            <th className={modoEscuro ? "text-bg-secondary" : `text-bg-dark`}>
@@ -51,7 +51,6 @@ const TabelaDeClassificacao = () => {
                            </th>
                         </tr>
                      </thead>
-                     {/* TODO: Renderizar os usuário que mais dedicam o tempo */}
                      <tbody>
                         {usuarios?.map((v, k) => (
                            <tr key={k}>
@@ -68,7 +67,9 @@ const TabelaDeClassificacao = () => {
                                     {v?.nrTreinosRealizados}
                                  </span>{" "}
                               </td>
-                              <td></td>
+                              <td>
+                                 <i className="bi bi-calendar2-date text-secondary me-1"></i> {new Date(v?.criadoEm).toLocaleDateString()}
+                              </td>
                            </tr>
                         ))}
                      </tbody>
