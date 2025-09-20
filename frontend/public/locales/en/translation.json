@@ -220,5 +220,12 @@
             "subtit": "<p>To delete the data linked to your social media account (Facebook or Google), access the profile editing page within the application. There, you'll find the option to delete your account. Confirming the deletion will remove all stored personal data from the system. After deletion, the deleted information cannot be recovered. </p>"
          }
       ]
+   },
+
+   "leaderboard": {
+      "tit": "Discover the most determined users",
+      "descricao": "Be consistent with training so you can reach the top",
+      "subtit": "Leaderboard",
+      "tableHeadings": ["Rank", "User", "Training time", "Training", "Registered in"]
    }
 }

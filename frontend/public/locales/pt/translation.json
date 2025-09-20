@@ -215,5 +215,11 @@
             "subtit": "<p>Para excluir os dados vinculados à sua conta de rede social (Facebook ou Google), acesse a página de edição de perfil dentro da aplicação. Lá, você encontrará a opção de deletar sua conta. Ao confirmar a exclusão, todos os dados pessoais armazenados serão removidos do sistema. Após a exclusão, não será possível recuperar as informações apagadas.</p>"
          }
       ]
+   },
+   "leaderboard": {
+      "tit": "Descubra os usuários mais determinados",
+      "descricao": "Seja consistente com o treino para poder chegar ao topo",
+      "subtit": "Tabela de classificação",
+      "tableHeadings": ["Rank", "Usuário", "Tempo de treino", "Treinos", "Cadastrado em"]
    }
 }
