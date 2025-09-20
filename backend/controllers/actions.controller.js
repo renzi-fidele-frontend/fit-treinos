@@ -1,5 +1,6 @@
 const Usuario = require("../models/Usuario");
 const betterLog = require("../utils/betterLog");
+const verificarDiaDaSemana = require("../utils/verificarDiaDaSemana");
 
 const adicionarAosFavoritos = async (req, res) => {
    const { userId } = req;
@@ -246,26 +247,7 @@ const retornarDadosTreinamento = async (req, res) => {
          dia.setDate(hoje.getDate() - i);
          ultimaSemana.push(dia);
       }
-      function verificarDiaDaSemana(dia) {
-         switch (dia) {
-            case 0:
-               return "Dom";
-            case 1:
-               return "Seg";
-            case 2:
-               return "Ter";
-            case 3:
-               return "Qua";
-            case 4:
-               return "Qui";
-            case 5:
-               return "Sex";
-            case 6:
-               return "Sab";
-            default:
-               return "";
-         }
-      }
+
       const estatisticasDaSemana = ultimaSemana.map((dia) => {
          let tempoTreinadoNoDia = 0;
          user.progresso.forEach((v) => {
