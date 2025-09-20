@@ -6,7 +6,7 @@ const useAnalisarTraducao = () => {
 
    function investigarParteDoCorpo(parteDoCorpo) {
       let parteDoCorpoDescoberta;
-      partesDoCorpo.forEach((v) => {
+      partesDoCorpo?.forEach((v) => {
          if (v?.en === parteDoCorpo) parteDoCorpoDescoberta = idioma?.includes("en") ? v?.en : v?.pt;
       });
       return parteDoCorpoDescoberta;
@@ -14,7 +14,7 @@ const useAnalisarTraducao = () => {
 
    function investigarMusculoAlvo(musculo) {
       let musculoAlvoDescoberto;
-      musculoAlvo.forEach((v) => {
+      musculoAlvo?.forEach((v) => {
          if (v?.en === musculo) musculoAlvoDescoberto = idioma?.includes("en") ? v?.en : v?.pt;
       });
       return musculoAlvoDescoberto;
@@ -22,7 +22,7 @@ const useAnalisarTraducao = () => {
 
    function investigarEquipamento(equipamento) {
       let equipamentoDescoberto;
-      equipamentos.forEach((v) => {
+      equipamentos?.forEach((v) => {
          if (v?.en === equipamento) equipamentoDescoberto = idioma?.includes("en") ? v?.en : v?.pt;
       });
       return equipamentoDescoberto;
