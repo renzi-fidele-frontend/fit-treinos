@@ -1,0 +1,14 @@
+#ct img {
+   animation: crescer 0.6s alternate-reverse infinite;
+}
+
+@keyframes crescer {
+   from {
+      scale: 1;
+      opacity: .8;
+   }
+   to {
+       scale: 1.1;
+       opacity: 1;
+   }
+}
