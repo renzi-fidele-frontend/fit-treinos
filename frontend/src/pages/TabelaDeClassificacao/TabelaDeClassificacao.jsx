@@ -1,10 +1,9 @@
-import { Col, Image, Row, Table } from "react-bootstrap";
+import { Col, Row, Table } from "react-bootstrap";
 import BannerTopo from "../../components/BannerTopo/BannerTopo";
 import styles from "./TabelaDeClassificacao.module.css";
 import fotoBanner from "../../assets/leaderWomen2.webp";
 import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
-import { segundosParaFormatoHumanizado } from "../../utils/segundosParaFormatoHumanizado";
 import { useSelector } from "react-redux";
 import { gerarArray } from "../../utils/gerarArray";
 import LinhaUsuarioClassificado from "../../components/LinhaUsuarioClassificado/LinhaUsuarioClassificado";
@@ -55,14 +54,9 @@ const TabelaDeClassificacao = () => {
                            </tr>
                         </thead>
                         <tbody>
-                           {/* TODO: Adicionar o loading de esqueleto  */}
                            {usuarios
-                              ? usuarios?.map((v, k) => <LinhaUsuarioClassificado usuario={v} key={k} />)
-                              : gerarArray(10).map((v, k) => (
-                                   <div key={k}>
-                                      <tr></tr>
-                                   </div>
-                                ))}
+                              ? usuarios?.map((v, k) => <LinhaUsuarioClassificado key={k} usuario={v} chave={k} />)
+                              : gerarArray(10).map((v, k) => <LinhaUsuarioClassificado key={k} usuario={v} chave={k} />)}
                         </tbody>
                      </Table>
                   </div>

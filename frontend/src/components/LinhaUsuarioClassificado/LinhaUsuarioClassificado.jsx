@@ -1,11 +1,15 @@
-import { Image } from "react-bootstrap";
+import { Image, Placeholder } from "react-bootstrap";
 import { segundosParaFormatoHumanizado } from "../../utils/segundosParaFormatoHumanizado";
-import styles from "LinhaUsuarioClassificado.module.css";
+import styles from "./LinhaUsuarioClassificado.module.css";
 
-const LinhaUsuarioClassificado = ({ key, usuario }) => {
-   return (
+const LinhaUsuarioClassificado = ({ chave, usuario }) => {
+   function isEven(number) {
+      return number % 2 !== 0 ? true : false;
+   }
+
+   return usuario ? (
       <tr>
-         <td className="fst-italic fw-medium">{key + 1} º lugar</td>
+         <td className="fst-italic fw-medium">{chave + 1} º lugar</td>
          <td>
             <div className="d-flex align-items-center gap-3">
                <Image id={styles.foto} className="rounded p-0" thumbnail src={usuario?.foto} />
@@ -20,6 +24,38 @@ const LinhaUsuarioClassificado = ({ key, usuario }) => {
          </td>
          <td>
             <i className="bi bi-calendar2-date text-secondary me-1"></i> {new Date(usuario?.criadoEm).toLocaleDateString()}
+         </td>
+      </tr>
+   ) : (
+      <tr>
+         <td className="fst-italic fw-medium">{usuario}º lugar</td>
+         <td>
+            <Placeholder className="d-flex align-items-center gap-3" animation="wave">
+               <Placeholder id={styles.foto} />
+               <Placeholder xs={7} />
+            </Placeholder>
+         </td>
+         <td>
+            <Placeholder animation="wave">
+               <Placeholder xs={6} />
+            </Placeholder>
+         </td>
+         <td>
+            <span className={`text-bg-${isEven(chave) ? "success" : "danger"} px-3 pt-1 pb-2 rounded`}>
+               <Placeholder animation="wave">
+                  <Placeholder className="rounded" xs={2} />
+               </Placeholder>
+            </span>
+         </td>
+         <td>
+            <div className="d-flex align-items-center">
+               <i className="bi bi-calendar2-date text-secondary me-1"></i>
+               <Placeholder xs={12} animation="wave" className="d-flex gap-1 ms-2">
+                  <Placeholder size="sm" xs={1} />/
+                  <Placeholder size="sm" xs={1} />/
+                  <Placeholder size="sm" xs={1} />
+               </Placeholder>
+            </div>
          </td>
       </tr>
    );
