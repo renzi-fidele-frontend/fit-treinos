@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import { segundosParaFormatoHumanizado } from "../../utils/segundosParaFormatoHumanizado";
 import { useSelector } from "react-redux";
+import { gerarArray } from "../../utils/gerarArray";
+import LinhaUsuarioClassificado from "../../components/LinhaUsuarioClassificado/LinhaUsuarioClassificado";
 
 const TabelaDeClassificacao = () => {
    const [usuarios, setUsuarios] = useState(null);
@@ -53,26 +55,14 @@ const TabelaDeClassificacao = () => {
                            </tr>
                         </thead>
                         <tbody>
-                           {usuarios?.map((v, k) => (
-                              <tr key={k}>
-                                 <td className="fst-italic fw-medium">{k + 1} º lugar</td>
-                                 <td>
-                                    <div className="d-flex align-items-center gap-3">
-                                       <Image id={styles.foto} className="rounded p-0" thumbnail src={v?.foto} />
-                                       <span className="text-truncate">{v?.nome}</span>
-                                    </div>
-                                 </td>
-                                 <td>{segundosParaFormatoHumanizado(v?.tempoTotalAbsoluto)}</td>
-                                 <td>
-                                    <span className={`text-bg-${v?.nrTreinosRealizados > 0 ? "success" : "danger"} px-3 py-1 rounded`}>
-                                       {v?.nrTreinosRealizados}
-                                    </span>{" "}
-                                 </td>
-                                 <td>
-                                    <i className="bi bi-calendar2-date text-secondary me-1"></i> {new Date(v?.criadoEm).toLocaleDateString()}
-                                 </td>
-                              </tr>
-                           ))}
+                           {/* TODO: Adicionar o loading de esqueleto  */}
+                           {usuarios
+                              ? usuarios?.map((v, k) => <LinhaUsuarioClassificado usuario={v} key={k} />)
+                              : gerarArray(10).map((v, k) => (
+                                   <div key={k}>
+                                      <tr></tr>
+                                   </div>
+                                ))}
                         </tbody>
                      </Table>
                   </div>
