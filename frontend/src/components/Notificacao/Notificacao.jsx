@@ -2,7 +2,7 @@ import { Toast, ToastContainer } from "react-bootstrap";
 
 const Notificacao = ({ mensagem, mostrar, onClose, variant }) => {
    return (
-      <ToastContainer className="mb-md-5 me-md-5" position="bottom-end">
+      <ToastContainer className="mb-md-5 me-md-5 position-fixed" position="bottom-end">
          <Toast onClose={onClose} show={mostrar} bg={variant}>
             <Toast.Header>
                <strong>Notificação</strong>

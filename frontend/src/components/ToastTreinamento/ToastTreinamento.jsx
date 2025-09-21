@@ -6,18 +6,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../state/auth/authSlice";
 import { formatarTempo } from "../../utils/formatarSegundos";
 import { useTranslation } from "react-i18next";
+import Notificacao from "../Notificacao/Notificacao";
+import { useWindowSize } from "react-use";
+// Confetti
+import Confetti from "react-confetti";
 
-// TODO: Renderizar uma animação de confetti ao se treinar um exercício
 const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo, tempo, setTempo, ativo, setAtivo }) => {
    const { t } = useTranslation();
    const { controle } = t("exercicio");
    const dispatch = useDispatch();
    const { user } = useSelector((state) => state.auth);
    const { modoEscuro } = useSelector((state) => state.tema);
-
    const intervalRef = useRef(null);
    const { apanharNoBackendComAuth, loading } = useFetch(null, null, null, "manual");
    const [tempoTotal, setTempoTotal] = useState(0);
+   const [progressoSalvo, setProgressoSalvo] = useState(false);
+   const { height, width } = useWindowSize();
 
    function iniciarTreino() {
       setAtivo(true);
@@ -40,6 +44,10 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo, tempo, 
          dispatch(setUser({ ...user, progresso: v.progresso, ultimosExerciciosPraticados: v.ultimosExerciciosPraticados }));
          setTempo(0);
          setTempoTotal(v.tempoTotalDeTreino);
+         setProgressoSalvo(true);
+         setTimeout(() => {
+            setProgressoSalvo(false);
+         }, 5000);
       });
    }
 
@@ -122,6 +130,17 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo, tempo, 
                </Toast.Body>
             </Toast>
          </ToastContainer>
+
+         {/* Animação de confettis caso se treine u */}
+         {progressoSalvo && <Confetti width={width} height={height} />}
+
+         {/* TODO: Mostrar a Notificação ao se salvar o progresso do treinamento */}
+         <Notificacao
+            variant="success"
+            mostrar={progressoSalvo}
+            onClose={() => setProgressoSalvo(false)}
+            mensagem="Progresso do treinamento salvo com sucesso!"
+         />
       </div>
    );
 };
