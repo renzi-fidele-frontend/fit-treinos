@@ -1,15 +1,21 @@
 import { Image, Placeholder } from "react-bootstrap";
 import { segundosParaFormatoHumanizado } from "../../utils/segundosParaFormatoHumanizado";
 import styles from "./LinhaUsuarioClassificado.module.css";
+import { useTranslation } from "react-i18next";
 
 const LinhaUsuarioClassificado = ({ chave, usuario }) => {
+   const { t } = useTranslation();
+   const { posicao } = t("leaderboard");
+
    function isEven(number) {
       return number % 2 !== 0 ? true : false;
    }
 
    return usuario ? (
       <tr>
-         <td className="fst-italic fw-medium">{chave + 1} º lugar</td>
+         <td className="fst-italic fw-medium">
+            {chave + 1} º {posicao}
+         </td>
          <td>
             <div className="d-flex align-items-center gap-3">
                <Image id={styles.foto} className="rounded p-0" thumbnail src={usuario?.foto} />
@@ -28,7 +34,9 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
       </tr>
    ) : (
       <tr>
-         <td className="fst-italic fw-medium">{usuario}º lugar</td>
+         <td className="fst-italic fw-medium">
+            {usuario}º {posicao}
+         </td>
          <td>
             <Placeholder className="d-flex align-items-center gap-3" animation="wave">
                <Placeholder id={styles.foto} />

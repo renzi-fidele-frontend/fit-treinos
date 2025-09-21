@@ -46,7 +46,7 @@ const Header = () => {
             </>
          )}
          <Nav.Link as={Link} to="/leaderboard" className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/leaderboard"}>
-            <i className="me-2 d-lg-none bi bi-trophy-fill"></i> Liderança
+            <i className="me-2 d-lg-none bi bi-trophy-fill"></i> {links[6]}
          </Nav.Link>
       </Nav>
    );

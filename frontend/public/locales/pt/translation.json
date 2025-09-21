@@ -182,7 +182,7 @@
       "aviso": "Você ainda não salvou o tempo de treino que foi contabilizado, tens a certeza de que queres sair?"
    },
    "header": {
-      "links": ["Início", "Exercícios", "Entrar", "Cadastrar", "Progresso do treinamento", "Favoritos"],
+      "links": ["Início", "Exercícios", "Entrar", "Cadastrar", "Progresso do treinamento", "Favoritos", "Liderança"],
       "editar": "Editar perfil",
       "sair": "Deslogar"
    },
@@ -220,6 +220,7 @@
       "tit": "Descubra os usuários mais determinados",
       "descricao": "Seja consistente com o treino para poder chegar ao topo",
       "subtit": "Tabela de classificação",
-      "tableHeadings": ["Rank", "Usuário", "Tempo de treino", "Treinos", "Cadastrado em"]
+      "tableHeadings": ["Rank", "Usuário", "Tempo de treino", "Treinos", "Cadastrado em"],
+      "posicao": "lugar"
    }
 }
