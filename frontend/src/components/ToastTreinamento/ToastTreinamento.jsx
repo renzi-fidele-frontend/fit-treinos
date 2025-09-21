@@ -7,7 +7,6 @@ import { setUser } from "../../state/auth/authSlice";
 import { formatarTempo } from "../../utils/formatarSegundos";
 import { useTranslation } from "react-i18next";
 import Notificacao from "../Notificacao/Notificacao";
-import { useWindowSize } from "react-use";
 // Confetti
 import Confetti from "react-confetti";
 
@@ -21,7 +20,6 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo, tempo, 
    const { apanharNoBackendComAuth, loading } = useFetch(null, null, null, "manual");
    const [tempoTotal, setTempoTotal] = useState(0);
    const [progressoSalvo, setProgressoSalvo] = useState(false);
-   const { height, width } = useWindowSize();
 
    function iniciarTreino() {
       setAtivo(true);
@@ -47,7 +45,7 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo, tempo, 
          setProgressoSalvo(true);
          setTimeout(() => {
             setProgressoSalvo(false);
-         }, 5000);
+         }, 7000);
       });
    }
 
@@ -131,10 +129,10 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo, tempo, 
             </Toast>
          </ToastContainer>
 
-         {/* Animação de confettis caso se treine u */}
-         {progressoSalvo && <Confetti width={width} height={height} />}
+         {/* Animação de confettis */}
+         {progressoSalvo && <Confetti className="position-fixed" />}
 
-         {/* TODO: Mostrar a Notificação ao se salvar o progresso do treinamento */}
+         {/* Notificação */}
          <Notificacao
             variant="success"
             mostrar={progressoSalvo}
