@@ -86,8 +86,13 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo, tempo, 
 
    return (
       <div>
+         {/* Mini painel */}
          {!mostrar && tempo > 0 && (
-            <div className="position-fixed end-0 bottom-0 me-4 mb-4 text-center border shadow-lg p-2 rounded">
+            <div
+               className={`position-fixed end-0 bottom-0 me-4 mb-4 text-center border shadow-lg p-2 rounded ${
+                  modoEscuro ? "bg-dark" : "bg-light"
+               }`}
+            >
                <h6 className="border-bottom pb-1">
                   <i className="bi bi-alarm me-1"></i> {controle.current}
                </h6>
@@ -96,6 +101,7 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo, tempo, 
             </div>
          )}
 
+         {/* Painel de treinamento */}
          <ToastContainer position="bottom-end" className="position-fixed">
             <Toast show={mostrar} onClose={onClose} className="me-4 mb-4">
                <Toast.Header className="d-flex justify-content-between">
