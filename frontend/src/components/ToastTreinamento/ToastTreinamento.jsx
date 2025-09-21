@@ -7,6 +7,7 @@ import { setUser } from "../../state/auth/authSlice";
 import { formatarTempo } from "../../utils/formatarSegundos";
 import { useTranslation } from "react-i18next";
 
+// TODO: Renderizar uma animação de confetti ao se treinar um exercício
 const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo, tempo, setTempo, ativo, setAtivo }) => {
    const { t } = useTranslation();
    const { controle } = t("exercicio");
