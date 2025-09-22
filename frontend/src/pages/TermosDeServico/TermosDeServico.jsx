@@ -1,16 +1,17 @@
-import { Col, Container, Row } from "react-bootstrap";
 import BannerTopo from "../../components/BannerTopo/BannerTopo";
 import foto from "../../assets/privacyman.webp";
+import { Col, Container, Row } from "react-bootstrap";
 import { Trans, useTranslation } from "react-i18next";
 
-const PoliticaDePrivacidade = () => {
+const TermosDeServico = () => {
    const { t } = useTranslation();
-   const { tit, dados, subtit } = t("privacy");
+   const { tit, subtit, dados } = t("terms");
+
    return (
       <div>
-         <BannerTopo descricao={subtit} fotoModelo={foto} titulo={tit} />
+         <BannerTopo fotoModelo={foto} titulo={tit} descricao={subtit} />
          <Container>
-            <Row className="py-4 py-sm-5 mb-sm-4">
+            <Row className="py-4 py-sm-5 mb-sm-5">
                <Col>
                   {dados.map((v, k) => (
                      <div key={k}>
@@ -26,4 +27,4 @@ const PoliticaDePrivacidade = () => {
       </div>
    );
 };
-export default PoliticaDePrivacidade;
+export default TermosDeServico;

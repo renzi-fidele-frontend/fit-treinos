@@ -216,6 +216,32 @@
          }
       ]
    },
+   "terms": {
+      "tit": "Termos de serviços",
+      "subtit": "Leia atentamente nossos termos de serviço para entender suas responsabilidades e direitos ao utilizar nossa plataforma.",
+      "dados": [
+         {
+            "tit": "Aceitação dos Termos",
+            "subtit": "<p>Ao acessar e utilizar nossa plataforma, você concorda com todos os termos e condições aqui estabelecidos. Caso não concorde com algum destes termos, recomendamos que não utilize nossos serviços.</p>"
+         },
+         {
+            "tit": "Uso da Plataforma",
+            "subtit": "<p>O usuário compromete-se a utilizar a plataforma de forma responsável, respeitando as leis vigentes e os direitos de terceiros. É proibido o uso para fins ilícitos ou que possam prejudicar outros usuários.</p>"
+         },
+         {
+            "tit": "Cadastro e Segurança",
+            "subtit": "<p>Para acessar determinadas funcionalidades, é necessário realizar um cadastro fornecendo informações verdadeiras e atualizadas. O usuário é responsável por manter a confidencialidade de sua senha e dados de acesso.</p>"
+         },
+         {
+            "tit": "Propriedade Intelectual",
+            "subtit": "<p>Todo o conteúdo disponibilizado na plataforma, incluindo textos, imagens, vídeos e marcas, é protegido por direitos autorais e não pode ser reproduzido sem autorização prévia.</p>"
+         },
+         {
+            "tit": "Modificações dos Termos",
+            "subtit": "<p>Reservamo-nos o direito de alterar estes termos e condições a qualquer momento. As alterações serão comunicadas na plataforma, e o uso contínuo dos serviços implica aceitação das novas condições.</p>"
+         }
+      ]
+   },
    "leaderboard": {
       "tit": "Descubra os usuários mais determinados",
       "descricao": "Seja consistente com o treino para poder chegar ao topo",

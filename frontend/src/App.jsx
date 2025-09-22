@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ScrollTop from "./components/ScrollTop/ScrollTop";
 
+// TODO: Investigar sobre um jeito de integrar o Google Fit Api de modo a escalar a aplicação de treino
 function App() {
    return (
       <div className="App">

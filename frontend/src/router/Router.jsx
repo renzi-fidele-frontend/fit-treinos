@@ -12,6 +12,7 @@ import EditarPerfil from "../pages/EditarPerfil/EditarPerfil";
 import EditarPerfilSocial from "../pages/EditarPerfil/EditarPerfilSocial";
 import App from "../App";
 import TabelaDeClassificacao from "../pages/TabelaDeClassificacao/TabelaDeClassificacao";
+import TermosDeServico from "../pages/TermosDeServico/TermosDeServico";
 
 const Router = ({ children }) => {
    const { user } = useSelector((state) => state.auth);
@@ -57,6 +58,10 @@ const Router = ({ children }) => {
             {
                path: "/privacy",
                element: <PoliticaDePrivacidade />,
+            },
+            {
+               path: "/terms_and_conditions",
+               element: <TermosDeServico />,
             },
          ],
       },
