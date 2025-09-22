@@ -35,7 +35,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    ) : (
       <tr>
          <td className="fst-italic fw-medium">
-            {usuario}º {posicao}
+            {chave}º {posicao}
          </td>
          <td>
             <Placeholder className="d-flex align-items-center gap-3" animation="wave">
