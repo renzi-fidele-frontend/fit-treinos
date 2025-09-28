@@ -19,13 +19,13 @@ import { traduzirTexto } from "../../utils/traduzirTexto";
 import { useTranslation } from "react-i18next";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
-import useUnsavedChanges from "../../hooks/useUnsavedChanges";
 
 // FIXME: A requisição está sendo feita duas vezes
+// TODO: Mostrar ações do usuário logado, porém ao se clickar redirecionar para o página de autenticação
 
 const DetalhesExercicio = () => {
    const { t } = useTranslation();
-   const { tit, actions, detalhes, youtube, related, aviso } = t("exercicio");
+   const { tit, actions, detalhes, youtube, related } = t("exercicio");
    const { id } = useParams();
    const dispatch = useDispatch();
    const { idioma } = useSelector((state) => state.idioma);
@@ -45,7 +45,6 @@ const DetalhesExercicio = () => {
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
    const { apanharNoBackendComAuth, loading: loadingFavorito } = useFetch(null, null, null, "manual");
    useExercisesApiAndDispatchOnStore();
-   useUnsavedChanges(tempo > 3 ? false : true, aviso);
 
    // Dados traduzidos
    const [titulo, setTitulo] = useState(null);

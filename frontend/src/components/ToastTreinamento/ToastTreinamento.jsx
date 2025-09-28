@@ -9,10 +9,11 @@ import { useTranslation } from "react-i18next";
 import Notificacao from "../Notificacao/Notificacao";
 // Confetti
 import Confetti from "react-confetti";
+import useUnsavedChanges from "../../hooks/useUnsavedChanges";
 
 const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo, tempo, setTempo, ativo, setAtivo }) => {
    const { t } = useTranslation();
-   const { controle } = t("exercicio");
+   const { controle, aviso } = t("exercicio");
    const dispatch = useDispatch();
    const { user } = useSelector((state) => state.auth);
    const { modoEscuro } = useSelector((state) => state.tema);
@@ -20,8 +21,11 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo, tempo, 
    const { apanharNoBackendComAuth, loading } = useFetch(null, null, null, "manual");
    const [tempoTotal, setTempoTotal] = useState(0);
    const [progressoSalvo, setProgressoSalvo] = useState(false);
+   // const [guardado, setGuardado] = useState(true);
+   // useUnsavedChanges(guardado, aviso);
 
    function iniciarTreino() {
+      // setGuardado(false);
       setAtivo(true);
       intervalRef.current = setInterval(() => {
          setTempo((prevState) => prevState + 1);
@@ -42,6 +46,7 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo, tempo, 
          dispatch(setUser({ ...user, progresso: v.progresso, ultimosExerciciosPraticados: v.ultimosExerciciosPraticados }));
          setTempo(0);
          setTempoTotal(v.tempoTotalDeTreino);
+         // setGuardado(true);
          setProgressoSalvo(true);
          setTimeout(() => {
             setProgressoSalvo(false);
@@ -49,6 +54,7 @@ const ToastTreinamento = ({ mostrar, onClose, idExercicio, parteDoCorpo, tempo, 
       });
    }
 
+   // Cleanup
    useEffect(() => {
       return () => clearInterval(intervalRef.current);
    }, []);

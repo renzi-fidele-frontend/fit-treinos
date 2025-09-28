@@ -1,11 +1,14 @@
 import { useEffect } from "react";
 import { useBlocker } from "react-router-dom";
 
-/** Este Hook confirma se o usuário tem a certeza que quer sair de uma página específica. */
+// TODO: Mais tarde descobrir porque mesmo após fazer o cleanup, o evento impede o roteamento
+/** Este Hook confirma se o usuário tem a certeza que quer sair de uma página específica.
+ */
 const useUnsavedChanges = (progressoSalvo, mensagem) => {
    // Prevenindo o usuário de mudar de rota sem ter salvo o progresso
-   useBlocker(() => {
+   const blocker = useBlocker(() => {
       if (!progressoSalvo) {
+         console.log("Confirmando a saída!");
          const confirmarSaida = window.confirm(mensagem);
          return !confirmarSaida;
       }
@@ -14,19 +17,25 @@ const useUnsavedChanges = (progressoSalvo, mensagem) => {
 
    //  Prevenindo o usuário de fechar a aba
    useEffect(() => {
-      const handleBeforeUnload = (e) => {
-         e.preventDefault();
-         e.returnValue = mensagem;
-      };
-
-      if (!progressoSalvo) {
-         window.addEventListener("beforeunload", handleBeforeUnload);
+      function handleBeforeUnload(e) {
+         if (!progressoSalvo) {
+            e.preventDefault();
+            e.returnValue = mensagem;
+         }
       }
 
-      // Clean UP
+      window.addEventListener("beforeunload", handleBeforeUnload);
+
+      if (progressoSalvo) {
+         blocker?.proceed?.();
+      }
+
+      // Cleanup
       return () => {
          window.removeEventListener("beforeunload", handleBeforeUnload);
       };
-   }, [progressoSalvo, mensagem]);
+   }, [progressoSalvo, mensagem, blocker]);
+
+   return blocker;
 };
 export default useUnsavedChanges;
