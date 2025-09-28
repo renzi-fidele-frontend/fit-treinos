@@ -19,6 +19,7 @@ import { traduzirTexto } from "../../utils/traduzirTexto";
 import { useTranslation } from "react-i18next";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
+import useAuthAction from "../../hooks/useAuthAction";
 
 // FIXME: A requisição está sendo feita duas vezes
 // TODO: Mostrar ações do usuário logado, porém ao se clickar redirecionar para o página de autenticação
@@ -40,6 +41,7 @@ const DetalhesExercicio = () => {
    const [tempo, setTempo] = useState(0);
    const [ativo, setAtivo] = useState(false);
    const [instrucoes, setInstrucoes] = useState(null);
+   const { verificarAuth } = useAuthAction();
    const { investigarEquipamento, investigarMusculoAlvo, investigarParteDoCorpo } = useAnalisarTraducao();
    // Requisições
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
@@ -180,22 +182,20 @@ const DetalhesExercicio = () => {
                   </ListGroup>
 
                   {/* Ações */}
-                  {user && (
-                     <div className="d-flex gap-3 mt-4 flex-wrap flex-sm-row justify-content-center justify-content-md-start">
-                        <Button variant="warning" onClick={iniciarTreino}>
-                           <i className="bi bi-person-arms-up me-1"></i> {actions[0]}
+                  <div className="d-flex gap-3 mt-4 flex-wrap flex-sm-row justify-content-center justify-content-md-start">
+                     <Button variant="warning" onClick={() => verificarAuth(iniciarTreino)}>
+                        <i className="bi bi-person-arms-up me-1"></i> {actions[0]}
+                     </Button>
+                     {!favorito ? (
+                        <Button variant="secondary" onClick={() => verificarAuth(adicionarAosFavoritos)}>
+                           {loadingFavorito ? <Spinner className="me-1" size="sm" /> : <i className="bi bi-heart me-1"></i>} {actions[1]}
                         </Button>
-                        {!favorito ? (
-                           <Button variant="secondary" onClick={adicionarAosFavoritos}>
-                              {loadingFavorito ? <Spinner className="me-1" size="sm" /> : <i className="bi bi-heart me-1"></i>} {actions[1]}
-                           </Button>
-                        ) : (
-                           <Button variant="danger" onClick={removerDosFavoritos}>
-                              {loadingFavorito ? <Spinner className="me-1" size="sm" /> : <i className="bi bi-trash me-1"></i>} {actions[2]}
-                           </Button>
-                        )}
-                     </div>
-                  )}
+                     ) : (
+                        <Button variant="danger" onClick={() => verificarAuth(removerDosFavoritos)}>
+                           {loadingFavorito ? <Spinner className="me-1" size="sm" /> : <i className="bi bi-trash me-1"></i>} {actions[2]}
+                        </Button>
+                     )}
+                  </div>
                </Col>
             </Row>
 
