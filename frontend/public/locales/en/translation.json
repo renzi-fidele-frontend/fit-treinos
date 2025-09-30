@@ -12,23 +12,23 @@
       "parteSelecionada": "Selected body part:",
       "vantagens": {
          "tit": " The best place for you to get in shape",
-         "descricao": "Find out the most fun and practical way to achieve your fitness goals! ",
+         "descricao": "Discover the most fun and practical way to achieve your fitness goals! Here you'll find a complete platform with detailed exercises.",
          "items": [
             {
                "titulo": "Detailed exercises",
-               "texto": "Find clear descriptions and step -by -step exercise for all levels. "
+               "texto": "Find clear, step-by-step exercise descriptions for all levels. Whether you're a beginner or advanced, we have the perfect workout for you!"
             },
             {
                "titulo": "Video Tutorials",
-               "texto": "Follow youtube tutorials created by professionals. "
+               "texto": "Follow YouTube tutorials created by professionals. Learn how to perform the movements safely and efficiently."
             },
             {
                "titulo": "Personalized Control",
-               "texto": "Filters exercises by categories such as strength, cardio or stretching. "
+               "texto": "Filter exercises by categories, such as strength, cardio, or stretching. Save time and find exactly what you need!"
             },
             {
                "titulo": "Training Tracking",
-               "texto": "Follow your progress easily! "
+               "texto": "Track your progress with ease! Log your workouts, view stats, and stay motivated as you reach your goals."
             }
          ]
       },
@@ -37,27 +37,27 @@
          "items": [
             {
                "nome": "Ana Carolina",
-               "testemunho": "I never imagined that I could feel so confident training at home. "
+               "testemunho": "I never imagined I could feel so confident training at home. The tutorials are amazing, and the filters help me find exactly what I need. I've already lost 5 kg and gained a lot more energy!"
             },
             {
                "nome": "Rafael Monteiro",
-               "testemunho": "I was completely sedentary, but the site made everything so simple and practical. "
+               "testemunho": "I used to be completely sedentary, but the site has made everything so simple and practical. I love following my progress with the training tracker. Today, my health is different!"
             },
             {
                "nome": "Mariana Costa",
-               "testemunho": "The videos are super didactic and motivating. "
+               "testemunho": "The videos are super educational and motivating. I can exercise safely even without going to the gym. It's like having a personal trainer at home!"
             },
             {
-               "nome": "FELIPE ALMEIDA",
-               "testemunho": "With the running routine, I needed something fast and efficient. "
+               "nome": "Felipe Almeida",
+               "testemunho": "With my busy routine, I needed something quick and efficient. I found it all here! The exercises are easy to follow and the variety is impressive."
             },
             {
-               "nome": "CAMILA RODRIGUES",
-               "testemunho": "The possibility of filtering exercises by category was a watershed for me. "
+               "nome": "Camila Rodrigues",
+               "testemunho": "The ability to filter exercises by category was a game changer for me. Now I can alternate between strength training and stretching without wasting time!"
             },
             {
                "nome": "Pedro Henrique",
-               "testemunho": "The tips and trends keep me motivated. "
+               "testemunho": "The tips and trends keep me motivated. It's like having an up-to-date fitness guide always at hand. I've already recommended it to several friends!"
             }
          ]
       }
@@ -119,7 +119,7 @@
       "placeSenha": "Enter your new password",
       "modal": {
          "tit": "Remove the account?",
-         "descricao": "Are you sure you want to remove this account? "
+         "descricao": "Are you sure you want to remove this account? You will lose all your training progress history, favorite exercises and any information stored here."
       }
    },
    "dashboard": {
