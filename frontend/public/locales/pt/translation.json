@@ -90,7 +90,8 @@
          "pass": "Insira sua senha",
          "btn": "Começar treinamento",
          "btn2": "Concluir cadastro"
-      }
+      },
+      "voltar": "Voltar atrás"
    },
    "login": {
       "tit": "Entre na sua conta",

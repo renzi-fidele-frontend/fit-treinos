@@ -30,7 +30,6 @@ import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
 import useAuthAction from "../../hooks/useAuthAction";
 
 // FIXME: A requisição está sendo feita duas vezes
-// TODO: Mostrar ações do usuário logado, porém ao se clickar redirecionar para o página de autenticação
 
 const DetalhesExercicio = () => {
    const { t } = useTranslation();

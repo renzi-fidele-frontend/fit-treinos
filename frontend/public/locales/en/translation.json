@@ -90,7 +90,8 @@
          "pass": "Enter your password",
          "btn": "Start training",
          "btn2": "Conclude registration"
-      }
+      },
+      "voltar": "Go back"
    },
    "login": {
       "tit": "Login to your account",

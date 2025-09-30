@@ -8,8 +8,8 @@
 }
 
 #ctFoto img {
-   width: 270px;
-   height: 270px;
+   width: 180px;
+   height: 180px;
    object-fit: cover;
 }
 
@@ -22,10 +22,7 @@
       font-size: 2rem !important;
    }
 
-   #ctFoto img {
-      width: 200px;
-      height: 200px;
-   }
+  
 }
 
 @media screen and (max-width: 992px) {

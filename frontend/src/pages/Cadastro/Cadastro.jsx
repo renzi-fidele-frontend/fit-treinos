@@ -20,7 +20,7 @@ import { renderizarPrevia } from "../../utils/renderizarPrevia";
 
 const Cadastro = () => {
    const { t } = useTranslation();
-   const { tit, tit2, foto, subtit, subtit2, social, email, form } = t("cadastro");
+   const { tit, tit2, foto, subtit, subtit2, social, email, form, voltar } = t("cadastro");
    const { form: form2 } = t("login");
    const navegar = useNavigate();
    const dispatch = useDispatch();
@@ -95,11 +95,17 @@ const Cadastro = () => {
             <h6 className="fw-semibold">{email}</h6>
             <Form onSubmit={handleSubmit1} className="mt-3">
                <div className="d-flex gap-3">
-                  <Form.Control required ref={nomeRef} type="text" placeholder={form.nome} />
-                  <Form.Control required ref={sobrenomeRef} type="text" placeholder={form.sobre} />
+                  <Form.Control required ref={nomeRef} type="text" placeholder={form.nome} defaultValue={estadoForm?.nome?.split(" ")[0]} />
+                  <Form.Control
+                     required
+                     ref={sobrenomeRef}
+                     type="text"
+                     placeholder={form.sobre}
+                     defaultValue={estadoForm?.nome?.split(" ")[1]}
+                  />
                </div>
-               <Form.Control required ref={emailRef} className="my-3" type="email" placeholder={form.email} />
-               <Form.Control required ref={passwordRef} type="password" placeholder={form.pass} />
+               <Form.Control required ref={emailRef} className="my-3" type="email" placeholder={form.email} defaultValue={estadoForm?.email} />
+               <Form.Control required ref={passwordRef} type="password" placeholder={form.pass} defaultValue={estadoForm?.password} />
                <Button variant="secondary" className="mt-4" type="submit">
                   {form.btn}
                </Button>
@@ -110,7 +116,12 @@ const Cadastro = () => {
 
    const Step2 = () => (
       <>
-         <h1 className="fw-bold mb-3 mb-xl-5" id={styles.tit2}>
+         <div className="mb-3">
+            <Button variant="outline-primary" size="sm" onClick={() => setStep(1)}>
+               <i className="bi bi-arrow-left me-1"></i> {voltar}
+            </Button>
+         </div>
+         <h1 className="fw-bold mb-3 mb-xl-4" id={styles.tit2}>
             {tit2}
          </h1>
          {/* Prévia */}
