@@ -1,4 +1,10 @@
-import { Alert, Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Image from "react-bootstrap/Image";
+import Row from "react-bootstrap/Row";
 import styles from "./Exercicios.module.css";
 import fotoBanner from "../../assets/bannerEx.png";
 import Titulo from "../../components/ui/Titulo";

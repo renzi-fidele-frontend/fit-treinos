@@ -1,4 +1,7 @@
-import { Alert, Col, Image, Row } from "react-bootstrap";
+import Alert from "react-bootstrap/Alert";
+import Col from "react-bootstrap/Col";
+import Image from "react-bootstrap/Image";
+import Row from "react-bootstrap/Row";
 import fotoBanner from "../../assets/myguy.webp";
 import { useSelector } from "react-redux";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";

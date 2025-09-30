@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setToken, setUser } from "../../state/auth/authSlice";
-import { Dropdown, Image } from "react-bootstrap";
+import Dropdown from "react-bootstrap/Dropdown"
+import Image from "react-bootstrap/Image"
 import styles from "./DropDownBtn.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";

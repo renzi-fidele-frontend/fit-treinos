@@ -1,4 +1,5 @@
-import { Dropdown, Image } from "react-bootstrap";
+import Dropdown from "react-bootstrap/Dropdown";
+import Image from "react-bootstrap/Image";
 import { useDispatch, useSelector } from "react-redux";
 import { setIdioma } from "../../state/language/languageSlice";
 import i18n from "../../i18n/i18n";

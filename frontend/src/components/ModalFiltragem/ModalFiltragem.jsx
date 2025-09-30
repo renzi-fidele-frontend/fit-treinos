@@ -1,4 +1,6 @@
-import { Button, ListGroup, Modal } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import ListGroup from "react-bootstrap/ListGroup";
+import Modal from "react-bootstrap/Modal";
 import styles from "./ModalFiltragem.module.css";
 import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
 import { useDispatch, useSelector } from "react-redux";

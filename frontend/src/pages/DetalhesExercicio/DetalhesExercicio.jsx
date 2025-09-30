@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
-import { Button, Col, Container, Image, ListGroup, ListGroupItem, Placeholder, Row, Spinner } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Image from "react-bootstrap/Image";
+import ListGroup from "react-bootstrap/ListGroup";
+import ListGroupItem from "react-bootstrap/ListGroupItem";
+import Placeholder from "react-bootstrap/Placeholder";
+import Row from "react-bootstrap/Row";
+import Spinner from "react-bootstrap/Spinner";
 import styles from "./DetalhesExercicio.module.css";
 import { fotoDaParteDoCorpo } from "../../utils/fotoParteCorpo";
 import { YoutubeVideosApiOptions } from "../../services/YoutubeVideosApi";

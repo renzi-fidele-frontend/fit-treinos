@@ -1,4 +1,11 @@
-import { Button, Image, OverlayTrigger, Spinner, Toast, ToastContainer, Tooltip } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Spinner from "react-bootstrap/Spinner";
+import Toast from "react-bootstrap/Toast";
+import ToastContainer from "react-bootstrap/ToastContainer";
+import Tooltip from "react-bootstrap/Tooltip";
+
 import gif from "../../assets/illustration.jpg";
 import { useState, useEffect, useRef } from "react";
 import useFetch from "../../hooks/useFetch";

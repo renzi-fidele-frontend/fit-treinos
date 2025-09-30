@@ -1,4 +1,5 @@
-import { Toast, ToastContainer } from "react-bootstrap";
+import Toast from "react-bootstrap/Toast"
+import ToastContainer from "react-bootstrap/ToastContainer"
 
 const Notificacao = ({ mensagem, mostrar, onClose, variant }) => {
    return (

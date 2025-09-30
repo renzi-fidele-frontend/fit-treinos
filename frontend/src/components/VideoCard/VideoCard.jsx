@@ -1,4 +1,6 @@
-import { Card, Modal, Placeholder } from "react-bootstrap";
+import Card from "react-bootstrap/Card";
+import Modal from "react-bootstrap/Modal";
+import Placeholder from "react-bootstrap/Placeholder";
 import styles from "./VideoCard.module.css";
 import { useState } from "react";
 import YouTube from "react-youtube";

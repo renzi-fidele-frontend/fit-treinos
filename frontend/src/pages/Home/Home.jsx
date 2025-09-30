@@ -1,4 +1,11 @@
-import { Button, Card, Col, Container, Image, ListGroupItem, Placeholder, Row } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Image from "react-bootstrap/Image";
+import ListGroupItem from "react-bootstrap/ListGroupItem";
+import Placeholder from "react-bootstrap/Placeholder";
+import Row from "react-bootstrap/Row";
 import styles from "./Home.module.css";
 import ftBanner from "../../assets/modelo.png";
 import Titulo from "../../components/ui/Titulo";

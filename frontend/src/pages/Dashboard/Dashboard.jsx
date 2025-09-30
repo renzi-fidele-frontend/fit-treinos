@@ -1,4 +1,8 @@
-import { Alert, Col, Image, Placeholder, Row } from "react-bootstrap";
+import Alert from "react-bootstrap/Alert";
+import Col from "react-bootstrap/Col";
+import Image from "react-bootstrap/Image";
+import Placeholder from "react-bootstrap/Placeholder";
+import Row from "react-bootstrap/Row";
 import styles from "./Dashboard.module.css";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";

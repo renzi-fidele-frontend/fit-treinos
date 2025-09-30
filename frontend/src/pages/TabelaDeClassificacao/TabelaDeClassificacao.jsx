@@ -1,4 +1,6 @@
-import { Col, Row, Table } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Table from "react-bootstrap/Table";
 import BannerTopo from "../../components/BannerTopo/BannerTopo";
 import styles from "./TabelaDeClassificacao.module.css";
 import fotoBanner from "../../assets/leaderWomen2.webp";

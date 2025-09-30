@@ -1,4 +1,6 @@
-import { Badge, Card, Placeholder } from "react-bootstrap";
+import Badge from "react-bootstrap/Badge";
+import Card from "react-bootstrap/Card";
+import Placeholder from "react-bootstrap/Placeholder";
 import { Link } from "react-router-dom";
 import { gerarArray } from "../../utils/gerarArray";
 import styles from "./CardExercicio.module.css";

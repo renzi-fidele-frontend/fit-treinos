@@ -1,6 +1,8 @@
 import BannerTopo from "../../components/BannerTopo/BannerTopo";
 import foto from "../../assets/privacyman.webp";
-import { Col, Container, Row } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import { Trans, useTranslation } from "react-i18next";
 
 const TermosDeServico = () => {

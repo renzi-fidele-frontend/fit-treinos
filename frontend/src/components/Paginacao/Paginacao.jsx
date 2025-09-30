@@ -1,4 +1,4 @@
-import { Pagination } from "react-bootstrap";
+import Pagination from "react-bootstrap/Pagination"
 import { gerarArray } from "../../utils/gerarArray";
 
 const Paginacao = ({ onPageClick, paginaAtual, totalPaginas }) => {

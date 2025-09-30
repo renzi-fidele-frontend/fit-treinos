@@ -1,4 +1,10 @@
-import { Button, Col, Container, Form, Image, Row, Spinner } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Image from "react-bootstrap/Image";
+import Row from "react-bootstrap/Row";
+import Spinner from "react-bootstrap/Spinner";
 import styles from "./Login.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import ftBanner from "../../assets/login.webp";

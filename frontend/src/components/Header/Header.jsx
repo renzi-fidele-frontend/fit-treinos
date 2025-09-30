@@ -1,4 +1,10 @@
-import { Button, CloseButton, Container, Image, Nav, Navbar, Offcanvas } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import CloseButton from "react-bootstrap/CloseButton";
+import Container from "react-bootstrap/Container";
+import Image from "react-bootstrap/Image";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Offcanvas from "react-bootstrap/Offcanvas";
 import { Link, useLocation } from "react-router-dom";
 import styles from "./Header.module.css";
 import logo from "../../assets/logo.png";

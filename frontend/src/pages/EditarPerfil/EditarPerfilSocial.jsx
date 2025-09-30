@@ -1,6 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./EditarPerfil.module.css";
-import { Button, Col, Container, Form, Image, Row, Spinner, Modal } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Image from "react-bootstrap/Image";
+import Row from "react-bootstrap/Row";
+import Spinner from "react-bootstrap/Spinner";
+import Modal from "react-bootstrap/Modal";
 import { useRef, useState } from "react";
 import fotoModelo from "../../assets/modeloEditarPerfil.webp";
 import { Link } from "react-router-dom";
@@ -119,12 +126,7 @@ const EditarPerfilSocial = () => {
             </Col>
          </Row>
          {/* Mensagem de noficação de succeso de edição */}
-         <Notificacao
-            variant="success"
-            mensagem={mensagemAviso}
-            mostrar={mostrarNotificacao}
-            onClose={() => setMostrarNotificacao(false)}
-         />
+         <Notificacao variant="success" mensagem={mensagemAviso} mostrar={mostrarNotificacao} onClose={() => setMostrarNotificacao(false)} />
       </Container>
    );
 };

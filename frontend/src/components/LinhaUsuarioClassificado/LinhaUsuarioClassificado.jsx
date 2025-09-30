@@ -1,4 +1,5 @@
-import { Image, Placeholder } from "react-bootstrap";
+import Image from "react-bootstrap/Image";
+import Placeholder from "react-bootstrap/Placeholder";
 import { segundosParaFormatoHumanizado } from "../../utils/segundosParaFormatoHumanizado";
 import styles from "./LinhaUsuarioClassificado.module.css";
 import { useTranslation } from "react-i18next";

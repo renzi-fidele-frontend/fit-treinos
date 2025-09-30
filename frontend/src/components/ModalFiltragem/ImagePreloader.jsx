@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Image } from "react-bootstrap";
+import Image from "react-bootstrap/Image"
 import styles from "./ModalFiltragem.module.css";
 
 const ImagePreloader = ({ src }) => {

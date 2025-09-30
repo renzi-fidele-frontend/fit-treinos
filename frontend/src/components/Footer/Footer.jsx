@@ -1,4 +1,7 @@
-import { Col, Container, Image, Row } from "react-bootstrap";
+import Col from "react-bootstrap/Col"
+import Container from "react-bootstrap/Container"
+import Image from "react-bootstrap/Image"
+import Row from "react-bootstrap/Row"
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import styles from "./Footer.module.css";

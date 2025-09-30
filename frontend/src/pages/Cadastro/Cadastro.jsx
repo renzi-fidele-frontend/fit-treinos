@@ -1,4 +1,10 @@
-import { Button, Col, Container, Form, Image, ProgressBar, Row } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Image from "react-bootstrap/Image";
+import ProgressBar from "react-bootstrap/ProgressBar";
+import Row from "react-bootstrap/Row";
 import styles from "./Cadastro.module.css";
 import ftBanner from "../../assets/register.webp";
 import { Link, useNavigate } from "react-router-dom";
