@@ -384,7 +384,10 @@ const DetalhesExercicio = () => {
             <Row className="mt-2 pb-5 mb-3">
                <Col>
                   <h1 className="mb-4" id={styles.tit2}>
-                     {related.tit} <span className="text-capitalize text-secondary fw-bold text-decoration-underline">{exercicio?.target}</span>
+                     {related.tit}{" "}
+                     <span className="text-capitalize text-secondary fw-bold text-decoration-underline">
+                        {investigarMusculoAlvo(exercicio?.target)}
+                     </span>
                   </h1>
                   <Row>
                      <Col>
