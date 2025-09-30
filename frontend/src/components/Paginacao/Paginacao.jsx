@@ -1,4 +1,4 @@
-import Pagination from "react-bootstrap/Pagination"
+import Pagination from "react-bootstrap/Pagination";
 import { gerarArray } from "../../utils/gerarArray";
 
 const Paginacao = ({ onPageClick, paginaAtual, totalPaginas }) => {
@@ -32,12 +32,10 @@ const Paginacao = ({ onPageClick, paginaAtual, totalPaginas }) => {
          {paginaAtual > 4 && <Pagination.Ellipsis onClick={() => onPageClick(1)} />}
          {gerarArray(totalPaginas)
             .slice(...processarPaginacao())
-            .map((v) => (
-               <>
-                  <Pagination.Item active={v === paginaAtual} onClick={() => onPageClick(v)}>
-                     {v}
-                  </Pagination.Item>
-               </>
+            .map((v, k) => (
+               <Pagination.Item active={v === paginaAtual} onClick={() => onPageClick(v)} key={k}>
+                  {v}
+               </Pagination.Item>
             ))}
          {paginaAtual < totalPaginas - 4 && <Pagination.Ellipsis onClick={() => onPageClick(totalPaginas)} />}
          <Pagination.Item active={totalPaginas === paginaAtual} onClick={() => onPageClick(totalPaginas)}>
