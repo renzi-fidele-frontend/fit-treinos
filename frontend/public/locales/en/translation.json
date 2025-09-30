@@ -142,7 +142,8 @@
          "load": "Loading the chart ...",
          "desc": "* The training time unit is in seconds",
          "bestDay": "Best day of the week:",
-         "last": "Last training session:"
+         "last": "Last training session:",
+         "chartLabel": "Training time"
       },
       "card5": {
          "stat": "Most trained body parts",

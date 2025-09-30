@@ -22,6 +22,7 @@ import "moment/dist/locale/pt";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
 import { traduzirTexto } from "../../utils/traduzirTexto";
+import { traduzirDiaDaSemana } from "../../utils/traduzirDiaDaSemana";
 Chart.register(CategoryScale);
 
 const Dashboard = () => {
@@ -267,10 +268,10 @@ const Dashboard = () => {
                         {estatisticasDaSemana ? (
                            <Line
                               data={{
-                                 labels: estatisticasDaSemana?.map((v) => v?.dia),
+                                 labels: estatisticasDaSemana?.map((v) => (idioma?.includes("en") ? traduzirDiaDaSemana(v?.dia) : v?.dia)),
                                  datasets: [
                                     {
-                                       label: "Tempo de treino",
+                                       label: card4.chartLabel,
                                        data: estatisticasDaSemana?.map((v) => v?.tempoTreinadoNoDia),
                                        fill: true,
                                        tension: 0.4,
@@ -293,7 +294,8 @@ const Dashboard = () => {
                      <p className="text-secondary small">{card4.desc}</p>
                      <hr className="mt-4" />
                      <p className="text-secondary mb-0" id={styles.small}>
-                        <span className="fw-semibold">{card4.bestDay}</span> <i className="bi bi-calendar-day"></i> {diaMaisTreinado}
+                        <span className="fw-semibold">{card4.bestDay}</span> <i className="bi bi-calendar-day"></i>{" "}
+                        {idioma?.includes("en") ? traduzirDiaDaSemana(diaMaisTreinado) : diaMaisTreinado}
                      </p>
                      <p className="text-secondary mb-0" id={styles.small}>
                         <span className="fw-semibold">{card4.last}</span> {ultimoTreino}
