@@ -13,6 +13,7 @@ authRoute.post("/login", loginUsuario);
 
 authRoute.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 authRoute.get("/google/callback", passport.authenticate("google", { session: false }), (req, res) => {
+   if (req.user.error) return res.redirect(`${process.env.CLIENT_URL}/cadastro/?error=${req.user.error}`);
    res.redirect(`${process.env.CLIENT_URL}/?token=${req.user.token}`);
 });
 

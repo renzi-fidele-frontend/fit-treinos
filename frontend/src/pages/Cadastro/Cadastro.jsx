@@ -7,8 +7,8 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import Row from "react-bootstrap/Row";
 import styles from "./Cadastro.module.css";
 import ftBanner from "../../assets/register.webp";
-import { Link, useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import profilepic from "../../assets/profile.jpg";
 import useFetch from "../../hooks/useFetch";
 import { useDispatch } from "react-redux";
@@ -23,6 +23,7 @@ const Cadastro = () => {
    const { tit, tit2, foto, subtit, subtit2, social, email, form, voltar } = t("cadastro");
    const { form: form2 } = t("login");
    const navegar = useNavigate();
+   const location = useLocation();
    const dispatch = useDispatch();
    const [step, setStep] = useState(1);
    const [erro, setErro] = useState("");
@@ -152,6 +153,14 @@ const Cadastro = () => {
          <ProgressBar variant="success" animated striped now={80} label={`${80}%`} />
       </>
    );
+
+   // Caso haja erro ao se fazer autenticação
+   useEffect(() => {
+      if (location.search.split("=")[0].includes("error")) {
+         setMostrarErro(true);
+         setErro(decodeURIComponent(location.search.split("=")[1]));
+      }
+   }, [location.search]);
 
    return (
       <Container className="pb-5 pb-lg-0">

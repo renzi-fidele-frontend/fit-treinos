@@ -24,7 +24,11 @@ passport.use(
                   googleId: profile.id,
                   foto: profile?.photos[0]?.value,
                });
-               usuarioAdicionado.save();
+               try {
+                  await usuarioAdicionado.save();
+               } catch (error) {
+                  return done(false, { error: "O email já foi utilizado para criar uma conta!" });
+               }
                const token = jwt.sign({ userId: usuarioAdicionado.id }, process.env.JWT_SECRET);
                done(false, { user: usuarioAdicionado.toObject(), token });
             } else {

@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 
-// TODO: Retornar erro caso o email já tenha sido criado por senha / rede social
 const verificarToken = (req, res, next) => {
    // Lidando com o erro de CORS
    if (req.method === "OPTIONS") return next();
