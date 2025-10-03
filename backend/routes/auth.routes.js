@@ -11,6 +11,7 @@ const authRoute = express.Router();
 authRoute.post("/cadastro", multer.single("foto"), cadastrarUsuario);
 authRoute.post("/login", loginUsuario);
 
+// Google
 authRoute.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 authRoute.get("/google/callback", passport.authenticate("google", { session: false }), (req, res) => {
    if (req.user.error) return res.redirect(`${process.env.CLIENT_URL}/cadastro/?error=${req.user.error}`);
@@ -22,8 +23,10 @@ authRoute.get("/login/failed", (req, res) => {
    res.status(401).json({ error: true, message: "Falha ao fazer login" });
 });
 
+// Facebook
 authRoute.get("/facebook", passport.authenticate("facebook"));
 authRoute.get("/facebook/callback", passport.authenticate("facebook", { session: false }), function (req, res) {
+   if (req.user.error) return res.redirect(`${process.env.CLIENT_URL}/cadastro/?error=${req.user.error}`);
    res.redirect(`${process.env.CLIENT_URL}/?token=${req.user.token}`);
 });
 

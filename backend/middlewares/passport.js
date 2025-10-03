@@ -56,7 +56,6 @@ passport.use(
          try {
             let existeUser = await Usuario.findOne({ facebookId: profile.id });
             let usuarioAdicionado;
-            console.log(`O access token é: ${accessToken}`);
             if (!existeUser) {
                usuarioAdicionado = new Usuario({
                   nome: profile?.name?.givenName + " " + profile?.name?.familyName,
@@ -64,7 +63,11 @@ passport.use(
                   facebookId: profile?.id,
                   foto: profile?.photos[0]?.value,
                });
-               usuarioAdicionado.save();
+               try {
+                  await usuarioAdicionado.save();
+               } catch (error) {
+                  return done(false, { error: "O email já foi utilizado para criar uma conta!" });
+               }
 
                const token = jwt.sign({ userId: usuarioAdicionado.id, accessToken }, process.env.JWT_SECRET);
                done(false, { user: usuarioAdicionado.toObject(), token });
