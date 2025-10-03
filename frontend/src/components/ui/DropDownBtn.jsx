@@ -15,7 +15,6 @@ const UserDropdown = ({ customClass }) => {
    function deslogar() {
       dispatch(setUser(null));
       dispatch(setToken(null));
-      localStorage.clear();
    }
 
    const location = useLocation();
