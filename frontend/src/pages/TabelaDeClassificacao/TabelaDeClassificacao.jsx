@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 
 // TODO: Adicionar funcionalidade de filtragem
 // TODO: Adicionar a seção do "Último treino"
+// TODO: Adicionar uma descrição completa para cada seção da tabela de classificações
 
 const TabelaDeClassificacao = () => {
    const { t } = useTranslation();
