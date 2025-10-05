@@ -248,7 +248,25 @@
       "tit": "Descubra os usuários mais determinados",
       "descricao": "Seja consistente com o treino para poder chegar ao topo",
       "subtit": "Tabela de classificação",
-      "tableHeadings": ["Rank", "Usuário", "Tempo de treino", "Treinos", "Cadastrado em"],
+      "tableHeadings": [
+         {
+            "nome": "Rank",
+            "descricao": "Indica a posição do usuário no ranking geral, ordenada pelo tempo total de treino acumulado. Usuários com mais tempo de treino aparecem nas primeiras posições."
+         },
+         { "nome": "Usuário", "descricao": null },
+         {
+            "nome": "Tempo de treino",
+            "descricao": "Mostra o tempo total, em horas e minutos, que o usuário dedicou aos treinos desde o cadastro na plataforma. Esse valor é atualizado conforme novos treinos são registrados."
+         },
+         {
+            "nome": "Treinos",
+            "descricao": "Exibe a quantidade total de sessões de treino concluídas pelo usuário. Cada treino finalizado é contabilizado nesse campo, refletindo o engajamento e a frequência do usuário."
+         },
+         {
+            "nome": "Cadastrado em",
+            "descricao": "Data em que o usuário se registrou na plataforma. Esse campo permite visualizar há quanto tempo cada participante faz parte da comunidade."
+         }
+      ],
       "posicao": "lugar"
    },
    "authModal": {

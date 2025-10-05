@@ -253,7 +253,25 @@
       "tit": "Discover the most determined users",
       "descricao": "Be consistent with training so you can reach the top",
       "subtit": "Leaderboard",
-      "tableHeadings": ["Rank", "User", "Training time", "Trainings", "Registered in"],
+      "tableHeadings": [
+         {
+            "nome": "Rank",
+            "descricao": "Indicates the user's position in the overall ranking, ordered by total accumulated training time. Users with more training time appear in the top positions."
+         },
+         { "nome": "User", "descricao": null },
+         {
+            "nome": "Training time",
+            "descricao": "It shows the total time, in hours and minutes, that the user has spent training since registering on the platform. This value is updated as new workouts are recorded."
+         },
+         {
+            "nome": "Trainings",
+            "descricao": "Displays the total number of training sessions completed by the user. Each workout completed is counted in this field, reflecting the user's engagement and frequency."
+         },
+         {
+            "nome": "Registered on",
+            "descricao": "Date the user registered on the platform. This field allows you to see how long each participant has been part of the community."
+         }
+      ],
       "posicao": "place"
    },
    "authModal": {
