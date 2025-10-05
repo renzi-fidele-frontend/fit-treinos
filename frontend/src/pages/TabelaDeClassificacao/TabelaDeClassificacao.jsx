@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { gerarArray } from "../../utils/gerarArray";
 import LinhaUsuarioClassificado from "../../components/LinhaUsuarioClassificado/LinhaUsuarioClassificado";
 import { useTranslation } from "react-i18next";
+import Tooltip from "../../components/Tooltip/Tooltip";
 
 // TODO: Adicionar funcionalidade de filtragem
 // TODO: Adicionar a seção do "Último treino"
@@ -42,19 +43,47 @@ const TabelaDeClassificacao = () => {
                         <thead className="fst-italic">
                            <tr>
                               <th className={modoEscuro ? "text-bg-secondary" : `text-bg-dark`}>
-                                 <i className="bi bi-trophy-fill me-2"></i> {tableHeadings[0]}
+                                 <i className="bi bi-trophy-fill me-2"></i> {tableHeadings[0]}{" "}
+                                 <Tooltip
+                                    conteudo={
+                                       "Indica a posição do usuário no ranking geral, ordenada pelo tempo total de treino acumulado. Usuários com mais tempo de treino aparecem nas primeiras posições."
+                                    }
+                                 >
+                                    <i className="bi bi-info-circle-fill ms-2"></i>
+                                 </Tooltip>
                               </th>
                               <th className={modoEscuro ? "text-bg-secondary" : `text-bg-dark`}>
                                  <i className="bi bi-person-fill me-2"></i> {tableHeadings[1]}
                               </th>
                               <th className={modoEscuro ? "text-bg-secondary" : `text-bg-dark`}>
                                  <i className="bi bi-clock-fill me-2"></i> {tableHeadings[2]}
+                                 <Tooltip
+                                    conteudo={
+                                       "Mostra o tempo total, em horas e minutos, que o usuário dedicou aos treinos desde o cadastro na plataforma. Esse valor é atualizado conforme novos treinos são registrados."
+                                    }
+                                 >
+                                    <i className="bi bi-info-circle-fill ms-2"></i>
+                                 </Tooltip>
                               </th>
                               <th className={modoEscuro ? "text-bg-secondary" : `text-bg-dark`}>
                                  <i className="bi bi-person-arms-up me-2"></i> {tableHeadings[3]}
+                                 <Tooltip
+                                    conteudo={
+                                       "Exibe a quantidade total de sessões de treino concluídas pelo usuário. Cada treino finalizado é contabilizado nesse campo, refletindo o engajamento e a frequência do usuário."
+                                    }
+                                 >
+                                    <i className="bi bi-info-circle-fill ms-2"></i>
+                                 </Tooltip>
                               </th>
                               <th className={modoEscuro ? "text-bg-secondary" : `text-bg-dark`}>
                                  <i className="bi bi-calendar-check me-2"></i> {tableHeadings[4]}
+                                 <Tooltip
+                                    conteudo={
+                                       "Data em que o usuário se registrou na plataforma. Esse campo permite visualizar há quanto tempo cada participante faz parte da comunidade."
+                                    }
+                                 >
+                                    <i className="bi bi-info-circle-fill ms-2"></i>
+                                 </Tooltip>
                               </th>
                            </tr>
                         </thead>
