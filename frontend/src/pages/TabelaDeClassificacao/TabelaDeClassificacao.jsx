@@ -11,7 +11,8 @@ import { gerarArray } from "../../utils/gerarArray";
 import LinhaUsuarioClassificado from "../../components/LinhaUsuarioClassificado/LinhaUsuarioClassificado";
 import { useTranslation } from "react-i18next";
 
-// TODO: Adicionar funcionalidade de filtragem 
+// TODO: Adicionar funcionalidade de filtragem
+// TODO: Adicionar a seção do "Último treino"
 
 const TabelaDeClassificacao = () => {
    const { t } = useTranslation();
