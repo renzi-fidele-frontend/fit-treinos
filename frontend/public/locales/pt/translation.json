@@ -250,5 +250,17 @@
       "subtit": "Tabela de classificação",
       "tableHeadings": ["Rank", "Usuário", "Tempo de treino", "Treinos", "Cadastrado em"],
       "posicao": "lugar"
+   },
+   "authModal": {
+      "tit": "Autenticação necessária",
+      "subtit": "Para continuar com esta ação, é necessário autenticar-se. Ao entrar você poderá:",
+      "destaques": [
+         "Rastreiar o progresso de treinos",
+         "Realizar sessões de treinamento",
+         "Manter seu histórico de treinos",
+         "Competir contra outros usuários",
+         "Guardar os exercícios na lista dos favoritos"
+      ],
+      "actions": ["Fazer login", "Cancelar"]
    }
 }

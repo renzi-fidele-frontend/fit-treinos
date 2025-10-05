@@ -255,5 +255,17 @@
       "subtit": "Leaderboard",
       "tableHeadings": ["Rank", "User", "Training time", "Trainings", "Registered in"],
       "posicao": "place"
+   },
+   "authModal": {
+      "tit": "Authentication required",
+      "subtit": "To continue with this action, you need to log in. When you log in, you will be able to:",
+      "destaques": [
+         "Track training progress",
+         "Conduct training sessions",
+         "Maintain your training history",
+         "Compete against other users",
+         "Save workouts to your favorites list"
+      ],
+      "actions": ["Login", "Cancel"]
    }
 }
