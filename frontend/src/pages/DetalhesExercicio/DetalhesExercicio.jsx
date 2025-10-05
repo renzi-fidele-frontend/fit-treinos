@@ -20,14 +20,13 @@ import CardExercicio from "../../components/CardExercicio/CardExercicio";
 import { fotoEquipamento } from "../../utils/fotoEquipamento";
 import { fotoMusculo } from "../../utils/fotoMusculo";
 import noPhoto from "../../assets/musculos/noPhoto.jpg";
-import { setUser } from "../../state/auth/authSlice";
+import { setMostrarModalAuth, setUser } from "../../state/auth/authSlice";
 import ToastTreinamento from "../../components/ToastTreinamento/ToastTreinamento";
 import { gerarArray } from "../../utils/gerarArray";
 import { traduzirTexto } from "../../utils/traduzirTexto";
 import { useTranslation } from "react-i18next";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
-import useAuthAction from "../../hooks/useAuthAction";
 
 // FIXME: A requisição está sendo feita duas vezes
 
@@ -48,7 +47,6 @@ const DetalhesExercicio = () => {
    const [tempo, setTempo] = useState(0);
    const [ativo, setAtivo] = useState(false);
    const [instrucoes, setInstrucoes] = useState(null);
-   const { verificarAuth } = useAuthAction();
    const { investigarEquipamento, investigarMusculoAlvo, investigarParteDoCorpo } = useAnalisarTraducao();
    // Requisições
    const apanharVideos = useFetch(null, YoutubeVideosApiOptions, videos, "manual");
@@ -190,15 +188,15 @@ const DetalhesExercicio = () => {
 
                   {/* Ações */}
                   <div className="d-flex gap-3 mt-4 flex-wrap flex-sm-row justify-content-center justify-content-md-start">
-                     <Button variant="warning" onClick={() => verificarAuth(iniciarTreino)}>
+                     <Button variant="warning" onClick={() => (user ? iniciarTreino() : dispatch(setMostrarModalAuth(true)))}>
                         <i className="bi bi-person-arms-up me-1"></i> {actions[0]}
                      </Button>
                      {!favorito ? (
-                        <Button variant="secondary" onClick={() => verificarAuth(adicionarAosFavoritos)}>
+                        <Button variant="secondary" onClick={() => (user ? adicionarAosFavoritos() : dispatch(setMostrarModalAuth(true)))}>
                            {loadingFavorito ? <Spinner className="me-1" size="sm" /> : <i className="bi bi-heart me-1"></i>} {actions[1]}
                         </Button>
                      ) : (
-                        <Button variant="danger" onClick={() => verificarAuth(removerDosFavoritos)}>
+                        <Button variant="danger" onClick={() => (user ? removerDosFavoritos() : dispatch(setMostrarModalAuth(true)))}>
                            {loadingFavorito ? <Spinner className="me-1" size="sm" /> : <i className="bi bi-trash me-1"></i>} {actions[2]}
                         </Button>
                      )}

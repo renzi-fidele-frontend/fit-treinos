@@ -11,6 +11,8 @@ import { gerarArray } from "../../utils/gerarArray";
 import LinhaUsuarioClassificado from "../../components/LinhaUsuarioClassificado/LinhaUsuarioClassificado";
 import { useTranslation } from "react-i18next";
 
+// TODO: Adicionar funcionalidade de filtragem 
+
 const TabelaDeClassificacao = () => {
    const { t } = useTranslation();
    const { tit, descricao, subtit, tableHeadings } = t("leaderboard");

@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ScrollTop from "./components/ScrollTop/ScrollTop";
+import AuthModal from "./components/AuthModal/AuthModal";
 
 // TODO: Investigar sobre um jeito de integrar o Google Fit Api de modo a escalar a aplicação de treino
 function App() {
@@ -18,6 +19,8 @@ function App() {
             <Outlet />
          </ScrollTop>
          <Footer />
+         {/* Modal de autenticação para caso o usuário tente realizar uma ação sensível */}
+         <AuthModal />
       </div>
    );
 }
