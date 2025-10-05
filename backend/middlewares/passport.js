@@ -10,7 +10,8 @@ passport.use(
       {
          clientID: process.env.GOOGLE_CLIENT_ID,
          clientSecret: process.env.GOOGLE_CLIENT_SECRET_KEY,
-         callbackURL: "/api/auth/google/callback",
+         callbackURL:
+            process.env.NODE_ENV === "development" ? "/api/auth/google/callback" : "https://fit-treinos-api.vercel.app/api/auth/google/callback",
          scope: ["profile", "email"],
       },
       async function (accessToken, refreshToken, profile, done) {
