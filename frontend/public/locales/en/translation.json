@@ -258,10 +258,15 @@
             "nome": "Rank",
             "descricao": "Indicates the user's position in the overall ranking, ordered by total accumulated training time. Users with more training time appear in the top positions."
          },
+
          { "nome": "User", "descricao": null },
          {
             "nome": "Training time",
             "descricao": "It shows the total time, in hours and minutes, that the user has spent training since registering on the platform. This value is updated as new workouts are recorded."
+         },
+         {
+            "nome": "Last session",
+            "descricao": "Date and time of the last training session completed by the user, allowing you to check the recent activity of each participant."
          },
          {
             "nome": "Trainings",
@@ -272,7 +277,8 @@
             "descricao": "Date the user registered on the platform. This field allows you to see how long each participant has been part of the community."
          }
       ],
-      "posicao": "place"
+      "posicao": "place",
+      "indisponivel": "Unavailable"
    },
    "authModal": {
       "tit": "Authentication required",

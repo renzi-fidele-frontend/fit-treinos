@@ -3,6 +3,7 @@ import Placeholder from "react-bootstrap/Placeholder";
 import { segundosParaFormatoHumanizado } from "../../utils/segundosParaFormatoHumanizado";
 import styles from "./LinhaUsuarioClassificado.module.css";
 import { useTranslation } from "react-i18next";
+import moment from "moment";
 
 const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    const { t } = useTranslation();
@@ -14,21 +15,34 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
 
    return usuario ? (
       <tr>
+         {/* Rank */}
          <td className="fst-italic fw-medium">
             {chave + 1} º {posicao}
          </td>
+         {/* Usuário */}
          <td>
             <div className="d-flex align-items-center gap-3">
                <Image id={styles.foto} className="rounded p-0" thumbnail src={usuario?.foto} />
                <span className="text-truncate">{usuario?.nome}</span>
             </div>
          </td>
+         {/* Tempo de treino */}
          <td>{segundosParaFormatoHumanizado(usuario?.tempoTotalAbsoluto)}</td>
+         {/* Última sessão */}
+         <td>
+            {usuario?.ultimosExerciciosPraticados?.length > 0 ? (
+               <span>{moment(usuario?.ultimosExerciciosPraticados?.slice(-1)[0]?.data).fromNow()}</span>
+            ) : (
+               <span className="text-bg-warning px-2 py-1 rounded border-black border small">Indisponível</span>
+            )}
+         </td>
+         {/* Treinos realizados */}
          <td>
             <span className={`text-bg-${usuario?.nrTreinosRealizados > 0 ? "success" : "danger"} px-3 py-1 rounded`}>
                {usuario?.nrTreinosRealizados}
             </span>{" "}
          </td>
+         {/* Cadastrado em */}
          <td>
             <i className="bi bi-calendar2-date text-secondary me-1"></i> {new Date(usuario?.criadoEm).toLocaleDateString()}
          </td>

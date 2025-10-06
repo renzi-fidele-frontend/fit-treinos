@@ -259,6 +259,10 @@
             "descricao": "Mostra o tempo total, em horas e minutos, que o usuário dedicou aos treinos desde o cadastro na plataforma. Esse valor é atualizado conforme novos treinos são registrados."
          },
          {
+            "nome": "Última sessão",
+            "descricao": "Data e hora da última sessão de treino concluída pelo usuário, permitindo verificar a atividade recente de cada participante."
+         },
+         {
             "nome": "Treinos",
             "descricao": "Exibe a quantidade total de sessões de treino concluídas pelo usuário. Cada treino finalizado é contabilizado nesse campo, refletindo o engajamento e a frequência do usuário."
          },
@@ -267,7 +271,8 @@
             "descricao": "Data em que o usuário se registrou na plataforma. Esse campo permite visualizar há quanto tempo cada participante faz parte da comunidade."
          }
       ],
-      "posicao": "lugar"
+      "posicao": "lugar",
+      "indisponivel": "Indisponível"
    },
    "authModal": {
       "tit": "Autenticação necessária",

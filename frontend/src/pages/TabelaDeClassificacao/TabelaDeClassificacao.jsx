@@ -11,6 +11,7 @@ import { gerarArray } from "../../utils/gerarArray";
 import LinhaUsuarioClassificado from "../../components/LinhaUsuarioClassificado/LinhaUsuarioClassificado";
 import { useTranslation } from "react-i18next";
 import Tooltip from "../../components/Tooltip/Tooltip";
+import moment from "moment";
 
 // TODO: Adicionar funcionalidade de filtragem
 // TODO: Adicionar a seção do "Último treino"
@@ -22,12 +23,16 @@ const TabelaDeClassificacao = () => {
    const [usuarios, setUsuarios] = useState(null);
    const { apanharNoBackend } = useFetch();
    const { modoEscuro } = useSelector((state) => state.tema);
+   const { idioma } = useSelector((state) => state.idioma);
 
    useEffect(() => {
       const apanhar = apanharNoBackend("actions/retornarUsuariosClassificados").then((v) => {
          setUsuarios(v.usuariosClassificados);
       });
-   }, []);
+
+      if (idioma?.includes("pt")) moment.locale("pt");
+      if (idioma?.includes("en")) moment.locale("en");
+   }, [idioma]);
 
    return (
       <div id={styles.ct}>
@@ -45,7 +50,7 @@ const TabelaDeClassificacao = () => {
                               <th className={modoEscuro ? "text-bg-secondary" : `text-bg-dark`}>
                                  <i className="bi bi-trophy-fill me-2"></i> {tableHeadings[0].nome}{" "}
                                  <Tooltip conteudo={tableHeadings[0].descricao}>
-                                    <i className="bi bi-info-circle-fill ms-2"></i>
+                                    <i className="bi bi-info-circle ms-2"></i>
                                  </Tooltip>
                               </th>
                               <th className={modoEscuro ? "text-bg-secondary" : `text-bg-dark`}>
@@ -54,19 +59,25 @@ const TabelaDeClassificacao = () => {
                               <th className={modoEscuro ? "text-bg-secondary" : `text-bg-dark`}>
                                  <i className="bi bi-clock-fill me-2"></i> {tableHeadings[2].nome}
                                  <Tooltip conteudo={tableHeadings[2].descricao}>
-                                    <i className="bi bi-info-circle-fill ms-2"></i>
+                                    <i className="bi bi-info-circle ms-2"></i>
                                  </Tooltip>
                               </th>
                               <th className={modoEscuro ? "text-bg-secondary" : `text-bg-dark`}>
-                                 <i className="bi bi-person-arms-up me-2"></i> {tableHeadings[3].nome}
+                                 <i className="bi bi-stopwatch-fill me-2"></i> {tableHeadings[3].nome}
                                  <Tooltip conteudo={tableHeadings[3].descricao}>
-                                    <i className="bi bi-info-circle-fill ms-2"></i>
+                                    <i className="bi bi-info-circle ms-2"></i>
                                  </Tooltip>
                               </th>
                               <th className={modoEscuro ? "text-bg-secondary" : `text-bg-dark`}>
-                                 <i className="bi bi-calendar-check me-2"></i> {tableHeadings[4].nome}
+                                 <i className="bi bi-person-arms-up me-2"></i> {tableHeadings[4].nome}
                                  <Tooltip conteudo={tableHeadings[4].descricao}>
-                                    <i className="bi bi-info-circle-fill ms-2"></i>
+                                    <i className="bi bi-info-circle ms-2"></i>
+                                 </Tooltip>
+                              </th>
+                              <th className={modoEscuro ? "text-bg-secondary" : `text-bg-dark`}>
+                                 <i className="bi bi-calendar-check me-2"></i> {tableHeadings[5].nome}
+                                 <Tooltip conteudo={tableHeadings[5].descricao}>
+                                    <i className="bi bi-info-circle ms-2"></i>
                                  </Tooltip>
                               </th>
                            </tr>
