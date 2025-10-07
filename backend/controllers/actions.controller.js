@@ -156,7 +156,12 @@ const retornarTempoTotalDeTreinoDeExercicio = async (req, res) => {
 };
 
 const retornarDadosTreinamento = async (req, res) => {
-   const { userId } = req;
+   let userId;
+   if (req?.userId) {
+      userId = req.userId;
+   } else {
+      userId = req.params.uid;
+   }
 
    try {
       const user = await Usuario.findById(userId);

@@ -1,52 +1,141 @@
 import Image from "react-bootstrap/Image";
 import Placeholder from "react-bootstrap/Placeholder";
+import Collapse from "react-bootstrap/Collapse";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 import { segundosParaFormatoHumanizado } from "../../utils/segundosParaFormatoHumanizado";
 import styles from "./LinhaUsuarioClassificado.module.css";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
+import { useEffect, useState } from "react";
+import Tooltip from "../Tooltip/Tooltip";
+import { CategoryScale } from "chart.js";
+import { Line } from "react-chartjs-2";
+import Chart from "chart.js/auto";
+import useFetch from "../../hooks/useFetch";
+import { useSelector } from "react-redux";
+import { traduzirDiaDaSemana } from "../../utils/traduzirDiaDaSemana";
+Chart.register(CategoryScale);
 
 const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    const { t } = useTranslation();
    const { posicao } = t("leaderboard");
+   const { card4, card5, card6 } = t("dashboard");
+   const [mostrar, setMostrar] = useState(false);
+   const { apanharNoBackend } = useFetch();
+   const { idioma } = useSelector((state) => state.idioma);
+   const [progressoTreinamento, setProgressoTreinamento] = useState(null);
+
+   useEffect(() => {
+      if (!progressoTreinamento && usuario?._id) {
+         const apanhar = apanharNoBackend(`actions/retornarDadosTreinamento/${usuario?._id}`, "GET").then((res) => {
+            setProgressoTreinamento(res);
+         });
+      }
+   }, [usuario?._id, progressoTreinamento]);
 
    function isEven(number) {
       return number % 2 !== 0 ? true : false;
    }
 
    return usuario ? (
-      <tr>
-         {/* Rank */}
-         <td className="fst-italic fw-medium">
-            {chave + 1} º {posicao}
-         </td>
-         {/* Usuário */}
-         <td>
-            <div className="d-flex align-items-center gap-3">
-               <Image id={styles.foto} className="rounded p-0" thumbnail src={usuario?.foto} />
-               <span className="text-truncate">{usuario?.nome}</span>
-            </div>
-         </td>
-         {/* Tempo de treino */}
-         <td>{segundosParaFormatoHumanizado(usuario?.tempoTotalAbsoluto)}</td>
-         {/* Última sessão */}
-         <td>
-            {usuario?.ultimosExerciciosPraticados?.length > 0 ? (
-               <span>{moment(usuario?.ultimosExerciciosPraticados?.slice(-1)[0]?.data).fromNow()}</span>
-            ) : (
-               <span className="text-bg-warning px-2 py-1 rounded border-black border small">Indisponível</span>
-            )}
-         </td>
-         {/* Treinos realizados */}
-         <td>
-            <span className={`text-bg-${usuario?.nrTreinosRealizados > 0 ? "success" : "danger"} px-3 py-1 rounded`}>
-               {usuario?.nrTreinosRealizados}
-            </span>{" "}
-         </td>
-         {/* Cadastrado em */}
-         <td>
-            <i className="bi bi-calendar2-date text-secondary me-1"></i> {new Date(usuario?.criadoEm).toLocaleDateString()}
-         </td>
-      </tr>
+      <>
+         <Tooltip conteudo="Visualizar progresso">
+            <tr onClick={() => setMostrar(!mostrar)} role="button">
+               {/* Rank */}
+               <td className="fst-italic fw-medium">
+                  {chave + 1} º {posicao}
+               </td>
+               {/* Usuário */}
+               <td>
+                  <div className="d-flex align-items-center gap-3">
+                     <Image id={styles.foto} className="rounded p-0" thumbnail src={usuario?.foto} />
+                     <span className="text-truncate">{usuario?.nome}</span>
+                  </div>
+               </td>
+               {/* Tempo de treino */}
+               <td>{segundosParaFormatoHumanizado(usuario?.tempoTotalAbsoluto)}</td>
+               {/* Última sessão */}
+               <td>
+                  {usuario?.ultimosExerciciosPraticados?.length > 0 ? (
+                     <span>{moment(usuario?.ultimosExerciciosPraticados?.slice(-1)[0]?.data).fromNow()}</span>
+                  ) : (
+                     <span className="text-bg-warning px-2 py-1 rounded border-black border small">Indisponível</span>
+                  )}
+               </td>
+               {/* Treinos realizados */}
+               <td>
+                  <span className={`text-bg-${usuario?.nrTreinosRealizados > 0 ? "success" : "danger"} px-3 py-1 rounded`}>
+                     {usuario?.nrTreinosRealizados}
+                  </span>{" "}
+               </td>
+               {/* Cadastrado em */}
+               <td>
+                  <i className="bi bi-calendar2-date text-secondary me-1"></i> {new Date(usuario?.criadoEm).toLocaleDateString()}
+               </td>
+            </tr>
+         </Tooltip>
+         {/*  Escondido  */}
+         <div style={{ display: "table-row" }} className={`${!mostrar && "border-0"}`}>
+            <td className={!mostrar && "p-0 border-0"} colSpan={12}>
+               <Collapse in={mostrar}>
+                  <div className={`${styles.td} pb-2`}>
+                     {/* Grid do Desktop */}
+                     <Row className="mt-0 mb-3 g-3 g-xl-4">
+                        <Col sm={6} xl={4}>
+                           <h6 className="text-center text-primary mb-3">{card4.stat}</h6>
+                           <div>
+                              <Line
+                                 data={{
+                                    labels: progressoTreinamento?.estatisticasDaSemana?.map((v) =>
+                                       idioma?.includes("en") ? traduzirDiaDaSemana(v?.dia) : v?.dia
+                                    ),
+                                    datasets: [
+                                       {
+                                          label: card4.chartLabel,
+                                          data: progressoTreinamento?.estatisticasDaSemana?.map((v) => v?.tempoTreinadoNoDia),
+                                          fill: true,
+                                          tension: 0.4,
+                                          borderColor: "rgb(135, 142, 163)",
+                                          backgroundColor: "rgba(116, 126, 211, 0.5)",
+                                          pointBackgroundColor: "#ffffff",
+                                       },
+                                    ],
+                                 }}
+                                 className={styles.chart}
+                                 options={{ responsive: true }}
+                              />
+                              <p className="text-secondary ms-2 mt-2" id={styles.small}>
+                                 {card4.desc}
+                              </p>
+                              <hr className="mt-4" />
+                              <p className="text-secondary mb-0" id={styles.small}>
+                                 <span className="fw-semibold">{card4.bestDay}</span> <i className="bi bi-calendar-day"></i>{" "}
+                                 {idioma?.includes("en")
+                                    ? traduzirDiaDaSemana(progressoTreinamento?.diaMaisTreinado)
+                                    : progressoTreinamento?.diaMaisTreinado}
+                              </p>
+                              <p className="text-secondary mb-0" id={styles.small}>
+                                 <span className="fw-semibold">{card4.last}</span>{" "}
+                                 {moment(progressoTreinamento?.ultimosExerciciosPraticados?.slice(-1)[0]?.data).fromNow()}
+                              </p>
+                           </div>
+                        </Col>
+                        {/* TODO: Renderizar as partes do corpo mais treinadas do usuário */}
+                        <Col sm={6} xl={4} className="border-start border-end border-3">
+                           <h6 className="text-center">{card5.stat}</h6>
+                        </Col>
+                        {/* TODO: Renderizar o exercícios mais praticado do usuário */}
+                        <Col sm={6} xl={4}>
+                           <h6 className="text-center">{card6.stat}</h6>
+                        </Col>
+                     </Row>
+                     {/* Slider do mobile */}
+                  </div>
+               </Collapse>
+            </td>
+         </div>
+      </>
    ) : (
       <tr>
          <td className="fst-italic fw-medium">

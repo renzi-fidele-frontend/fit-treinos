@@ -14,8 +14,6 @@ import Tooltip from "../../components/Tooltip/Tooltip";
 import moment from "moment";
 
 // TODO: Adicionar funcionalidade de filtragem
-// TODO: Adicionar a seção do "Último treino"
-// TODO: Adicionar uma descrição completa para cada seção da tabela de classificações
 
 const TabelaDeClassificacao = () => {
    const { t } = useTranslation();
@@ -44,7 +42,7 @@ const TabelaDeClassificacao = () => {
                   <h2 className="fw-semibold mb-4">{subtit}</h2>
                   <hr />
                   <div id={styles.tableWrapper}>
-                     <Table striped className="mt-3 mt-lg-4 mt-xxl-5" bordered>
+                     <Table striped className="mt-3 mt-lg-4 mt-xxl-5" bordered hover>
                         <thead className="fst-italic">
                            <tr>
                               <th className={modoEscuro ? "text-bg-secondary" : `text-bg-dark`}>
