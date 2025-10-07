@@ -32,9 +32,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
       if (!progressoTreinamento && usuario?._id) {
          const apanhar = apanharNoBackend(`actions/retornarDadosTreinamento/${usuario?._id}`, "GET").then((res) => {
             setProgressoTreinamento(res);
-            console.log(
-               res?.partesDoCorpoTreinadas?.map((v) => (idioma?.includes("en") ? v?.nome : investigarParteDoCorpo(v?.nome)))
-            );
+            console.log(res?.partesDoCorpoTreinadas?.map((v) => (idioma?.includes("en") ? v?.nome : investigarParteDoCorpo(v?.nome))));
             console.log(res?.partesDoCorpoTreinadas?.map((v) => v?.tempoDeTreino));
          });
       }
@@ -132,14 +130,16 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                         <Col sm={6} xl={4} className="border-start border-end border-3 mt-2">
                            <h6 className="text-center text-primary">{card5.stat}</h6>
                            <div>
-                              <Pie
-                                 data={{
-                                    // labels: progressoTreinamento?.partesDoCorpoTreinadas?.map((v) => idioma?.includes("en") ? v?.nome : investigarParteDoCorpo(v?.nome)),
-                                    labels: ["A", "B", "C", "D"],
-                                    datasets: [{ data: [1, 2, 10, 7] }],
-                                    // datasets: [{ data: progressoTreinamento?.partesDoCorpoTreinadas?.map((v) => v?.tempoDeTreino) }],
-                                 }}
-                              />
+                              {progressoTreinamento?.partesDoCorpoTreinadas?.length > 0 && (
+                                 <Pie
+                                    data={{
+                                       labels: progressoTreinamento?.partesDoCorpoTreinadas?.map((v) =>
+                                          idioma?.includes("en") ? v?.nome : investigarParteDoCorpo(v?.nome)
+                                       ),
+                                       datasets: [{ data: progressoTreinamento?.partesDoCorpoTreinadas?.map((v) => v?.tempoDeTreino) }],
+                                    }}
+                                 />
+                              )}
                            </div>
                         </Col>
                         {/* TODO: Renderizar o exercícios mais praticado do usuário */}
