@@ -10,11 +10,12 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import Tooltip from "../Tooltip/Tooltip";
 import { CategoryScale } from "chart.js";
-import { Line } from "react-chartjs-2";
+import { Line, Pie } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import useFetch from "../../hooks/useFetch";
 import { useSelector } from "react-redux";
 import { traduzirDiaDaSemana } from "../../utils/traduzirDiaDaSemana";
+import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
 Chart.register(CategoryScale);
 
 const LinhaUsuarioClassificado = ({ chave, usuario }) => {
@@ -25,11 +26,16 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    const { apanharNoBackend } = useFetch();
    const { idioma } = useSelector((state) => state.idioma);
    const [progressoTreinamento, setProgressoTreinamento] = useState(null);
+   const { investigarParteDoCorpo } = useAnalisarTraducao();
 
    useEffect(() => {
       if (!progressoTreinamento && usuario?._id) {
          const apanhar = apanharNoBackend(`actions/retornarDadosTreinamento/${usuario?._id}`, "GET").then((res) => {
             setProgressoTreinamento(res);
+            console.log(
+               res?.partesDoCorpoTreinadas?.map((v) => (idioma?.includes("en") ? v?.nome : investigarParteDoCorpo(v?.nome)))
+            );
+            console.log(res?.partesDoCorpoTreinadas?.map((v) => v?.tempoDeTreino));
          });
       }
    }, [usuario?._id, progressoTreinamento]);
@@ -82,7 +88,8 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                   <div className={`${styles.td} pb-2`}>
                      {/* Grid do Desktop */}
                      <Row className="mt-0 mb-3 g-3 g-xl-4">
-                        <Col sm={6} xl={4}>
+                        {/* Estatísticas da Dedicação Semanal */}
+                        <Col sm={6} xl={4} className="mt-2">
                            <h6 className="text-center text-primary mb-3">{card4.stat}</h6>
                            <div>
                               <Line
@@ -105,7 +112,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                                  className={styles.chart}
                                  options={{ responsive: true }}
                               />
-                              <p className="text-secondary ms-2 mt-2" id={styles.small}>
+                              <p className="text-secondary ms-2 mt-3" id={styles.small}>
                                  {card4.desc}
                               </p>
                               <hr className="mt-4" />
@@ -122,12 +129,22 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                            </div>
                         </Col>
                         {/* TODO: Renderizar as partes do corpo mais treinadas do usuário */}
-                        <Col sm={6} xl={4} className="border-start border-end border-3">
-                           <h6 className="text-center">{card5.stat}</h6>
+                        <Col sm={6} xl={4} className="border-start border-end border-3 mt-2">
+                           <h6 className="text-center text-primary">{card5.stat}</h6>
+                           <div>
+                              <Pie
+                                 data={{
+                                    // labels: progressoTreinamento?.partesDoCorpoTreinadas?.map((v) => idioma?.includes("en") ? v?.nome : investigarParteDoCorpo(v?.nome)),
+                                    labels: ["A", "B", "C", "D"],
+                                    datasets: [{ data: [1, 2, 10, 7] }],
+                                    // datasets: [{ data: progressoTreinamento?.partesDoCorpoTreinadas?.map((v) => v?.tempoDeTreino) }],
+                                 }}
+                              />
+                           </div>
                         </Col>
                         {/* TODO: Renderizar o exercícios mais praticado do usuário */}
-                        <Col sm={6} xl={4}>
-                           <h6 className="text-center">{card6.stat}</h6>
+                        <Col sm={6} xl={4} className="mt-2">
+                           <h6 className="text-center text-primary">{card6.stat}</h6>
                         </Col>
                      </Row>
                      {/* Slider do mobile */}
