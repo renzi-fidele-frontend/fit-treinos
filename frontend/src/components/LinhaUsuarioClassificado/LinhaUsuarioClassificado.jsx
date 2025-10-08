@@ -16,6 +16,7 @@ import useFetch from "../../hooks/useFetch";
 import { useSelector } from "react-redux";
 import { traduzirDiaDaSemana } from "../../utils/traduzirDiaDaSemana";
 import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
+import CardExercicioMaisTreinado from "../CardExercicioMaisTreinado/CardExercicioMaisTreinado";
 Chart.register(CategoryScale);
 
 const LinhaUsuarioClassificado = ({ chave, usuario }) => {
@@ -25,6 +26,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    const [mostrar, setMostrar] = useState(false);
    const { apanharNoBackend } = useFetch();
    const { idioma } = useSelector((state) => state.idioma);
+   const { exercicios } = useSelector((state) => state.exercicios);
    const [progressoTreinamento, setProgressoTreinamento] = useState(null);
    const { investigarParteDoCorpo } = useAnalisarTraducao();
 
@@ -144,6 +146,12 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                         {/* TODO: Renderizar o exercícios mais praticado do usuário */}
                         <Col sm={6} xl={4} className="mt-2">
                            <h6 className="text-center text-primary">{card6.stat}</h6>
+                           <div>
+                              <CardExercicioMaisTreinado
+                                 exercicio={exercicios?.filter((v) => v.id === progressoTreinamento?.exercicioMaisTreinado?.id)?.[0]}
+                                 tempoDeTreino={progressoTreinamento?.exercicioMaisTreinado?.tempoTotalDeTreinoMaisPraticado}
+                              />
+                           </div>
                         </Col>
                      </Row>
                      {/* Slider do mobile */}
