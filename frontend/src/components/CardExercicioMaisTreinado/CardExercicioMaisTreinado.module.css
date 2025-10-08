@@ -1,0 +1,59 @@
+.foto {
+   height: 310px;
+   width: 100%;
+   object-fit: cover;
+}
+
+.fotoLoad {
+   height: 330px;
+   width: 100%;
+   display: block !important;
+}
+
+@media screen and (max-width: 1400px) {
+   .foto {
+      height: 250px;
+   }
+}
+
+@media screen and (max-width: 1200px) {
+   .foto {
+      height: 350px;
+   }
+
+   .fotoLoad {
+      height: 390px;
+   }
+}
+
+@media screen and (max-width: 992px) {
+   .foto {
+      height: 320px;
+   }
+
+   .fotoLoad {
+      height: 350px;
+   }
+}
+
+@media screen and (max-width: 830px) {
+   .foto {
+      height: 270px;
+   }
+
+   .fotoLoad {
+      height: 300px;
+   }
+}
+
+@media screen and (max-width: 666px) {
+   .foto {
+      height: 270px;
+   }
+}
+
+@media screen and (max-width: 570px) {
+   .foto {
+      height: auto;
+   }
+}

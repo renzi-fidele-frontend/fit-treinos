@@ -29,18 +29,6 @@
    height: auto !important;
 }
 
-.foto {
-   height: 310px;
-   width: 100%;
-   object-fit: cover;
-}
-
-.fotoLoad {
-   height: 330px;
-   width: 100%;
-   display: block !important;
-}
-
 #ct i {
    line-height: 0 !important;
 }
@@ -84,10 +72,6 @@
 }
 
 @media screen and (max-width: 1400px) {
-   .foto {
-      height: 250px;
-   }
-
    #small {
       font-size: 15px !important;
    }
@@ -99,14 +83,6 @@
 }
 
 @media screen and (max-width: 1200px) {
-   .foto {
-      height: 350px;
-   }
-
-   .fotoLoad {
-      height: 390px;
-   }
-
    .noProgress > img {
       width: 75%;
    }
@@ -116,41 +92,13 @@
    }
 }
 
-@media screen and (max-width: 992px) {
-   .foto {
-      height: 320px;
-   }
-
-   .fotoLoad {
-      height: 350px;
-   }
-}
-
 @media screen and (max-width: 830px) {
-   .foto {
-      height: 270px;
-   }
-
-   .fotoLoad {
-      height: 300px;
-   }
-
    .noProgress > img {
       width: 95%;
    }
 }
 
-@media screen and (max-width: 666px) {
-   .foto {
-      height: 270px;
-   }
-}
-
 @media screen and (max-width: 570px) {
-   .foto {
-      height: auto;
-   }
-
    .noBestTrain {
       width: 80%;
       margin-top: 1rem;

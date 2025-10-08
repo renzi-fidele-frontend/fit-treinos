@@ -126,7 +126,6 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                               </p>
                            </div>
                         </Col>
-                        {/* TODO: Renderizar as partes do corpo mais treinadas do usuário */}
                         <Col sm={6} xl={4} className="border-start border-end border-3 mt-2">
                            <h6 className="text-center text-primary">{card5.stat}</h6>
                            <div>
