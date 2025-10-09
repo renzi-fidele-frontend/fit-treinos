@@ -9,20 +9,17 @@ import { useTranslation } from "react-i18next";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import Tooltip from "../Tooltip/Tooltip";
-import { CategoryScale } from "chart.js";
-import { Line, Pie } from "react-chartjs-2";
-import Chart from "chart.js/auto";
+import { Pie } from "react-chartjs-2";
 import useFetch from "../../hooks/useFetch";
 import { useSelector } from "react-redux";
-import { traduzirDiaDaSemana } from "../../utils/traduzirDiaDaSemana";
 import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
 import CardExercicioMaisTreinado from "../CardExercicioMaisTreinado/CardExercicioMaisTreinado";
-Chart.register(CategoryScale);
+import CardEstatisticasDedicacaoSemanal from "../CardEstatisticasDedicacaoSemanal/CardEstatisticasDedicacaoSemanal";
 
 const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    const { t } = useTranslation();
    const { posicao } = t("leaderboard");
-   const { card4, card5, card6 } = t("dashboard");
+   const { card5, card6 } = t("dashboard");
    const [mostrar, setMostrar] = useState(false);
    const { apanharNoBackend } = useFetch();
    const { idioma } = useSelector((state) => state.idioma);
@@ -34,10 +31,9 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
       if (!progressoTreinamento && usuario?._id) {
          const apanhar = apanharNoBackend(`actions/retornarDadosTreinamento/${usuario?._id}`, "GET").then((res) => {
             setProgressoTreinamento(res);
-            console.log(res?.partesDoCorpoTreinadas?.map((v) => (idioma?.includes("en") ? v?.nome : investigarParteDoCorpo(v?.nome))));
-            console.log(res?.partesDoCorpoTreinadas?.map((v) => v?.tempoDeTreino));
          });
       }
+      console.log(progressoTreinamento?.ultimosExerciciosPraticados);
    }, [usuario?._id, progressoTreinamento]);
 
    function isEven(number) {
@@ -88,49 +84,14 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                   <div className={`${styles.td} pb-2`}>
                      {/* Grid do Desktop */}
                      <Row className="mt-0 mb-3 g-3 g-xl-4">
-                        {/* Estatísticas da Dedicação Semanal */}
+                        {/* Estatísticas da dedicação Semanal */}
                         <Col sm={6} xl={4} className="mt-2">
-                           <h6 className="text-center text-primary mb-3">{card4.stat}</h6>
-                           <div>
-                              <Line
-                                 data={{
-                                    labels: progressoTreinamento?.estatisticasDaSemana?.map((v) =>
-                                       idioma?.includes("en") ? traduzirDiaDaSemana(v?.dia) : v?.dia
-                                    ),
-                                    datasets: [
-                                       {
-                                          label: card4.chartLabel,
-                                          data: progressoTreinamento?.estatisticasDaSemana?.map((v) => v?.tempoTreinadoNoDia),
-                                          fill: true,
-                                          tension: 0.4,
-                                          borderColor: "rgb(135, 142, 163)",
-                                          backgroundColor: "rgba(116, 126, 211, 0.5)",
-                                          pointBackgroundColor: "#ffffff",
-                                       },
-                                    ],
-                                 }}
-                                 className={styles.chart}
-                                 options={{ responsive: true }}
-                              />
-                              <p className="text-secondary ms-2 mt-3" id={styles.small}>
-                                 {card4.desc}
-                              </p>
-                              <hr className="mt-4" />
-                              <p className="text-secondary mb-0" id={styles.small}>
-                                 <span className="fw-semibold">{card4.bestDay}</span> <i className="bi bi-calendar-day"></i>{" "}
-                                 {idioma?.includes("en")
-                                    ? traduzirDiaDaSemana(progressoTreinamento?.diaMaisTreinado)
-                                    : progressoTreinamento?.diaMaisTreinado}
-                              </p>
-                              <p className="text-secondary mb-0" id={styles.small}>
-                                 <span className="fw-semibold">{card4.last}</span>{" "}
-                                 {moment(progressoTreinamento?.ultimosExerciciosPraticados?.slice(-1)[0]?.data).fromNow()}
-                              </p>
-                              <div className="bg-secondary-subtle rounded px-2 py-1 d-flex gap-2 mt-3" id={styles.jumbo}>
-                                 <i className="bi bi-info-circle"></i>{" "}
-                                 <p className="mb-0">{card4.desc2}</p>
-                              </div>
-                           </div>
+                           <CardEstatisticasDedicacaoSemanal
+                              centralizado={true}
+                              diaMaisTreinado={progressoTreinamento?.diaMaisTreinado}
+                              estatisticasDaSemana={progressoTreinamento?.estatisticasDaSemana}
+                              ultimosExerciciosPraticados={progressoTreinamento?.ultimosExerciciosPraticados}
+                           />
                         </Col>
                         {/* Partes do corpo mais treinadas */}
                         <Col sm={6} xl={4} className="border-start border-end border-3 mt-2">

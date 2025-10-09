@@ -8,6 +8,14 @@
    height: auto !important;
 }
 
+#small {
+   font-size: 16px;
+}
+
+#desc {
+    font-size: 14px;
+}
+
 .chartLoad {
    height: 230px;
    width: 100%;

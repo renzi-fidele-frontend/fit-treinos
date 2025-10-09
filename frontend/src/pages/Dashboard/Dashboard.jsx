@@ -37,7 +37,7 @@ const Dashboard = () => {
    const [estatisticasDaSemana, setEstatisticasDaSemana] = useState(null);
    const [partesDoCorpoTreinadas, setPartesDoCorpoTreinadas] = useState(null);
    const [ultimosExerciciosPraticados, setUltimosExerciciosPraticados] = useState(null);
-   const [ultimoTreino, setUltimoTreino] = useState(null);
+   const [ultimosTreinos, setUltimosTreinos] = useState(null);
    const [diaMaisTreinado, setDiaMaisTreinado] = useState(null);
    const { exercicios } = useSelector((state) => state.exercicios);
    const { modoEscuro } = useSelector((state) => state.tema);
@@ -62,17 +62,12 @@ const Dashboard = () => {
                   return exercicios.find((obj) => obj.id === v.idExercicio);
                })
             );
+            setUltimosTreinos(v?.ultimosExerciciosPraticados);
             setDiaMaisTreinado(v.diaMaisTreinado);
-            setUltimoTreino(moment(v.ultimosExerciciosPraticados.slice(-1)[0].data).fromNow());
             setFetched(true);
          });
       }
    }, [exercicios]);
-
-   useEffect(() => {
-      if (idioma?.includes("pt")) moment.locale("pt");
-      if (idioma?.includes("en")) moment.locale("en");
-   }, [idioma, exercicioMaisTreinado]);
 
    return (
       <div id={styles.ct}>
@@ -202,7 +197,7 @@ const Dashboard = () => {
                      <CardEstatisticasDedicacaoSemanal
                         diaMaisTreinado={diaMaisTreinado}
                         estatisticasDaSemana={estatisticasDaSemana}
-                        ultimoTreino={ultimoTreino}
+                        ultimosExerciciosPraticados={ultimosTreinos}
                      />
                   </div>
                </Col>

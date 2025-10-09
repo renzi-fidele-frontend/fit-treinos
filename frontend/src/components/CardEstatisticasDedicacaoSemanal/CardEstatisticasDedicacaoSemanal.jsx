@@ -6,12 +6,21 @@ import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { traduzirDiaDaSemana } from "../../utils/traduzirDiaDaSemana";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import moment from "moment";
 Chart.register(CategoryScale);
 
-const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaSemana, diaMaisTreinado, ultimoTreino, centralizado }) => {
+const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaSemana, diaMaisTreinado, ultimosExerciciosPraticados, centralizado }) => {
    const { idioma } = useSelector((state) => state.idioma);
    const { t } = useTranslation();
    const { card4 } = t("dashboard");
+
+   useEffect(() => {
+      if (idioma?.includes("pt")) moment.locale("pt");
+      if (idioma?.includes("en")) moment.locale("en");
+      console.log(ultimosExerciciosPraticados?.slice(-1)[0]);
+      console.log(ultimosExerciciosPraticados?.slice(-1)[0]?.data);
+   }, [idioma]);
 
    return (
       <div>
@@ -45,14 +54,16 @@ const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaSemana, diaMaisTreinad
                </Placeholder>
             )}
          </div>
-         <p className="text-secondary small">{card4.desc}</p>
+         <p className="text-secondary" id={styles.desc}>
+            {card4.desc}
+         </p>
          <hr className="mt-3" />
          <p className="text-secondary mb-0" id={styles.small}>
             <span className="fw-semibold">{card4.bestDay}</span> <i className="bi bi-calendar-day"></i>{" "}
             {idioma?.includes("en") ? traduzirDiaDaSemana(diaMaisTreinado) : diaMaisTreinado}
          </p>
          <p className="text-secondary mb-0" id={styles.small}>
-            <span className="fw-semibold">{card4.last}</span> {ultimoTreino}
+            <span className="fw-semibold">{card4.last}</span> {moment(ultimosExerciciosPraticados?.slice(-1)[0]?.data).fromNow()}
          </p>
          <div className="bg-secondary-subtle rounded px-2 py-1 d-flex gap-2 mt-3" id={styles.jumbo}>
             <i className="bi bi-info-circle mt-1"></i> <p className="mb-0">{card4.desc2}</p>
