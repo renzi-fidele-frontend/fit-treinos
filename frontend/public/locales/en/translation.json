@@ -279,7 +279,8 @@
          }
       ],
       "posicao": "place",
-      "indisponivel": "Unavailable"
+      "indisponivel": "Unavailable",
+      "viewProgress": "View progress"
    },
    "authModal": {
       "tit": "Authentication required",

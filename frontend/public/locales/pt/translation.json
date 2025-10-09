@@ -273,7 +273,8 @@
          }
       ],
       "posicao": "lugar",
-      "indisponivel": "Indisponível"
+      "indisponivel": "Indisponível",
+      "viewProgress": "Visualizar progresso"
    },
    "authModal": {
       "tit": "Autenticação necessária",

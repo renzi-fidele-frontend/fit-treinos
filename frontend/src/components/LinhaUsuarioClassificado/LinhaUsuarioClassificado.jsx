@@ -9,24 +9,19 @@ import { useTranslation } from "react-i18next";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import Tooltip from "../Tooltip/Tooltip";
-import { Pie } from "react-chartjs-2";
 import useFetch from "../../hooks/useFetch";
 import { useSelector } from "react-redux";
-import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
 import CardExercicioMaisTreinado from "../CardExercicioMaisTreinado/CardExercicioMaisTreinado";
 import CardEstatisticasDedicacaoSemanal from "../CardEstatisticasDedicacaoSemanal/CardEstatisticasDedicacaoSemanal";
 import CardPartesDoCorpoMaisTreinadas from "../CardPartesDoCorpoMaisTreinadas/CardPartesDoCorpoMaisTreinadas";
 
 const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    const { t } = useTranslation();
-   const { posicao } = t("leaderboard");
-   const { card5, card6 } = t("dashboard");
+   const { posicao, indisponivel, viewProgress } = t("leaderboard");
    const [mostrar, setMostrar] = useState(false);
    const { apanharNoBackend } = useFetch();
-   const { idioma } = useSelector((state) => state.idioma);
    const { exercicios } = useSelector((state) => state.exercicios);
    const [progressoTreinamento, setProgressoTreinamento] = useState(null);
-   const { investigarParteDoCorpo } = useAnalisarTraducao();
 
    useEffect(() => {
       if (!progressoTreinamento && usuario?._id) {
@@ -42,7 +37,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
 
    return usuario ? (
       <>
-         <Tooltip conteudo="Visualizar progresso">
+         <Tooltip conteudo={viewProgress}>
             <tr onClick={() => setMostrar(!mostrar)} role="button">
                {/* Rank */}
                <td className="fst-italic fw-medium">
@@ -62,7 +57,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                   {usuario?.ultimosExerciciosPraticados?.length > 0 ? (
                      <span>{moment(usuario?.ultimosExerciciosPraticados?.slice(-1)[0]?.data).fromNow()}</span>
                   ) : (
-                     <span className="text-bg-warning px-2 py-1 rounded border-black border small">Indisponível</span>
+                     <span className="text-bg-warning px-2 py-1 rounded border-black border small">{indisponivel}</span>
                   )}
                </td>
                {/* Treinos realizados */}
