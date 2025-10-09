@@ -26,7 +26,7 @@ const CardExercicioMaisTreinado = ({ exercicio, tempoDeTreino }) => {
 
    return (
       <div>
-         <h6 id={styles.tit}>{card6.tit} </h6>
+         <h6 id={styles.tit} className="mb-3">{card6.stat}</h6>
          <div>
             {exercicio && (
                <div>

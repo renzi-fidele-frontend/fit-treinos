@@ -204,15 +204,10 @@ const Dashboard = () => {
                {/* Exercício mais praticado */}
                <Col sm={6} xl={4}>
                   <div className={`px-3 py-4 rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
-                     <h6 id={styles.tit} className="mb-0">
-                        {card6.stat}
-                     </h6>
-                     <div className="mt-3">
-                        <CardExercicioMaisTreinado
-                           exercicio={exercicios?.filter((v) => v.id === exercicioMaisTreinado?.id)?.[0]}
-                           tempoDeTreino={exercicioMaisTreinado?.tempoTotalDeTreinoMaisPraticado}
-                        />
-                     </div>
+                     <CardExercicioMaisTreinado
+                        exercicio={exercicios?.filter((v) => v.id === exercicioMaisTreinado?.id)?.[0]}
+                        tempoDeTreino={exercicioMaisTreinado?.tempoTotalDeTreinoMaisPraticado}
+                     />
                   </div>
                </Col>
                {/* Média do tempo de treino (Mobile) */}

@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
 import CardExercicioMaisTreinado from "../CardExercicioMaisTreinado/CardExercicioMaisTreinado";
 import CardEstatisticasDedicacaoSemanal from "../CardEstatisticasDedicacaoSemanal/CardEstatisticasDedicacaoSemanal";
+import CardPartesDoCorpoMaisTreinadas from "../CardPartesDoCorpoMaisTreinadas/CardPartesDoCorpoMaisTreinadas";
 
 const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    const { t } = useTranslation();
@@ -94,23 +95,10 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                         </Col>
                         {/* Partes do corpo mais treinadas */}
                         <Col sm={6} xl={4} className="border-start border-end border-3 mt-2">
-                           <h6 className="text-center text-primary">{card5.stat}</h6>
-                           <div>
-                              {progressoTreinamento?.partesDoCorpoTreinadas?.length > 0 && (
-                                 <Pie
-                                    data={{
-                                       labels: progressoTreinamento?.partesDoCorpoTreinadas?.map((v) =>
-                                          idioma?.includes("en") ? v?.nome : investigarParteDoCorpo(v?.nome)
-                                       ),
-                                       datasets: [{ data: progressoTreinamento?.partesDoCorpoTreinadas?.map((v) => v?.tempoDeTreino) }],
-                                    }}
-                                 />
-                              )}
-                           </div>
+                           <CardPartesDoCorpoMaisTreinadas centralizado partesDoCorpoTreinadas={progressoTreinamento?.partesDoCorpoTreinadas} />
                         </Col>
                         {/* Exercício mais praticado */}
                         <Col sm={6} xl={4} className="mt-2">
-                           <h6 className="text-center text-primary">{card6.stat}</h6>
                            <div>
                               <CardExercicioMaisTreinado
                                  exercicio={exercicios?.filter((v) => v.id === progressoTreinamento?.exercicioMaisTreinado?.id)?.[0]}

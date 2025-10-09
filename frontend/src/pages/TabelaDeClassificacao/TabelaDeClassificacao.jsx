@@ -12,6 +12,7 @@ import LinhaUsuarioClassificado from "../../components/LinhaUsuarioClassificado/
 import { useTranslation } from "react-i18next";
 import Tooltip from "../../components/Tooltip/Tooltip";
 import moment from "moment";
+import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 
 // TODO: Adicionar funcionalidade de filtragem
 
@@ -22,6 +23,7 @@ const TabelaDeClassificacao = () => {
    const { apanharNoBackend } = useFetch();
    const { modoEscuro } = useSelector((state) => state.tema);
    const { idioma } = useSelector((state) => state.idioma);
+   useExercisesApiAndDispatchOnStore();
 
    useEffect(() => {
       const apanhar = apanharNoBackend("actions/retornarUsuariosClassificados").then((v) => {
