@@ -4,7 +4,6 @@ import Image from "react-bootstrap/Image";
 import Placeholder from "react-bootstrap/Placeholder";
 import Row from "react-bootstrap/Row";
 import styles from "./Dashboard.module.css";
-import { Pie } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
@@ -12,22 +11,18 @@ import useFetch from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { segundosParaFormatoHumanizado } from "../../utils/segundosParaFormatoHumanizado";
 import mediaTreinos from "../../assets/mediaTreinos.png";
-
-import noBestTrain from "../../assets/noBestTrain.png";
 import noLastExs from "../../assets/gif.gif";
 import { gerarArray } from "../../utils/gerarArray";
 import { useTranslation } from "react-i18next";
 import "moment/dist/locale/pt";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
-import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
 import CardExercicioMaisTreinado from "../../components/CardExercicioMaisTreinado/CardExercicioMaisTreinado";
 import CardEstatisticasDedicacaoSemanal from "../../components/CardEstatisticasDedicacaoSemanal/CardEstatisticasDedicacaoSemanal";
 import CardPartesDoCorpoMaisTreinadas from "../../components/CardPartesDoCorpoMaisTreinadas/CardPartesDoCorpoMaisTreinadas";
 
 const Dashboard = () => {
    const { t } = useTranslation();
-   const { tit, tit2, card1, card2, card3, card4, card5, card6 } = t("dashboard");
-   const { idioma } = useSelector((state) => state.idioma);
+   const { tit, tit2, card1, card2, card3, card5, card6 } = t("dashboard");
    const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
    const [tempoTotalTreino, setTempoTotalTreino] = useState(null);
    const [nrTreinosHoje, setNrTreinosHoje] = useState(null);
@@ -43,7 +38,6 @@ const Dashboard = () => {
    const { modoEscuro } = useSelector((state) => state.tema);
    const [exercicioMaisTreinado, setExercicioMaisTreinado] = useState(null);
    const [fetched, setFetched] = useState(false);
-   const { investigarParteDoCorpo } = useAnalisarTraducao();
    useExercisesApiAndDispatchOnStore();
 
    useEffect(() => {
@@ -203,36 +197,27 @@ const Dashboard = () => {
                </Col>
                {/* Partes do corpo mais treinadas */}
                <Col sm={6} xl={4}>
-                  <div className={`px-3 py-4  rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
+                  <div className={`px-3 py-4 rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
                      <CardPartesDoCorpoMaisTreinadas partesDoCorpoTreinadas={partesDoCorpoTreinadas} />
                   </div>
                </Col>
                {/* Exercício mais praticado */}
                <Col sm={6} xl={4}>
-                  <div className={`px-3 py-4  rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
+                  <div className={`px-3 py-4 rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
                      <h6 id={styles.tit} className="mb-0">
                         {card6.stat}
                      </h6>
-                     {exercicios && exercicioMaisTreinado && (
+                     <div className="mt-3">
                         <CardExercicioMaisTreinado
                            exercicio={exercicios?.filter((v) => v.id === exercicioMaisTreinado?.id)?.[0]}
                            tempoDeTreino={exercicioMaisTreinado?.tempoTotalDeTreinoMaisPraticado}
                         />
-                     )}
-
-                     {exercicioMaisTreinado === false && (
-                        <div className="d-flex flex-column gap-3 align-items-center justify-content-center h-100">
-                           <Image src={noBestTrain} className={styles.noBestTrain} />
-                           <p className="mb-0 tex-light bg-secondary-subtle px-3 py-1 rounded">{card5.noTrain}</p>
-                        </div>
-                     )}
-
-                     {exercicioMaisTreinado === null && <CardExercicioMaisTreinado />}
+                     </div>
                   </div>
                </Col>
                {/* Média do tempo de treino (Mobile) */}
                <Col sm={6} className="d-xl-none">
-                  <div className={`px-3 py-4  rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
+                  <div className={`px-3 py-4 rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
                      <div className="d-flex justify-content-between">
                         <h6 id={styles.tit} className="mb-0">
                            {card3.stat}
