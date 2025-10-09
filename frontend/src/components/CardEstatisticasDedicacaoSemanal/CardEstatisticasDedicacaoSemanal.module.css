@@ -1,0 +1,26 @@
+#tit {
+   color: #1f6bc1;
+   font-weight: 600;
+}
+
+.chart {
+   width: 100% !important;
+   height: auto !important;
+}
+
+.chartLoad {
+   height: 230px;
+   width: 100%;
+   display: block !important;
+   border-radius: 5px;
+}
+
+#jumbo {
+   font-size: 13px;
+}
+
+@media screen and (max-width: 1400px) {
+   #small {
+      font-size: 15px !important;
+   }
+}

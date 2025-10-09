@@ -16,9 +16,7 @@
 font-size: 15px;
 }
 
-#jumbo {
-   font-size: 13px;
-}
+
 
 @media screen and (max-width: 500px) {
    #foto {

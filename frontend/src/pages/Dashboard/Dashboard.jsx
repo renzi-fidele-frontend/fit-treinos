@@ -4,9 +4,7 @@ import Image from "react-bootstrap/Image";
 import Placeholder from "react-bootstrap/Placeholder";
 import Row from "react-bootstrap/Row";
 import styles from "./Dashboard.module.css";
-import Chart from "chart.js/auto";
-import { Line, Pie } from "react-chartjs-2";
-import { CategoryScale } from "chart.js";
+import { Pie } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
@@ -23,9 +21,8 @@ import moment from "moment";
 import "moment/dist/locale/pt";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
-import { traduzirDiaDaSemana } from "../../utils/traduzirDiaDaSemana";
 import CardExercicioMaisTreinado from "../../components/CardExercicioMaisTreinado/CardExercicioMaisTreinado";
-Chart.register(CategoryScale);
+import CardEstatisticasDedicacaoSemanal from "../../components/CardEstatisticasDedicacaoSemanal/CardEstatisticasDedicacaoSemanal";
 
 const Dashboard = () => {
    const { t } = useTranslation();
@@ -79,7 +76,7 @@ const Dashboard = () => {
 
    return (
       <div id={styles.ct}>
-         <div className="h-100  py-4 py-md-5 px-3  px-md-5 px-lg-0 container-lg">
+         <div className="h-100 py-4 py-md-5 px-3 px-md-5 px-lg-0 container-lg">
             <h2 className="fw-semibold mb-4 text-center text-xl-start ">{tit}</h2>
             {/* Separador Mobile */}
             <hr className="d-xl-none mb-4" />
@@ -87,7 +84,7 @@ const Dashboard = () => {
             <Row className="justify-content-center g-3 g-xl-4 flex-wrap flex-xl-nowrap">
                {/* Tempo total de treino */}
                <Col sm={6} xl={4}>
-                  <div className={`px-3 py-4  rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
+                  <div className={`px-3 py-4 rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
                      <div className="d-flex justify-content-between">
                         <h6 id={styles.tit} className="mb-0">
                            {card1.stat}
@@ -113,7 +110,7 @@ const Dashboard = () => {
                </Col>
                {/* Treinamentos feitos hoje */}
                <Col sm={6} xl={4}>
-                  <div className={`px-3 py-4  rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
+                  <div className={`px-3 py-4 rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
                      <div className="d-flex justify-content-between">
                         <h6 id={styles.tit} className="mb-0">
                            {card2.stat}
@@ -155,7 +152,7 @@ const Dashboard = () => {
                </Col>
                {/* Média do tempo de treino (Desktop) */}
                <Col className="d-none d-xl-block" sm={6} xl={4}>
-                  <div className={`px-3 py-4  rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
+                  <div className={`px-3 py-4 rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
                      <div className="d-flex justify-content-between">
                         <h6 id={styles.tit} className="mb-0">
                            {card3.stat}
@@ -201,46 +198,12 @@ const Dashboard = () => {
             <Row className="mt-0 mb-5 g-3 g-xl-4">
                {/* Estatísticas da Dedicação Semanal */}
                <Col sm={6} xl={4}>
-                  <div className={`px-3 py-4  rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
-                     <h6 id={styles.tit} className="mb-0">
-                        {card4.stat}
-                     </h6>
-                     <div className="my-4">
-                        {estatisticasDaSemana ? (
-                           <Line
-                              data={{
-                                 labels: estatisticasDaSemana?.map((v) => (idioma?.includes("en") ? traduzirDiaDaSemana(v?.dia) : v?.dia)),
-                                 datasets: [
-                                    {
-                                       label: card4.chartLabel,
-                                       data: estatisticasDaSemana?.map((v) => v?.tempoTreinadoNoDia),
-                                       fill: true,
-                                       tension: 0.4,
-                                       borderColor: "rgb(135, 142, 163)",
-                                       backgroundColor: "rgba(116, 126, 211, 0.5)",
-                                       pointBackgroundColor: "#ffffff",
-                                    },
-                                 ],
-                              }}
-                              options={{ responsive: true }}
-                              className={styles.chart}
-                           />
-                        ) : (
-                           <Placeholder animation="wave" className="d-flex align-items-center justify-content-center position-relative" xs={12}>
-                              <Placeholder className={styles.chartLoad} />
-                              <p className="mb-0 position-absolute">{card4.load}</p>
-                           </Placeholder>
-                        )}
-                     </div>
-                     <p className="text-secondary small">{card4.desc}</p>
-                     <hr className="mt-4" />
-                     <p className="text-secondary mb-0" id={styles.small}>
-                        <span className="fw-semibold">{card4.bestDay}</span> <i className="bi bi-calendar-day"></i>{" "}
-                        {idioma?.includes("en") ? traduzirDiaDaSemana(diaMaisTreinado) : diaMaisTreinado}
-                     </p>
-                     <p className="text-secondary mb-0" id={styles.small}>
-                        <span className="fw-semibold">{card4.last}</span> {ultimoTreino}
-                     </p>
+                  <div className={`px-3 py-4 rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
+                     <CardEstatisticasDedicacaoSemanal
+                        diaMaisTreinado={diaMaisTreinado}
+                        estatisticasDaSemana={estatisticasDaSemana}
+                        ultimoTreino={ultimoTreino}
+                     />
                   </div>
                </Col>
                {/* Partes do corpo mais treinadas */}
