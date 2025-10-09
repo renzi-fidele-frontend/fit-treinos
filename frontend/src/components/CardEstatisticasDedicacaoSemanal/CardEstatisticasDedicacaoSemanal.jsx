@@ -18,8 +18,6 @@ const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaSemana, diaMaisTreinad
    useEffect(() => {
       if (idioma?.includes("pt")) moment.locale("pt");
       if (idioma?.includes("en")) moment.locale("en");
-      console.log(ultimosExerciciosPraticados?.slice(-1)[0]);
-      console.log(ultimosExerciciosPraticados?.slice(-1)[0]?.data);
    }, [idioma]);
 
    return (

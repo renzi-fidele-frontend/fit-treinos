@@ -33,7 +33,6 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
             setProgressoTreinamento(res);
          });
       }
-      console.log(progressoTreinamento?.ultimosExerciciosPraticados);
    }, [usuario?._id, progressoTreinamento]);
 
    function isEven(number) {

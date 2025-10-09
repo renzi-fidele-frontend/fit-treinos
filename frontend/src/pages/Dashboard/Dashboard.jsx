@@ -12,17 +12,17 @@ import useFetch from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { segundosParaFormatoHumanizado } from "../../utils/segundosParaFormatoHumanizado";
 import mediaTreinos from "../../assets/mediaTreinos.png";
-import noProgress from "../../assets/noProgress.png";
+
 import noBestTrain from "../../assets/noBestTrain.png";
 import noLastExs from "../../assets/gif.gif";
 import { gerarArray } from "../../utils/gerarArray";
 import { useTranslation } from "react-i18next";
-import moment from "moment";
 import "moment/dist/locale/pt";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
 import CardExercicioMaisTreinado from "../../components/CardExercicioMaisTreinado/CardExercicioMaisTreinado";
 import CardEstatisticasDedicacaoSemanal from "../../components/CardEstatisticasDedicacaoSemanal/CardEstatisticasDedicacaoSemanal";
+import CardPartesDoCorpoMaisTreinadas from "../../components/CardPartesDoCorpoMaisTreinadas/CardPartesDoCorpoMaisTreinadas";
 
 const Dashboard = () => {
    const { t } = useTranslation();
@@ -204,40 +204,7 @@ const Dashboard = () => {
                {/* Partes do corpo mais treinadas */}
                <Col sm={6} xl={4}>
                   <div className={`px-3 py-4  rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
-                     <h6 id={styles.tit} className="mb-0">
-                        {card5.stat}
-                     </h6>
-                     <div className="mt-2">
-                        {partesDoCorpoTreinadas ? (
-                           partesDoCorpoTreinadas?.length > 0 ? (
-                              <Pie
-                                 data={{
-                                    labels: partesDoCorpoTreinadas?.map((v) =>
-                                       idioma?.includes("en") ? v?.nome : investigarParteDoCorpo(v?.nome)
-                                    ),
-                                    datasets: [{ data: partesDoCorpoTreinadas?.map((v) => v?.tempoDeTreino) }],
-                                 }}
-                              />
-                           ) : (
-                              <div className={styles.noProgress + " d-flex flex-column align-items-center w-100 gap-3 "}>
-                                 <Image src={noProgress} />
-                                 <p className="mb-0 tex-light bg-secondary-subtle px-3 py-1 rounded">{card5.noTrain}</p>
-                              </div>
-                           )
-                        ) : (
-                           <Placeholder animation="wave" className="" xs={12}>
-                              <div className="mb-4 d-flex gap-2 justify-content-center flex-wrap">
-                                 {gerarArray(10).map((v, k) => (
-                                    <Placeholder xs={2} key={k} />
-                                 ))}
-                              </div>
-                              <div className="d-flex align-items-center justify-content-center position-relative">
-                                 <Placeholder className={styles.pieChartLoad} />
-                                 <p className="mb-0 position-absolute">{card4.load}</p>
-                              </div>
-                           </Placeholder>
-                        )}
-                     </div>
+                     <CardPartesDoCorpoMaisTreinadas partesDoCorpoTreinadas={partesDoCorpoTreinadas} />
                   </div>
                </Col>
                {/* Exercício mais praticado */}
