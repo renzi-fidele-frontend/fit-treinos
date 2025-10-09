@@ -144,7 +144,8 @@
          "desc": "* A Unidade do tempo de treino está em segundos",
          "bestDay": "Melhor dia da semana:",
          "last": "Última sessão de treino:",
-         "chartLabel": "Tempo de treino"
+         "chartLabel": "Tempo de treino",
+         "desc2": "Este gráfico mostra o tempo de treino em segundos de cada dia da última semana passada."
       },
       "card5": {
          "stat": "Partes do corpo mais treinadas",

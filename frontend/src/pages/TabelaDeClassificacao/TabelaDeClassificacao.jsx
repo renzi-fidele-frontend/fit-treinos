@@ -93,4 +93,5 @@ const TabelaDeClassificacao = () => {
       </div>
    );
 };
+
 export default TabelaDeClassificacao;

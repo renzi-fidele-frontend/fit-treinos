@@ -126,8 +126,13 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                                  <span className="fw-semibold">{card4.last}</span>{" "}
                                  {moment(progressoTreinamento?.ultimosExerciciosPraticados?.slice(-1)[0]?.data).fromNow()}
                               </p>
+                              <div className="bg-secondary-subtle rounded px-2 py-1 d-flex gap-2 mt-3" id={styles.jumbo}>
+                                 <i className="bi bi-info-circle"></i>{" "}
+                                 <p className="mb-0">{card4.desc2}</p>
+                              </div>
                            </div>
                         </Col>
+                        {/* Partes do corpo mais treinadas */}
                         <Col sm={6} xl={4} className="border-start border-end border-3 mt-2">
                            <h6 className="text-center text-primary">{card5.stat}</h6>
                            <div>
@@ -143,7 +148,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                               )}
                            </div>
                         </Col>
-                        {/* TODO: Renderizar o exercícios mais praticado do usuário */}
+                        {/* Exercício mais praticado */}
                         <Col sm={6} xl={4} className="mt-2">
                            <h6 className="text-center text-primary">{card6.stat}</h6>
                            <div>

@@ -140,11 +140,12 @@
       "card4": {
          "stat": "Weekly dedication statistics",
          "tempo": "Training Time:",
-         "load": "Loading the chart ...",
+         "load": "Loading the chart...",
          "desc": "* The training time unit is in seconds",
          "bestDay": "Best day of the week:",
          "last": "Last training session:",
-         "chartLabel": "Training time"
+         "chartLabel": "Training time",
+         "desc2": "This graph shows the training time in seconds for each day of the past week."
       },
       "card5": {
          "stat": "Most trained body parts",
