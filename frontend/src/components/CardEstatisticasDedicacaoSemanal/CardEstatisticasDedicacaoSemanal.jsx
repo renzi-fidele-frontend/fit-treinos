@@ -13,7 +13,7 @@ Chart.register(CategoryScale);
 const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaSemana, diaMaisTreinado, ultimosExerciciosPraticados, centralizado }) => {
    const { idioma } = useSelector((state) => state.idioma);
    const { t } = useTranslation();
-   const { card4 } = t("dashboard");
+   const { card4, indisponivel } = t("dashboard");
 
    useEffect(() => {
       if (idioma?.includes("pt")) moment.locale("pt");
@@ -28,6 +28,7 @@ const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaSemana, diaMaisTreinad
          <div className="my-3">
             {estatisticasDaSemana ? (
                <div className="position-relative">
+                  {/* Gráfico */}
                   <Line
                      data={{
                         labels: estatisticasDaSemana?.map((v) => (idioma?.includes("en") ? traduzirDiaDaSemana(v?.dia) : v?.dia)),
@@ -67,12 +68,27 @@ const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaSemana, diaMaisTreinad
          <hr className="mt-3" />
          {/* Dia mais treinado da semana */}
          <p className="text-secondary mb-0" id={styles.small}>
-            <span className="fw-semibold">{card4.bestDay}</span> <i className="bi bi-calendar-day"></i>{" "}
-            {idioma?.includes("en") ? traduzirDiaDaSemana(diaMaisTreinado) : diaMaisTreinado}
+            <>
+               <span className="fw-semibold">{card4.bestDay}</span> <i className="bi bi-calendar-day"></i>{" "}
+               {diaMaisTreinado ? (
+                  idioma?.includes("en") ? (
+                     traduzirDiaDaSemana(diaMaisTreinado)
+                  ) : (
+                     diaMaisTreinado
+                  )
+               ) : (
+                  <span className="text-bg-secondary px-1 rounded">{indisponivel}</span>
+               )}
+            </>
          </p>
          {/* Última seção de treino */}
          <p className="text-secondary mb-0" id={styles.small}>
-            <span className="fw-semibold">{card4.last}</span> {moment(ultimosExerciciosPraticados?.slice(-1)[0]?.data).fromNow()}
+            <span className="fw-semibold">{card4.last}</span>{" "}
+            {ultimosExerciciosPraticados?.length > 0 ? (
+               moment(ultimosExerciciosPraticados?.slice(-1)[0]?.data).fromNow()
+            ) : (
+               <span className="text-bg-danger rounded px-1">{indisponivel}</span>
+            )}
          </p>
          {/* Descrição da funcionalidade do gráfico */}
          <div className="bg-secondary-subtle rounded px-2 py-1 d-flex gap-2 mt-3" id={styles.jumbo}>

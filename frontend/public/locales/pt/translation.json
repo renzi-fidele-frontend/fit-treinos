@@ -153,7 +153,8 @@
          "noTrain": "Você ainda não treinou!"
       },
       "card6": { "stat": "Exercício mais praticado", "tempo": "Tempo de treino:" },
-      "tit2": "Últimos exercícios praticados"
+      "tit2": "Últimos exercícios praticados",
+      "indisponivel": "Indisponível"
    },
    "favoritos": {
       "tit": "Veja os seus exercícios favoritos",
