@@ -145,7 +145,8 @@
          "bestDay": "Melhor dia da semana:",
          "last": "Última sessão de treino:",
          "chartLabel": "Tempo de treino",
-         "desc2": "Este gráfico mostra o tempo de treino em segundos de cada dia da última semana passada."
+         "desc2": "Este gráfico mostra o tempo de treino em segundos de cada dia da última semana passada.",
+         "graficoMorto": "Gráfico indisponível"
       },
       "card5": {
          "stat": "Partes do corpo mais treinadas",

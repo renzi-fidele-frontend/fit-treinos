@@ -145,7 +145,8 @@
          "bestDay": "Best day of the week:",
          "last": "Last training session:",
          "chartLabel": "Training time",
-         "desc2": "This graph shows the training time in seconds for each day of the past week."
+         "desc2": "This graph shows the training time in seconds for each day of the past week.",
+         "graficoMorto": "Chart unavailable"
       },
       "card5": {
          "stat": "Most trained body parts",
