@@ -250,7 +250,7 @@ const Dashboard = () => {
                      <p className="text-secondary mb-0" id={styles.small}>
                         {card3.desc}
                      </p>
-                     <Image className="mt-4" src={mediaTreinos} />
+                     <Image className="mt-4" id={styles.fotoMediaTreinos} src={mediaTreinos} />
                   </div>
                </Col>
             </Row>

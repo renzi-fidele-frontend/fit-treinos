@@ -43,6 +43,10 @@
    color: #572552 !important;
 }
 
+#fotoMediaTreinos {
+   height: 255px;
+}
+
 @media screen and (max-width: 1400px) {
    #small {
       font-size: 15px !important;

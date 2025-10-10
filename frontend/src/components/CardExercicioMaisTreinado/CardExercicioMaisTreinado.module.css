@@ -19,32 +19,19 @@
    width: auto;
 }
 
-@media screen and (max-width: 1400px) {
-.foto {
-      height: 250px;
-   }
-
-   .noBestTrain {
-      width: 98%;
-   }
-}
-
 @media screen and (max-width: 1200px) {
-   .foto {
+   .foto,
+   .noBestTrain {
       height: 350px;
    }
 
    .fotoLoad {
       height: 390px;
    }
-
-   .noBestTrain {
-      width: 95%;
-   }
 }
 
 @media screen and (max-width: 992px) {
-   .foto {
+   .foto, .noBestTrain {
       height: 320px;
    }
 

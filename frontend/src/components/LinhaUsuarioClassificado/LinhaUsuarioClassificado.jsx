@@ -73,7 +73,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
             </tr>
          </Tooltip>
          {/*  Escondido  */}
-         <div style={{ display: "table-row" }} className={`${!mostrar && "border-0"}`}>
+         <div style={{ display: "table-row" }} className={`${!mostrar && "border-0"}`} id={styles.textNormal}>
             <td className={!mostrar && "p-0 border-0"} colSpan={12}>
                <Collapse in={mostrar}>
                   <div className={`${styles.td} pb-2`}>

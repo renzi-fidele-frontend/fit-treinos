@@ -26,10 +26,10 @@ const CardExercicioMaisTreinado = ({ exercicio, tempoDeTreino }) => {
 
    return (
       <div>
-         <h6 id={styles.tit} className="mb-3">
+         <h6 id={styles.tit}>
             {card6.stat}
          </h6>
-         <div>
+         <div className="mt-3">
             {exercicio && (
                <div>
                   <Link to={`/exercicio/${exercicio?.id}`} className="position-relative h-100 d-flex justify-content-end align-items-end">

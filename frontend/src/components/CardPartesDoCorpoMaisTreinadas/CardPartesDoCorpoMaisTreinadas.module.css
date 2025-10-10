@@ -23,12 +23,10 @@
 
 @media screen and (max-width: 1200px) {
    .noProgress > img {
-      width: 75%;
+      height: 350px;
    }
 }
 
-@media screen and (max-width: 830px) {
-   .noProgress > img {
-      width: 95%;
-   }
+@media screen and (max-width: 992px) {
+   
 }
