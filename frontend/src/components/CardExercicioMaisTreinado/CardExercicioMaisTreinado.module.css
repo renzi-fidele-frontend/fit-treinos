@@ -14,9 +14,18 @@
    display: block !important;
 }
 
+.noBestTrain {
+   height: 310px;
+   width: auto;
+}
+
 @media screen and (max-width: 1400px) {
-   .foto {
+.foto {
       height: 250px;
+   }
+
+   .noBestTrain {
+      width: 98%;
    }
 }
 
@@ -27,6 +36,10 @@
 
    .fotoLoad {
       height: 390px;
+   }
+
+   .noBestTrain {
+      width: 95%;
    }
 }
 
@@ -59,5 +72,10 @@
 @media screen and (max-width: 570px) {
    .foto {
       height: auto;
+   }
+
+   .noBestTrain {
+      width: 80%;
+      margin-top: 1rem;
    }
 }

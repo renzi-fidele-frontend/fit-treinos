@@ -43,29 +43,8 @@
    color: #572552 !important;
 }
 
-.noBestTrain {
-   width: 83%;
-}
-
 @media screen and (max-width: 1400px) {
    #small {
       font-size: 15px !important;
-   }
-
-   .noBestTrain {
-      width: 98%;
-   }
-}
-
-@media screen and (max-width: 1200px) {
-   .noBestTrain {
-      width: 95%;
-   }
-}
-
-@media screen and (max-width: 570px) {
-   .noBestTrain {
-      width: 80%;
-      margin-top: 1rem;
    }
 }
