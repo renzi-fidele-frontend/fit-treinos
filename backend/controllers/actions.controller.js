@@ -213,9 +213,6 @@ const retornarDadosTreinamento = async (req, res) => {
             // Calculando o tempo treinado em cada dia da última semana passada
             tempoPorDiaDaSemana[diaSemana] += Number(treino.tempoDeTreino);
 
-            // Calculando o tempo total de treino do exercício mais treinado
-            if (treino.idExercicio === exercicioMaisTreinado) tempoTotalDeTreinoMaisPraticado += treino.tempoDeTreino;
-
             // Verificar o exercício mais treinado de todos (de acordo com o tempo Treinado)
             if (!exerciciosTreinados[treino.idExercicio]) {
                exerciciosTreinados[treino.idExercicio] = 0;
@@ -235,6 +232,12 @@ const retornarDadosTreinamento = async (req, res) => {
 
       // Calculando o dia mais treinado na última semana passada
       const diaMaisTreinado = Object.keys(tempoPorDiaDaSemana).reduce((a, b) => (tempoPorDiaDaSemana[a] > tempoPorDiaDaSemana[b] ? a : b));
+      user.progresso.forEach((sessao) => {
+         sessao.treinos.forEach((treino) => {
+            // Calculando o tempo total de treino do exercício mais treinado
+            if (treino.idExercicio === exercicioMaisTreinado) tempoTotalDeTreinoMaisPraticado += treino.tempoDeTreino;
+         });
+      });
 
       // Calculando a média do tempo(segundos) de treino por dia e o seu diferencial percentual
       const nrDiasTreinados = user.progresso.length;
