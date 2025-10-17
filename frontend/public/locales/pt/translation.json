@@ -189,7 +189,8 @@
    "header": {
       "links": ["Início", "Exercícios", "Entrar", "Cadastrar", "Progresso do treinamento", "Favoritos", "Liderança"],
       "editar": "Editar perfil",
-      "sair": "Deslogar"
+      "sair": "Deslogar",
+      "profile": "Meu perfil"
    },
    "footer": {
       "copy": "Todos os direitos reservados",

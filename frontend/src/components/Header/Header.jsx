@@ -10,17 +10,24 @@ import styles from "./Header.module.css";
 import logo from "../../assets/logo.png";
 import MudarTemaBtn from "../ui/MudarTemaBtn";
 import UserDropdown from "../ui/DropDownBtn";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import IdiomaBtn from "../ui/IdiomaBtn";
+import { setToken, setUser } from "../../state/auth/authSlice";
 
 const Header = () => {
    const { t } = useTranslation();
-   const { links } = t("header");
+   const { links, profile, sair } = t("header");
    const loc = useLocation();
    const { user } = useSelector((state) => state.auth);
    const [mostrar, setMostrar] = useState(false);
+   const dispatch = useDispatch();
+
+   function deslogar() {
+      dispatch(setUser(null));
+      dispatch(setToken(null));
+   }
 
    const MyNav = ({ offcanvas }) => (
       <Nav className={`gap-3 fs-5 ${!offcanvas ? "d-none d-xl-flex align-items-center" : "d-flex"} `} activeKey={loc.pathname}>
@@ -96,9 +103,14 @@ const Header = () => {
                      <UserDropdown />{" "}
                      <div>
                         <h6 className="fst-italic fw-medium">{user.nome}</h6>
-                        <Button onClick={() => setMostrar(false)} size="sm" variant="secondary" as={Link} to="/usuario/editar_perfil">
-                           Meu perfil
-                        </Button>
+                        <div className="d-flex gap-2">
+                           <Button onClick={() => setMostrar(false)} size="sm" variant="secondary" as={Link} to="/usuario/editar_perfil">
+                              {profile}
+                           </Button>
+                           <Button onClick={deslogar} variant="danger" size="sm">
+                              <i className="bi bi-box-arrow-right"></i> {sair}
+                           </Button>
+                        </div>
                      </div>
                   </div>
                )}
