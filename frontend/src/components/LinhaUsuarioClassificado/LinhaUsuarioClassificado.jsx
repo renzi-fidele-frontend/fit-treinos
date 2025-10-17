@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import CardExercicioMaisTreinado from "../CardExercicioMaisTreinado/CardExercicioMaisTreinado";
 import CardEstatisticasDedicacaoSemanal from "../CardEstatisticasDedicacaoSemanal/CardEstatisticasDedicacaoSemanal";
 import CardPartesDoCorpoMaisTreinadas from "../CardPartesDoCorpoMaisTreinadas/CardPartesDoCorpoMaisTreinadas";
+import Slider from "react-slick";
 
 const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    const { t } = useTranslation();
@@ -78,9 +79,9 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                <Collapse in={mostrar}>
                   <div className={`${styles.td} pb-2`}>
                      {/* Grid do Desktop */}
-                     <Row className="mt-0 mb-3 g-3 g-xl-4">
+                     <Row className="mt-0 mb-3 g-4 d-none d-xl-flex">
                         {/* Estatísticas da dedicação Semanal */}
-                        <Col sm={6} xl={4} className="mt-2">
+                        <Col xl={4} className="mt-2">
                            <CardEstatisticasDedicacaoSemanal
                               centralizado={true}
                               diaMaisTreinado={progressoTreinamento?.diaMaisTreinado}
@@ -89,11 +90,11 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                            />
                         </Col>
                         {/* Partes do corpo mais treinadas */}
-                        <Col sm={6} xl={4} className="border-start border-end border-3 mt-2">
+                        <Col xl={4} className="border-start border-end border-3 mt-2">
                            <CardPartesDoCorpoMaisTreinadas centralizado partesDoCorpoTreinadas={progressoTreinamento?.partesDoCorpoTreinadas} />
                         </Col>
                         {/* Exercício mais praticado */}
-                        <Col sm={6} xl={4} className="mt-2">
+                        <Col xl={4} className="mt-2">
                            <div>
                               <CardExercicioMaisTreinado
                                  exercicio={exercicios?.filter((v) => v.id === progressoTreinamento?.exercicioMaisTreinado?.id)?.[0]}
@@ -103,6 +104,33 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                         </Col>
                      </Row>
                      {/* Slider do mobile */}
+                     <div id={styles.ctSlider} className="d-xl-none px-3 px-sm-4">
+                        <Slider>
+                           {/* Estatísticas da dedicação Semanal */}
+                           <div>
+                              <CardEstatisticasDedicacaoSemanal
+                                 centralizado={true}
+                                 diaMaisTreinado={progressoTreinamento?.diaMaisTreinado}
+                                 estatisticasDaSemana={progressoTreinamento?.estatisticasDaSemana}
+                                 ultimosExerciciosPraticados={progressoTreinamento?.ultimosExerciciosPraticados}
+                              />
+                           </div>
+                           {/* Partes do corpo mais treinadas */}
+                           <div>
+                              <CardPartesDoCorpoMaisTreinadas
+                                 centralizado
+                                 partesDoCorpoTreinadas={progressoTreinamento?.partesDoCorpoTreinadas}
+                              />
+                           </div>
+                           {/* Exercício mais praticado */}
+                           <div>
+                              <CardExercicioMaisTreinado
+                                 exercicio={exercicios?.filter((v) => v.id === progressoTreinamento?.exercicioMaisTreinado?.id)?.[0]}
+                                 tempoDeTreino={progressoTreinamento?.exercicioMaisTreinado?.tempoTotalDeTreinoMaisPraticado}
+                              />
+                           </div>
+                        </Slider>
+                     </div>
                   </div>
                </Collapse>
             </td>

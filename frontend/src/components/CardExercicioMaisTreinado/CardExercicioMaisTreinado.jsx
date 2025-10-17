@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { traduzirTexto } from "../../utils/traduzirTexto";
 import noBestTrain from "../../assets/noBestTrain.png";
 
-const CardExercicioMaisTreinado = ({ exercicio, tempoDeTreino }) => {
+const CardExercicioMaisTreinado = ({ exercicio, tempoDeTreino,  }) => {
    const { idioma } = useSelector((state) => state.idioma);
    const { exercicios } = useSelector((state) => state.exercicios);
    const { investigarMusculoAlvo, investigarParteDoCorpo } = useAnalisarTraducao();

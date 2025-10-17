@@ -13,18 +13,36 @@
 }
 
 #small {
-font-size: 15px;
+   font-size: 15px;
 }
 
 #textNormal {
    font-size: 16px;
 }
 
+#ctSlider {
+   width: 600px;
+}
 
+@media screen and (max-width: 720px) {
+   #ctSlider {
+      width: 450px;
+   }
+}
 
 @media screen and (max-width: 500px) {
    #foto {
       width: 35px;
       height: 35px;
+   }
+
+   #ctSlider {
+      width: 370px;
+   }
+}
+
+@media screen and (max-width: 400px) {
+   #ctSlider {
+      width: 340px;
    }
 }
