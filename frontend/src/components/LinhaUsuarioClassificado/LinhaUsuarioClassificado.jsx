@@ -153,6 +153,11 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
             </Placeholder>
          </td>
          <td>
+            <Placeholder animation="wave">
+               <Placeholder xs={6} />
+            </Placeholder>
+         </td>
+         <td>
             <span className={`text-bg-${isEven(chave) ? "success" : "danger"} px-3 pt-1 pb-2 rounded`}>
                <Placeholder animation="wave">
                   <Placeholder className="rounded" xs={2} />
