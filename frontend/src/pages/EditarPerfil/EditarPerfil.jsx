@@ -69,7 +69,7 @@ const EditarPerfil = () => {
    return (
       <Container>
          <Row className="g-3 g-sm-4 g-lg-5 flex-column-reverse flex-lg-row">
-            <Col className="pe-5" lg={6}>
+            <Col className="pe-5 pb-5 pb-lg-0" lg={6}>
                <h1 className="fw-bold mb-3 mb-xl-3" id={styles.tit2}>
                   {tit}
                </h1>
