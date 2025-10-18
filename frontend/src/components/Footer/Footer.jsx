@@ -35,7 +35,9 @@ const Footer = () => {
                         {politica}
                      </Link>
                      <div className="vr"></div>
-                     <Link className="text-decoration-underline">{terms}</Link>
+                     <Link className="text-decoration-underline" to="/terms_and_conditions">
+                        {terms}
+                     </Link>
                   </div>
                </Col>
             </Row>
