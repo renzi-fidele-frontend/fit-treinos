@@ -193,11 +193,15 @@
    "header": {
       "links": ["Home", "Exercises", "Log In", "Sign Up", "Training Progress", "Favorites", "Leaderboard"],
       "editar": "Edit profile",
-      "sair": "Logout"
+      "sair": "Logout",
+      "profile": "My profile"
    },
    "footer": {
       "copy": "All rights reserved",
-      "dev": "Developer:"
+      "dev": "Developer:",
+      "terms": "Terms and conditions",
+      "politica": "Privacy policy",
+      "descricao": "Your space to train, learn and achieve your fitness goals with practicality and motivation."
    },
    "privacy": {
       "tit": "Privacy Policy",
