@@ -11,6 +11,10 @@
    z-index: 1;
 }
 
+#ctFoto {
+   margin-inline: auto;
+}
+
 #textoOverflow {
    font-size: 7em;
    font-weight: 900;

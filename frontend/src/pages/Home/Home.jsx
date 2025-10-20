@@ -8,6 +8,8 @@ import Placeholder from "react-bootstrap/Placeholder";
 import Row from "react-bootstrap/Row";
 import styles from "./Home.module.css";
 import ftBanner from "../../assets/modelo.png";
+import ftBanner2 from "../../assets/model2.webp";
+import ftBanner3 from "../../assets/model3.webp";
 import Titulo from "../../components/ui/Titulo";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -110,8 +112,21 @@ const Home = () => {
                   </div>
                </div>
             </Col>
-            <Col id={styles.ctFoto} className="pt-5 text-center rounded-bottom-5 bg-secondary-subtle bg-gradient">
-               <Image id={styles.fotoBanner} src={ftBanner} />
+            <Col id={styles.ctFoto} lg={6} className="pt-5 text-center rounded-bottom-5 bg-secondary-subtle bg-gradient">
+               {/* Carousel de modelos musculosos */}
+               <div>
+                  <Slider centerMode arrows={false} autoplay fade>
+                     <div className="d-flex justify-content-center">
+                        <Image id={styles.fotoBanner} src={ftBanner} />
+                     </div>
+                     <div className="d-flex justify-content-center">
+                        <Image id={styles.fotoBanner} src={ftBanner2} />
+                     </div>
+                     <div className="d-flex justify-content-center">
+                        <Image id={styles.fotoBanner} src={ftBanner3} />
+                     </div>
+                  </Slider>
+               </div>
             </Col>
          </Row>
 
