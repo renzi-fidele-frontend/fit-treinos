@@ -49,7 +49,10 @@ passport.use(
       {
          clientID: process.env.FB_ID,
          clientSecret: process.env.FB_SECRET,
-         callbackURL: "/api/auth/facebook/callback",
+         callbackURL:
+            process.env.NODE_ENV === "development"
+               ? "/api/auth/facebook/callback"
+               : "https://fit-treinos-api.vercel.app/api/auth/facebook/callback",
          scope: ["email", "public_profile"],
          profileFields: ["email", "photos", "name"],
       },
