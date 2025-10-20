@@ -1,5 +1,5 @@
 import BannerTopo from "../../components/BannerTopo/BannerTopo";
-import foto from "../../assets/privacyman.webp";
+import foto from "../../assets/womenTerms.webp";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
