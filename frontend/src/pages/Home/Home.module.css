@@ -87,6 +87,10 @@
    background-size: 190px 190px;
 }
 
+#fotoTestemunhos {
+   width: 500px;
+}
+
 @media screen and (max-width: 1440px) {
    #fotoBanner {
       height: 650px;
@@ -102,6 +106,9 @@
    }
    #fotoBanner {
       height: 600px;
+   }
+   #fotoTestemunhos {
+      width: 400px;
    }
 }
 
@@ -128,6 +135,9 @@
 
    #titbanner {
       font-size: 2.1rem;
+   }
+   #fotoTestemunhos {
+      width: 70%;
    }
 }
 

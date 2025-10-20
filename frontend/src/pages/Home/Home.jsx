@@ -24,6 +24,7 @@ import { gerarArray } from "../../utils/gerarArray";
 import { useTranslation } from "react-i18next";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
+import fotoTestemunhos from "../../assets/Testimonials.webp";
 
 const CardTestemunho = ({ nome, testemunho }) => {
    const { modoEscuro } = useSelector((state) => state.tema);
@@ -228,7 +229,8 @@ const Home = () => {
          {/*  Seção dos testemunhos  */}
          <Row id={styles.bg2} className="text-center position-relative ">
             <Col className="py-5 px-5" id={modoEscuro && styles.bgdark}>
-               <h2 className="fw-semibold fs-1 mb-5 ">{testemunhos.tit}</h2>
+               <h2 className="fw-semibold fs-1 mb-4">{testemunhos.tit}</h2>
+               <Image className="mb-4" id={styles.fotoTestemunhos} src={fotoTestemunhos} alt="Foto de uma time de atletas satisfeitos" />
                <Slider
                   className="mb-5"
                   autoplay
