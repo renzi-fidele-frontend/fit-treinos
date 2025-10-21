@@ -47,7 +47,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                {/* Usuário */}
                <td>
                   <div className="d-flex align-items-center gap-3">
-                     <Image id={styles.foto} className="rounded p-0" thumbnail src={usuario?.foto} />
+                     <Image id={styles.foto} className="rounded p-0 object-fit-cover" thumbnail src={usuario?.foto} />
                      <span className="text-truncate">{usuario?.nome}</span>
                   </div>
                </td>
