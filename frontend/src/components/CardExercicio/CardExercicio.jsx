@@ -9,10 +9,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
-import PreloadImage from "../ui/PreLoadImage";
+import PreloadImage from "../ui/PreloadImage";
 import loadError from "../../assets/loadError.webp";
 
-// TODO: Adicionar um placeholder caso a foto não exista
 const CardExercicio = ({ foto, categoria, titulo, id, customClass }) => {
    const [tituloTraduzido, setTituloTraduzido] = useState();
    const { idioma } = useSelector((state) => state.idioma);
