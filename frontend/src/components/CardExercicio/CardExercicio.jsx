@@ -9,9 +9,11 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
+import PreloadImage from "../ui/PreLoadImage";
+import loadError from "../../assets/loadError.webp";
 
 // TODO: Adicionar um placeholder caso a foto não exista
-const CardExercicio = ({ foto, categoria, titulo, id, truncado = false, customClass }) => {
+const CardExercicio = ({ foto, categoria, titulo, id, customClass }) => {
    const [tituloTraduzido, setTituloTraduzido] = useState();
    const { idioma } = useSelector((state) => state.idioma);
    const { investigarParteDoCorpo, investigarMusculoAlvo } = useAnalisarTraducao();
@@ -22,7 +24,8 @@ const CardExercicio = ({ foto, categoria, titulo, id, truncado = false, customCl
 
    return (foto, categoria, titulo, id) ? (
       <Card className={"h-100 " + customClass} as={Link} to={`/exercicio/${id}`}>
-         <Card.Img src={foto} />
+         <PreloadImage src={foto} errorSrc={loadError} preloaderCn={styles.exImg} alt={"Ilustração do exercício " + titulo} />
+
          <Card.Body className="d-flex flex-wrap gap-3">
             {categoria?.map((v, k) => (
                <Badge style={{ height: "fit-content" }} className=" text-capitalize fs-6 bg-secondary" key={k}>
