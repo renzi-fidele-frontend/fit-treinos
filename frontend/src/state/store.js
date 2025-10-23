@@ -6,6 +6,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import exerciciosReducer from "./exercicios/exerciciosSlice";
 import configsReducer from "./configs/configsSlice";
 import languageReducer from "./language/languageSlice";
+import leaderboardReducer from "./leaderboard/leaderboardSlice";
 
 // Combinando os reducers
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
    tema: temaReducer,
    configs: configsReducer,
    idioma: languageReducer,
+   leaderboard: leaderboardReducer,
 });
 
 const persistConfig = {

@@ -7,13 +7,14 @@ import styles from "./TabelaDeClassificacao.module.css";
 import fotoBanner from "../../assets/leaderWomen2.webp";
 import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { gerarArray } from "../../utils/gerarArray";
 import LinhaUsuarioClassificado from "../../components/LinhaUsuarioClassificado/LinhaUsuarioClassificado";
 import { useTranslation } from "react-i18next";
 import Tooltip from "../../components/Tooltip/Tooltip";
 import moment from "moment";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
+import { setFiltro, setOrdem } from "../../state/leaderboard/leaderboardSlice";
 
 const TabelaDeClassificacao = () => {
    const { t } = useTranslation();
@@ -34,14 +35,14 @@ const TabelaDeClassificacao = () => {
    }, [idioma]);
 
    const Filtragem = () => {
-      const [filtro, setFiltro] = useState("rank");
-      const [ordem, setOrdem] = useState("decrescente");
+      const { filtro, ordem } = useSelector((state) => state.leaderboard);
+      const dispatch = useDispatch();
 
       return (
          <div className="d-flex gap-3 align-items-center">
             <h5>Filtrar por: </h5>
             {/* Filtros */}
-            <Nav variant="pills" defaultActiveKey="rank" onSelect={(filtroSelecionado) => setFiltro(filtroSelecionado)}>
+            <Nav variant="pills" defaultActiveKey={filtro} onSelect={(filtroSelecionado) => dispatch(setFiltro(filtroSelecionado))}>
                <Nav.Item className="border rounded">
                   <Nav.Link eventKey="rank">Rank</Nav.Link>
                </Nav.Item>
@@ -55,7 +56,12 @@ const TabelaDeClassificacao = () => {
             {/* Separador */}
             <div className="vr"></div>
             {/* Ordem */}
-            <Nav className="ordem" variant="pills" defaultActiveKey="decrescente" onSelect={(ordemSelecionada) => setOrdem(ordemSelecionada)}>
+            <Nav
+               className="ordem"
+               variant="pills"
+               defaultActiveKey={ordem}
+               onSelect={(ordemSelecionada) => dispatch(setOrdem(ordemSelecionada))}
+            >
                <Nav.Item className="border rounded">
                   <Nav.Link eventKey="decrescente">
                      <i className="bi bi-sort-down"></i>
