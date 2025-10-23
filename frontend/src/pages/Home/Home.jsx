@@ -115,7 +115,7 @@ const Home = () => {
             <Col id={styles.ctFoto} lg={6} className="pt-5 text-center rounded-bottom-5 bg-secondary-subtle bg-gradient">
                {/* Carousel de modelos musculosos */}
                <div>
-                  <Slider centerMode arrows={false} autoplay fade>
+                  <Slider pauseOnFocus={false} pauseOnHover={false} centerMode arrows={false} autoplay fade>
                      <div className="d-flex justify-content-center">
                         <Image id={styles.fotoBanner} src={ftBanner} />
                      </div>
