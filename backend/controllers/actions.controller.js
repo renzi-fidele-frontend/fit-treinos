@@ -294,23 +294,21 @@ const retornarDadosTreinamento = async (req, res) => {
 const retornarUsuariosClassificados = async (req, res) => {
    try {
       let usuarios = await Usuario.find({}, "-password -email -favoritos");
-      const usuariosClassificados = usuarios
-         .map((usuario, k) => {
-            let tempoTotalAbsoluto = 0;
-            let nrTreinosRealizados = 0;
+      const usuariosClassificados = usuarios.map((usuario, k) => {
+         let tempoTotalAbsoluto = 0;
+         let nrTreinosRealizados = 0;
 
-            usuario.progresso.forEach((v) => {
-               // Calculando o tempo total absoluto
-               v.treinos.forEach((v) => {
-                  tempoTotalAbsoluto += Number(v.tempoDeTreino);
-               });
-               // Calculando o número total de treinamentos
-               nrTreinosRealizados += Number(v.treinos.length);
+         usuario.progresso.forEach((v) => {
+            // Calculando o tempo total absoluto
+            v.treinos.forEach((v) => {
+               tempoTotalAbsoluto += Number(v.tempoDeTreino);
             });
+            // Calculando o número total de treinamentos
+            nrTreinosRealizados += Number(v.treinos.length);
+         });
 
-            return { ...usuario.toObject(), tempoTotalAbsoluto, nrTreinosRealizados };
-         })
-         .sort((a, b) => b.tempoTotalAbsoluto - a.tempoTotalAbsoluto);
+         return { ...usuario.toObject(), tempoTotalAbsoluto, nrTreinosRealizados };
+      });
       res.json({ usuariosClassificados });
    } catch {
       res.status(401).json({ mensagem: "Erro ao apanhar os usuários classificados" });

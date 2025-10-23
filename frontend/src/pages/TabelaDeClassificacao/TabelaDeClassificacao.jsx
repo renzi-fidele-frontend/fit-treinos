@@ -27,38 +27,60 @@ const TabelaDeClassificacao = () => {
    const { idioma } = useSelector((state) => state.idioma);
    useExercisesApiAndDispatchOnStore();
    const [mostrarModal, setMostrarModal] = useState(false);
+   const { filtro, ordem } = useSelector((state) => state.leaderboard);
+   const dispatch = useDispatch();
 
    useEffect(() => {
-      const apanhar = apanharNoBackend("actions/retornarUsuariosClassificados").then((v) => {
-         setUsuarios(v.usuariosClassificados);
-      });
+      if (!usuarios) {
+         const apanhar = apanharNoBackend("actions/retornarUsuariosClassificados").then((v) => {
+            setUsuarios(v.usuariosClassificados);
+         });
+      }
+   }, [apanharNoBackend, usuarios]);
 
+   // Controlador do idioma do momentJs
+   useEffect(() => {
       if (idioma?.includes("pt")) moment.locale("pt");
       if (idioma?.includes("en")) moment.locale("en");
    }, [idioma]);
 
-   const Filtragem = () => {
-      const { filtro, ordem } = useSelector((state) => state.leaderboard);
-      const dispatch = useDispatch();
+   // Controlador da mudança de filtros
+   useEffect(() => {
+      function aplicarFiltros() {
+         let usuariosClassificados;
+         if (ordem === "decrescente") {
+            if (filtro === "tempo_de_treino") usuariosClassificados = usuarios?.sort((a, b) => b?.tempoTotalAbsoluto - a?.tempoTotalAbsoluto);
+            else if (filtro === "treinos") usuariosClassificados = usuarios?.sort((a, b) => b?.nrTreinosRealizados - a?.nrTreinosRealizados);
+            // TODO: Filtrar pela data de cadastro
+         } else {
+            if (filtro === "tempo_de_treino") usuariosClassificados = usuarios?.sort((a, b) => a?.tempoTotalAbsoluto - b?.tempoTotalAbsoluto);
+            else if (filtro === "treinos") usuariosClassificados = usuarios?.sort((a, b) => a?.nrTreinosRealizados - b?.nrTreinosRealizados);
+         }
+         setUsuarios(usuariosClassificados);
+      }
+      aplicarFiltros();
+   }, [filtro, ordem]);
 
+   const Filtragem = () => {
       return (
          <div className="d-flex gap-0 gap-xl-3 align-items-center flex-column flex-xl-row">
-            <h5>Filtrar por: </h5>
             {/* Filtros */}
+            <h5>Filtrar por: </h5>
             <Nav
                className="justify-content-center"
                variant="pills"
                defaultActiveKey={filtro}
                onSelect={(filtroSelecionado) => dispatch(setFiltro(filtroSelecionado))}
+               onClick={() => setMostrarModal(false)}
             >
-               <Nav.Item className="border rounded">
-                  <Nav.Link eventKey="rank">Rank</Nav.Link>
-               </Nav.Item>
                <Nav.Item className="border rounded">
                   <Nav.Link eventKey="tempo_de_treino">Tempo de treino</Nav.Link>
                </Nav.Item>
                <Nav.Item className="border rounded">
                   <Nav.Link eventKey="treinos">Treinos realizados</Nav.Link>
+               </Nav.Item>
+               <Nav.Item className="border rounded">
+                  <Nav.Link eventKey="data_de_cadastro">Data de cadastro</Nav.Link>
                </Nav.Item>
             </Nav>
             {/* Separador */}
@@ -70,6 +92,7 @@ const TabelaDeClassificacao = () => {
                variant="pills"
                defaultActiveKey={ordem}
                onSelect={(ordemSelecionada) => dispatch(setOrdem(ordemSelecionada))}
+               onClick={() => setMostrarModal(false)}
             >
                <Nav.Item className="border rounded">
                   <Nav.Link eventKey="decrescente">
@@ -101,7 +124,7 @@ const TabelaDeClassificacao = () => {
                         <Filtragem />
                      </div>
                      <div className="d-xl-none">
-                        <Button variant="secondary">
+                        <Button variant="secondary" onClick={() => setMostrarModal(true)}>
                            <i className="bi bi-funnel"></i>
                         </Button>
                         <Modal onHide={() => setMostrarModal(false)} show={mostrarModal} centered>
