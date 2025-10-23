@@ -1,4 +1,6 @@
 import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import Table from "react-bootstrap/Table";
@@ -24,6 +26,7 @@ const TabelaDeClassificacao = () => {
    const { modoEscuro } = useSelector((state) => state.tema);
    const { idioma } = useSelector((state) => state.idioma);
    useExercisesApiAndDispatchOnStore();
+   const [mostrarModal, setMostrarModal] = useState(false);
 
    useEffect(() => {
       const apanhar = apanharNoBackend("actions/retornarUsuariosClassificados").then((v) => {
@@ -39,10 +42,15 @@ const TabelaDeClassificacao = () => {
       const dispatch = useDispatch();
 
       return (
-         <div className="d-flex gap-3 align-items-center">
+         <div className="d-flex gap-0 gap-xl-3 align-items-center flex-column flex-xl-row">
             <h5>Filtrar por: </h5>
             {/* Filtros */}
-            <Nav variant="pills" defaultActiveKey={filtro} onSelect={(filtroSelecionado) => dispatch(setFiltro(filtroSelecionado))}>
+            <Nav
+               className="justify-content-center"
+               variant="pills"
+               defaultActiveKey={filtro}
+               onSelect={(filtroSelecionado) => dispatch(setFiltro(filtroSelecionado))}
+            >
                <Nav.Item className="border rounded">
                   <Nav.Link eventKey="rank">Rank</Nav.Link>
                </Nav.Item>
@@ -54,8 +62,9 @@ const TabelaDeClassificacao = () => {
                </Nav.Item>
             </Nav>
             {/* Separador */}
-            <div className="vr"></div>
+            <div className="vr d-none d-xl-block"></div>
             {/* Ordem */}
+            <h5 className="d-xl-none mt-3">Ordem: </h5>
             <Nav
                className="ordem"
                variant="pills"
@@ -85,10 +94,25 @@ const TabelaDeClassificacao = () => {
             <Row className="pb-5">
                <Col>
                   <div className="d-flex align-items-center justify-content-between">
-                     <h2 className="fw-semibold">{subtit}</h2>
+                     <h2 className="fw-semibold mb-0">{subtit}</h2>
                      {/* TODO: Adicionar funcionalidade de filtragem */}
                      {/* Filtragem */}
-                     <Filtragem />
+                     <div className="d-none d-xl-block">
+                        <Filtragem />
+                     </div>
+                     <div className="d-xl-none">
+                        <Button variant="secondary">
+                           <i className="bi bi-funnel"></i>
+                        </Button>
+                        <Modal onHide={() => setMostrarModal(false)} show={mostrarModal} centered>
+                           <Modal.Header closeButton>
+                              <h6 className="mb-0 fs-3">Opções de filtragem</h6>
+                           </Modal.Header>
+                           <Modal.Body className="pb-4">
+                              <Filtragem />
+                           </Modal.Body>
+                        </Modal>
+                     </div>
                   </div>
                   <hr className="mt-3" />
                   <div id={styles.tableWrapper}>
