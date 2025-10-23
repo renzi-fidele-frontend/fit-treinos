@@ -1,4 +1,5 @@
 import Col from "react-bootstrap/Col";
+import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import Table from "react-bootstrap/Table";
 import BannerTopo from "../../components/BannerTopo/BannerTopo";
@@ -13,8 +14,6 @@ import { useTranslation } from "react-i18next";
 import Tooltip from "../../components/Tooltip/Tooltip";
 import moment from "moment";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
-
-// TODO: Adicionar funcionalidade de filtragem
 
 const TabelaDeClassificacao = () => {
    const { t } = useTranslation();
@@ -34,6 +33,13 @@ const TabelaDeClassificacao = () => {
       if (idioma?.includes("en")) moment.locale("en");
    }, [idioma]);
 
+   const Filtragem = () => {
+      const [filtros, setFiltros] = useState({
+         filtro: "rank",
+         ordem: "decrescente",
+      });
+   };
+
    return (
       <div id={styles.ct}>
          {/* Banner inicial */}
@@ -41,8 +47,39 @@ const TabelaDeClassificacao = () => {
          <div className="py-4 py-md-5 px-sm-5 px-md-0 container-md">
             <Row className="pb-5">
                <Col>
-                  <h2 className="fw-semibold mb-4">{subtit}</h2>
-                  <hr />
+                  <div className="d-flex align-items-center justify-content-between">
+                     <h2 className="fw-semibold">{subtit}</h2>
+                     {/* TODO: Adicionar funcionalidade de filtragem */}
+                     {/* Filtragem */}
+                     <div className="d-flex gap-3 align-items-center">
+                        <h5>Filtrar por: </h5>
+                        <Nav variant="pills" defaultActiveKey="rank">
+                           <Nav.Item className="border rounded">
+                              <Nav.Link eventKey="rank">Rank</Nav.Link>
+                           </Nav.Item>
+                           <Nav.Item className="border rounded">
+                              <Nav.Link eventKey="tempo_de_treino">Tempo de treino</Nav.Link>
+                           </Nav.Item>
+                           <Nav.Item className="border rounded">
+                              <Nav.Link eventKey="treinos">Treinos realizados</Nav.Link>
+                           </Nav.Item>
+                        </Nav>
+                        <div className="vr"></div>
+                        <Nav className="ordem" variant="pills" defaultActiveKey="decrescente">
+                           <Nav.Item className="border rounded">
+                              <Nav.Link eventKey="decrescente">
+                                 <i className="bi bi-sort-down"></i>
+                              </Nav.Link>
+                           </Nav.Item>
+                           <Nav.Item className="border rounded">
+                              <Nav.Link eventKey="crescente">
+                                 <i className="bi bi-sort-up"></i>
+                              </Nav.Link>
+                           </Nav.Item>
+                        </Nav>
+                     </div>
+                  </div>
+                  <hr className="mt-3" />
                   <div id={styles.tableWrapper}>
                      <Table striped className="mt-3 mt-lg-4 mt-xxl-5" bordered hover>
                         <thead className="fst-italic">

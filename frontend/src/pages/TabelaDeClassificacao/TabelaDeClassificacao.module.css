@@ -19,6 +19,10 @@
    height: 42px;
 }
 
+#tabs a {
+   color: var(--bs-secondary) !important;
+}
+
 @media screen and (max-width: 1200px) {
    #ct table th {
       font-size: 16px;
