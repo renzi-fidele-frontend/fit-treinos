@@ -34,10 +34,41 @@ const TabelaDeClassificacao = () => {
    }, [idioma]);
 
    const Filtragem = () => {
-      const [filtros, setFiltros] = useState({
-         filtro: "rank",
-         ordem: "decrescente",
-      });
+      const [filtro, setFiltro] = useState("rank");
+      const [ordem, setOrdem] = useState("decrescente");
+
+      return (
+         <div className="d-flex gap-3 align-items-center">
+            <h5>Filtrar por: </h5>
+            {/* Filtros */}
+            <Nav variant="pills" defaultActiveKey="rank" onSelect={(filtroSelecionado) => setFiltro(filtroSelecionado)}>
+               <Nav.Item className="border rounded">
+                  <Nav.Link eventKey="rank">Rank</Nav.Link>
+               </Nav.Item>
+               <Nav.Item className="border rounded">
+                  <Nav.Link eventKey="tempo_de_treino">Tempo de treino</Nav.Link>
+               </Nav.Item>
+               <Nav.Item className="border rounded">
+                  <Nav.Link eventKey="treinos">Treinos realizados</Nav.Link>
+               </Nav.Item>
+            </Nav>
+            {/* Separador */}
+            <div className="vr"></div>
+            {/* Ordem */}
+            <Nav className="ordem" variant="pills" defaultActiveKey="decrescente" onSelect={(ordemSelecionada) => setOrdem(ordemSelecionada)}>
+               <Nav.Item className="border rounded">
+                  <Nav.Link eventKey="decrescente">
+                     <i className="bi bi-sort-down"></i>
+                  </Nav.Link>
+               </Nav.Item>
+               <Nav.Item className="border rounded">
+                  <Nav.Link eventKey="crescente">
+                     <i className="bi bi-sort-up"></i>
+                  </Nav.Link>
+               </Nav.Item>
+            </Nav>
+         </div>
+      );
    };
 
    return (
@@ -51,33 +82,7 @@ const TabelaDeClassificacao = () => {
                      <h2 className="fw-semibold">{subtit}</h2>
                      {/* TODO: Adicionar funcionalidade de filtragem */}
                      {/* Filtragem */}
-                     <div className="d-flex gap-3 align-items-center">
-                        <h5>Filtrar por: </h5>
-                        <Nav variant="pills" defaultActiveKey="rank">
-                           <Nav.Item className="border rounded">
-                              <Nav.Link eventKey="rank">Rank</Nav.Link>
-                           </Nav.Item>
-                           <Nav.Item className="border rounded">
-                              <Nav.Link eventKey="tempo_de_treino">Tempo de treino</Nav.Link>
-                           </Nav.Item>
-                           <Nav.Item className="border rounded">
-                              <Nav.Link eventKey="treinos">Treinos realizados</Nav.Link>
-                           </Nav.Item>
-                        </Nav>
-                        <div className="vr"></div>
-                        <Nav className="ordem" variant="pills" defaultActiveKey="decrescente">
-                           <Nav.Item className="border rounded">
-                              <Nav.Link eventKey="decrescente">
-                                 <i className="bi bi-sort-down"></i>
-                              </Nav.Link>
-                           </Nav.Item>
-                           <Nav.Item className="border rounded">
-                              <Nav.Link eventKey="crescente">
-                                 <i className="bi bi-sort-up"></i>
-                              </Nav.Link>
-                           </Nav.Item>
-                        </Nav>
-                     </div>
+                     <Filtragem />
                   </div>
                   <hr className="mt-3" />
                   <div id={styles.tableWrapper}>
