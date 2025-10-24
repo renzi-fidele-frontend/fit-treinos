@@ -1,7 +1,6 @@
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import Table from "react-bootstrap/Table";
 import BannerTopo from "../../components/BannerTopo/BannerTopo";
@@ -9,29 +8,29 @@ import styles from "./TabelaDeClassificacao.module.css";
 import fotoBanner from "../../assets/leaderWomen2.webp";
 import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { gerarArray } from "../../utils/gerarArray";
 import LinhaUsuarioClassificado from "../../components/LinhaUsuarioClassificado/LinhaUsuarioClassificado";
 import { useTranslation } from "react-i18next";
 import Tooltip from "../../components/Tooltip/Tooltip";
 import moment from "moment";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
-import { setFiltro, setOrdem } from "../../state/leaderboard/leaderboardSlice";
+import Filtragem from "./Filtragem";
 
 const TabelaDeClassificacao = () => {
    const { t } = useTranslation();
    const { tit, descricao, subtit, tableHeadings } = t("leaderboard");
-   const [usuarios, setUsuarios] = useState(null);
+   const [usuarios, setUsuarios] = useState([]);
    const { apanharNoBackend } = useFetch();
    const { modoEscuro } = useSelector((state) => state.tema);
    const { idioma } = useSelector((state) => state.idioma);
    useExercisesApiAndDispatchOnStore();
    const [mostrarModal, setMostrarModal] = useState(false);
    const { filtro, ordem } = useSelector((state) => state.leaderboard);
-   const dispatch = useDispatch();
 
+   // Apanhando os usuários classificados
    useEffect(() => {
-      if (!usuarios) {
+      if (usuarios?.length === 0) {
          const apanhar = apanharNoBackend("actions/retornarUsuariosClassificados").then((v) => {
             setUsuarios(v.usuariosClassificados);
          });
@@ -44,6 +43,7 @@ const TabelaDeClassificacao = () => {
       if (idioma?.includes("en")) moment.locale("en");
    }, [idioma]);
 
+   // FIXME: O estado dos filtros não está sendo atualizado em tempo real
    // Controlador da mudança de filtros
    useEffect(() => {
       function aplicarFiltros() {
@@ -61,54 +61,6 @@ const TabelaDeClassificacao = () => {
       aplicarFiltros();
    }, [filtro, ordem]);
 
-   const Filtragem = () => {
-      return (
-         <div className="d-flex gap-0 gap-xl-3 align-items-center flex-column flex-xl-row">
-            {/* Filtros */}
-            <h5>Filtrar por: </h5>
-            <Nav
-               className="justify-content-center"
-               variant="pills"
-               defaultActiveKey={filtro}
-               onSelect={(filtroSelecionado) => dispatch(setFiltro(filtroSelecionado))}
-               onClick={() => setMostrarModal(false)}
-            >
-               <Nav.Item className="border rounded">
-                  <Nav.Link eventKey="tempo_de_treino">Tempo de treino</Nav.Link>
-               </Nav.Item>
-               <Nav.Item className="border rounded">
-                  <Nav.Link eventKey="treinos">Treinos realizados</Nav.Link>
-               </Nav.Item>
-               <Nav.Item className="border rounded">
-                  <Nav.Link eventKey="data_de_cadastro">Data de cadastro</Nav.Link>
-               </Nav.Item>
-            </Nav>
-            {/* Separador */}
-            <div className="vr d-none d-xl-block"></div>
-            {/* Ordem */}
-            <h5 className="d-xl-none mt-3">Ordem: </h5>
-            <Nav
-               className="ordem"
-               variant="pills"
-               defaultActiveKey={ordem}
-               onSelect={(ordemSelecionada) => dispatch(setOrdem(ordemSelecionada))}
-               onClick={() => setMostrarModal(false)}
-            >
-               <Nav.Item className="border rounded">
-                  <Nav.Link eventKey="decrescente">
-                     <i className="bi bi-sort-down"></i>
-                  </Nav.Link>
-               </Nav.Item>
-               <Nav.Item className="border rounded">
-                  <Nav.Link eventKey="crescente">
-                     <i className="bi bi-sort-up"></i>
-                  </Nav.Link>
-               </Nav.Item>
-            </Nav>
-         </div>
-      );
-   };
-
    return (
       <div id={styles.ct}>
          {/* Banner inicial */}
@@ -118,7 +70,6 @@ const TabelaDeClassificacao = () => {
                <Col>
                   <div className="d-flex align-items-center justify-content-between">
                      <h2 className="fw-semibold mb-0">{subtit}</h2>
-                     {/* TODO: Adicionar funcionalidade de filtragem */}
                      {/* Filtragem */}
                      <div className="d-none d-xl-block">
                         <Filtragem />
@@ -132,7 +83,7 @@ const TabelaDeClassificacao = () => {
                               <h6 className="mb-0 fs-3">Opções de filtragem</h6>
                            </Modal.Header>
                            <Modal.Body className="pb-4">
-                              <Filtragem />
+                              <Filtragem setMostrarModal={setMostrarModal} />
                            </Modal.Body>
                         </Modal>
                      </div>
@@ -177,8 +128,8 @@ const TabelaDeClassificacao = () => {
                               </th>
                            </tr>
                         </thead>
-                        <tbody>
-                           {usuarios
+                        <tbody key={usuarios}>
+                           {usuarios?.length > 0
                               ? usuarios?.map((v, k) => <LinhaUsuarioClassificado key={k} usuario={v} chave={k} />)
                               : gerarArray(10).map((v, k) => <LinhaUsuarioClassificado key={k} chave={k} />)}
                         </tbody>
