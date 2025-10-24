@@ -133,7 +133,7 @@ const DetalhesExercicio = () => {
                >
                   {/* Foto de desktop */}
                   {exercicio ? (
-                     <Image className="d-none d-xl-block" src={exercicio?.gifUrl} alt={exercicio?.name} fluid />
+                     <Image className="d-none d-xl-block object-fit-cover" src={exercicio?.gifUrl} alt={exercicio?.name} fluid />
                   ) : (
                      <Placeholder animation="wave" xs={12}>
                         <Placeholder className={styles.loadFotoExercicio} />

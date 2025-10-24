@@ -24,18 +24,36 @@ const TabelaDeClassificacao = () => {
    const { apanharNoBackend } = useFetch();
    const { modoEscuro } = useSelector((state) => state.tema);
    const { idioma } = useSelector((state) => state.idioma);
-   useExercisesApiAndDispatchOnStore();
    const [mostrarModal, setMostrarModal] = useState(false);
    const { filtro, ordem } = useSelector((state) => state.leaderboard);
+   useExercisesApiAndDispatchOnStore();
+
+   function aplicarFiltros(usuarios) {
+      let usuariosClassificados;
+      if (ordem === "decrescente") {
+         if (filtro === "tempo_de_treino") usuariosClassificados = usuarios?.sort((a, b) => b?.tempoTotalAbsoluto - a?.tempoTotalAbsoluto);
+         else if (filtro === "treinos") usuariosClassificados = usuarios?.sort((a, b) => b?.nrTreinosRealizados - a?.nrTreinosRealizados);
+         else if (filtro === "data_de_cadastro")
+            usuariosClassificados = usuarios?.sort((a, b) => Date.parse(b?.criadoEm) - Date.parse(a?.criadoEm));
+      } else {
+         if (filtro === "tempo_de_treino") usuariosClassificados = usuarios?.sort((a, b) => a?.tempoTotalAbsoluto - b?.tempoTotalAbsoluto);
+         else if (filtro === "treinos") usuariosClassificados = usuarios?.sort((a, b) => a?.nrTreinosRealizados - b?.nrTreinosRealizados);
+         else if (filtro === "data_de_cadastro")
+            usuariosClassificados = usuarios?.sort((a, b) => Date.parse(a?.criadoEm) - Date.parse(b?.criadoEm));
+      }
+      console.log(usuariosClassificados);
+      console.log("Filtros alterados: ", usuarios);
+      setUsuarios(usuariosClassificados);
+   }
 
    // Apanhando os usuários classificados
    useEffect(() => {
       if (usuarios?.length === 0) {
          const apanhar = apanharNoBackend("actions/retornarUsuariosClassificados").then((v) => {
-            setUsuarios(v.usuariosClassificados);
+            aplicarFiltros(v.usuariosClassificados);
          });
       }
-   }, [apanharNoBackend, usuarios]);
+   }, []);
 
    // Controlador do idioma do momentJs
    useEffect(() => {
@@ -46,19 +64,7 @@ const TabelaDeClassificacao = () => {
    // FIXME: O estado dos filtros não está sendo atualizado em tempo real
    // Controlador da mudança de filtros
    useEffect(() => {
-      function aplicarFiltros() {
-         let usuariosClassificados;
-         if (ordem === "decrescente") {
-            if (filtro === "tempo_de_treino") usuariosClassificados = usuarios?.sort((a, b) => b?.tempoTotalAbsoluto - a?.tempoTotalAbsoluto);
-            else if (filtro === "treinos") usuariosClassificados = usuarios?.sort((a, b) => b?.nrTreinosRealizados - a?.nrTreinosRealizados);
-            // TODO: Filtrar pela data de cadastro
-         } else {
-            if (filtro === "tempo_de_treino") usuariosClassificados = usuarios?.sort((a, b) => a?.tempoTotalAbsoluto - b?.tempoTotalAbsoluto);
-            else if (filtro === "treinos") usuariosClassificados = usuarios?.sort((a, b) => a?.nrTreinosRealizados - b?.nrTreinosRealizados);
-         }
-         setUsuarios(usuariosClassificados);
-      }
-      aplicarFiltros();
+      if (usuarios) aplicarFiltros(usuarios);
    }, [filtro, ordem]);
 
    return (
@@ -72,7 +78,7 @@ const TabelaDeClassificacao = () => {
                      <h2 className="fw-semibold mb-0">{subtit}</h2>
                      {/* Filtragem */}
                      <div className="d-none d-xl-block">
-                        <Filtragem />
+                        <Filtragem setMostrarModal={setMostrarModal} />
                      </div>
                      <div className="d-xl-none">
                         <Button variant="secondary" onClick={() => setMostrarModal(true)}>
@@ -128,9 +134,9 @@ const TabelaDeClassificacao = () => {
                               </th>
                            </tr>
                         </thead>
-                        <tbody key={usuarios}>
+                        <tbody>
                            {usuarios?.length > 0
-                              ? usuarios?.map((v, k) => <LinhaUsuarioClassificado key={k} usuario={v} chave={k} />)
+                              ? usuarios?.map((v, k) => <LinhaUsuarioClassificado key={v?._id} usuario={v} chave={k} />)
                               : gerarArray(10).map((v, k) => <LinhaUsuarioClassificado key={k} chave={k} />)}
                         </tbody>
                      </Table>
