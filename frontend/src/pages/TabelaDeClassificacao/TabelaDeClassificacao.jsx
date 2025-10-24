@@ -30,19 +30,18 @@ const TabelaDeClassificacao = () => {
 
    function aplicarFiltros(usuarios) {
       let usuariosClassificados;
+      const users = [...usuarios];
       if (ordem === "decrescente") {
-         if (filtro === "tempo_de_treino") usuariosClassificados = usuarios?.sort((a, b) => b?.tempoTotalAbsoluto - a?.tempoTotalAbsoluto);
-         else if (filtro === "treinos") usuariosClassificados = usuarios?.sort((a, b) => b?.nrTreinosRealizados - a?.nrTreinosRealizados);
+         if (filtro === "tempo_de_treino") usuariosClassificados = users?.sort((a, b) => b?.tempoTotalAbsoluto - a?.tempoTotalAbsoluto);
+         else if (filtro === "treinos") usuariosClassificados = users?.sort((a, b) => b?.nrTreinosRealizados - a?.nrTreinosRealizados);
          else if (filtro === "data_de_cadastro")
-            usuariosClassificados = usuarios?.sort((a, b) => Date.parse(b?.criadoEm) - Date.parse(a?.criadoEm));
+            usuariosClassificados = users?.sort((a, b) => Date.parse(b?.criadoEm) - Date.parse(a?.criadoEm));
       } else {
-         if (filtro === "tempo_de_treino") usuariosClassificados = usuarios?.sort((a, b) => a?.tempoTotalAbsoluto - b?.tempoTotalAbsoluto);
-         else if (filtro === "treinos") usuariosClassificados = usuarios?.sort((a, b) => a?.nrTreinosRealizados - b?.nrTreinosRealizados);
+         if (filtro === "tempo_de_treino") usuariosClassificados = users?.sort((a, b) => a?.tempoTotalAbsoluto - b?.tempoTotalAbsoluto);
+         else if (filtro === "treinos") usuariosClassificados = users?.sort((a, b) => a?.nrTreinosRealizados - b?.nrTreinosRealizados);
          else if (filtro === "data_de_cadastro")
-            usuariosClassificados = usuarios?.sort((a, b) => Date.parse(a?.criadoEm) - Date.parse(b?.criadoEm));
+            usuariosClassificados = users?.sort((a, b) => Date.parse(a?.criadoEm) - Date.parse(b?.criadoEm));
       }
-      console.log(usuariosClassificados);
-      console.log("Filtros alterados: ", usuarios);
       setUsuarios(usuariosClassificados);
    }
 
@@ -61,7 +60,7 @@ const TabelaDeClassificacao = () => {
       if (idioma?.includes("en")) moment.locale("en");
    }, [idioma]);
 
-   // FIXME: O estado dos filtros não está sendo atualizado em tempo real
+   
    // Controlador da mudança de filtros
    useEffect(() => {
       if (usuarios) aplicarFiltros(usuarios);
