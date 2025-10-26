@@ -1,4 +1,4 @@
-#foto {
+.foto {
    width: 42px;
    height: 42px;
 }
@@ -31,7 +31,7 @@
 }
 
 @media screen and (max-width: 500px) {
-   #foto {
+   .foto {
       width: 35px;
       height: 35px;
    }

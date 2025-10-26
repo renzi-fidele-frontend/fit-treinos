@@ -15,6 +15,8 @@ import CardExercicioMaisTreinado from "../CardExercicioMaisTreinado/CardExercici
 import CardEstatisticasDedicacaoSemanal from "../CardEstatisticasDedicacaoSemanal/CardEstatisticasDedicacaoSemanal";
 import CardPartesDoCorpoMaisTreinadas from "../CardPartesDoCorpoMaisTreinadas/CardPartesDoCorpoMaisTreinadas";
 import Slider from "react-slick";
+import PreloadImage from "../ui/PreLoadImage";
+import errorFoto from "../../assets/noUser.webp";
 
 const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    const { t } = useTranslation();
@@ -47,7 +49,14 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                {/* Usuário */}
                <td>
                   <div className="d-flex align-items-center gap-3">
-                     <Image id={styles.foto} className="rounded p-0 object-fit-cover" thumbnail src={usuario?.foto} />
+                     <PreloadImage
+                        src={usuario?.foto}
+                        alt={"Foto de " + usuario?.nome}
+                        className={styles.foto + " rounded p-0 object-fit-cover"}
+                        errorSrc={errorFoto}
+                        preloaderCn={styles.foto}
+                     />
+                     {/* <Image   thumbnail src={usuario?.foto} /> */}
                      <span className="text-truncate">{usuario?.nome}</span>
                   </div>
                </td>
@@ -143,7 +152,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
          </td>
          <td>
             <Placeholder className="d-flex align-items-center gap-3" animation="wave">
-               <Placeholder id={styles.foto} />
+               <Placeholder className={styles.foto} />
                <Placeholder xs={7} />
             </Placeholder>
          </td>
