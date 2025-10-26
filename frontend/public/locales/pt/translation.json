@@ -280,7 +280,13 @@
       ],
       "posicao": "lugar",
       "indisponivel": "Indisponível",
-      "viewProgress": "Visualizar progresso"
+      "viewProgress": "Visualizar progresso",
+      "filters": {
+         "modalTit": "Opções de filtragem",
+         "filtrar": "Filtrar por: ",
+         "ordenar": "Ordem: ",
+         "opcoes": ["Tempo de treino", "Treinos realizados", "Data de cadastro"]
+      }
    },
    "authModal": {
       "tit": "Autenticação necessária",

@@ -285,7 +285,13 @@
       ],
       "posicao": "place",
       "indisponivel": "Unavailable",
-      "viewProgress": "View progress"
+      "viewProgress": "View progress",
+      "filters": {
+         "modalTit": "Filtering options",
+         "filtrar": "Filter by: ",
+         "ordenar": "Sort: ",
+         "opcoes": ["Training time", "Praticed exercises", "Registration date"]
+      }
    },
    "authModal": {
       "tit": "Authentication required",

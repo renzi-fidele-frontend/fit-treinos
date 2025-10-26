@@ -19,7 +19,7 @@ import Filtragem from "./Filtragem";
 
 const TabelaDeClassificacao = () => {
    const { t } = useTranslation();
-   const { tit, descricao, subtit, tableHeadings } = t("leaderboard");
+   const { tit, descricao, subtit, tableHeadings, filters } = t("leaderboard");
    const [usuarios, setUsuarios] = useState([]);
    const { apanharNoBackend } = useFetch();
    const { modoEscuro } = useSelector((state) => state.tema);
@@ -85,7 +85,7 @@ const TabelaDeClassificacao = () => {
                         </Button>
                         <Modal onHide={() => setMostrarModal(false)} show={mostrarModal} centered>
                            <Modal.Header closeButton>
-                              <h6 className="mb-0 fs-3">Opções de filtragem</h6>
+                              <h6 className="mb-0 fs-3">{filters.modalTit}</h6>
                            </Modal.Header>
                            <Modal.Body className="pb-4">
                               <Filtragem setMostrarModal={setMostrarModal} />

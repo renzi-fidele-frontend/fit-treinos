@@ -1,15 +1,18 @@
 import Nav from "react-bootstrap/Nav";
 import { useDispatch, useSelector } from "react-redux";
 import { setFiltro, setOrdem } from "../../state/leaderboard/leaderboardSlice";
+import { useTranslation } from "react-i18next";
 
 const Filtragem = ({ setMostrarModal }) => {
    const { filtro, ordem } = useSelector((state) => state.leaderboard);
    const dispatch = useDispatch();
+   const { t } = useTranslation();
+   const { filters } = t("leaderboard");
 
    return (
       <div className="d-flex gap-0 gap-xl-3 align-items-center flex-column flex-xl-row">
          {/* Filtros */}
-         <h5 className="mb-0">Filtrar por: </h5>
+         <h5 className="mb-0">{filters.filtrar}</h5>
          <Nav
             className="justify-content-center"
             variant="pills"
@@ -18,19 +21,19 @@ const Filtragem = ({ setMostrarModal }) => {
             onClick={() => setMostrarModal(false)}
          >
             <Nav.Item className="border rounded">
-               <Nav.Link eventKey="tempo_de_treino">Tempo de treino</Nav.Link>
+               <Nav.Link eventKey="tempo_de_treino">{filters.opcoes[0]}</Nav.Link>
             </Nav.Item>
             <Nav.Item className="border rounded">
-               <Nav.Link eventKey="treinos">Treinos realizados</Nav.Link>
+               <Nav.Link eventKey="treinos">{filters.opcoes[1]}</Nav.Link>
             </Nav.Item>
             <Nav.Item className="border rounded">
-               <Nav.Link eventKey="data_de_cadastro">Data de cadastro</Nav.Link>
+               <Nav.Link eventKey="data_de_cadastro">{filters.opcoes[2]}</Nav.Link>
             </Nav.Item>
          </Nav>
          {/* Separador */}
          <div className="vr d-none d-xl-block"></div>
          {/* Ordem */}
-         <h5 className="d-xl-none mt-3">Ordem: </h5>
+         <h5 className="d-xl-none mt-3">{filters.ordenar}</h5>
          <Nav
             className="ordem"
             variant="pills"
