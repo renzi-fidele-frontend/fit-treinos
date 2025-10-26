@@ -1,4 +1,3 @@
-import Image from "react-bootstrap/Image";
 import Placeholder from "react-bootstrap/Placeholder";
 import Collapse from "react-bootstrap/Collapse";
 import Col from "react-bootstrap/Col";
@@ -15,7 +14,7 @@ import CardExercicioMaisTreinado from "../CardExercicioMaisTreinado/CardExercici
 import CardEstatisticasDedicacaoSemanal from "../CardEstatisticasDedicacaoSemanal/CardEstatisticasDedicacaoSemanal";
 import CardPartesDoCorpoMaisTreinadas from "../CardPartesDoCorpoMaisTreinadas/CardPartesDoCorpoMaisTreinadas";
 import Slider from "react-slick";
-import PreloadImage from "../ui/PreLoadImage";
+import PreloadImage from "../ui/PreloadImage";
 import errorFoto from "../../assets/noUser.webp";
 
 const LinhaUsuarioClassificado = ({ chave, usuario }) => {
