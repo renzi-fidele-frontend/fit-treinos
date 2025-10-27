@@ -112,7 +112,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                         </Col>
                      </Row>
                      {/* Slider do mobile */}
-                     <div id={styles.ctSlider} className="d-xl-none px-3 px-sm-4">
+                     <div id={styles.ctSlider} className="d-xl-none ps-1 pe-3 ps-sm-4 pe-sm-4">
                         <Slider>
                            {/* Estatísticas da dedicação Semanal */}
                            <div>

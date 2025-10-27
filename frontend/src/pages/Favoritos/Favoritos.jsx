@@ -10,6 +10,7 @@ import BannerTopo from "../../components/BannerTopo/BannerTopo";
 import { gerarArray } from "../../utils/gerarArray";
 import { useTranslation } from "react-i18next";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
+import styles from "./Favoritos.module.css"
 
 const Favoritos = () => {
    const { t } = useTranslation();
@@ -39,7 +40,7 @@ const Favoritos = () => {
                            ))
                         ) : (
                            <Col className="text-center">
-                              <Image src={noEx} />
+                              <Image id={styles.modelo} src={noEx} />
                               <Alert className="mt-4" variant="warning">
                                  {noTrain}
                               </Alert>

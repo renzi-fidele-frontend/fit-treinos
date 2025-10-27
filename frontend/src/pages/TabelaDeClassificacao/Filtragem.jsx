@@ -12,7 +12,7 @@ const Filtragem = ({ setMostrarModal }) => {
    return (
       <div className="d-flex gap-0 gap-xl-3 align-items-center flex-column flex-xl-row">
          {/* Filtros */}
-         <h5 className="mb-0">{filters.filtrar}</h5>
+         <h5 className="mb-2 mb-xl-0">{filters.filtrar}</h5>
          <Nav
             className="justify-content-center"
             variant="pills"

@@ -1,16 +1,15 @@
-#banner {
-   min-height: 400px;
-}
-
-#titBanner {
-   font-size: 3.7rem;
-   font-weight: 800;
-}
-
-#bg {
-   opacity: 0.8;
-}
-
 #modelo {
-    width: 430px;
+   width: 300px;
+}
+
+@media screen and (max-width: 900px) {
+   #modelo {
+      width: 250px;
+   }
+}
+
+@media screen and (max-width: 480px) {
+   #modelo {
+      width: 170px;
+   }
 }
