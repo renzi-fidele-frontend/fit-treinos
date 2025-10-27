@@ -2,6 +2,7 @@ import Placeholder from "react-bootstrap/Placeholder";
 import Collapse from "react-bootstrap/Collapse";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import Image from "react-bootstrap/Image";
 import { segundosParaFormatoHumanizado } from "../../utils/segundosParaFormatoHumanizado";
 import styles from "./LinhaUsuarioClassificado.module.css";
 import { useTranslation } from "react-i18next";
@@ -17,6 +18,9 @@ import Slider from "react-slick";
 import PreloadImage from "../ui/PreloadImage";
 import errorFoto from "../../assets/noUser.webp";
 import { verificarSufixoOrdinalEmIngles } from "../../utils/verificarSufixoOrdinalEmIngles";
+import medalhaOuro from "../../assets/trofeus/gold.png";
+import medalhaPrata from "../../assets/trofeus/silver.png";
+import medalhaBronze from "../../assets/trofeus/bronze.png";
 
 const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    const { t } = useTranslation();
@@ -35,9 +39,21 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
       }
    }, [usuario?._id, progressoTreinamento]);
 
-   
    function isEven(number) {
       return number % 2 !== 0 ? true : false;
+   }
+
+   function verificarRank() {
+      switch (chave + 1) {
+         case 1:
+            return medalhaOuro;
+         case 2:
+            return medalhaPrata;
+         case 3:
+            return medalhaBronze;
+         default:
+            return null;
+      }
    }
 
    return usuario ? (
@@ -58,8 +74,9 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                         errorSrc={errorFoto}
                         preloaderCn={styles.foto}
                      />
-                     {/* <Image   thumbnail src={usuario?.foto} /> */}
                      <span className="text-truncate">{usuario?.nome}</span>
+                     {/* Troféus dos usuários mais dedicados */}
+                     {chave < 3 && <Image src={verificarRank()} className={styles.trofeu} />}
                   </div>
                </td>
                {/* Tempo de treino */}
@@ -150,7 +167,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    ) : (
       <tr>
          <td className="fst-italic fw-medium">
-            {chave + 1}º {posicao}
+            {idioma?.includes("en") ? verificarSufixoOrdinalEmIngles(chave + 1) : `${chave + 1}º ${posicao}`}
          </td>
          <td>
             <Placeholder className="d-flex align-items-center gap-3" animation="wave">
