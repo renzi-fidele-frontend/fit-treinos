@@ -29,6 +29,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    const { apanharNoBackend } = useFetch();
    const { exercicios } = useSelector((state) => state.exercicios);
    const { idioma } = useSelector((state) => state.idioma);
+   const { ordem } = useSelector((state) => state.leaderboard);
    const [progressoTreinamento, setProgressoTreinamento] = useState(null);
 
    useEffect(() => {
@@ -44,16 +45,16 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    }
 
    function verificarRank() {
-      switch (chave + 1) {
-         case 1:
-            return medalhaOuro;
-         case 2:
-            return medalhaPrata;
-         case 3:
-            return medalhaBronze;
-         default:
-            return null;
-      }
+         switch (chave + 1) {
+            case 1:
+               return medalhaOuro;
+            case 2:
+               return medalhaPrata;
+            case 3:
+               return medalhaBronze;
+            default:
+               return null;
+         }
    }
 
    return usuario ? (
@@ -76,7 +77,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                      />
                      <span className="text-truncate">{usuario?.nome}</span>
                      {/* Troféus dos usuários mais dedicados */}
-                     {chave < 3 && <Image src={verificarRank()} className={styles.trofeu} />}
+                     {chave < 3 && ordem === "decrescente" && <Image src={verificarRank()} className={styles.trofeu} />}
                   </div>
                </td>
                {/* Tempo de treino */}
