@@ -16,6 +16,7 @@ import CardPartesDoCorpoMaisTreinadas from "../CardPartesDoCorpoMaisTreinadas/Ca
 import Slider from "react-slick";
 import PreloadImage from "../ui/PreloadImage";
 import errorFoto from "../../assets/noUser.webp";
+import { verificarSufixoOrdinalEmIngles } from "../../utils/verificarSufixoOrdinalEmIngles";
 
 const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    const { t } = useTranslation();
@@ -23,6 +24,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    const [mostrar, setMostrar] = useState(false);
    const { apanharNoBackend } = useFetch();
    const { exercicios } = useSelector((state) => state.exercicios);
+   const { idioma } = useSelector((state) => state.idioma);
    const [progressoTreinamento, setProgressoTreinamento] = useState(null);
 
    useEffect(() => {
@@ -33,6 +35,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
       }
    }, [usuario?._id, progressoTreinamento]);
 
+   
    function isEven(number) {
       return number % 2 !== 0 ? true : false;
    }
@@ -43,7 +46,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
             <tr onClick={() => setMostrar(!mostrar)} role="button">
                {/* Rank */}
                <td className="fst-italic fw-medium">
-                  {chave + 1} º {posicao}
+                  {idioma?.includes("en") ? verificarSufixoOrdinalEmIngles(chave + 1) : `${chave + 1} º ${posicao}`}
                </td>
                {/* Usuário */}
                <td>
