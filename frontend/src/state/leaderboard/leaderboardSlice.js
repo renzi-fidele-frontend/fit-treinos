@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-   filtro: "rank",
+   filtro: "tempo_de_treino",
    ordem: "decrescente",
 };
 
