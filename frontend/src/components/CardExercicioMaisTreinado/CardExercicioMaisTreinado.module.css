@@ -5,7 +5,7 @@
 .foto {
    height: 310px;
    width: 100%;
-   object-fit: cover;
+   object-fit: contain;
 }
 
 .fotoLoad {
@@ -31,7 +31,8 @@
 }
 
 @media screen and (max-width: 992px) {
-   .foto, .noBestTrain {
+   .foto,
+   .noBestTrain {
       height: 320px;
    }
 
@@ -63,6 +64,7 @@
 
    .noBestTrain {
       width: 80%;
+      height: auto;
       margin-top: 1rem;
    }
 }

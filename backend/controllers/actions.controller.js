@@ -241,7 +241,6 @@ const retornarDadosTreinamento = async (req, res) => {
 
       // Calculando a média do tempo(segundos) de treino por dia e o seu diferencial percentual
       const nrDiasTreinados = user.progresso.length;
-
       const mediaTreinosPorDia = totalTreinos / nrDiasTreinados;
       const diferencialPercentual = ((nrTreinosHoje - mediaTreinosPorDia) / mediaTreinosPorDia) * 100;
       const mediaTempoPorDia = tempoTotal / nrDiasTreinados;
@@ -255,7 +254,6 @@ const retornarDadosTreinamento = async (req, res) => {
          dia.setDate(hoje.getDate() - i);
          ultimaSemana.push(dia);
       }
-
       const estatisticasDaSemana = ultimaSemana.map((dia) => {
          let tempoTreinadoNoDia = 0;
          user.progresso.forEach((v) => {
