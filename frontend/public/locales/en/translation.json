@@ -281,7 +281,8 @@
          {
             "nome": "Registered on",
             "descricao": "Date the user registered on the platform. This field allows you to see how long each participant has been part of the community."
-         }
+         },
+         { "nome": "Location", "descricao": null }
       ],
       "posicao": "place",
       "indisponivel": "Unavailable",

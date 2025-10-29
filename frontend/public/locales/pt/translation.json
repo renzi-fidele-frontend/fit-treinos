@@ -276,7 +276,8 @@
          {
             "nome": "Cadastrado em",
             "descricao": "Data em que o usuário se registrou na plataforma. Esse campo permite visualizar há quanto tempo cada participante faz parte da comunidade."
-         }
+         },
+         { "nome": "Localização", "descricao": null }
       ],
       "posicao": "lugar",
       "indisponivel": "Indisponível",

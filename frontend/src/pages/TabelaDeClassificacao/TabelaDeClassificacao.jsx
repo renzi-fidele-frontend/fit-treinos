@@ -132,6 +132,9 @@ const TabelaDeClassificacao = () => {
                                     <i className="bi bi-info-circle ms-2"></i>
                                  </Tooltip>
                               </th>
+                              <th className={modoEscuro ? "text-bg-secondary" : `text-bg-dark`}>
+                                 <i className="bi bi-geo-alt-fill"></i> {tableHeadings[6].nome}
+                              </th>
                            </tr>
                         </thead>
                         <tbody>

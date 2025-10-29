@@ -45,16 +45,16 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    }
 
    function verificarRank() {
-         switch (chave + 1) {
-            case 1:
-               return medalhaOuro;
-            case 2:
-               return medalhaPrata;
-            case 3:
-               return medalhaBronze;
-            default:
-               return null;
-         }
+      switch (chave + 1) {
+         case 1:
+            return medalhaOuro;
+         case 2:
+            return medalhaPrata;
+         case 3:
+            return medalhaBronze;
+         default:
+            return null;
+      }
    }
 
    return usuario ? (
@@ -99,6 +99,16 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                {/* Cadastrado em */}
                <td>
                   <i className="bi bi-calendar2-date text-secondary me-1"></i> {new Date(usuario?.criadoEm).toLocaleDateString()}
+               </td>
+               {/* Localização */}
+               <td>
+                  {usuario?.pais ? (
+                     <div className="d-flex align-items-center gap-2">
+                        <Image width={30} src={usuario?.location?.country_flag} /> <span>{usuario?.pais}</span>
+                     </div>
+                  ) : (
+                     <span className="text-bg-warning px-2 py-1 rounded border-black border small">{indisponivel}</span>
+                  )}
                </td>
             </tr>
          </Tooltip>

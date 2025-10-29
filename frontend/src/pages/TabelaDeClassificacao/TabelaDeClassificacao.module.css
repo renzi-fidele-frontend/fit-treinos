@@ -7,7 +7,7 @@
 }
 
 #ct table {
-   font-size: 20px;
+   font-size: 16px;
 }
 
 #ct table th {
@@ -45,7 +45,8 @@
       height: 35px;
    }
 
-   #ct table, #ct table th {
+   #ct table,
+   #ct table th {
       font-size: 14px;
    }
 }
