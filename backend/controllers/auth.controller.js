@@ -2,22 +2,31 @@ const { uploadImage, removerFoto } = require("../middlewares/cloudinary");
 const Usuario = require("../models/Usuario");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const betterLog = require("../utils/betterLog");
 
 const cadastrarUsuario = async (req, res) => {
    const { email, password, nome } = req?.body;
    const foto = req?.file?.path;
    console.log(foto, email, password, nome);
+
+   const apanharLocalizacao = await fetch(`http://api.ipapi.com/api/${ip.ip}?access_key=${process.env.IP_API_KEY}`)
+      .then((v) => v.json())
+      .then((v) => console.log(v));
+
    try {
       const existeUsuario = await Usuario.findOne({ email });
       if (existeUsuario) {
          res.status(401).json({ message: "O email já foi utilizado para criar uma conta!" });
       } else {
+         // Encriptando a senha
          let senhaSecreta;
          try {
             senhaSecreta = await bcrypt.hash(password, 10);
          } catch (error) {
             console.log("Erro ao tornar o password em secreto");
          }
+
+         // Carregando a foto de perfi
          let fotoUpada;
          try {
             fotoUpada = await uploadImage(foto);
@@ -25,12 +34,21 @@ const cadastrarUsuario = async (req, res) => {
             console.log("Erro ao fazer upload da foto");
          }
 
+         // Apanhando os dados de localização do usuário
+         const getIp = await fetch("https://api.ipify.org?format=json");
+         const ip = await getIp.json();
+         const getLocalizacao = await fetch(`http://api.ipapi.com/api/${ip.ip}?access_key=${process.env.IP_API_KEY}`);
+         const localizacao = await getLocalizacao.json();
+
          // Adicionando o user ao DB
          const usuarioAdicionado = new Usuario({
             foto: fotoUpada.url,
             nome,
             email,
             password: senhaSecreta,
+            location: localizacao.location,
+            pais: localizacao.countryName,
+            cidade: localizacao.city,
          });
          usuarioAdicionado.save();
 
@@ -97,11 +115,11 @@ const editarPerfil = async (req, res) => {
 
    try {
       const perfilAtualizado = await Usuario.findByIdAndUpdate(uid, dadosAtualizados, { new: true });
-      
+
       if (foto) {
          const removerFotoDePerfilAntiga = await removerFoto(fotoRemovida.split("/").slice(-1)[0].split(".")[0]);
       }
-      
+
       res.json({ message: "Perfil atualizado com sucesso!", usuario: { ...perfilAtualizado.toObject(), password }, token });
    } catch (error) {
       res.status(500).json({ mensagem: "Erro ao atualizar o perfil" });

@@ -40,7 +40,7 @@ const Cadastro = () => {
 
    const { apanharNoBackend, loading } = useFetch(null, null, null, "manual");
 
-   function handleSubmit1(e) {
+   async function handleSubmit1(e) {
       e.preventDefault();
       const estadoAtual = {
          nome: nomeRef.current.value + " " + sobrenomeRef.current.value,
