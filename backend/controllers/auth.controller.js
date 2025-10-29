@@ -2,17 +2,10 @@ const { uploadImage, removerFoto } = require("../middlewares/cloudinary");
 const Usuario = require("../models/Usuario");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const betterLog = require("../utils/betterLog");
 
 const cadastrarUsuario = async (req, res) => {
    const { email, password, nome } = req?.body;
    const foto = req?.file?.path;
-   console.log(foto, email, password, nome);
-
-   const apanharLocalizacao = await fetch(`http://api.ipapi.com/api/${ip.ip}?access_key=${process.env.IP_API_KEY}`)
-      .then((v) => v.json())
-      .then((v) => console.log(v));
-
    try {
       const existeUsuario = await Usuario.findOne({ email });
       if (existeUsuario) {
@@ -26,7 +19,7 @@ const cadastrarUsuario = async (req, res) => {
             console.log("Erro ao tornar o password em secreto");
          }
 
-         // Carregando a foto de perfi
+         // Carregando a foto de perfil
          let fotoUpada;
          try {
             fotoUpada = await uploadImage(foto);
@@ -39,6 +32,7 @@ const cadastrarUsuario = async (req, res) => {
          const ip = await getIp.json();
          const getLocalizacao = await fetch(`http://api.ipapi.com/api/${ip.ip}?access_key=${process.env.IP_API_KEY}`);
          const localizacao = await getLocalizacao.json();
+         console.log(localizacao);
 
          // Adicionando o user ao DB
          const usuarioAdicionado = new Usuario({
@@ -47,7 +41,7 @@ const cadastrarUsuario = async (req, res) => {
             email,
             password: senhaSecreta,
             location: localizacao.location,
-            pais: localizacao.countryName,
+            pais: localizacao.country_name,
             cidade: localizacao.city,
          });
          usuarioAdicionado.save();
