@@ -17,8 +17,6 @@ import moment from "moment";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 import Filtragem from "./Filtragem";
 
-// TODO: Adicionar a coluna contendo a informação sobre o país do usuário logado, implementar com o flagsApi
-
 const TabelaDeClassificacao = () => {
    const { t } = useTranslation();
    const { tit, descricao, subtit, tableHeadings, filters } = t("leaderboard");

@@ -66,7 +66,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                   {idioma?.includes("en") ? verificarSufixoOrdinalEmIngles(chave + 1) : `${chave + 1} º ${posicao}`}
                </td>
                {/* Usuário */}
-               <td>
+               <td id={styles.usuario}>
                   <div className="d-flex align-items-center gap-3">
                      <PreloadImage
                         src={usuario?.foto}
@@ -101,13 +101,16 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                   <i className="bi bi-calendar2-date text-secondary me-1"></i> {new Date(usuario?.criadoEm).toLocaleDateString()}
                </td>
                {/* Localização */}
-               <td>
+               <td className="pe-4 pe-xxl-0">
                   {usuario?.pais ? (
-                     <div className="d-flex align-items-center gap-2">
-                        <Image width={30} src={usuario?.location?.country_flag} /> <span>{usuario?.pais}</span>
+                     <div className="d-flex gap-2 align-items-center flex-nowrap">
+                        <Image width={25} className="me-1" src={usuario?.location?.country_flag} />{" "}
+                        <span className="pe-4 pe-xxl-0">{usuario?.pais}</span>
                      </div>
                   ) : (
-                     <span className="text-bg-warning px-2 py-1 rounded border-black border small">{indisponivel}</span>
+                     <div>
+                        <span className="text-bg-danger px-2 py-1 rounded border-black border small">N/A</span>
+                     </div>
                   )}
                </td>
             </tr>

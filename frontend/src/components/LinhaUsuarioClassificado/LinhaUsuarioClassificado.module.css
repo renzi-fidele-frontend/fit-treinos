@@ -28,6 +28,12 @@
    width: 25px;
 }
 
+@media screen and (max-width: 1300px) {
+   #usuario {
+      min-width: 198px;
+   }
+}
+
 @media screen and (max-width: 720px) {
    #ctSlider {
       width: 450px;

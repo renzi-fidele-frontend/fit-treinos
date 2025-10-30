@@ -10,7 +10,8 @@
    font-size: 16px;
 }
 
-#ct table th {
+#ct table th,
+#ct table td {
    white-space: nowrap;
 }
 
@@ -25,16 +26,13 @@
 
 @media screen and (max-width: 1200px) {
    #ct table th {
-      font-size: 16px;
+      font-size: 14px;
    }
    #ct table {
-      font-size: 17px;
+      font-size: 15px;
    }
-}
-
-@media screen and (max-width: 992px) {
    #tableWrapper {
-      max-width: 100%;
+      width: 100%;
       overflow-x: scroll;
    }
 }
