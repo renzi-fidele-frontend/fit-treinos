@@ -21,6 +21,7 @@ import { verificarSufixoOrdinalEmIngles } from "../../utils/verificarSufixoOrdin
 import medalhaOuro from "../../assets/trofeus/gold.png";
 import medalhaPrata from "../../assets/trofeus/silver.png";
 import medalhaBronze from "../../assets/trofeus/bronze.png";
+import { formatarData } from "../../utils/formatarData";
 
 const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    const { t } = useTranslation();
@@ -98,7 +99,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                </td>
                {/* Cadastrado em */}
                <td>
-                  <i className="bi bi-calendar2-date text-secondary me-1"></i> {new Date(usuario?.criadoEm).toLocaleDateString()}
+                  <i className="bi bi-calendar2-date text-secondary me-1"></i> {formatarData(usuario?.criadoEm)}
                </td>
                {/* Localização */}
                <td className="pe-4 pe-xxl-0">
