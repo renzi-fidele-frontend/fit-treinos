@@ -9,8 +9,10 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { traduzirTexto } from "../../utils/traduzirTexto";
 import noBestTrain from "../../assets/noBestTrain.png";
+import loadError from "../../assets/loadError.webp";
+import PreloadImage from "../ui/PreloadImage";
 
-const CardExercicioMaisTreinado = ({ exercicio, tempoDeTreino,  }) => {
+const CardExercicioMaisTreinado = ({ exercicio, tempoDeTreino }) => {
    const { idioma } = useSelector((state) => state.idioma);
    const { exercicios } = useSelector((state) => state.exercicios);
    const { investigarMusculoAlvo, investigarParteDoCorpo } = useAnalisarTraducao();
@@ -26,14 +28,17 @@ const CardExercicioMaisTreinado = ({ exercicio, tempoDeTreino,  }) => {
 
    return (
       <div>
-         <h6 id={styles.tit}>
-            {card6.stat}
-         </h6>
+         <h6 id={styles.tit}>{card6.stat}</h6>
          <div className="mt-3">
             {exercicio && (
                <div>
                   <Link to={`/exercicio/${exercicio?.id}`} className="position-relative h-100 d-flex justify-content-end align-items-end">
-                     <Image className={styles.foto + " border rounded-1"} src={exercicio?.gifUrl} />
+                     <PreloadImage
+                        errorSrc={loadError}
+                        preloaderCn={styles.fotoLoad}
+                        className={styles.foto + " border rounded-1"}
+                        src={exercicio?.gifUrl}
+                     />
                      {/* Tag mobile */}
                      <p className="text-capitalize text-bg-secondary px-2 py-1 rounded small mb-0 position-absolute d-xxl-none me-1 mb-1 shadow-lg">
                         {investigarMusculoAlvo(exercicio?.secondaryMuscles?.slice(0, 1)[0]) ||
