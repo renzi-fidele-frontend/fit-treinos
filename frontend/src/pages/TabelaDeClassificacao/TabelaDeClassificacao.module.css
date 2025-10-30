@@ -10,8 +10,7 @@
    font-size: 16px;
 }
 
-#ct table th,
-#ct table td {
+#ct table th {
    white-space: nowrap;
 }
 
