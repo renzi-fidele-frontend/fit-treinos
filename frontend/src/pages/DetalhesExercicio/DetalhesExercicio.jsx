@@ -27,12 +27,13 @@ import { traduzirTexto } from "../../utils/traduzirTexto";
 import { useTranslation } from "react-i18next";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
+import noEquipment from "../../assets/noEquipment.webp";
 
 // FIXME: A requisição está sendo feita duas vezes
 
 const DetalhesExercicio = () => {
    const { t } = useTranslation();
-   const { tit, actions, detalhes, youtube, related } = t("exercicio");
+   const { tit, actions, detalhes, youtube, related, semEquipamento } = t("exercicio");
    const { id } = useParams();
    const dispatch = useDispatch();
    const { idioma } = useSelector((state) => state.idioma);
@@ -245,7 +246,7 @@ const DetalhesExercicio = () => {
                      {detalhes[1]}{" "}
                      <span className="text-secondary text-capitalize">
                         {exercicio ? (
-                           investigarEquipamento(exercicio?.equipment)
+                           investigarEquipamento(exercicio?.equipment) || exercicio?.equipment
                         ) : (
                            <Placeholder animation="wave">
                               <Placeholder sm={2} xl={6} xxl={2} />
@@ -254,8 +255,18 @@ const DetalhesExercicio = () => {
                      </span>
                   </h2>
                   {exercicio ? (
-                     <div className={modoEscuro && "bg-secondary"}>
-                        <Image className={styles.equipamento} src={fotoEquipamento(exercicio?.equipment)} />
+                     <div
+                        className={`position-relative ${modoEscuro && "bg-secondary"} d-flex flex-column justify-content-end align-items-center`}
+                     >
+                        <Image className={styles.equipamento} rounded src={fotoEquipamento(exercicio?.equipment) || noEquipment} />
+                        {!fotoEquipamento(exercicio?.equipment) && (
+                           <div
+                              className={`position-absolute px-3 py-1 rounded mb-0 ${modoEscuro ? "text-bg-light" : "text-bg-dark"}`}
+                              style={{ width: "fit-content" }}
+                           >
+                              <p className="mb-0">{semEquipamento}</p>
+                           </div>
+                        )}
                      </div>
                   ) : (
                      <div className="d-flex flex-column justify-content-center">

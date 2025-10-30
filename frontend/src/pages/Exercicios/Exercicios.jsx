@@ -60,8 +60,6 @@ const Exercicios = () => {
       }
    }
 
-   // TODO: Avisar que as vezes não é ter preciso para poder realizar treinamentos
-
    return (
       <div>
          {/*  Banner inicial */}

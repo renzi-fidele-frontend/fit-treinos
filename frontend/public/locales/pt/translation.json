@@ -171,6 +171,7 @@
          "Principal músculo que será afectado:",
          "Músculos secundários que serão afetados:"
       ],
+      "semEquipamento": "Foto de equipamento indisponível",
       "youtube": { "tit": "Assista vídeos de treinamento do:" },
       "related": {
          "tit": "Exercícios que fortalecem o músculo alvo:"
