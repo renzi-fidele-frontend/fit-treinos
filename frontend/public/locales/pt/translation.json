@@ -150,7 +150,7 @@
       },
       "card5": {
          "stat": "Partes do corpo mais treinadas",
-         "noTrain": "Você ainda não treinou!"
+         "noTrain": "Ainda sem treinos realizados!"
       },
       "card6": { "stat": "Exercício mais praticado", "tempo": "Tempo de treino:" },
       "tit2": "Últimos exercícios praticados",

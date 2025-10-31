@@ -149,14 +149,14 @@
          "graficoMorto": "Chart unavailable"
       },
       "card5": {
-         "stat": "Most trained body parts",
-         "noTrain": "You haven't trained yet!"
+         "stat": "No training sessions held yet!"
       },
       "card6": {
          "stat": "Most practiced exercise",
          "tempo": "Training Time:"
       },
-      "tit2": "Last exercises practiced"
+      "tit2": "Last exercises practiced",
+      "indisponivel": "Unavailable"
    },
    "favoritos": {
       "tit": "See your favorite exercises",

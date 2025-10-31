@@ -24,7 +24,7 @@ const PreloadImage = ({ src, errorSrc, className, preloaderCn, alt }) => {
    }, [src]);
 
    return loading ? (
-      <Placeholder animation="wave">
+      <Placeholder xs={12} animation="wave">
          <Placeholder xs={12} className={preloaderCn} />
       </Placeholder>
    ) : error ? (
