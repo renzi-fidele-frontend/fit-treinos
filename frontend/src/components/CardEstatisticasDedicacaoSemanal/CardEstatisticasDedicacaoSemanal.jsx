@@ -1,4 +1,5 @@
 import Placeholder from "react-bootstrap/Placeholder";
+import FormSelect from "react-bootstrap/FormSelect";
 import { useTranslation } from "react-i18next";
 import styles from "./CardEstatisticasDedicacaoSemanal.module.css";
 import { Line } from "react-chartjs-2";
@@ -26,6 +27,12 @@ const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaSemana, diaMaisTreinad
             {card4.stat}
          </h6>
          <div className="my-3">
+            {/* Seleção do período de treino */}
+            <FormSelect defaultValue="semana" className="mb-3">
+               <option value="semana">{card4.filters[0]}</option>
+               <option value="mes">{card4.filters[1]}</option>
+               <option value="ano">{card4.filters[2]}</option>
+            </FormSelect>
             {estatisticasDaSemana ? (
                <div className="position-relative">
                   {/* Gráfico */}
@@ -91,9 +98,10 @@ const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaSemana, diaMaisTreinad
             )}
          </p>
          {/* Descrição da funcionalidade do gráfico */}
-         <div className="bg-secondary-subtle rounded px-2 py-1 d-flex gap-2 mt-3" id={styles.jumbo}>
+
+         {/* <div className="bg-secondary-subtle rounded px-2 py-1 d-flex gap-2 mt-3" id={styles.jumbo}>
             <i className="bi bi-info-circle mt-1"></i> <p className="mb-0">{card4.desc2}</p>
-         </div>
+         </div> */}
       </div>
    );
 };

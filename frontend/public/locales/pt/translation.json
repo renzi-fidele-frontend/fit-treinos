@@ -138,7 +138,8 @@
          "desc": "Tempo dedicado ao treinamento por dia"
       },
       "card4": {
-         "stat": "Estatísticas da Dedicação Semanal",
+         "stat": "Estatísticas da dedicação no treino",
+         "filters": ["Última semana", "Último mês", "Último ano"],
          "tempo": "Tempo de treino:",
          "load": "Carregando o gráfico...",
          "desc": "* A Unidade do tempo de treino está em segundos",

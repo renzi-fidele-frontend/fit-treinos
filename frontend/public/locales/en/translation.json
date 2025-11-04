@@ -138,7 +138,8 @@
          "desc": "Time dedicated to training per day"
       },
       "card4": {
-         "stat": "Weekly dedication statistics",
+         "stat": "Training dedication statistics",
+         "filters": ["Last week", "Last month", "Last year"],
          "tempo": "Training Time:",
          "load": "Loading the chart...",
          "desc": "* The training time unit is in seconds",
