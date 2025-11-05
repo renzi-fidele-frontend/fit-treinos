@@ -22,7 +22,7 @@ import CardPartesDoCorpoMaisTreinadas from "../../components/CardPartesDoCorpoMa
 
 const Dashboard = () => {
    const { t } = useTranslation();
-   const { tit, tit2, card1, card2, card3, card5, card6 } = t("dashboard");
+   const { tit, tit2, card1, card2, card3, card5 } = t("dashboard");
    const { apanharNoBackendComAuth } = useFetch(null, null, null, "manual");
    const [tempoTotalTreino, setTempoTotalTreino] = useState(null);
    const [nrTreinosHoje, setNrTreinosHoje] = useState(null);

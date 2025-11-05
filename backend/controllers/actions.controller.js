@@ -210,7 +210,7 @@ const retornarDadosTreinamento = async (req, res) => {
             // Calculando o tempo total treinado desde o cadastro
             tempoTotal += Number(treino.tempoDeTreino);
 
-            // Calculando o tempo treinado em cada dia da última semana passada
+            // Calculando o tempo treinado em cada dia de semana
             tempoPorDiaDaSemana[diaSemana] += Number(treino.tempoDeTreino);
 
             // Verificar o exercício mais treinado de todos (de acordo com o tempo Treinado)
@@ -230,7 +230,7 @@ const retornarDadosTreinamento = async (req, res) => {
       // Calculando o exercício mais treinado
       exercicioMaisTreinado = Object.keys(exerciciosTreinados).reduce((a, b) => (exerciciosTreinados[a] > exerciciosTreinados[b] ? a : b));
 
-      // Calculando o dia mais treinado na última semana passada
+      // Calculando o dia da semana mais treinado
       const diaMaisTreinado = Object.keys(tempoPorDiaDaSemana).reduce((a, b) => (tempoPorDiaDaSemana[a] > tempoPorDiaDaSemana[b] ? a : b));
       user.progresso.forEach((sessao) => {
          sessao.treinos.forEach((treino) => {
@@ -246,8 +246,9 @@ const retornarDadosTreinamento = async (req, res) => {
       const mediaTempoPorDia = tempoTotal / nrDiasTreinados;
       const diferencialPercentualTempo = ((tempoTotalHoje - mediaTempoPorDia) / mediaTempoPorDia) * 100;
 
-      // Calculando as estatísticas da dedicação na última semana passada
+      // Calculando as estatísticas da dedicação do treinamento
       const hoje = new Date();
+      // Semana passada
       const ultimaSemana = [];
       for (let i = 6; i >= 0; i--) {
          const dia = new Date(hoje);
@@ -266,6 +267,44 @@ const retornarDadosTreinamento = async (req, res) => {
          return { tempoTreinadoNoDia, dia: verificarDiaDaSemana(dia.getDay()) };
       });
 
+      // Mês passado
+      const ultimaMes = [];
+      for (let i = 30; i >= 0; i--) {
+         const dia = new Date(hoje);
+         dia.setDate(hoje.getDate() - i);
+         ultimaMes.push(dia);
+      }
+      const estatisticasDoMes = ultimaMes.map((dia) => {
+         let tempoTreinadoNoDia = 0;
+         user.progresso.forEach((v) => {
+            if (v.dataDoTreino === dia.toDateString()) {
+               v.treinos.forEach((treino) => {
+                  tempoTreinadoNoDia += Number(treino.tempoDeTreino);
+               });
+            }
+         });
+         return { tempoTreinadoNoDia, dia: dia.getMilliseconds() };
+      });
+
+      // Ano passado
+      const ultimoAno = [];
+      for (let i = 365; i >= 0; i--) {
+         const dia = new Date(hoje);
+         dia.setDate(hoje.getDate() - i);
+         ultimoAno.push(dia);
+      }
+      const estatisticasDoAno = ultimoAno.map((dia) => {
+         let tempoTreinadoNoDia = 0;
+         user.progresso.forEach((v) => {
+            if (v.dataDoTreino === dia.toDateString()) {
+               v.treinos.forEach((treino) => {
+                  tempoTreinadoNoDia += Number(treino.tempoDeTreino);
+               });
+            }
+         });
+         return { tempoTreinadoNoDia, dia: dia.getMilliseconds() };
+      });
+
       // Retornando todos os dados do progresso do treinamento
       const progresso = {
          nrTreinosHoje,
@@ -274,6 +313,8 @@ const retornarDadosTreinamento = async (req, res) => {
          diferencialPercentualTempo,
          tempoTotalAbsoluto,
          estatisticasDaSemana,
+         estatisticasDoMes,
+         estatisticasDoAno,
          partesDoCorpoTreinadas: user.partesDoCorpoTreinadas,
          exercicioMaisTreinado: {
             id: exercicioMaisTreinado,

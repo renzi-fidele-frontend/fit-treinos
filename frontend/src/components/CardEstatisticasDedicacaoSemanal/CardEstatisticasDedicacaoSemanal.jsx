@@ -6,15 +6,17 @@ import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { traduzirDiaDaSemana } from "../../utils/traduzirDiaDaSemana";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import moment from "moment";
+import { setPeriodo } from "../../state/configs/configsSlice";
 Chart.register(CategoryScale);
 
 const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaSemana, diaMaisTreinado, ultimosExerciciosPraticados, centralizado }) => {
    const { idioma } = useSelector((state) => state.idioma);
    const { t } = useTranslation();
    const { card4, indisponivel } = t("dashboard");
+   const dispatch = useDispatch();
 
    useEffect(() => {
       if (idioma?.includes("pt")) moment.locale("pt");
@@ -23,12 +25,12 @@ const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaSemana, diaMaisTreinad
 
    return (
       <div>
-         <h6 id={styles.tit} className={`mb-0 ${centralizado && "text-center"}`}>
+         <h6 id={styles.tit} className={`mb-4 ${centralizado && "text-center"}`}>
             {card4.stat}
          </h6>
          <div className="my-3">
             {/* Seleção do período de treino */}
-            <FormSelect defaultValue="semana" className="mb-3">
+            <FormSelect onChange={(e) => dispatch(setPeriodo(e.target.value))} defaultValue="semana" className="mb-2">
                <option value="semana">{card4.filters[0]}</option>
                <option value="mes">{card4.filters[1]}</option>
                <option value="ano">{card4.filters[2]}</option>
