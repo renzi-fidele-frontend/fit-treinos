@@ -128,7 +128,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                            <CardEstatisticasDedicacaoSemanal
                               centralizado={true}
                               diaMaisTreinado={progressoTreinamento?.diaMaisTreinado}
-                              estatisticasDaSemana={progressoTreinamento?.estatisticasDaSemana}
+                              estatisticasDaDedicacao={progressoTreinamento?.estatisticasDaSemana}
                               ultimosExerciciosPraticados={progressoTreinamento?.ultimosExerciciosPraticados}
                            />
                         </Col>
@@ -154,7 +154,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                               <CardEstatisticasDedicacaoSemanal
                                  centralizado={true}
                                  diaMaisTreinado={progressoTreinamento?.diaMaisTreinado}
-                                 estatisticasDaSemana={progressoTreinamento?.estatisticasDaSemana}
+                                 estatisticasDaDedicacao={progressoTreinamento?.estatisticasDaSemana}
                                  ultimosExerciciosPraticados={progressoTreinamento?.ultimosExerciciosPraticados}
                               />
                            </div>

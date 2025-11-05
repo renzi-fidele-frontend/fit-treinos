@@ -30,13 +30,17 @@ const Dashboard = () => {
    const [mediaTempoPorDia, setMediaTempoPorDia] = useState(null);
    const [diferencialPercentualTempo, setDiferencialPercentualTempo] = useState(null);
    const [estatisticasDaSemana, setEstatisticasDaSemana] = useState(null);
+   const [estatisticasDoMes, setEstatisticasDoMes] = useState(null);
+   const [estatisticasDoAno, setEstatisticasDoAno] = useState(null);
    const [partesDoCorpoTreinadas, setPartesDoCorpoTreinadas] = useState(null);
-   const [ultimosExerciciosPraticados, setUltimosExerciciosPraticados] = useState(null);
    const [ultimosTreinos, setUltimosTreinos] = useState(null);
    const [diaMaisTreinado, setDiaMaisTreinado] = useState(null);
+   const [exercicioMaisTreinado, setExercicioMaisTreinado] = useState(null);
+   const [ultimosExerciciosPraticados, setUltimosExerciciosPraticados] = useState(null);
+
    const { exercicios } = useSelector((state) => state.exercicios);
    const { modoEscuro } = useSelector((state) => state.tema);
-   const [exercicioMaisTreinado, setExercicioMaisTreinado] = useState(null);
+   const { periodo } = useSelector((state) => state.configs);
    const [fetched, setFetched] = useState(false);
    useExercisesApiAndDispatchOnStore();
 
@@ -49,6 +53,8 @@ const Dashboard = () => {
             setMediaTempoPorDia(v.mediaTempoPorDia);
             setDiferencialPercentualTempo(parseFloat(v.diferencialPercentualTempo).toFixed(2));
             setEstatisticasDaSemana(v.estatisticasDaSemana);
+            setEstatisticasDoMes(v.estatisticasDoMes);
+            setEstatisticasDoAno(v.estatisticasDoAno);
             setPartesDoCorpoTreinadas(v.partesDoCorpoTreinadas);
             setExercicioMaisTreinado(v.exercicioMaisTreinado);
             setUltimosExerciciosPraticados(
@@ -62,6 +68,27 @@ const Dashboard = () => {
          });
       }
    }, [exercicios]);
+
+   function calcularLarguraDoCardDeEstatisticas() {
+      if (periodo === "semana") {
+         return 4;
+      } else {
+         return 12;
+      }
+   }
+
+   function analisarPeriodo() {
+      switch (periodo) {
+         case "semana":
+            return estatisticasDaSemana;
+         case "mes":
+            return estatisticasDoMes;
+         case "ano":
+            return estatisticasDoAno;
+         default:
+            return null;
+      }
+   }
 
    return (
       <div id={styles.ct}>
@@ -184,13 +211,13 @@ const Dashboard = () => {
             </Row>
 
             {/* Segunda linha */}
-            <Row className="mt-0 mb-5 g-3 g-xl-4">
+            <Row className="mt-0 mb-5 g-3 g-xl-4 justify-content-center">
                {/* Estatísticas da Dedicação Semanal */}
-               <Col sm={6} xl={4}>
+               <Col id={styles.colFlexivel} sm={6} xl={calcularLarguraDoCardDeEstatisticas()}>
                   <div className={`px-3 py-4 rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
                      <CardEstatisticasDedicacaoSemanal
                         diaMaisTreinado={diaMaisTreinado}
-                        estatisticasDaSemana={estatisticasDaSemana}
+                        estatisticasDaDedicacao={analisarPeriodo()}
                         ultimosExerciciosPraticados={ultimosTreinos}
                      />
                   </div>

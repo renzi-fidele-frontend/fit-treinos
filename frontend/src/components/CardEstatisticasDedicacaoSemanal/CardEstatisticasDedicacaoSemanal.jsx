@@ -10,10 +10,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import moment from "moment";
 import { setPeriodo } from "../../state/configs/configsSlice";
+import { formatarData } from "../../utils/formatarData";
 Chart.register(CategoryScale);
 
-const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaSemana, diaMaisTreinado, ultimosExerciciosPraticados, centralizado }) => {
+const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaDedicacao, diaMaisTreinado, ultimosExerciciosPraticados, centralizado }) => {
    const { idioma } = useSelector((state) => state.idioma);
+   const { periodo } = useSelector((state) => state.configs);
    const { t } = useTranslation();
    const { card4, indisponivel } = t("dashboard");
    const dispatch = useDispatch();
@@ -30,21 +32,23 @@ const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaSemana, diaMaisTreinad
          </h6>
          <div className="my-3">
             {/* Seleção do período de treino */}
-            <FormSelect onChange={(e) => dispatch(setPeriodo(e.target.value))} defaultValue="semana" className="mb-2">
+            <FormSelect onChange={(e) => dispatch(setPeriodo(e.target.value))} defaultValue={periodo} className="mb-2">
                <option value="semana">{card4.filters[0]}</option>
                <option value="mes">{card4.filters[1]}</option>
                <option value="ano">{card4.filters[2]}</option>
             </FormSelect>
-            {estatisticasDaSemana ? (
+            {estatisticasDaDedicacao ? (
                <div className="position-relative">
                   {/* Gráfico */}
                   <Line
                      data={{
-                        labels: estatisticasDaSemana?.map((v) => (idioma?.includes("en") ? traduzirDiaDaSemana(v?.dia) : v?.dia)),
+                        labels: estatisticasDaDedicacao?.map((v) =>
+                           periodo === "semana" ? (idioma?.includes("en") ? traduzirDiaDaSemana(v?.dia) : v?.dia) : formatarData(v?.dia)
+                        ),
                         datasets: [
                            {
                               label: card4.chartLabel,
-                              data: estatisticasDaSemana?.map((v) => v?.tempoTreinadoNoDia),
+                              data: estatisticasDaDedicacao?.map((v) => v?.tempoTreinadoNoDia),
                               fill: true,
                               tension: 0.4,
                               borderColor: "rgb(135, 142, 163)",
@@ -57,7 +61,7 @@ const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaSemana, diaMaisTreinad
                      className={styles.chart}
                   />
                   {/* Overflow de gráfico indisponível */}
-                  {estatisticasDaSemana?.length === 0 && (
+                  {estatisticasDaDedicacao?.length === 0 && (
                      <div className="bg-danger bg-opacity-25 position-absolute start-0 top-0 end-0 bottom-0 d-flex align-items-center justify-content-center">
                         <p>{card4.graficoMorto}</p>
                      </div>

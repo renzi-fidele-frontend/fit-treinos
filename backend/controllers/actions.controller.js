@@ -283,7 +283,7 @@ const retornarDadosTreinamento = async (req, res) => {
                });
             }
          });
-         return { tempoTreinadoNoDia, dia: dia.getMilliseconds() };
+         return { tempoTreinadoNoDia, dia: dia.toDateString() };
       });
 
       // Ano passado
@@ -302,7 +302,7 @@ const retornarDadosTreinamento = async (req, res) => {
                });
             }
          });
-         return { tempoTreinadoNoDia, dia: dia.getMilliseconds() };
+         return { tempoTreinadoNoDia, dia: dia.toDateString() };
       });
 
       // Retornando todos os dados do progresso do treinamento
