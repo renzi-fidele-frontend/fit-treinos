@@ -31,6 +31,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
    const { exercicios } = useSelector((state) => state.exercicios);
    const { idioma } = useSelector((state) => state.idioma);
    const { ordem } = useSelector((state) => state.leaderboard);
+   const { periodo } = useSelector((state) => state.configs);
    const [progressoTreinamento, setProgressoTreinamento] = useState(null);
 
    useEffect(() => {
@@ -53,6 +54,19 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
             return medalhaPrata;
          case 3:
             return medalhaBronze;
+         default:
+            return null;
+      }
+   }
+
+   function analisarPeriodo() {
+      switch (periodo) {
+         case "semana":
+            return progressoTreinamento?.estatisticasDaSemana;
+         case "mes":
+            return progressoTreinamento?.estatisticasDoMes;
+         case "ano":
+            return progressoTreinamento?.estatisticasDoAno;
          default:
             return null;
       }
@@ -128,7 +142,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                            <CardEstatisticasDedicacaoSemanal
                               centralizado={true}
                               diaMaisTreinado={progressoTreinamento?.diaMaisTreinado}
-                              estatisticasDaDedicacao={progressoTreinamento?.estatisticasDaSemana}
+                              estatisticasDaDedicacao={analisarPeriodo()}
                               ultimosExerciciosPraticados={progressoTreinamento?.ultimosExerciciosPraticados}
                            />
                         </Col>
@@ -154,7 +168,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                               <CardEstatisticasDedicacaoSemanal
                                  centralizado={true}
                                  diaMaisTreinado={progressoTreinamento?.diaMaisTreinado}
-                                 estatisticasDaDedicacao={progressoTreinamento?.estatisticasDaSemana}
+                                 estatisticasDaDedicacao={analisarPeriodo()}
                                  ultimosExerciciosPraticados={progressoTreinamento?.ultimosExerciciosPraticados}
                               />
                            </div>

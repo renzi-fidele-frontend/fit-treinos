@@ -212,7 +212,7 @@ const Dashboard = () => {
 
             {/* Segunda linha */}
             <Row className="mt-0 mb-5 g-3 g-xl-4 justify-content-center">
-               {/* Estatísticas da Dedicação Semanal */}
+               {/* Estatísticas da Dedicação de treino */}
                <Col id={styles.colFlexivel} sm={6} xl={calcularLarguraDoCardDeEstatisticas()}>
                   <div className={`px-3 py-4 rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
                      <CardEstatisticasDedicacaoSemanal
