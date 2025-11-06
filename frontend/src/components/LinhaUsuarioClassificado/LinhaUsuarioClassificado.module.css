@@ -3,6 +3,11 @@
    height: 42px;
 }
 
+.bandeira {
+   width: 29px;
+   height: 26px;
+}
+
 .td {
    vertical-align: middle;
 }

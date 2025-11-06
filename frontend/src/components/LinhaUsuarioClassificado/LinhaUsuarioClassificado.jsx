@@ -231,6 +231,12 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                </Placeholder>
             </div>
          </td>
+         <td>
+            <Placeholder className="d-flex align-items-center gap-3" animation="wave">
+               <Placeholder className={styles.bandeira} />
+               <Placeholder xs={7} />
+            </Placeholder>
+         </td>
       </tr>
    );
 };
