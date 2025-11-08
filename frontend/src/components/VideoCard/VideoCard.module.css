@@ -4,8 +4,22 @@
    height: 270px;
 }
 
+.player iframe {
+   height: 600px;
+}
+
 @media screen and (max-width: 992px) {
    .imgLoad {
       height: 220px;
+   }
+
+   .player iframe {
+      height: 500px;
+   }
+}
+
+@media screen and (max-width: 500px) {
+   .player iframe {
+      height: 400px;
    }
 }

@@ -31,7 +31,7 @@ const VideoCard = ({ thumbnail, titulo, canal, videoId, visualizacoes, descricao
                <Modal.Title>{titulo}</Modal.Title>
             </Modal.Header>
             <Modal.Body className="text-center">
-               <YouTube opts={{ width: "100%", height: 600 }} videoId={videoId} />
+               <YouTube className={styles.player} opts={{ width: "100%" }} videoId={videoId} />
             </Modal.Body>
             <Modal.Footer>{descricao}</Modal.Footer>
          </Modal>
