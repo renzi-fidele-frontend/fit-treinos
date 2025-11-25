@@ -13,6 +13,7 @@ import EditarPerfilSocial from "../pages/EditarPerfil/EditarPerfilSocial";
 import App from "../App";
 import TabelaDeClassificacao from "../pages/TabelaDeClassificacao/TabelaDeClassificacao";
 import TermosDeServico from "../pages/TermosDeServico/TermosDeServico";
+import Ginasios from "../pages/Ginasios/Ginasios";
 
 const Router = ({ children }) => {
    const { user } = useSelector((state) => state.auth);
@@ -63,6 +64,7 @@ const Router = ({ children }) => {
                path: "/terms_and_conditions",
                element: <TermosDeServico />,
             },
+            { path: "/encontrar_ginasios", element: <Ginasios /> },
          ],
       },
    ]);
