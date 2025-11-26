@@ -13,6 +13,7 @@ import { setPeriodo } from "../../state/configs/configsSlice";
 import { formatarData } from "../../utils/formatarData";
 Chart.register(CategoryScale);
 
+// FIXME: O default value do select não funciona bem
 const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaDedicacao, diaMaisTreinado, ultimosExerciciosPraticados, centralizado }) => {
    const { idioma } = useSelector((state) => state.idioma);
    const { periodo } = useSelector((state) => state.configs);

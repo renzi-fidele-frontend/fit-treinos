@@ -4,6 +4,7 @@ import Footer from "./components/Footer/Footer";
 import { Outlet } from "react-router-dom";
 
 // Libs
+import { APIProvider } from "@vis.gl/react-google-maps";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -15,13 +16,15 @@ import AuthModal from "./components/AuthModal/AuthModal";
 function App() {
    return (
       <div className="App">
-         <Header />
-         <ScrollTop>
-            <Outlet />
-         </ScrollTop>
-         <Footer />
-         {/* Modal de autenticação para caso o usuário tente realizar uma ação sensível */}
-         <AuthModal />
+         <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+            <Header />
+            <ScrollTop>
+               <Outlet />
+            </ScrollTop>
+            <Footer />
+            {/* Modal de autenticação para caso o usuário tente realizar uma ação sensível */}
+            <AuthModal />
+         </APIProvider>
       </div>
    );
 }
