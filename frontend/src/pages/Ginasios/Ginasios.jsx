@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import foto from "../../assets/findModel.webp";
-import { AdvancedMarker, Map, Pin } from "@vis.gl/react-google-maps";
+import { AdvancedMarker, Map, Pin, useMap } from "@vis.gl/react-google-maps";
 import { useEffect, useState } from "react";
 import usePlacesService from "../../hooks/usePlacesService";
 
@@ -13,6 +13,9 @@ const Ginasios = () => {
    const [localizacao, setLocalizacao] = useState(null);
    const placesService = usePlacesService();
    const [ginasiosProximos, setGinasiosProximos] = useState(null);
+   const map = useMap();
+
+   // Desenhando o círculo ao redor da localização do usuário
 
    function encontrarLocalizacao() {
       // Apanhando as cooordenadas do usuário
@@ -38,7 +41,25 @@ const Ginasios = () => {
 
    useEffect(() => {
       if (!localizacao) encontrarLocalizacao();
-   }, [localizacao, placesService]);
+      if (!map) return;
+
+      // Desenhando o círculo ao redor da localização do usuário
+      const circle = new google.maps.Circle({
+         map,
+         center: localizacao,
+         radius: 4500,
+         fillColor: "#4285F4",
+         fillOpacity: 0.2,
+         strokeColor: "#4285F4",
+         strokeOpacity: 0.8,
+         strokeWeight: 2,
+      });
+
+      // Cleanup
+      return () => {
+         circle?.setMap(null);
+      };
+   }, [localizacao, placesService, map]);
 
    return (
       <div>
@@ -48,22 +69,28 @@ const Ginasios = () => {
             titulo="Encontre o Ginásio Perfeito Perto de Você"
          />
          <Container>
+            {/* TODO: Renderizar a legenda indicando o significado do Marker verde e do vermelho */}
+            {/* TODO: Adicionar o loading ao se buscar por ginásios próximos */}
+            {/* TODO: Renderizar os ginásios mais próximos em formato de listagem em card */}
             <Row className="py-4 py-sm-5 mb-sm-4">
                <Col className="d-flex flex-column align-items-center justify-content-center gap-4">
                   {localizacao && (
                      <Map
                         mapId="d95c984c2c99e484fcaaf9b5"
                         className={styles.mapa}
-                        defaultZoom={14}
+                        defaultZoom={13}
                         defaultCenter={localizacao}
                         mapTypeId="hybrid"
                      >
                         {/* Posição do usuário */}
                         <AdvancedMarker position={localizacao} />
+                        {/* Raio de alcance da busca */}
+
+                        {/* Ginásios próximos do usuário */}
                         {ginasiosProximos &&
                            ginasiosProximos?.map((v, k) => (
                               <AdvancedMarker position={{ lat: v?.geometry?.location?.lat(), lng: v?.geometry?.location?.lng() }} key={k}>
-                                 <Pin background={"#0f9d58"} borderColor={"#006425"} glyphColor={"#60d98f"} />
+                                 <Pin background={"#ffee00ff"} borderColor={"#000000ff"} glyphColor={"#000000ff"} />
                               </AdvancedMarker>
                            ))}
                      </Map>
