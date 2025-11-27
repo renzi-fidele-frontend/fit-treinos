@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
 import foto from "../../assets/findModel.webp";
 import { AdvancedMarker, Map, Pin, useMap } from "@vis.gl/react-google-maps";
 import { useEffect, useState } from "react";
@@ -11,8 +12,8 @@ import usePlacesService from "../../hooks/usePlacesService";
 
 const Ginasios = () => {
    const [localizacao, setLocalizacao] = useState(null);
-   const placesService = usePlacesService();
    const [ginasiosProximos, setGinasiosProximos] = useState(null);
+   const placesService = usePlacesService();
    const map = useMap();
 
    // Desenhando o círculo ao redor da localização do usuário
@@ -32,9 +33,7 @@ const Ginasios = () => {
    }
 
    function encontrarGinasiosProximos() {
-      // Apanhando os ginásios próximos
       placesService?.nearbySearch({ location: localizacao, radius: 4500, type: "gym" }, (response, status) => {
-         console.log(response);
          setGinasiosProximos(response);
       });
    }
@@ -74,30 +73,35 @@ const Ginasios = () => {
             {/* TODO: Renderizar os ginásios mais próximos em formato de listagem em card */}
             <Row className="py-4 py-sm-5 mb-sm-4">
                <Col className="d-flex flex-column align-items-center justify-content-center gap-4">
-                  {localizacao && (
-                     <Map
-                        mapId="d95c984c2c99e484fcaaf9b5"
-                        className={styles.mapa}
-                        defaultZoom={13}
-                        defaultCenter={localizacao}
-                        mapTypeId="hybrid"
-                     >
-                        {/* Posição do usuário */}
-                        <AdvancedMarker position={localizacao} />
-                        {/* Raio de alcance da busca */}
+                  <div className={styles.mapa + " position-relative"}>
+                     {localizacao && (
+                        <>
+                           <Map
+                              mapId="d95c984c2c99e484fcaaf9b5"
+                              className={styles.mapa}
+                              defaultZoom={13}
+                              defaultCenter={localizacao}
+                              mapTypeId="hybrid"
+                           >
+                              {/* Posição do usuário */}
+                              <AdvancedMarker position={localizacao} />
 
-                        {/* Ginásios próximos do usuário */}
-                        {ginasiosProximos &&
-                           ginasiosProximos?.map((v, k) => (
-                              <AdvancedMarker position={{ lat: v?.geometry?.location?.lat(), lng: v?.geometry?.location?.lng() }} key={k}>
-                                 <Pin background={"#ffee00ff"} borderColor={"#000000ff"} glyphColor={"#000000ff"} />
-                              </AdvancedMarker>
-                           ))}
-                     </Map>
+                              {/* Ginásios próximos do usuário */}
+                              {ginasiosProximos &&
+                                 ginasiosProximos?.map((v, k) => (
+                                    <AdvancedMarker position={{ lat: v?.geometry?.location?.lat(), lng: v?.geometry?.location?.lng() }} key={k}>
+                                       <Pin background={"#ffee00ff"} borderColor={"#000000ff"} glyphColor={"#000000ff"} />
+                                    </AdvancedMarker>
+                                 ))}
+                           </Map>
+                        </>
+                     )}
+                  </div>
+                  {!ginasiosProximos?.length && (
+                     <Button size="lg" variant="secondary" onClick={encontrarGinasiosProximos}>
+                        <i className="bi bi-search me-1"></i> Iniciar busca
+                     </Button>
                   )}
-                  <Button size="lg" variant="secondary" onClick={encontrarGinasiosProximos}>
-                     <i className="bi bi-search me-1"></i> Iniciar busca
-                  </Button>
                </Col>
             </Row>
          </Container>
