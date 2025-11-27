@@ -68,35 +68,43 @@ const Ginasios = () => {
             titulo="Encontre o Ginásio Perfeito Perto de Você"
          />
          <Container>
-            {/* TODO: Renderizar a legenda indicando o significado do Marker verde e do vermelho */}
-            {/* TODO: Adicionar o loading ao se buscar por ginásios próximos */}
             {/* TODO: Renderizar os ginásios mais próximos em formato de listagem em card */}
             <Row className="py-4 py-sm-5 mb-sm-4">
                <Col className="d-flex flex-column align-items-center justify-content-center gap-4">
-                  <div className={styles.mapa + " position-relative"}>
-                     {localizacao && (
-                        <>
-                           <Map
-                              mapId="d95c984c2c99e484fcaaf9b5"
-                              className={styles.mapa}
-                              defaultZoom={13}
-                              defaultCenter={localizacao}
-                              mapTypeId="hybrid"
-                           >
-                              {/* Posição do usuário */}
-                              <AdvancedMarker position={localizacao} />
+                  {/* Mapa */}
+                  {localizacao && (
+                     <>
+                        <Map
+                           mapId="d95c984c2c99e484fcaaf9b5"
+                           className={styles.mapa}
+                           defaultZoom={13}
+                           defaultCenter={localizacao}
+                           mapTypeId="hybrid"
+                        >
+                           {/* Posição do usuário */}
+                           <AdvancedMarker position={localizacao} />
 
-                              {/* Ginásios próximos do usuário */}
-                              {ginasiosProximos &&
-                                 ginasiosProximos?.map((v, k) => (
-                                    <AdvancedMarker position={{ lat: v?.geometry?.location?.lat(), lng: v?.geometry?.location?.lng() }} key={k}>
-                                       <Pin background={"#ffee00ff"} borderColor={"#000000ff"} glyphColor={"#000000ff"} />
-                                    </AdvancedMarker>
-                                 ))}
-                           </Map>
-                        </>
-                     )}
-                  </div>
+                           {/* Ginásios próximos do usuário */}
+                           {ginasiosProximos &&
+                              ginasiosProximos?.map((v, k) => (
+                                 <AdvancedMarker position={{ lat: v?.geometry?.location?.lat(), lng: v?.geometry?.location?.lng() }} key={k}>
+                                    <Pin background={"#ffee00ff"} borderColor={"#000000ff"} glyphColor={"#000000ff"} />
+                                 </AdvancedMarker>
+                              ))}
+                        </Map>
+
+                        {/* Legenda do mapa */}
+                        <div className="d-flex justify-content-center align-items-center gap-4 fst-italic">
+                           <div className="d-flex gap-2 align-items-center">
+                              <div className={styles.you}></div> Você
+                           </div>
+                           <div className="d-flex gap-2 align-items-center">
+                              <div className={styles.gym}></div> Ginásio
+                           </div>
+                        </div>
+                     </>
+                  )}
+
                   {!ginasiosProximos?.length && (
                      <Button size="lg" variant="secondary" onClick={encontrarGinasiosProximos}>
                         <i className="bi bi-search me-1"></i> Iniciar busca

@@ -2,3 +2,17 @@
    height: 700px !important;
    width: 100%;
 }
+
+.you {
+   border: solid #b31412 5px;
+   width: 40px;
+   height: 20px;
+   background-color: #ea4335;
+}
+
+.gym {
+   border: solid black 5px;
+   width: 40px;
+   height: 20px;
+   background-color: #ffee00ff;
+}
