@@ -1,11 +1,12 @@
 import styles from "./Ginasios.module.css";
 import BannerTopo from "../../components/BannerTopo/BannerTopo";
 import Row from "react-bootstrap/Row";
+import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-
 import foto from "../../assets/findModel.webp";
+import findGym from "../../assets/findGym.webp";
 import { AdvancedMarker, Map, Pin, useMap } from "@vis.gl/react-google-maps";
 import { useEffect, useState } from "react";
 import usePlacesService from "../../hooks/usePlacesService";
@@ -16,8 +17,6 @@ const Ginasios = () => {
    const [ginasiosProximos, setGinasiosProximos] = useState(null);
    const placesService = usePlacesService();
    const map = useMap();
-
-   // Desenhando o círculo ao redor da localização do usuário
 
    function encontrarLocalizacao() {
       // Apanhando as cooordenadas do usuário
@@ -71,7 +70,7 @@ const Ginasios = () => {
          <Container>
             <Row className="py-4 py-sm-5 mb-sm-4 g-5">
                {/* TODO: Adicionar mais detalhes ao Marker dos ginásio */}
-               <Col md={7} className="d-flex flex-column align-items-center justify-content-center gap-4">
+               <Col md={7} className="d-flex flex-column align-items-center justify-content-center">
                   {/* Mapa */}
                   {localizacao && (
                      <>
@@ -95,7 +94,7 @@ const Ginasios = () => {
                         </Map>
 
                         {/* Legenda do mapa */}
-                        <div className="d-flex justify-content-center align-items-center gap-4 fst-italic">
+                        <div className="d-flex justify-content-center align-items-center gap-4 fst-italic mt-2">
                            <div className="d-flex gap-2 align-items-center">
                               <div className={styles.you}></div> Você
                            </div>
@@ -105,21 +104,29 @@ const Ginasios = () => {
                         </div>
                      </>
                   )}
-
-                  {!ginasiosProximos?.length && (
-                     <Button size="lg" variant="secondary" onClick={encontrarGinasiosProximos}>
-                        <i className="bi bi-search me-1"></i> Iniciar busca
-                     </Button>
-                  )}
                </Col>
                <Col>
                   <h3>
                      Ginásios próximos a você <span className="text-success">({ginasiosProximos?.length || 0})</span>
                   </h3>
                   <hr className="mb-4" />
-
                   <div className={"d-flex flex-column gap-3 pe-3 " + styles.gymsWrapper}>
-                     {ginasiosProximos ? ginasiosProximos?.map((v, k) => <GymCard ginasio={v} key={k} />) : <p>Nenhum ginásio foi encontrado</p>}
+                     {ginasiosProximos ? (
+                        ginasiosProximos?.map((v, k) => <GymCard ginasio={v} key={k} />)
+                     ) : (
+                        <div className="text-center">
+                           <Image src={findGym} className="w-75" />
+                           <p className="mt-2 mb-4 bg-primary-subtle rounded border-black border">
+                              <i className="bi bi-info-circle me-2"></i>Clique abaixo para encontrar os ginásios
+                           </p>
+                           {/* Botão de pesquisa */}
+                           {!ginasiosProximos?.length && (
+                              <Button size="lg" variant="secondary" onClick={encontrarGinasiosProximos}>
+                                 <i className="bi bi-search me-1"></i> Iniciar pesquisa
+                              </Button>
+                           )}
+                        </div>
+                     )}
                   </div>
                </Col>
             </Row>
