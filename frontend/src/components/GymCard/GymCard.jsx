@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import styles from "./GymCard.module.css";
 import PreloadImage from "../ui/PreloadImage";
 import noGym from "../../assets/noGym.webp";
+import { Link } from "react-router-dom";
 
 const GymCard = ({ ginasio }) => {
    return (
@@ -20,7 +21,13 @@ const GymCard = ({ ginasio }) => {
                <i className="bi bi-geo-alt"></i> {ginasio?.vicinity}
             </p>
             {/* Contato via whatsapp */}
-            <Button size="sm" variant="success">
+            <Button
+               size="sm"
+               variant="success"
+               as={Link}
+               to={`https://wa.me/${String(ginasio?.international_phone_number).replace(/[+\s]/g, "")}`}
+               target="_blank"
+            >
                <i className="bi bi-whatsapp me-1"></i> Entrar em contato
             </Button>
          </Card.Body>
