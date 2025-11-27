@@ -17,18 +17,8 @@
    background-color: #ffee00ff;
 }
 
-.cardImg {
-   width: 150px;
-   height: 130px;
-   object-fit: cover;
-}
-
 .gymsWrapper {
    overflow-y: auto;
    overflow-x: hidden;
    height: 650px;
-}
-
-.endereco {
-   width: 60%;
 }

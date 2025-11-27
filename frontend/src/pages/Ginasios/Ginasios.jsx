@@ -4,12 +4,12 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import Image from "react-bootstrap/Image";
-import Card from "react-bootstrap/Card";
+
 import foto from "../../assets/findModel.webp";
 import { AdvancedMarker, Map, Pin, useMap } from "@vis.gl/react-google-maps";
 import { useEffect, useState } from "react";
 import usePlacesService from "../../hooks/usePlacesService";
+import GymCard from "../../components/GymCard/GymCard";
 
 const Ginasios = () => {
    const [localizacao, setLocalizacao] = useState(null);
@@ -119,25 +119,7 @@ const Ginasios = () => {
                   <hr className="mb-4" />
 
                   <div className={"d-flex flex-column gap-3 pe-3 " + styles.gymsWrapper}>
-                     {ginasiosProximos ? (
-                        ginasiosProximos?.map((v, k) => (
-                           // TODO: Separar o card de ginasio em componente individual
-                           <Card className={"d-flex flex-row flex-nowrap" + styles.cardGinasio} key={k}>
-                              <Image className={styles.cardImg} src={v?.photos?.[0].getUrl()} />
-                              <Card.Body className="">
-                                 <h6 className="fs-6">{v?.name}</h6>
-                                 <p className="text-muted">
-                                    {v?.rating || 0} / 5.0 <i className="bi bi-star-fill text-warning me-2"></i> ({v?.user_ratings_total})
-                                 </p>
-                                 <p className={"text-truncate mb-0 " + styles.endereco}>
-                                    <i></i> {v?.vicinity}
-                                 </p>
-                              </Card.Body>
-                           </Card>
-                        ))
-                     ) : (
-                        <p>Nenhum ginásio foi encontrado</p>
-                     )}
+                     {ginasiosProximos ? ginasiosProximos?.map((v, k) => <GymCard ginasio={v} key={k} />) : <p>Nenhum ginásio foi encontrado</p>}
                   </div>
                </Col>
             </Row>
