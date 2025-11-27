@@ -5,13 +5,11 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import foto from "../../assets/findModel.webp";
-import { AdvancedMarker, Map } from "@vis.gl/react-google-maps";
+import { AdvancedMarker, Map, Pin } from "@vis.gl/react-google-maps";
 import { useEffect, useState } from "react";
 import usePlacesService from "../../hooks/usePlacesService";
 
 const Ginasios = () => {
-   // TODO: Integrar o places API para encontrar os ginásios mais próximos ao usuário
-   // TODO: Primeiro renderizar a localização do usuário no mapa
    const [localizacao, setLocalizacao] = useState(null);
    const placesService = usePlacesService();
    const [ginasiosProximos, setGinasiosProximos] = useState(null);
@@ -53,14 +51,20 @@ const Ginasios = () => {
             <Row className="py-4 py-sm-5 mb-sm-4">
                <Col className="d-flex flex-column align-items-center justify-content-center gap-4">
                   {localizacao && (
-                     <Map mapId="d95c984c2c99e484fcaaf9b5" className={styles.mapa} defaultZoom={17} defaultCenter={localizacao}>
+                     <Map
+                        mapId="d95c984c2c99e484fcaaf9b5"
+                        className={styles.mapa}
+                        defaultZoom={14}
+                        defaultCenter={localizacao}
+                        mapTypeId="hybrid"
+                     >
                         {/* Posição do usuário */}
                         <AdvancedMarker position={localizacao} />
-                        {/* TODO: Renderizar os ginásios mais próximos */}
                         {ginasiosProximos &&
                            ginasiosProximos?.map((v, k) => (
-                              // TODO: Adicionar uma cor diferente para o Marker dos ginásios próximos
-                              <AdvancedMarker position={{ lat: v?.geometry?.location?.lat(), lng: v?.geometry?.location?.lng() }} key={k} />
+                              <AdvancedMarker position={{ lat: v?.geometry?.location?.lat(), lng: v?.geometry?.location?.lng() }} key={k}>
+                                 <Pin background={"#0f9d58"} borderColor={"#006425"} glyphColor={"#60d98f"} />
+                              </AdvancedMarker>
                            ))}
                      </Map>
                   )}
