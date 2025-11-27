@@ -4,7 +4,8 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import Spinner from "react-bootstrap/Spinner";
+import Image from "react-bootstrap/Image";
+import Card from "react-bootstrap/Card";
 import foto from "../../assets/findModel.webp";
 import { AdvancedMarker, Map, Pin, useMap } from "@vis.gl/react-google-maps";
 import { useEffect, useState } from "react";
@@ -68,9 +69,9 @@ const Ginasios = () => {
             titulo="Encontre o Ginásio Perfeito Perto de Você"
          />
          <Container>
-            {/* TODO: Renderizar os ginásios mais próximos em formato de listagem em card */}
-            <Row className="py-4 py-sm-5 mb-sm-4">
-               <Col className="d-flex flex-column align-items-center justify-content-center gap-4">
+            <Row className="py-4 py-sm-5 mb-sm-4 g-5">
+               {/* TODO: Adicionar mais detalhes ao Marker dos ginásio */}
+               <Col md={7} className="d-flex flex-column align-items-center justify-content-center gap-4">
                   {/* Mapa */}
                   {localizacao && (
                      <>
@@ -110,6 +111,34 @@ const Ginasios = () => {
                         <i className="bi bi-search me-1"></i> Iniciar busca
                      </Button>
                   )}
+               </Col>
+               <Col>
+                  <h3>
+                     Ginásios próximos a você <span className="text-success">({ginasiosProximos?.length || 0})</span>
+                  </h3>
+                  <hr className="mb-4" />
+
+                  <div className={"d-flex flex-column gap-3 pe-3 " + styles.gymsWrapper}>
+                     {ginasiosProximos ? (
+                        ginasiosProximos?.map((v, k) => (
+                           // TODO: Separar o card de ginasio em componente individual
+                           <Card className={"d-flex flex-row flex-nowrap" + styles.cardGinasio} key={k}>
+                              <Image className={styles.cardImg} src={v?.photos?.[0].getUrl()} />
+                              <Card.Body className="">
+                                 <h6 className="fs-6">{v?.name}</h6>
+                                 <p className="text-muted">
+                                    {v?.rating || 0} / 5.0 <i className="bi bi-star-fill text-warning me-2"></i> ({v?.user_ratings_total})
+                                 </p>
+                                 <p className={"text-truncate mb-0 " + styles.endereco}>
+                                    <i></i> {v?.vicinity}
+                                 </p>
+                              </Card.Body>
+                           </Card>
+                        ))
+                     ) : (
+                        <p>Nenhum ginásio foi encontrado</p>
+                     )}
+                  </div>
                </Col>
             </Row>
          </Container>
