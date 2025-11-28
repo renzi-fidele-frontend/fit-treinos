@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import usePlacesService from "../../hooks/usePlacesService";
 import CardGinasio from "../../components/CardGinasio/CardGinasio";
 import { useSelector } from "react-redux";
+import MarkerWithInfoWindow from "../../components/MarkerWithInfoWindow/MarkerWithInfoWindow";
 
 const Ginasios = () => {
    const [localizacao, setLocalizacao] = useState(null);
@@ -85,21 +86,26 @@ const Ginasios = () => {
                         >
                            {/* Posição do usuário */}
                            <AdvancedMarker position={localizacao}>
-                              <div className="d-flex flex-column align-items-center justify-content-center gap-1">
+                              <div className="d-flex flex-column align-items-center justify-content-center">
                                  <Image
                                     src={user?.foto}
-                                    className="rounded-circle border border-4 object-fit-cover border-danger" width={40} height={40}
+                                    className="rounded-circle border border-4 object-fit-cover border-danger"
+                                    width={40}
+                                    height={40}
                                  />
-                                 <p className={"mb-0 text-white " + styles.p}>Você</p>
+                                 <p className={"mb-1 text-white " + styles.p}>Você</p>
+                                 <div className={styles.cursor}></div>
                               </div>
                            </AdvancedMarker>
 
                            {/* Ginásios próximos do usuário */}
                            {ginasiosProximos &&
                               ginasiosProximos?.map((v, k) => (
-                                 <AdvancedMarker position={{ lat: v?.geometry?.location?.lat(), lng: v?.geometry?.location?.lng() }} key={k}>
-                                    <Pin background={"#ffee00ff"} borderColor={"#000000ff"} glyphColor={"#000000ff"} />
-                                 </AdvancedMarker>
+                                 <MarkerWithInfoWindow
+                                 titulo={v?.name}
+                                    position={{ lat: v?.geometry?.location?.lat(), lng: v?.geometry?.location?.lng() }}
+                                    key={k}
+                                 />
                               ))}
                         </Map>
 

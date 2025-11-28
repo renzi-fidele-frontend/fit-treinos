@@ -1,0 +1,7 @@
+.marker {
+   transition: scale 0.3s ease-in-out;
+}
+
+.marker:hover {
+   scale: 1.13;
+}

@@ -25,6 +25,37 @@
 
 .p {
    text-shadow: 1px 1px 3px black, -1px -1px 3px black;
-   font-size: 15px;
+   font-size: 14px;
    letter-spacing: 1px;
+}
+
+.cursor {
+   width: 5px;
+   height: 5px;
+   background-color: #d73502;
+   position: relative;
+   border-radius: 50%;
+}
+
+.cursor::before {
+   content: "";
+   position: absolute;
+   inset: -4px;
+   border-radius: 50%;
+   border: 2px solid #d73502;
+   animation: wave 2s infinite;
+}
+
+@keyframes wave {
+   0% {
+      scale: 0;
+      opacity: 0;
+   }
+   30% {
+      opacity: 1;
+   }
+   100% {
+      opacity: 0;
+      scale: 1.5;
+   }
 }
