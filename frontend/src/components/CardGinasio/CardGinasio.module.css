@@ -1,9 +1,36 @@
 .cardImg {
    width: 170px;
-   height: 160px;
+   height: 155px;
    object-fit: cover;
 }
 
 .endereco {
    width: 60%;
+}
+
+.body {
+   height: fit-content;
+}
+
+@media screen and (max-width: 992px) {
+   .endereco {
+      width: 80%;
+   }
+}
+
+@media screen and (max-width: 540px) {
+   .endereco {
+      width: 50%;
+   }
+}
+
+@media screen and (max-width: 576px) {
+   .cardImg {
+      width: 100%;
+      height: 185px;
+   }
+
+   .endereco {
+      width: 100%;
+   }
 }

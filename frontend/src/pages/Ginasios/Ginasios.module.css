@@ -59,3 +59,33 @@
       scale: 1.5;
    }
 }
+
+@media screen and (max-width: 1200px) {
+   .gymsWrapper {
+      height: auto;
+   }
+   .gymsWrapper > div {
+      flex-basis: 49%;
+   }
+   .mapa {
+      height: 650px !important;
+   }
+}
+
+@media screen and (max-width: 992px) {
+   .gymsWrapper > div {
+      flex-basis: 100%;
+   }
+}
+
+@media screen and (max-width: 768px) {
+   .mapa {
+      height: 450px !important;
+   }
+}
+
+@media screen and (max-width: 450px) {
+   .mapa {
+      height: 350px !important;
+   }
+}

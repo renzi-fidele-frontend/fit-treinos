@@ -44,6 +44,7 @@ const Ginasios = () => {
       });
    }
 
+   // TODO: 
    useEffect(() => {
       if (!localizacao) encontrarLocalizacao();
       if (!map) return;
@@ -71,7 +72,7 @@ const Ginasios = () => {
          <BannerTopo descricao={descricao} fotoModelo={foto} titulo={titulo} />
          <Container>
             <Row className="py-4 py-sm-5 mb-sm-4 g-5">
-               <Col md={7} className="d-flex flex-column align-items-center justify-content-center">
+               <Col xl={7} className="d-flex flex-column align-items-center justify-content-center">
                   {/* Mapa */}
                   {localizacao && (
                      <>
@@ -119,12 +120,12 @@ const Ginasios = () => {
                      </>
                   )}
                </Col>
-               <Col>
+               <Col xl={5}>
                   <h3 className="text-center">
                      {closeGyms} <span className="text-success">({ginasiosProximos?.length || 0})</span>
                   </h3>
                   <hr className="mb-4" />
-                  <div className={"d-flex flex-column gap-3 pe-3 " + styles.gymsWrapper}>
+                  <div className={"d-flex flex-wrap flex-xl-nowrap flex-xl-column gap-3 pe-xl-3 " + styles.gymsWrapper}>
                      {ginasiosProximos ? (
                         ginasiosProximos?.map((v, k) => <CardGinasio ginasio={v} key={k} />)
                      ) : (
