@@ -10,13 +10,15 @@ import findGym from "../../assets/findGym.webp";
 import { AdvancedMarker, Map, Pin, useMap } from "@vis.gl/react-google-maps";
 import { useEffect, useState } from "react";
 import usePlacesService from "../../hooks/usePlacesService";
-import GymCard from "../../components/GymCard/GymCard";
+import CardGinasio from "../../components/CardGinasio/CardGinasio";
+import { useSelector } from "react-redux";
 
 const Ginasios = () => {
    const [localizacao, setLocalizacao] = useState(null);
    const [ginasiosProximos, setGinasiosProximos] = useState(null);
    const placesService = usePlacesService();
    const map = useMap();
+   const { user } = useSelector((state) => state.auth);
 
    function encontrarLocalizacao() {
       // Apanhando as cooordenadas do usuário
@@ -82,7 +84,15 @@ const Ginasios = () => {
                            mapTypeId="hybrid"
                         >
                            {/* Posição do usuário */}
-                           <AdvancedMarker position={localizacao} />
+                           <AdvancedMarker position={localizacao}>
+                              <div className="d-flex flex-column align-items-center justify-content-center gap-1">
+                                 <Image
+                                    src={user?.foto}
+                                    className="rounded-circle border border-4 object-fit-cover border-danger" width={40} height={40}
+                                 />
+                                 <p className={"mb-0 text-white " + styles.p}>Você</p>
+                              </div>
+                           </AdvancedMarker>
 
                            {/* Ginásios próximos do usuário */}
                            {ginasiosProximos &&
@@ -106,16 +116,16 @@ const Ginasios = () => {
                   )}
                </Col>
                <Col>
-                  <h3>
+                  <h3 className="text-center">
                      Ginásios próximos a você <span className="text-success">({ginasiosProximos?.length || 0})</span>
                   </h3>
                   <hr className="mb-4" />
                   <div className={"d-flex flex-column gap-3 pe-3 " + styles.gymsWrapper}>
                      {ginasiosProximos ? (
-                        ginasiosProximos?.map((v, k) => <GymCard ginasio={v} key={k} />)
+                        ginasiosProximos?.map((v, k) => <CardGinasio ginasio={v} key={k} />)
                      ) : (
                         <div className="text-center">
-                           <Image src={findGym} className="w-75" />
+                           <Image src={findGym} className="w-75 mt-4" />
                            <p className="mt-2 mb-4 bg-primary-subtle rounded border-black border">
                               <i className="bi bi-info-circle me-2"></i>Clique abaixo para encontrar os ginásios
                            </p>

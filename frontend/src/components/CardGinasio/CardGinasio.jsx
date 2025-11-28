@@ -1,11 +1,11 @@
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import styles from "./GymCard.module.css";
+import styles from "./CardGinasio.module.css";
 import PreloadImage from "../ui/PreloadImage";
 import noGym from "../../assets/noGym.webp";
 import { Link } from "react-router-dom";
 
-const GymCard = ({ ginasio }) => {
+const CardGinasio = ({ ginasio }) => {
    return (
       <Card className={"d-flex flex-row flex-nowrap"}>
          <PreloadImage className={styles.cardImg} src={ginasio?.photos?.[0].getUrl()} errorSrc={noGym} preloaderCn={styles.cardImg} />
@@ -34,4 +34,4 @@ const GymCard = ({ ginasio }) => {
       </Card>
    );
 };
-export default GymCard;
+export default CardGinasio;
