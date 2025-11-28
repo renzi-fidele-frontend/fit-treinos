@@ -13,8 +13,11 @@ import usePlacesService from "../../hooks/usePlacesService";
 import CardGinasio from "../../components/CardGinasio/CardGinasio";
 import { useSelector } from "react-redux";
 import MarkerWithInfoWindow from "../../components/MarkerWithInfoWindow/MarkerWithInfoWindow";
+import { useTranslation } from "react-i18next";
 
 const Ginasios = () => {
+   const { t } = useTranslation();
+   const { titulo, descricao, you, gym, closeGyms, info, cta } = t("ginasios");
    const [localizacao, setLocalizacao] = useState(null);
    const [ginasiosProximos, setGinasiosProximos] = useState(null);
    const placesService = usePlacesService();
@@ -65,14 +68,9 @@ const Ginasios = () => {
 
    return (
       <div>
-         <BannerTopo
-            descricao="Descubra academias próximas, compare distâncias e escolha o melhor lugar para treinar agora mesmo."
-            fotoModelo={foto}
-            titulo="Encontre o Ginásio Perfeito Perto de Você"
-         />
+         <BannerTopo descricao={descricao} fotoModelo={foto} titulo={titulo} />
          <Container>
             <Row className="py-4 py-sm-5 mb-sm-4 g-5">
-               {/* TODO: Adicionar mais detalhes ao Marker dos ginásio */}
                <Col md={7} className="d-flex flex-column align-items-center justify-content-center">
                   {/* Mapa */}
                   {localizacao && (
@@ -93,7 +91,7 @@ const Ginasios = () => {
                                     width={40}
                                     height={40}
                                  />
-                                 <p className={"mb-1 text-white " + styles.p}>Você</p>
+                                 <p className={"mb-1 text-white " + styles.p}>{you}</p>
                                  <div className={styles.cursor}></div>
                               </div>
                            </AdvancedMarker>
@@ -102,7 +100,7 @@ const Ginasios = () => {
                            {ginasiosProximos &&
                               ginasiosProximos?.map((v, k) => (
                                  <MarkerWithInfoWindow
-                                 titulo={v?.name}
+                                    titulo={v?.name}
                                     position={{ lat: v?.geometry?.location?.lat(), lng: v?.geometry?.location?.lng() }}
                                     key={k}
                                  />
@@ -112,10 +110,10 @@ const Ginasios = () => {
                         {/* Legenda do mapa */}
                         <div className="d-flex justify-content-center align-items-center gap-4 fst-italic mt-2">
                            <div className="d-flex gap-2 align-items-center">
-                              <div className={styles.you}></div> Você
+                              <div className={styles.you}></div> {you}
                            </div>
                            <div className="d-flex gap-2 align-items-center">
-                              <div className={styles.gym}></div> Ginásio
+                              <div className={styles.gym}></div> {gym}
                            </div>
                         </div>
                      </>
@@ -123,7 +121,7 @@ const Ginasios = () => {
                </Col>
                <Col>
                   <h3 className="text-center">
-                     Ginásios próximos a você <span className="text-success">({ginasiosProximos?.length || 0})</span>
+                     {closeGyms} <span className="text-success">({ginasiosProximos?.length || 0})</span>
                   </h3>
                   <hr className="mb-4" />
                   <div className={"d-flex flex-column gap-3 pe-3 " + styles.gymsWrapper}>
@@ -133,12 +131,13 @@ const Ginasios = () => {
                         <div className="text-center">
                            <Image src={findGym} className="w-75 mt-4" />
                            <p className="mt-2 mb-4 bg-primary-subtle rounded border-black border">
-                              <i className="bi bi-info-circle me-2"></i>Clique abaixo para encontrar os ginásios
+                              <i className="bi bi-info-circle me-2"></i>
+                              {info}
                            </p>
                            {/* Botão de pesquisa */}
                            {!ginasiosProximos?.length && (
                               <Button size="lg" variant="secondary" onClick={encontrarGinasiosProximos}>
-                                 <i className="bi bi-search me-1"></i> Iniciar pesquisa
+                                 <i className="bi bi-search me-1"></i> {cta}
                               </Button>
                            )}
                         </div>

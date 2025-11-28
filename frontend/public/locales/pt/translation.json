@@ -253,6 +253,16 @@
          }
       ]
    },
+   "ginasios": {
+      "titulo": "Encontre o Ginásio Perfeito Perto de Você",
+      "descricao": "Descubra academias próximas, compare distâncias e escolha o melhor lugar para treinar agora mesmo.",
+      "you": "Você",
+      "gym": "Ginásio",
+      "closeGyms": "Ginásios próximos a você",
+      "info": "Clique abaixo para encontrar os ginásios",
+      "cta": "Iniciar pesquisa",
+      "contato": "Entrar em contato"
+   },
    "leaderboard": {
       "tit": "Descubra os usuários mais determinados",
       "descricao": "Seja consistente com o treino para poder chegar ao topo",

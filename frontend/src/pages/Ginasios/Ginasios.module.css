@@ -30,8 +30,8 @@
 }
 
 .cursor {
-   width: 5px;
-   height: 5px;
+   width: 7px;
+   height: 7px;
    background-color: #d73502;
    position: relative;
    border-radius: 50%;

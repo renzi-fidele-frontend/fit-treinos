@@ -257,6 +257,16 @@
          }
       ]
    },
+   "ginasios": {
+      "titulo": "Find the Perfect Gym Near You",
+      "descricao": "Discover nearby gyms, compare distances, and choose the best place to train right now.",
+      "you": "You",
+      "gym": "Gym",
+      "closeGyms": "Gyms near you",
+      "info": "Click below to find gyms",
+      "cta": "Start search",
+      "contato": "Get in touch"
+   },
    "leaderboard": {
       "tit": "Discover the most determined users",
       "descricao": "Be consistent with training so you can reach the top",

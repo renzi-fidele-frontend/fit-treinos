@@ -4,8 +4,11 @@ import styles from "./CardGinasio.module.css";
 import PreloadImage from "../ui/PreloadImage";
 import noGym from "../../assets/noGym.webp";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const CardGinasio = ({ ginasio }) => {
+   const { t } = useTranslation();
+   const { contato } = t("ginasios");
    return (
       <Card className={"d-flex flex-row flex-nowrap"}>
          <PreloadImage className={styles.cardImg} src={ginasio?.photos?.[0].getUrl()} errorSrc={noGym} preloaderCn={styles.cardImg} />
@@ -28,7 +31,7 @@ const CardGinasio = ({ ginasio }) => {
                to={`https://wa.me/${String(ginasio?.international_phone_number).replace(/[+\s]/g, "")}`}
                target="_blank"
             >
-               <i className="bi bi-whatsapp me-1"></i> Entrar em contato
+               <i className="bi bi-whatsapp me-1"></i> {contato}
             </Button>
          </Card.Body>
       </Card>
