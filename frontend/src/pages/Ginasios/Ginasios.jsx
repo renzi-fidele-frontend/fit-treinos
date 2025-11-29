@@ -44,7 +44,12 @@ const Ginasios = () => {
       });
    }
 
-   // TODO: 
+   // FIXME: No mobile o mapa não está sendo renderizado
+   // TODO: Integrar o DirectionsApi para encontrar o caminho até o ginásio encontrado
+   // TODO: Descobrir um jeito de apanhar todas as fotos de cada ginásio e mostralás através de um modal com Slider
+   // TODO: Adicionar funcionalidade de se alterar o raio de alcance (opcional)
+   // TODO: Adicionar funcionalidade de guardar um ginásio nos favoritos
+
    useEffect(() => {
       if (!localizacao) encontrarLocalizacao();
       if (!map) return;
@@ -120,17 +125,17 @@ const Ginasios = () => {
                      </>
                   )}
                </Col>
-               <Col xl={5}>
+               <Col xl={5} className="pb-4 pb-sm-0">
                   <h3 className="text-center">
                      {closeGyms} <span className="text-success">({ginasiosProximos?.length || 0})</span>
                   </h3>
                   <hr className="mb-4" />
-                  <div className={"d-flex flex-wrap flex-xl-nowrap flex-xl-column gap-3 pe-xl-3 " + styles.gymsWrapper}>
+                  <div className={"d-flex flex-wrap flex-xl-nowrap flex-xl-column justify-content-center justify-content-xl-start gap-3 pe-xl-3 " + styles.gymsWrapper}>
                      {ginasiosProximos ? (
                         ginasiosProximos?.map((v, k) => <CardGinasio ginasio={v} key={k} />)
                      ) : (
                         <div className="text-center">
-                           <Image src={findGym} className="w-75 mt-4" />
+                           <Image src={findGym} className="w-75 mt-sm-4" />
                            <p className="mt-2 mb-4 bg-primary-subtle rounded border-black border">
                               <i className="bi bi-info-circle me-2"></i>
                               {info}
