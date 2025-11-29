@@ -193,7 +193,7 @@
       "aviso": "You haven't saved the training time that was counted yet, are you sure you want to exit?"
    },
    "header": {
-      "links": ["Home", "Exercises", "Log In", "Sign Up", "Training Progress", "Favorites", "Leaderboard"],
+      "links": ["Home", "Exercises", "Log In", "Sign Up", "Training progress", "Favorites", "Gyms", "Leaderboard"],
       "editar": "Edit profile",
       "sair": "Logout",
       "profile": "My profile"

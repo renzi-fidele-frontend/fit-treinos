@@ -56,9 +56,10 @@ html {
    font-weight: 500;
    text-decoration: underline 0.15em #201e1e !important;
 }
-.navbar-nav .nav-link:hover {
-   text-decoration-color: #201e1e !important;
+[data-bs-theme="dark"] .navbar-nav .nav-link.active {
+   text-decoration-color: #fffefe !important;
 }
+
 /* tabs */
 .nav-pills:not(.ordem) .nav-link.active {
    background-color: var(--bs-secondary) !important;

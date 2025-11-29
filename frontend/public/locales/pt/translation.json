@@ -189,7 +189,7 @@
       "aviso": "Você ainda não salvou o tempo de treino que foi contabilizado, tens a certeza de que queres sair?"
    },
    "header": {
-      "links": ["Início", "Exercícios", "Entrar", "Cadastrar", "Progresso do treinamento", "Favoritos", "Liderança"],
+      "links": ["Início", "Exercícios", "Entrar", "Cadastrar", "Progresso do treino", "Favoritos", "Ginásios", "Liderança"],
       "editar": "Editar perfil",
       "sair": "Deslogar",
       "profile": "Meu perfil"

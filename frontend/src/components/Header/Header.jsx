@@ -30,19 +30,25 @@ const Header = () => {
    }
 
    const MyNav = ({ offcanvas }) => (
-      <Nav className={`gap-3 fs-5 ${!offcanvas ? "d-none d-xl-flex align-items-center" : "d-flex"} `} activeKey={loc.pathname}>
+      <Nav className={`gap-2 fs-5 ${!offcanvas ? "d-none d-xl-flex align-items-center" : "d-flex"} `} activeKey={loc.pathname} id={styles.ct}>
+         {/* Home */}
          <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/"} as={Link} to={"/"}>
             <i className="me-2 d-lg-none bi bi-house-fill"></i> {links[0]}
          </Nav.Link>
+         <div className="vr"></div>
+         {/* Exercícios */}
          <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/exercicios"} as={Link} to={"/exercicios"}>
             <i className="me-2 d-lg-none bi bi-person-arms-up"></i> {links[1]}
          </Nav.Link>
+         <div className="vr"></div>
          {!user && (
             <>
+               {/* Login */}
                <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/entrar"} as={Link} to={"/entrar"}>
                   <i className="me-2 d-lg-none bi bi-person-add"></i> {links[2]}
                </Nav.Link>
-
+               <div className="vr"></div>
+               {/* Cadastro */}
                <Nav.Link className={`${offcanvas && "border-bottom pb-4 "}`} active={loc.pathname === "/cadastro"} as={Link} to={"/cadastro"}>
                   <i className="me-2 d-lg-none bi bi-person-fill-lock"></i> <Button variant="secondary">{links[3]}</Button>
                </Nav.Link>
@@ -50,16 +56,31 @@ const Header = () => {
          )}
          {user && (
             <>
+               {/* Progresso do treinamento */}
                <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/dashboard"} as={Link} to="/dashboard">
                   <i className="me-2 d-lg-none bi bi-graph-up-arrow"></i> {links[4]}
                </Nav.Link>
+               <div className="vr"></div>
+               {/* Favoritos */}
                <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/favoritos"} as={Link} to="/favoritos">
                   <i className="me-2 d-lg-none bi bi-box2-heart-fill"></i> {links[5]}
                </Nav.Link>
+               <div className="vr"></div>
             </>
          )}
-         <Nav.Link as={Link} to="/leaderboard" className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/leaderboard"}>
+         {/* Ginásios */}
+         <Nav.Link
+            as={Link}
+            to="/encontrar_ginasios"
+            className={`${offcanvas && "border-bottom pb-4"}`}
+            active={loc.pathname === "/encontrar_ginasios"}
+         >
             <i className="me-2 d-lg-none bi bi-trophy-fill"></i> {links[6]}
+         </Nav.Link>
+         <div className="vr"></div>
+         {/* Liderança */}
+         <Nav.Link as={Link} to="/leaderboard" className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/leaderboard"}>
+            <i className="me-2 d-lg-none bi bi-trophy-fill"></i> {links[7]}
          </Nav.Link>
       </Nav>
    );

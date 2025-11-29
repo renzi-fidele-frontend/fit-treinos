@@ -79,7 +79,7 @@ const Ginasios = () => {
                         <Map
                            mapId="d95c984c2c99e484fcaaf9b5"
                            className={styles.mapa}
-                           defaultZoom={13}
+                           defaultZoom={12}
                            defaultCenter={localizacao}
                            mapTypeId="hybrid"
                         >

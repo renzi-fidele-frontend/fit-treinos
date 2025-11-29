@@ -1,3 +1,7 @@
+#ct {
+   font-size: 19px !important;
+}
+
 #logo {
    width: 170px;
 }
@@ -5,6 +9,12 @@
 #toggle {
    font-size: 2rem;
    line-height: 0;
+}
+
+@media screen and (max-width: 1400px) {
+   #ct {
+      font-size: 17px !important;
+   }
 }
 
 @media screen and (max-width: 576px) {
