@@ -7,13 +7,15 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import foto from "../../assets/findModel.webp";
 import findGym from "../../assets/findGym.webp";
-import { AdvancedMarker, Map, Pin, useMap } from "@vis.gl/react-google-maps";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import usePlacesService from "../../hooks/usePlacesService";
 import CardGinasio from "../../components/CardGinasio/CardGinasio";
 import { useSelector } from "react-redux";
 import MarkerWithInfoWindow from "../../components/MarkerWithInfoWindow/MarkerWithInfoWindow";
 import { useTranslation } from "react-i18next";
+
+import { AdvancedMarker, Map, useMap } from "@vis.gl/react-google-maps";
+import useRoutesService from "../../hooks/useRoutesService";
 
 const Ginasios = () => {
    const { t } = useTranslation();
@@ -23,6 +25,8 @@ const Ginasios = () => {
    const placesService = usePlacesService();
    const map = useMap();
    const { user } = useSelector((state) => state.auth);
+   const [caminho, setCaminho] = useState(null);
+   const { directionsService, directionsRenderer } = useRoutesService();
 
    function encontrarLocalizacao() {
       // Apanhando as cooordenadas do usuário
@@ -44,11 +48,29 @@ const Ginasios = () => {
       });
    }
 
-   // FIXME: No mobile o mapa não está sendo renderizado
-   // TODO: Integrar o DirectionsApi para encontrar o caminho até o ginásio encontrado
-   // TODO: Descobrir um jeito de apanhar todas as fotos de cada ginásio e mostralás através de um modal com Slider
+   // TODO: Renderizar a distancia e a duração do caminho até o ginásio encontrado
+
+   function encontrarDirecao(destino) {
+      directionsService.route(
+         {
+            origin: localizacao,
+            destination: destino,
+            travelMode: "DRIVING",
+         },
+         (result, status) => {
+            console.log("Sucesso ao calcular a direção");
+            directionsRenderer.setMap(map);
+            directionsRenderer.setDirections(result);
+
+            setCaminho(result);
+         }
+      );
+   }
+
+   // TODO: Descobrir um jeito de apanhar todas as fotos de cada ginásio e mostra-lás através de um modal com Slider
    // TODO: Adicionar funcionalidade de se alterar o raio de alcance (opcional)
    // TODO: Adicionar funcionalidade de guardar um ginásio nos favoritos
+   // TODO: Adicionar funcionalidade ver os detalhes completos de cada ginásio
 
    useEffect(() => {
       if (!localizacao) encontrarLocalizacao();
@@ -130,9 +152,18 @@ const Ginasios = () => {
                      {closeGyms} <span className="text-success">({ginasiosProximos?.length || 0})</span>
                   </h3>
                   <hr className="mb-4" />
-                  <div className={"d-flex flex-wrap flex-xl-nowrap flex-xl-column justify-content-center justify-content-xl-start gap-3 pe-xl-3 " + styles.gymsWrapper}>
+                  <div
+                     className={
+                        "d-flex flex-wrap flex-xl-nowrap flex-xl-column justify-content-center justify-content-xl-start gap-3 pe-xl-2 " +
+                        styles.gymsWrapper
+                     }
+                  >
                      {ginasiosProximos ? (
-                        ginasiosProximos?.map((v, k) => <CardGinasio ginasio={v} key={k} />)
+                        ginasiosProximos?.map((v, k) => (
+                           <div key={k}>
+                              <CardGinasio encontrarDirecao={encontrarDirecao} ginasio={v} />
+                           </div>
+                        ))
                      ) : (
                         <div className="text-center">
                            <Image src={findGym} className="w-75 mt-sm-4" />

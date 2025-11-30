@@ -6,7 +6,7 @@ import noGym from "../../assets/noGym.webp";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-const CardGinasio = ({ ginasio }) => {
+const CardGinasio = ({ ginasio, encontrarDirecao }) => {
    const { t } = useTranslation();
    const { contato } = t("ginasios");
    return (
@@ -27,16 +27,26 @@ const CardGinasio = ({ ginasio }) => {
                </p>
             </div>
 
-            {/* Contato via whatsapp */}
-            <Button
-               size="sm"
-               variant="success"
-               as={Link}
-               to={`https://wa.me/${String(ginasio?.international_phone_number).replace(/[+\s]/g, "")}`}
-               target="_blank"
-            >
-               <i className="bi bi-whatsapp me-1"></i> {contato}
-            </Button>
+            <div className="d-flex gap-2">
+               {/* Contato via whatsapp */}
+               <Button
+                  size="sm"
+                  variant="success"
+                  as={Link}
+                  to={`https://wa.me/${String(ginasio?.international_phone_number).replace(/[+\s]/g, "")}`}
+                  target="_blank"
+               >
+                  <i className="bi bi-whatsapp me-1"></i> {contato}
+               </Button>
+               {/* Botão de ver direção */}
+               <Button
+                  size="sm"
+                  variant="danger"
+                  onClick={() => encontrarDirecao({ lat: ginasio?.geometry?.location?.lat(), lng: ginasio?.geometry?.location?.lng() })}
+               >
+                  <i className="bi bi-geo-alt-fill me-1"></i> Ver caminho
+               </Button>
+            </div>
          </Card.Body>
       </Card>
    );

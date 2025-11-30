@@ -9,8 +9,6 @@ function usePlacesService() {
    useEffect(() => {
       if (!placesLibrary || !map) return;
 
-      // when placesLibrary is loaded, the library can be accessed via the
-      // placesLibrary API object
       setPlacesService(new placesLibrary.PlacesService(map));
    }, [placesLibrary, map]);
 
