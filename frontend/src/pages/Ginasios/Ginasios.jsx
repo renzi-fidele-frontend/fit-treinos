@@ -58,9 +58,16 @@ const Ginasios = () => {
             travelMode: "DRIVING",
          },
          (result, status) => {
-            console.log("Sucesso ao calcular a direção");
             directionsRenderer.setMap(map);
             directionsRenderer.setDirections(result);
+            directionsRenderer.setOptions({
+               markerOptions: {
+                  visible: false,
+               },
+               polylineOptions: {
+                  strokeColor: "red",
+               },
+            });
 
             setCaminho(result);
          }
