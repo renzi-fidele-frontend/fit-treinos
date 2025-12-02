@@ -154,7 +154,7 @@ const Ginasios = () => {
                         {caminho && (
                            <>
                               <hr className="w-100 border-4" />
-                              <div className="d-flex gap-4">
+                              <div className="d-flex gap-2 flex-column flex-sm-row text-center">
                                  <p className="mb-0">
                                     <span className="fw-bold">
                                        <i className="bi bi-car-front me-1"></i> Distância:
