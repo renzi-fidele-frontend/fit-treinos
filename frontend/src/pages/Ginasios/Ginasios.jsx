@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import foto from "../../assets/findModel.webp";
 import findGym from "../../assets/findGym.webp";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import usePlacesService from "../../hooks/usePlacesService";
 import CardGinasio from "../../components/CardGinasio/CardGinasio";
 import { useSelector } from "react-redux";
@@ -47,8 +47,6 @@ const Ginasios = () => {
          setGinasiosProximos(response);
       });
    }
-
-   // TODO: Renderizar a distancia e a duração do caminho até o ginásio encontrado
 
    function encontrarDirecao(destino) {
       directionsService.route(
@@ -151,6 +149,27 @@ const Ginasios = () => {
                               <div className={styles.gym}></div> {gym}
                            </div>
                         </div>
+
+                        {/* Informação da distância até ao alvo */}
+                        {caminho && (
+                           <>
+                              <hr className="w-100 border-4" />
+                              <div className="d-flex gap-4">
+                                 <p className="mb-0">
+                                    <span className="fw-bold">
+                                       <i className="bi bi-car-front me-1"></i> Distância:
+                                    </span>{" "}
+                                    {caminho?.routes[0]?.legs[0]?.distance?.text}
+                                 </p>
+                                 <p className="mb-0">
+                                    <span className="fw-bold">
+                                       <i className="bi bi-clock me-1"></i> Duração da viagem (Carro):
+                                    </span>{" "}
+                                    {caminho?.routes[0]?.legs[0]?.duration?.text}
+                                 </p>
+                              </div>
+                           </>
+                        )}
                      </>
                   )}
                </Col>
