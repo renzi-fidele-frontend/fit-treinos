@@ -265,7 +265,11 @@
       "closeGyms": "Gyms near you",
       "info": "Click below to find gyms",
       "cta": "Start search",
-      "contato": "Contact"
+      "contato": "Contact",
+      "load": "Loading the map...",
+      "showWay": "Show directions",
+      "distance": "Distance",
+      "duration": "Travel time (Car)"
    },
    "leaderboard": {
       "tit": "Discover the most determined users",

@@ -261,7 +261,11 @@
       "closeGyms": "Ginásios próximos a você",
       "info": "Clique abaixo para encontrar os ginásios",
       "cta": "Iniciar pesquisa",
-      "contato": "Contactar"
+      "contato": "Contactar",
+      "load": "Carregando o mapa...",
+      "showWay": "Ver caminho",
+      "distance": "Distância",
+      "duration": "Duração da viagem (Carro)"
    },
    "leaderboard": {
       "tit": "Descubra os usuários mais determinados",

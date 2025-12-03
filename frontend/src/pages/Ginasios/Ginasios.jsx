@@ -20,7 +20,7 @@ import useRoutesService from "../../hooks/useRoutesService";
 
 const Ginasios = () => {
    const { t } = useTranslation();
-   const { titulo, descricao, you, gym, closeGyms, info, cta } = t("ginasios");
+   const { titulo, descricao, you, gym, closeGyms, info, cta, distance, duration } = t("ginasios");
    const [localizacao, setLocalizacao] = useState(null);
    const [ginasiosProximos, setGinasiosProximos] = useState(null);
    const placesService = usePlacesService();
@@ -154,7 +154,7 @@ const Ginasios = () => {
                            {/* Overlay de loading */}
                            {loadingCaminho && (
                               <div className="position-absolute start-0 end-0 top-0 bottom-0 bg-black bg-opacity-50 d-flex flex-column align-items-center justify-content-center text-center text-white">
-                                 <p className="fw-medium fs-5">Encontrando o caminho...</p>
+                                 <p className="fw-medium fs-5"></p>
                                  <Spinner />
                               </div>
                            )}
@@ -177,13 +177,13 @@ const Ginasios = () => {
                               <div className="d-flex gap-2 gap-sm-4 flex-column flex-sm-row text-center">
                                  <p className="mb-0">
                                     <span className="fw-bold">
-                                       <i className="bi bi-car-front me-1"></i> Distância:
+                                       <i className="bi bi-car-front me-1"></i> {distance}:
                                     </span>{" "}
                                     {caminho?.routes[0]?.legs[0]?.distance?.text}
                                  </p>
                                  <p className="mb-0">
                                     <span className="fw-bold">
-                                       <i className="bi bi-clock me-1"></i> Duração da viagem (Carro):
+                                       <i className="bi bi-clock me-1"></i> {duration}:
                                     </span>{" "}
                                     {caminho?.routes[0]?.legs[0]?.duration?.text}
                                  </p>

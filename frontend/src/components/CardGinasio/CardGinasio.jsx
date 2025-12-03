@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 
 const CardGinasio = ({ ginasio, encontrarDirecao }) => {
    const { t } = useTranslation();
-   const { contato } = t("ginasios");
+   const { contato, showWay } = t("ginasios");
    return (
       <Card className={"d-flex flex-column flex-sm-row flex-sm-nowrap " + styles.body}>
          <PreloadImage className={styles.cardImg} src={ginasio?.photos?.[0].getUrl()} errorSrc={noGym} preloaderCn={styles.cardImg} />
@@ -44,7 +44,7 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
                   variant="danger"
                   onClick={() => encontrarDirecao({ lat: ginasio?.geometry?.location?.lat(), lng: ginasio?.geometry?.location?.lng() })}
                >
-                  <i className="bi bi-geo-alt-fill me-1"></i> Ver caminho
+                  <i className="bi bi-geo-alt-fill me-1"></i> {showWay}
                </Button>
             </div>
          </Card.Body>
