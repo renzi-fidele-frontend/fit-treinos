@@ -1,13 +1,14 @@
 import styles from "./Ginasios.module.css";
 import BannerTopo from "../../components/BannerTopo/BannerTopo";
 import Row from "react-bootstrap/Row";
+import Spinner from "react-bootstrap/Spinner";
 import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import foto from "../../assets/findModel.webp";
 import findGym from "../../assets/findGym.webp";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import usePlacesService from "../../hooks/usePlacesService";
 import CardGinasio from "../../components/CardGinasio/CardGinasio";
 import { useSelector } from "react-redux";
@@ -27,6 +28,8 @@ const Ginasios = () => {
    const { user } = useSelector((state) => state.auth);
    const [caminho, setCaminho] = useState(null);
    const { directionsService, directionsRenderer } = useRoutesService();
+   const [loadingCaminho, setLoadingCaminho] = useState(false);
+   const mapRef = useRef();
 
    function encontrarLocalizacao() {
       // Apanhando as cooordenadas do usuário
@@ -42,20 +45,25 @@ const Ginasios = () => {
       );
    }
 
-   function encontrarGinasiosProximos() {
-      placesService?.nearbySearch({ location: localizacao, radius: 4500, type: "gym" }, (response, status) => {
+   // TODO: Adicionar o loading ao se buscar por ginásios próximos
+   async function encontrarGinasiosProximos() {
+      console.log("Loading...");
+      await placesService?.nearbySearch({ location: localizacao, radius: 4500, type: "gym" }, (response, status) => {
          setGinasiosProximos(response);
       });
+      console.log("Loaded!");
    }
 
-   function encontrarDirecao(destino) {
-      directionsService.route(
+   async function encontrarDirecao(destino) {
+      setLoadingCaminho(true);
+      await directionsService.route(
          {
             origin: localizacao,
             destination: destino,
             travelMode: "DRIVING",
          },
          (result, status) => {
+            console.log(result);
             directionsRenderer.setMap(map);
             directionsRenderer.setDirections(result);
             directionsRenderer.setOptions({
@@ -66,17 +74,19 @@ const Ginasios = () => {
                   strokeColor: "red",
                },
             });
-
             setCaminho(result);
          }
       );
+      setLoadingCaminho(false);
    }
 
    // TODO: Descobrir um jeito de apanhar todas as fotos de cada ginásio e mostra-lás através de um modal com Slider
    // TODO: Adicionar funcionalidade de se alterar o raio de alcance (opcional)
    // TODO: Adicionar funcionalidade de guardar um ginásio nos favoritos
    // TODO: Adicionar funcionalidade ver os detalhes completos de cada ginásio
+   // TODO: Esconder o botão de entrar em contato via whatsapp caso o nr esteja indisponível
 
+   // Encontrando a localizando no carregamento da página
    useEffect(() => {
       if (!localizacao) encontrarLocalizacao();
       if (!map) return;
@@ -102,43 +112,52 @@ const Ginasios = () => {
    return (
       <div>
          <BannerTopo descricao={descricao} fotoModelo={foto} titulo={titulo} />
-         <Container>
+         <Container ref={mapRef}>
             <Row className="py-4 py-sm-5 mb-sm-4 g-5">
                <Col xl={7} className="d-flex flex-column align-items-center justify-content-center">
                   {/* Mapa */}
                   {localizacao && (
                      <>
-                        <Map
-                           mapId="d95c984c2c99e484fcaaf9b5"
-                           className={styles.mapa}
-                           defaultZoom={12}
-                           defaultCenter={localizacao}
-                           mapTypeId="hybrid"
-                        >
-                           {/* Posição do usuário */}
-                           <AdvancedMarker position={localizacao}>
-                              <div className="d-flex flex-column align-items-center justify-content-center">
-                                 <Image
-                                    src={user?.foto}
-                                    className="rounded-circle border border-4 object-fit-cover border-danger"
-                                    width={40}
-                                    height={40}
-                                 />
-                                 <p className={"mb-1 text-white " + styles.p}>{you}</p>
-                                 <div className={styles.cursor}></div>
-                              </div>
-                           </AdvancedMarker>
+                        <div className={"position-relative " + styles.mapa}>
+                           <Map
+                              mapId="d95c984c2c99e484fcaaf9b5"
+                              className={styles.mapa}
+                              defaultZoom={12}
+                              defaultCenter={localizacao}
+                              mapTypeId="hybrid"
+                           >
+                              {/* Posição do usuário */}
+                              <AdvancedMarker position={localizacao}>
+                                 <div className="d-flex flex-column align-items-center justify-content-center">
+                                    <Image
+                                       src={user?.foto}
+                                       className="rounded-circle border border-4 object-fit-cover border-danger"
+                                       width={40}
+                                       height={40}
+                                    />
+                                    <p className={"mb-1 text-white " + styles.p}>{you}</p>
+                                    <div className={styles.cursor}></div>
+                                 </div>
+                              </AdvancedMarker>
 
-                           {/* Ginásios próximos do usuário */}
-                           {ginasiosProximos &&
-                              ginasiosProximos?.map((v, k) => (
-                                 <MarkerWithInfoWindow
-                                    titulo={v?.name}
-                                    position={{ lat: v?.geometry?.location?.lat(), lng: v?.geometry?.location?.lng() }}
-                                    key={k}
-                                 />
-                              ))}
-                        </Map>
+                              {/* Ginásios próximos do usuário */}
+                              {ginasiosProximos &&
+                                 ginasiosProximos?.map((v, k) => (
+                                    <MarkerWithInfoWindow
+                                       titulo={v?.name}
+                                       position={{ lat: v?.geometry?.location?.lat(), lng: v?.geometry?.location?.lng() }}
+                                       key={k}
+                                    />
+                                 ))}
+                           </Map>
+                           {/* Overlay de loading */}
+                           {loadingCaminho && (
+                              <div className="position-absolute start-0 end-0 top-0 bottom-0 bg-black bg-opacity-50 d-flex flex-column align-items-center justify-content-center text-center text-white">
+                                 <p className="fw-medium fs-5">Encontrando o caminho...</p>
+                                 <Spinner />
+                              </div>
+                           )}
+                        </div>
 
                         {/* Legenda do mapa */}
                         <div className="d-flex justify-content-center align-items-center gap-4 fst-italic mt-2">
@@ -154,7 +173,7 @@ const Ginasios = () => {
                         {caminho && (
                            <>
                               <hr className="w-100 border-4" />
-                              <div className="d-flex gap-2 flex-column flex-sm-row text-center">
+                              <div className="d-flex gap-2 gap-sm-4 flex-column flex-sm-row text-center">
                                  <p className="mb-0">
                                     <span className="fw-bold">
                                        <i className="bi bi-car-front me-1"></i> Distância:
@@ -199,7 +218,14 @@ const Ginasios = () => {
                            </p>
                            {/* Botão de pesquisa */}
                            {!ginasiosProximos?.length && (
-                              <Button size="lg" variant="secondary" onClick={encontrarGinasiosProximos}>
+                              <Button
+                                 size="lg"
+                                 variant="secondary"
+                                 onClick={() => {
+                                    mapRef.current.scrollIntoView({ behavior: "smooth" });
+                                    encontrarGinasiosProximos();
+                                 }}
+                              >
                                  <i className="bi bi-search me-1"></i> {cta}
                               </Button>
                            )}
