@@ -6,11 +6,11 @@ import noGym from "../../assets/noGym.webp";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-const CardGinasio = ({ ginasio, encontrarDirecao }) => {
+const CardGinasio = ({ ginasio, encontrarDirecao, apanharFotos }) => {
    const { t } = useTranslation();
    const { contato, showWay } = t("ginasios");
    return (
-      <Card className={"d-flex flex-column flex-sm-row flex-sm-nowrap " + styles.body}>
+      <Card className={"d-flex flex-column flex-sm-row flex-sm-nowrap position-relative " + styles.body}>
          <PreloadImage className={styles.cardImg} src={ginasio?.photos?.[0].getUrl()} errorSrc={noGym} preloaderCn={styles.cardImg} />
          <Card.Body className={styles.body}>
             {/* Nome */}
@@ -50,6 +50,15 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
                </Button>
             </div>
          </Card.Body>
+         {/* Botão de mostrar todas as fotos do ginásio (Desktop) */}
+         <div
+            role="button"
+            onClick={apanharFotos}
+            className="text-bg-dark position-absolute bottom-0 small rounded ms-1 mb-1 border d-none d-sm-block"
+            id={styles.verFotosBtn}
+         >
+            <i className="bi bi-images me-1"></i> Ver fotos
+         </div>
       </Card>
    );
 };

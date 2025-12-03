@@ -20,7 +20,7 @@ import useRoutesService from "../../hooks/useRoutesService";
 
 const Ginasios = () => {
    const { t } = useTranslation();
-   const { titulo, descricao, you, gym, closeGyms, info, cta, distance, duration } = t("ginasios");
+   const { titulo, descricao, you, gym, closeGyms, info, cta, distance, duration, load } = t("ginasios");
    const [localizacao, setLocalizacao] = useState(null);
    const [ginasiosProximos, setGinasiosProximos] = useState(null);
    const placesService = usePlacesService();
@@ -153,7 +153,7 @@ const Ginasios = () => {
                            {/* Overlay de loading */}
                            {loadingCaminho && (
                               <div className="position-absolute start-0 end-0 top-0 bottom-0 bg-black bg-opacity-50 d-flex flex-column align-items-center justify-content-center text-center text-white">
-                                 <p className="fw-medium fs-5"></p>
+                                 <p className="fw-medium fs-5">{load}</p>
                                  <Spinner />
                               </div>
                            )}
