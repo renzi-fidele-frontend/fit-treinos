@@ -12,6 +12,18 @@
    height: fit-content;
 }
 
+@media screen and (max-width: 1400px) {
+   .cardImg {
+      width: 135px;
+   }
+}
+
+@media screen and (max-width: 1200px) {
+   .cardImg {
+      width: 170px;
+   }
+}
+
 @media screen and (max-width: 992px) {
    .endereco {
       width: 80%;

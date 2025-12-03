@@ -45,17 +45,19 @@ const Ginasios = () => {
       );
    }
 
-   // TODO: Adicionar o loading ao se buscar por ginásios próximos
    async function encontrarGinasiosProximos() {
-      console.log("Loading...");
+      setLoadingCaminho(true);
       await placesService?.nearbySearch({ location: localizacao, radius: 4500, type: "gym" }, (response, status) => {
-         setGinasiosProximos(response);
+         if (status === "OK") {
+            setGinasiosProximos(response);
+            setLoadingCaminho(false);
+         }
       });
-      console.log("Loaded!");
    }
 
    async function encontrarDirecao(destino) {
       setLoadingCaminho(true);
+      mapRef.current.scrollIntoView({ behavior: "smooth" });
       await directionsService.route(
          {
             origin: localizacao,
@@ -63,7 +65,6 @@ const Ginasios = () => {
             travelMode: "DRIVING",
          },
          (result, status) => {
-            console.log(result);
             directionsRenderer.setMap(map);
             directionsRenderer.setDirections(result);
             directionsRenderer.setOptions({
