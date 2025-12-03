@@ -29,15 +29,17 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
 
             <div className="d-flex gap-2">
                {/* Contato via whatsapp */}
-               <Button
-                  size="sm"
-                  variant="success"
-                  as={Link}
-                  to={`https://wa.me/${String(ginasio?.international_phone_number).replace(/[+\s]/g, "")}`}
-                  target="_blank"
-               >
-                  <i className="bi bi-whatsapp me-1"></i> {contato}
-               </Button>
+               {ginasio?.international_phone_number && (
+                  <Button
+                     size="sm"
+                     variant="success"
+                     as={Link}
+                     to={`https://wa.me/${String(ginasio?.international_phone_number).replace(/[+\s]/g, "")}`}
+                     target="_blank"
+                  >
+                     <i className="bi bi-whatsapp me-1"></i> {contato}
+                  </Button>
+               )}
                {/* Botão de ver direção */}
                <Button
                   size="sm"

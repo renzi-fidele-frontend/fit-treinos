@@ -85,7 +85,6 @@ const Ginasios = () => {
    // TODO: Adicionar funcionalidade de se alterar o raio de alcance (opcional)
    // TODO: Adicionar funcionalidade de guardar um ginásio nos favoritos
    // TODO: Adicionar funcionalidade ver os detalhes completos de cada ginásio
-   // TODO: Esconder o botão de entrar em contato via whatsapp caso o nr esteja indisponível
 
    // Encontrando a localizando no carregamento da página
    useEffect(() => {

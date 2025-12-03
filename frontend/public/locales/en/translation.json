@@ -150,7 +150,8 @@
          "graficoMorto": "Chart unavailable"
       },
       "card5": {
-         "stat": "No training sessions held yet!"
+         "stat": "Most trained body parts",
+         "noTrain": "No training sessions held yet!"
       },
       "card6": {
          "stat": "Most practiced exercise",
