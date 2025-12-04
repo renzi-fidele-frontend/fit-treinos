@@ -17,8 +17,18 @@
    }
 }
 
+@media screen and (max-width: 1400px) {
+   #ct {
+      font-size: 22px !important;
+   }
+}
+
 @media screen and (max-width: 576px) {
    #logo {
       width: 162px;
+   }
+
+    #ct {
+      font-size: 20px !important;
    }
 }
