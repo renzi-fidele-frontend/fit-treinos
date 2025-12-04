@@ -32,7 +32,8 @@
     "react-youtube": "^10.1.0",
     "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
-    "translate": "^3.0.1"
+    "translate": "^3.0.1",
+    "yet-another-react-lightbox": "^3.25.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
