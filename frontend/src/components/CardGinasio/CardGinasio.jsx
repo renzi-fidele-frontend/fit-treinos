@@ -22,7 +22,7 @@ const CardGinasio = ({ ginasio, encontrarDirecao, apanharFotos }) => {
                   {ginasio?.rating || 0} / 5.0 <i className="bi bi-star-fill text-warning me-2"></i> ({ginasio?.user_ratings_total || 0})
                </p>
                {/* Localização */}
-               <p className={"text-truncate  " + styles.endereco}>
+               <p className={"text-truncate " + styles.endereco}>
                   <i className="bi bi-geo-alt"></i> {ginasio?.vicinity}
                </p>
             </div>
@@ -47,6 +47,10 @@ const CardGinasio = ({ ginasio, encontrarDirecao, apanharFotos }) => {
                   onClick={() => encontrarDirecao({ lat: ginasio?.geometry?.location?.lat(), lng: ginasio?.geometry?.location?.lng() })}
                >
                   <i className="bi bi-geo-alt-fill me-1"></i> {showWay}
+               </Button>
+               {/* Botão de mostrar todas as fotos do ginásio (Mobile) */}
+               <Button size="sm" onClick={apanharFotos} className="text-bg-dark d-sm-none">
+                  <i className="bi bi-images me-1"></i> Ver fotos
                </Button>
             </div>
          </Card.Body>

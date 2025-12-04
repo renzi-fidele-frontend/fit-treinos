@@ -68,13 +68,16 @@
       flex-basis: 49%;
    }
    .mapa {
-      height: 650px !important;
+      height: 600px !important;
    }
 }
 
 @media screen and (max-width: 992px) {
    .gymsWrapper > div {
       flex-basis: 100%;
+   }
+   .mapa {
+      height: 500px !important;
    }
 }
 

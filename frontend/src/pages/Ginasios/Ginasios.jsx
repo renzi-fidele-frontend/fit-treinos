@@ -83,9 +83,9 @@ const Ginasios = () => {
 
    // TODO: Descobrir um jeito de apanhar todas as fotos de cada ginásio e mostra-lás através de um modal com Slider
    // TODO: Adicionar funcionalidade de se alterar o raio de alcance (opcional)
-   // TODO: Adicionar funcionalidade de guardar um ginásio nos favoritos
    // TODO: Adicionar funcionalidade ver os detalhes completos de cada ginásio
-
+   // TODO: Adicionar funcionalidade de guardar um ginásio nos favoritos
+   
    // Encontrando a localizando no carregamento da página
    useEffect(() => {
       if (!localizacao) encontrarLocalizacao();
