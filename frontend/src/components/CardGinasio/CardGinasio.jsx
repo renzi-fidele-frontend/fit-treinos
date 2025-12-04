@@ -5,10 +5,26 @@ import PreloadImage from "../ui/PreloadImage";
 import noGym from "../../assets/noGym.webp";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import usePlacesService from "../../hooks/usePlacesService";
+import { useState } from "react";
 
-const CardGinasio = ({ ginasio, encontrarDirecao, apanharFotos }) => {
+const CardGinasio = ({ ginasio, encontrarDirecao }) => {
    const { t } = useTranslation();
    const { contato, showWay } = t("ginasios");
+   const placesService = usePlacesService();
+   const [loadingDetalhes, setLoadingDetalhes] = useState(false);
+   const [fotos, setFotos] = useState(null);
+
+   async function apanharFotos() {
+      setLoadingDetalhes(true);
+      await placesService?.getDetails({ placeId: ginasio?.place_id, fields: ["photos"] }, (response, status) => {
+         if (status === "OK") {
+            setFotos(response);
+            setLoadingDetalhes(false);
+         }
+      });
+   }
+
    return (
       <Card className={"d-flex flex-column flex-sm-row flex-sm-nowrap position-relative " + styles.body}>
          <PreloadImage className={styles.cardImg} src={ginasio?.photos?.[0].getUrl()} errorSrc={noGym} preloaderCn={styles.cardImg} />
