@@ -265,7 +265,8 @@
       "load": "Carregando o mapa...",
       "showWay": "Ver caminho",
       "distance": "Distância",
-      "duration": "Duração da viagem (Carro)"
+      "duration": "Duração da viagem (Carro)",
+      "seePhotos": "Ver fotos"
    },
    "leaderboard": {
       "tit": "Descubra os usuários mais determinados",

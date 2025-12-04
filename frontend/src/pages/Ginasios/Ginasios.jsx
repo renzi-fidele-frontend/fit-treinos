@@ -111,7 +111,7 @@ const Ginasios = () => {
          <BannerTopo descricao={descricao} fotoModelo={foto} titulo={titulo} />
          <Container ref={mapRef}>
             <Row className="py-4 py-sm-5 mb-sm-4 g-5">
-               <Col xl={7} className="d-flex flex-column align-items-center justify-content-center">
+               <Col xl={7} className="d-flex flex-column align-items-center ">
                   {/* Mapa */}
                   {localizacao && (
                      <>
@@ -197,7 +197,7 @@ const Ginasios = () => {
                   <hr className="mb-4" />
                   <div
                      className={
-                        "d-flex flex-wrap flex-xl-nowrap flex-xl-column justify-content-center justify-content-xl-start gap-3 pe-xl-2 " +
+                        "d-flex flex-column flex-sm-row flex-sm-wrap flex-xl-nowrap flex-xl-column justify-content-center justify-content-xl-start gap-3 pe-xl-2 " +
                         styles.gymsWrapper
                      }
                   >

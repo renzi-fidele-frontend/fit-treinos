@@ -12,7 +12,7 @@ import LightBoxDeFotos from "../LightBoxDeFotos/LightBoxDeFotos";
 
 const CardGinasio = ({ ginasio, encontrarDirecao }) => {
    const { t } = useTranslation();
-   const { contato, showWay } = t("ginasios");
+   const { contato, showWay, seePhotos } = t("ginasios");
    const placesService = usePlacesService();
    const [loadingFotos, setLoadingFotos] = useState(false);
    const [fotos, setFotos] = useState(null);
@@ -71,7 +71,7 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
                   </Button>
                   {/* Botão de mostrar todas as fotos do ginásio (Mobile) */}
                   <Button size="sm" onClick={apanharFotos} className="text-bg-dark d-sm-none">
-                     <i className="bi bi-images me-1"></i> Ver fotos {loadingFotos && <Spinner className="mx-1" size="sm" />}
+                     <i className="bi bi-images me-1"></i> {seePhotos} {loadingFotos && <Spinner className="mx-1" size="sm" />}
                   </Button>
                </div>
             </Card.Body>
@@ -82,7 +82,7 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
                className="text-bg-dark position-absolute bottom-0 small rounded ms-1 mb-1 border d-none d-sm-flex align-items-center gap-1"
                id={styles.verFotosBtn}
             >
-               <i className="bi bi-images"></i> Ver fotos {loadingFotos && <Spinner className="mx-1" size="sm" />}
+               <i className="bi bi-images"></i> {seePhotos} {loadingFotos && <Spinner className="mx-1" size="sm" />}
             </div>
          </Card>
          {/* Modal de fotos do ginásio */}

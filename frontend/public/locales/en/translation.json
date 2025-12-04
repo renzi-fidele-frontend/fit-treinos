@@ -270,7 +270,8 @@
       "load": "Loading the map...",
       "showWay": "Show directions",
       "distance": "Distance",
-      "duration": "Travel time (Car)"
+      "duration": "Travel time (Car)",
+      "seePhotos": "See photos"
    },
    "leaderboard": {
       "tit": "Discover the most determined users",
