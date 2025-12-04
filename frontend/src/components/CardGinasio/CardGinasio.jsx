@@ -71,7 +71,7 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
                   </Button>
                   {/* Botão de mostrar todas as fotos do ginásio (Mobile) */}
                   <Button size="sm" onClick={apanharFotos} className="text-bg-dark d-sm-none">
-                     <i className="bi bi-images me-1"></i> Ver fotos
+                     <i className="bi bi-images me-1"></i> Ver fotos {loadingFotos && <Spinner className="mx-1" size="sm" />}
                   </Button>
                </div>
             </Card.Body>
