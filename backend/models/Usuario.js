@@ -16,6 +16,7 @@ const schemaDoUsuario = new mongoose.Schema(
       location: { type: Object, required: true },
       pais: { type: String, required: true },
       cidade: { type: String, required: true },
+      ginasiosFavoritos: { type: Array },
    },
    { collection: "Usuarios" }
 );

@@ -22,6 +22,27 @@ const adicionarAosFavoritos = async (req, res) => {
    }
 };
 
+const guardarGinasioNosFavoritos = async (req, res) => {
+   const { userId } = req;
+   // Apanhar a id do ginásio no body do request
+   const { place_id, name, position, vicinity, international_phone_number, rating, user_ratings_total, photo, lat, lng } = req.body;
+   try {
+      const user = await Usuario.findById(userId);
+      const ginasiosFavoritos = user.toObject().ginasiosFavoritos;
+
+      // Caso já esteja favoritado
+      if (ginasiosFavoritos.includes(gymId)) {
+         return res.status(500).json({ message: "Esté ginásio já está favoritado!" });
+      }
+
+      ginasiosFavoritos.push({ place_id, name, position, vicinity, international_phone_number, rating, user_ratings_total, photo, lat, lng });
+      const atualizar = await Usuario.findByIdAndUpdate(user, { ginasiosFavoritos });
+      res.json({ ginasiosFavoritos, message: "Adicionado aos favoritos com sucesso!" });
+   } catch (error) {
+      res.status(500).json({ message: "Erro ao adicionar o ginásio aos favorito!" });
+   }
+};
+
 const removerDosFavoritos = async (req, res) => {
    const { userId } = req;
    const { idExercicio } = req.body;
@@ -360,3 +381,4 @@ exports.atualizarProgresso = atualizarProgresso;
 exports.retornarTempoTotalDeTreinoDeExercicio = retornarTempoTotalDeTreinoDeExercicio;
 exports.retornarDadosTreinamento = retornarDadosTreinamento;
 exports.retornarUsuariosClassificados = retornarUsuariosClassificados;
+exports.guardarGinasioNosFavoritos = guardarGinasioNosFavoritos;
