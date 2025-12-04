@@ -14,7 +14,6 @@ import CardGinasio from "../../components/CardGinasio/CardGinasio";
 import { useSelector } from "react-redux";
 import MarkerWithInfoWindow from "../../components/MarkerWithInfoWindow/MarkerWithInfoWindow";
 import { useTranslation } from "react-i18next";
-
 import { AdvancedMarker, Map, useMap } from "@vis.gl/react-google-maps";
 import useRoutesService from "../../hooks/useRoutesService";
 
@@ -81,12 +80,11 @@ const Ginasios = () => {
       setLoadingCaminho(false);
    }
 
-   // TODO: Descobrir um jeito de apanhar todas as fotos de cada ginásio e mostra-lás através de um modal com Slider
    // TODO: Adicionar funcionalidade de se alterar o raio de alcance (opcional)
    // TODO: Adicionar funcionalidade ver os detalhes completos de cada ginásio
    // TODO: Adicionar funcionalidade de guardar um ginásio nos favoritos
-   
-   // Encontrando a localizando no carregamento da página
+
+   // Encontrando a localização do usuário no carregamento da página
    useEffect(() => {
       if (!localizacao) encontrarLocalizacao();
       if (!map) return;
@@ -150,6 +148,7 @@ const Ginasios = () => {
                                     />
                                  ))}
                            </Map>
+
                            {/* Overlay de loading */}
                            {loadingCaminho && (
                               <div className="position-absolute start-0 end-0 top-0 bottom-0 bg-black bg-opacity-50 d-flex flex-column align-items-center justify-content-center text-center text-white">
