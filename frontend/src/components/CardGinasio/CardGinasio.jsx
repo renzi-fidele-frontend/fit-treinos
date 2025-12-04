@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import usePlacesService from "../../hooks/usePlacesService";
 import { useState } from "react";
-import LightBoxDeFotos from "../LightBoxDeFotos/LightBoxDeFotos";
+import LightboxDeFotos from "../LightBoxDeFotos/LightBoxDeFotos";
 
 const CardGinasio = ({ ginasio, encontrarDirecao }) => {
    const { t } = useTranslation();
@@ -86,7 +86,7 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
             </div>
          </Card>
          {/* Modal de fotos do ginásio */}
-         {mostrarLightbox && <LightBoxDeFotos fotos={fotos} mostrar={true} onClose={() => setMostrarLightbox(false)} />}
+         {mostrarLightbox && <LightboxDeFotos fotos={fotos} mostrar={true} onClose={() => setMostrarLightbox(false)} />}
       </>
    );
 };

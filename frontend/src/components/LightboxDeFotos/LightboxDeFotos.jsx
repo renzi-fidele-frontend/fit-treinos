@@ -7,7 +7,7 @@ import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 
-const LightBoxDeFotos = ({ mostrar, fotos, onClose }) => {
+const LightboxDeFotos = ({ mostrar, fotos, onClose }) => {
    return <Lightbox close={onClose} open={mostrar} slides={fotos?.map((v) => ({ src: v?.getUrl() }))} plugins={[Fullscreen, Slideshow, Zoom, Thumbnails]}  />;
 };
-export default LightBoxDeFotos;
+export default LightboxDeFotos;
