@@ -70,20 +70,24 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
                      <i className="bi bi-geo-alt-fill me-1"></i> {showWay}
                   </Button>
                   {/* Botão de mostrar todas as fotos do ginásio (Mobile) */}
-                  <Button size="sm" onClick={apanharFotos} className="text-bg-dark d-sm-none">
-                     <i className="bi bi-images me-1"></i> {seePhotos} {loadingFotos && <Spinner className="mx-1" size="sm" />}
-                  </Button>
+                  {ginasio?.photos && (
+                     <Button size="sm" onClick={apanharFotos} className="text-bg-dark d-sm-none">
+                        <i className="bi bi-images me-1"></i> {seePhotos} {loadingFotos && <Spinner className="mx-1" size="sm" />}
+                     </Button>
+                  )}
                </div>
             </Card.Body>
             {/* Botão de mostrar todas as fotos do ginásio (Desktop) */}
-            <div
-               role="button"
-               onClick={apanharFotos}
-               className="text-bg-dark position-absolute bottom-0 small rounded ms-1 mb-1 border d-none d-sm-flex align-items-center gap-1"
-               id={styles.verFotosBtn}
-            >
-               <i className="bi bi-images"></i> {seePhotos} {loadingFotos && <Spinner className="mx-1" size="sm" />}
-            </div>
+            {ginasio?.photos && (
+               <div
+                  role="button"
+                  onClick={apanharFotos}
+                  className="text-bg-dark position-absolute bottom-0 small rounded ms-1 mb-1 border d-none d-sm-flex align-items-center gap-1"
+                  id={styles.verFotosBtn}
+               >
+                  <i className="bi bi-images"></i> {seePhotos} {loadingFotos && <Spinner className="mx-1" size="sm" />}
+               </div>
+            )}
          </Card>
          {/* Modal de fotos do ginásio */}
          {mostrarLightbox && <LightBoxDeFotos fotos={fotos} mostrar={true} onClose={() => setMostrarLightbox(false)} />}
