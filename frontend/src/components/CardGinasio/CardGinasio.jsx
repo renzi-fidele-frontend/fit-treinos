@@ -11,15 +11,21 @@ import { useState } from "react";
 import LightBoxDeFotos from "../LightBoxDeFotos/LightBoxDeFotos";
 import useFetch from "../../hooks/useFetch";
 import Tooltip from "../Tooltip/Tooltip";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../state/auth/authSlice";
 
 const CardGinasio = ({ ginasio, encontrarDirecao }) => {
    const { t } = useTranslation();
    const { contato, showWay, seePhotos } = t("ginasios");
+   const { user } = useSelector((state) => state.auth);
    const placesService = usePlacesService();
    const [loadingFotos, setLoadingFotos] = useState(false);
    const [fotos, setFotos] = useState(null);
    const [mostrarLightbox, setMostrarLightbox] = useState(false);
    const { apanharNoBackendComAuth } = useFetch();
+   const [loadingGuardarGinasio, setLoadingGuardarGinasio] = useState(false);
+   const [guardado, setGuardado] = useState(user?.ginasiosFavoritos?.some((fav) => fav.place_id === ginasio?.place_id));
+   const dispatch = useDispatch();
 
    async function apanharFotos() {
       setLoadingFotos(true);
@@ -33,6 +39,7 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
    }
 
    function guardarGinasio() {
+      setLoadingGuardarGinasio(true);
       const res = apanharNoBackendComAuth("actions/guardarGinasioNosFavoritos", "POST", {
          data: {
             place_id: ginasio?.place_id,
@@ -47,9 +54,13 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
             lng: ginasio?.geometry?.location?.lng(),
          },
       }).then((res) => {
-         console.log(res);
+         setLoadingGuardarGinasio(false);
+         setGuardado(true);
+         dispatch(setUser({ ...user, ginasiosFavoritos: res.ginasiosFavoritos }));
       });
    }
+
+   // TODO: Adicionar a funcionalidade de remover um ginásio da lista dos favoritos
 
    return (
       <>
@@ -104,7 +115,13 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
                {/* Botão de salvar */}
                <div className="position-absolute end-0 top-0 me-2 mt-2 fs-5">
                   <Tooltip conteudo="Salvar nos favoritos">
-                     <i className="bi bi-heart" role="button" onClick={guardarGinasio}></i>
+                     {loadingGuardarGinasio ? (
+                        <Spinner size="sm" />
+                     ) : guardado ? (
+                        <i className="bi bi-heart-fill" role="button" onClick={guardarGinasio} style={{ color: "#B01E28" }}></i>
+                     ) : (
+                        <i className="bi bi-heart" role="button" onClick={guardarGinasio}></i>
+                     )}
                   </Tooltip>
                </div>
             </Card.Body>
