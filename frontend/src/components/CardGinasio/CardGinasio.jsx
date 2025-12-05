@@ -9,6 +9,8 @@ import { useTranslation } from "react-i18next";
 import usePlacesService from "../../hooks/usePlacesService";
 import { useState } from "react";
 import LightBoxDeFotos from "../LightBoxDeFotos/LightBoxDeFotos";
+import useFetch from "../../hooks/useFetch";
+import Tooltip from "../Tooltip/Tooltip";
 
 const CardGinasio = ({ ginasio, encontrarDirecao }) => {
    const { t } = useTranslation();
@@ -17,6 +19,7 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
    const [loadingFotos, setLoadingFotos] = useState(false);
    const [fotos, setFotos] = useState(null);
    const [mostrarLightbox, setMostrarLightbox] = useState(false);
+   const { apanharNoBackendComAuth } = useFetch();
 
    async function apanharFotos() {
       setLoadingFotos(true);
@@ -29,14 +32,34 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
       });
    }
 
+   function guardarGinasio() {
+      const res = apanharNoBackendComAuth("actions/guardarGinasioNosFavoritos", "POST", {
+         data: {
+            place_id: ginasio?.place_id,
+            name: ginasio?.name,
+            position: ginasio?.position,
+            vicinity: ginasio?.vicinity,
+            international_phone_number: ginasio?.international_phone_number,
+            rating: ginasio?.rating,
+            user_ratings_total: ginasio?.user_ratings_total,
+            photo: ginasio?.photo,
+            lat: ginasio?.geometry?.location?.lat(),
+            lng: ginasio?.geometry?.location?.lng(),
+         },
+      }).then((res) => {
+         console.log(res);
+      });
+   }
+
    return (
       <>
          <Card className={"d-flex flex-column flex-sm-row flex-sm-nowrap position-relative " + styles.body}>
             <PreloadImage className={styles.cardImg} src={ginasio?.photos?.[0].getUrl()} errorSrc={noGym} preloaderCn={styles.cardImg} />
-            <Card.Body className={styles.body}>
+            <Card.Body className={styles.body + " position-relative"}>
                {/* Nome */}
                <h6 className="fs-6">{ginasio?.name}</h6>
 
+               {/* Detalhes */}
                <div className="small">
                   {/* Classificação */}
                   <p className="text-muted mb-1">
@@ -48,6 +71,7 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
                   </p>
                </div>
 
+               {/* Ações */}
                <div className="d-flex gap-2">
                   {/* Contato via whatsapp */}
                   {ginasio?.international_phone_number && (
@@ -75,6 +99,13 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
                         <i className="bi bi-images me-1"></i> {seePhotos} {loadingFotos && <Spinner className="mx-1" size="sm" />}
                      </Button>
                   )}
+               </div>
+
+               {/* Botão de salvar */}
+               <div className="position-absolute end-0 top-0 me-2 mt-2 fs-5">
+                  <Tooltip conteudo="Salvar nos favoritos">
+                     <i className="bi bi-heart" role="button" onClick={guardarGinasio}></i>
+                  </Tooltip>
                </div>
             </Card.Body>
             {/* Botão de mostrar todas as fotos do ginásio (Desktop) */}

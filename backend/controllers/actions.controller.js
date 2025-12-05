@@ -29,9 +29,10 @@ const guardarGinasioNosFavoritos = async (req, res) => {
    try {
       const user = await Usuario.findById(userId);
       const ginasiosFavoritos = user.toObject().ginasiosFavoritos;
+      console.log(ginasiosFavoritos)
 
       // Caso já esteja favoritado
-      if (ginasiosFavoritos.includes(gymId)) {
+      if (ginasiosFavoritos.includes(place_id)) {
          return res.status(500).json({ message: "Esté ginásio já está favoritado!" });
       }
 

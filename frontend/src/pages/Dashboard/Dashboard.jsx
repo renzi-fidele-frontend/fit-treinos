@@ -92,8 +92,8 @@ const Dashboard = () => {
 
    return (
       <div id={styles.ct}>
-         <div className="h-100 py-4 py-md-5 px-3 px-md-5 px-lg-0 container-lg">
-            <h2 className="fw-semibold mb-4 text-center text-xl-start ">{tit}</h2>
+         <div className="h-100 py-4 py-md-4 px-3 px-md-5 px-lg-0 container-lg">
+            <h2 className="fw-semibold mt-1 mb-4 text-center text-xl-start ">{tit}</h2>
             {/* Separador Mobile */}
             <hr className="d-xl-none mb-4" />
             {/* Primeira linha */}
