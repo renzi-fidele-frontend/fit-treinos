@@ -8,6 +8,7 @@ const {
    retornarDadosTreinamento,
    retornarUsuariosClassificados,
    guardarGinasioNosFavoritos,
+   removerGinasioDosFavoritos,
 } = require("../controllers/actions.controller");
 
 const actionsRoute = express.Router();
@@ -23,6 +24,7 @@ actionsRoute.delete("/removerDosFavoritos", removerDosFavoritos);
 actionsRoute.patch("/atualizarProgresso", atualizarProgresso);
 actionsRoute.get("/retornarTempoTotalDeTreinoDeExercicio/:idExercicio", retornarTempoTotalDeTreinoDeExercicio);
 actionsRoute.get("/retornarDadosTreinamento", retornarDadosTreinamento);
-actionsRoute.post("/guardarGinasioNosFavoritos", guardarGinasioNosFavoritos )
+actionsRoute.post("/guardarGinasioNosFavoritos", guardarGinasioNosFavoritos);
+actionsRoute.delete("/removerGinasioDosFavoritos", removerGinasioDosFavoritos);
 
 module.exports = actionsRoute;

@@ -61,6 +61,9 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
    }
 
    // TODO: Adicionar a funcionalidade de remover um ginásio da lista dos favoritos
+   function removerGinasio() {
+      
+   }
 
    return (
       <>
@@ -114,11 +117,11 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
 
                {/* Botão de salvar */}
                <div className="position-absolute end-0 top-0 me-2 mt-2 fs-5">
-                  <Tooltip conteudo="Salvar nos favoritos">
+                  <Tooltip conteudo={!guardado ? "Salvar nos favoritos" : "Remover dos favoritos"}>
                      {loadingGuardarGinasio ? (
                         <Spinner size="sm" />
                      ) : guardado ? (
-                        <i className="bi bi-heart-fill" role="button" onClick={guardarGinasio} style={{ color: "#B01E28" }}></i>
+                        <i className="bi bi-heart-fill" role="button" onClick={removerGinasio} style={{ color: "#B01E28" }}></i>
                      ) : (
                         <i className="bi bi-heart" role="button" onClick={guardarGinasio}></i>
                      )}
