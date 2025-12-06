@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import foto from "../../assets/findModel.webp";
 import findGym from "../../assets/findGym.webp";
+import noGymFound from "../../assets/noGymFound.webp";
 import { useEffect, useRef, useState } from "react";
 import usePlacesService from "../../hooks/usePlacesService";
 import CardGinasio from "../../components/CardGinasio/CardGinasio";
@@ -50,6 +51,11 @@ const Ginasios = () => {
          if (status === "OK") {
             setGinasiosProximos(response);
             setLoadingCaminho(false);
+         }
+
+         if (response.length === 0) {
+            setLoadingCaminho(false);
+            setGinasiosProximos([]);
          }
       });
    }
@@ -200,13 +206,21 @@ const Ginasios = () => {
                         styles.gymsWrapper
                      }
                   >
-                     {ginasiosProximos ? (
+                     {ginasiosProximos?.length > 0 &&
                         ginasiosProximos?.map((v, k) => (
                            <div key={k}>
                               <CardGinasio encontrarDirecao={encontrarDirecao} ginasio={v} />
                            </div>
-                        ))
-                     ) : (
+                        ))}
+
+                     {ginasiosProximos?.length === 0 && (
+                        <div className="text-center">
+                           <Image src={noGymFound} className="mt-3" />
+                           <p className="mt-2 mb-4 bg-primary-subtle rounded border-black border">Nenhum ginásio foi encontrado, tente treinar ao ar livre!</p>
+                        </div>
+                     )}
+
+                     {ginasiosProximos === null && (
                         <div className="text-center">
                            <Image src={findGym} className="w-75 mt-sm-4" />
                            <p className="mt-2 mb-4 bg-primary-subtle rounded border-black border">
