@@ -20,7 +20,7 @@ import useRoutesService from "../../hooks/useRoutesService";
 
 const Ginasios = () => {
    const { t } = useTranslation();
-   const { titulo, descricao, you, gym, closeGyms, info, cta, distance, duration, load } = t("ginasios");
+   const { titulo, descricao, you, gym, closeGyms, info, cta, distance, duration, load, gymNotFound } = t("ginasios");
    const [localizacao, setLocalizacao] = useState(null);
    const [ginasiosProximos, setGinasiosProximos] = useState(null);
    const placesService = usePlacesService();
@@ -216,7 +216,7 @@ const Ginasios = () => {
                      {ginasiosProximos?.length === 0 && (
                         <div className="text-center">
                            <Image src={noGymFound} className="mt-3" />
-                           <p className="mt-2 mb-4 bg-primary-subtle rounded border-black border">Nenhum ginásio foi encontrado, tente treinar ao ar livre!</p>
+                           <p className="mt-2 mb-4 bg-primary-subtle rounded border-black border">{gymNotFound}</p>
                         </div>
                      )}
 

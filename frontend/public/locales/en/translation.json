@@ -271,7 +271,8 @@
       "showWay": "Show directions",
       "distance": "Distance",
       "duration": "Travel time (Car)",
-      "seePhotos": "See photos"
+      "seePhotos": "See photos",
+      "gymNotFound": "No gyms found, try training outdoors!"
    },
    "leaderboard": {
       "tit": "Discover the most determined users",

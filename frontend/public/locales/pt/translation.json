@@ -266,7 +266,8 @@
       "showWay": "Ver caminho",
       "distance": "Distância",
       "duration": "Duração da viagem (Carro)",
-      "seePhotos": "Ver fotos"
+      "seePhotos": "Ver fotos",
+      "gymNotFound": "Nenhum ginásio foi encontrado, tente treinar ao ar livre!"
    },
    "leaderboard": {
       "tit": "Descubra os usuários mais determinados",
