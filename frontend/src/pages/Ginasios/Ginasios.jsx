@@ -81,7 +81,6 @@ const Ginasios = () => {
    }
 
    // TODO: Adicionar funcionalidade de se alterar o raio de alcance (opcional)
-   // TODO: Adicionar funcionalidade de guardar um ginásio nos favoritos
 
    // Encontrando a localização do usuário no carregamento da página
    useEffect(() => {

@@ -163,7 +163,7 @@ const Cadastro = () => {
    }, [location.search]);
 
    return (
-      <Container className="pb-5 pb-lg-0">
+      <Container className="py-5">
          <Row className="gap-3 gap-sm-4 gap-lg-5 flex-column-reverse flex-lg-row">
             <Col lg={6} className="justify-content-center d-flex flex-column pe-lg-5">
                {!loading ? step === 1 ? <Step1 /> : <Step2 /> : <p>Carregando...</p>}

@@ -60,7 +60,7 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
       });
    }
 
-   // TODO: Adicionar a funcionalidade de remover um ginásio da lista dos favoritos
+   
    function removerGinasio() {
       setLoadingGuardarGinasio(true);
       const res = apanharNoBackendComAuth("actions/removerGinasioDosFavoritos", "DELETE", {

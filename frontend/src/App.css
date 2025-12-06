@@ -68,6 +68,11 @@ html {
 .nav-pills:not(.ordem) .nav-link {
    color: var(--bs-secondary);
 }
+
+nav .vr {
+   height: 20px !important; 
+   min-height: 20px !important;
+}
 /*--------------------------------------*/
 
 /*  Slick Slider  */
