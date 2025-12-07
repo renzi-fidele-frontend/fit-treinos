@@ -35,37 +35,25 @@ const Header = () => {
          <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/"} as={Link} to={"/"}>
             <i className="me-2 d-xl-none bi bi-house-fill"></i> {links[0]}
          </Nav.Link>
-         <div className="vr d-none d-xl-block"></div>
+         <div className="vr d-none d-xl-block my-auto"></div>
          {/* Exercícios */}
          <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/exercicios"} as={Link} to={"/exercicios"}>
             <i className="me-2 d-xl-none bi bi-person-arms-up"></i> {links[1]}
          </Nav.Link>
-         <div className="vr d-none d-xl-block"></div>
-         {!user && (
-            <>
-               {/* Login */}
-               <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/entrar"} as={Link} to={"/entrar"}>
-                  <i className="me-2 d-xl-none bi bi-person-add"></i> {links[2]}
-               </Nav.Link>
-               <div className="vr d-none d-xl-block"></div>
-               {/* Cadastro */}
-               <Nav.Link className={`${offcanvas && "border-bottom pb-4 "}`} active={loc.pathname === "/cadastro"} as={Link} to={"/cadastro"}>
-                  <i className="me-2 d-xl-none bi bi-person-fill-lock"></i> <Button variant="secondary">{links[3]}</Button>
-               </Nav.Link>
-            </>
-         )}
+         <div className="vr d-none d-xl-block my-auto"></div>
+
          {user && (
             <>
                {/* Progresso do treinamento */}
                <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/dashboard"} as={Link} to="/dashboard">
                   <i className="me-2 d-xl-none bi bi-graph-up-arrow"></i> {links[4]}
                </Nav.Link>
-               <div className="vr d-none d-xl-block"></div>
+               <div className="vr d-none d-xl-block my-auto"></div>
                {/* Favoritos */}
                <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/favoritos"} as={Link} to="/favoritos">
                   <i className="me-2 d-xl-none bi bi-box2-heart-fill"></i> {links[5]}
                </Nav.Link>
-               <div className="vr d-none d-xl-block"></div>
+               <div className="vr d-none d-xl-block my-auto"></div>
             </>
          )}
          {/* Ginásios */}
@@ -77,11 +65,25 @@ const Header = () => {
          >
             <i className="me-2 d-xl-none bi bi-pin-map-fill"></i> {links[6]}
          </Nav.Link>
-         <div className="vr d-none d-xl-block"></div>
+         <div className="vr d-none d-xl-block my-auto"></div>
          {/* Liderança */}
          <Nav.Link as={Link} to="/leaderboard" className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/leaderboard"}>
             <i className="me-2 d-xl-none bi bi-trophy-fill"></i> {links[7]}
          </Nav.Link>
+         {!user && (
+            <>
+               <div className="vr d-none d-xl-block my-auto"></div>
+               {/* Login */}
+               <Nav.Link className={`${offcanvas && "border-bottom pb-4"}`} active={loc.pathname === "/entrar"} as={Link} to={"/entrar"}>
+                  <i className="me-2 d-xl-none bi bi-person-add"></i> {links[2]}
+               </Nav.Link>
+               <div className="vr d-none d-xl-block my-auto"></div>
+               {/* Cadastro */}
+               <Nav.Link className={`${offcanvas && "border-bottom pb-4 "}`} active={loc.pathname === "/cadastro"} as={Link} to={"/cadastro"}>
+                  <i className="me-2 d-xl-none bi bi-person-fill-lock"></i> <Button variant="secondary">{links[3]}</Button>
+               </Nav.Link>
+            </>
+         )}
       </Nav>
    );
 
