@@ -6,6 +6,7 @@ import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Badge from "react-bootstrap/Badge";
 import foto from "../../assets/findModel.webp";
 import findGym from "../../assets/findGym.webp";
 import noGymFound from "../../assets/noGymFound.webp";
@@ -31,6 +32,7 @@ const Ginasios = () => {
    const { directionsService, directionsRenderer } = useRoutesService();
    const [loadingCaminho, setLoadingCaminho] = useState(false);
    const mapRef = useRef();
+   const [alcance, setAlcance] = useState(4500);
 
    function encontrarLocalizacao() {
       // Apanhando as cooordenadas do usuário
@@ -87,7 +89,9 @@ const Ginasios = () => {
       setLoadingCaminho(false);
    }
 
-   // TODO: Adicionar funcionalidade de se alterar o raio de alcance (opcional)
+   function handleInputRangeChange(e) {
+      setAlcance(e.target.value);
+   }
 
    // Encontrando a localização do usuário no carregamento da página
    useEffect(() => {
@@ -223,8 +227,8 @@ const Ginasios = () => {
 
                      {ginasiosProximos === null && (
                         <div className="text-center">
-                           <Image src={findGym} className="w-75 mt-sm-4" />
-                           <p className="mt-2 mb-4 bg-primary-subtle rounded border-black border">
+                           <Image src={findGym} className="mt-sm-1" id={styles.foto} />
+                           <p className="mt-2 mb-3 bg-primary-subtle rounded border-black border">
                               <i className="bi bi-info-circle me-2"></i>
                               {info}
                            </p>
@@ -241,6 +245,27 @@ const Ginasios = () => {
                                  <i className="bi bi-search me-1"></i> {cta}
                               </Button>
                            )}
+                           <hr className="mt-4" />
+                           {/* Raio de alcance */}
+                           {/* TODO: Adicionar funcionalidade de se alterar o raio de alcance (opcional) */}
+                           <div className="border p-3 mt-4 shadow mx-5">
+                              <div className="mb-2 d-flex align-items-center gap-3 justify-content-center">
+                                 <span>2 km</span>{" "}
+                                 <input
+                                    className="w-50"
+                                    type="range"
+                                    defaultValue={alcance}
+                                    min={2000}
+                                    max={10000}
+                                    onChange={handleInputRangeChange}
+                                 />{" "}
+                                 <span>10 Km</span>
+                              </div>
+                              <div className="d-flex align-items-center gap-2 justify-content-center">
+                                 <p className="mb-0 fw-medium">Raio de alcance: </p>
+                                 <Badge className="bg-success">{alcance} metros</Badge>
+                              </div>
+                           </div>
                         </div>
                      )}
                   </div>

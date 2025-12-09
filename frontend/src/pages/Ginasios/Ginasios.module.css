@@ -46,6 +46,10 @@
    animation: wave 2s infinite;
 }
 
+#foto {
+   width: 65%;
+}
+
 @keyframes wave {
    0% {
       scale: 0;
