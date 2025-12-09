@@ -17,6 +17,7 @@ import MarkerWithInfoWindow from "../../components/MarkerWithInfoWindow/MarkerWi
 import { useTranslation } from "react-i18next";
 import { AdvancedMarker, Map, useMap } from "@vis.gl/react-google-maps";
 import useRoutesService from "../../hooks/useRoutesService";
+import fotoUser from "../../assets/noUser.jpg";
 
 const Ginasios = () => {
    const { t } = useTranslation();
@@ -132,7 +133,7 @@ const Ginasios = () => {
                               <AdvancedMarker position={localizacao}>
                                  <div className="d-flex flex-column align-items-center justify-content-center">
                                     <Image
-                                       src={user?.foto}
+                                       src={user ? user?.foto : fotoUser}
                                        className="rounded-circle border border-4 object-fit-cover border-danger"
                                        width={40}
                                        height={40}
