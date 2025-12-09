@@ -208,6 +208,25 @@ const Ginasios = () => {
                         )}
                      </>
                   )}
+                  {/* Raio de alcance (Mobile) */}
+                           <div className="d-sm-none border p-3 mt-4 shadow mx-0">
+                              <div className="mb-2 d-flex align-items-center gap-3 justify-content-center">
+                                 <span>2 km</span>{" "}
+                                 <input
+                                    className="w-50"
+                                    type="range"
+                                    defaultValue={alcance}
+                                    min={2000}
+                                    max={10000}
+                                    onChange={handleInputRangeChange}
+                                 />{" "}
+                                 <span>10 Km</span>
+                              </div>
+                              <div className="d-flex align-items-center gap-2 justify-content-center">
+                                 <p className="mb-0 fw-medium">Raio de alcance: </p>
+                                 <Badge className="bg-success">{alcance} metros</Badge>
+                              </div>
+                           </div>
                </Col>
                <Col xl={5} className="pb-4 pb-sm-0">
                   <h3 className="text-center">
@@ -255,8 +274,8 @@ const Ginasios = () => {
                               </Button>
                            )}
                            <hr className="mt-4" />
-                           {/* Raio de alcance */}
-                           <div className="border p-3 mt-4 shadow mx-5">
+                           {/* Raio de alcance (Desktop) */}
+                           <div className="d-none d-sm-block border p-3 mt-4 shadow mx-5">
                               <div className="mb-2 d-flex align-items-center gap-3 justify-content-center">
                                  <span>2 km</span>{" "}
                                  <input

@@ -10,8 +10,9 @@ import BannerTopo from "../../components/BannerTopo/BannerTopo";
 import { gerarArray } from "../../utils/gerarArray";
 import { useTranslation } from "react-i18next";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
-import styles from "./Favoritos.module.css"
+import styles from "./Favoritos.module.css";
 
+// TODO: Renderizar a seção dos ginásios favoritos na página dos favoritos
 const Favoritos = () => {
    const { t } = useTranslation();
    const { tit, desc, subtit, noTrain } = t("favoritos");
