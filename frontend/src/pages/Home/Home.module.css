@@ -95,7 +95,7 @@
    width: 500px;
 }
 
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1540px) {
    #fotoBanner {
       height: 650px;
    }
@@ -104,12 +104,18 @@
    }
 }
 
+@media screen and (max-width: 1370px) {
+  #fotoBanner {
+      height: 600px;
+   }
+}
+
 @media screen and (max-width: 1200px) {
    #titulo {
       font-size: 3em;
    }
    #fotoBanner {
-      height: 600px;
+      height: 540px;
    }
    #fotoTestemunhos {
       width: 400px;
