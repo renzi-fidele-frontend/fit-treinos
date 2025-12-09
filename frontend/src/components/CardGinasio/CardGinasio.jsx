@@ -12,7 +12,7 @@ import LightBoxDeFotos from "../LightBoxDeFotos/LightBoxDeFotos";
 import useFetch from "../../hooks/useFetch";
 import Tooltip from "../Tooltip/Tooltip";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../state/auth/authSlice";
+import { setMostrarModalAuth, setUser } from "../../state/auth/authSlice";
 
 const CardGinasio = ({ ginasio, encontrarDirecao }) => {
    const { t } = useTranslation();
@@ -60,7 +60,6 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
       });
    }
 
-   
    function removerGinasio() {
       setLoadingGuardarGinasio(true);
       const res = apanharNoBackendComAuth("actions/removerGinasioDosFavoritos", "DELETE", {
@@ -133,7 +132,13 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
                      ) : guardado ? (
                         <i className="bi bi-heart-fill" role="button" onClick={removerGinasio} style={{ color: "#B01E28" }}></i>
                      ) : (
-                        <i className="bi bi-heart" role="button" onClick={guardarGinasio}></i>
+                        <i
+                           className="bi bi-heart"
+                           role="button"
+                           onClick={() => {
+                              user ? guardarGinasio() : dispatch(setMostrarModalAuth(true));
+                           }}
+                        ></i>
                      )}
                   </Tooltip>
                </div>
