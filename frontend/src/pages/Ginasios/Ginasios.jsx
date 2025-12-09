@@ -33,6 +33,7 @@ const Ginasios = () => {
    const [loadingCaminho, setLoadingCaminho] = useState(false);
    const mapRef = useRef();
    const [alcance, setAlcance] = useState(4500);
+   const circleRef = useRef();
 
    function encontrarLocalizacao() {
       // Apanhando as cooordenadas do usuário
@@ -50,7 +51,7 @@ const Ginasios = () => {
 
    async function encontrarGinasiosProximos() {
       setLoadingCaminho(true);
-      await placesService?.nearbySearch({ location: localizacao, radius: 4500, type: "gym" }, (response, status) => {
+      await placesService?.nearbySearch({ location: localizacao, radius: alcance, type: "gym" }, (response, status) => {
          if (status === "OK") {
             setGinasiosProximos(response);
             setLoadingCaminho(false);
@@ -102,7 +103,7 @@ const Ginasios = () => {
       const circle = new google.maps.Circle({
          map,
          center: localizacao,
-         radius: 4500,
+         radius: alcance,
          fillColor: "#4285F4",
          fillOpacity: 0.2,
          strokeColor: "#4285F4",
@@ -110,11 +111,19 @@ const Ginasios = () => {
          strokeWeight: 2,
       });
 
+      circleRef.current = circle;
+
       // Cleanup
       return () => {
          circle?.setMap(null);
       };
    }, [localizacao, placesService, map]);
+
+   // Controlar da mudança do alcançe do raio do mapa
+   useEffect(() => {
+      if (!circleRef.current) return;
+      circleRef.current.setRadius(Number(alcance));
+   }, [map, alcance]);
 
    return (
       <div>
@@ -247,7 +256,6 @@ const Ginasios = () => {
                            )}
                            <hr className="mt-4" />
                            {/* Raio de alcance */}
-                           {/* TODO: Adicionar funcionalidade de se alterar o raio de alcance (opcional) */}
                            <div className="border p-3 mt-4 shadow mx-5">
                               <div className="mb-2 d-flex align-items-center gap-3 justify-content-center">
                                  <span>2 km</span>{" "}
