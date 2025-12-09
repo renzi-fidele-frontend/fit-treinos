@@ -39,19 +39,17 @@ const removerDosFavoritos = async (req, res) => {
 const guardarGinasioNosFavoritos = async (req, res) => {
    const { userId } = req;
    // Apanhar a id do ginásio no body do request
-   const { place_id, name, position, vicinity, international_phone_number, rating, user_ratings_total, photo, lat, lng } = req.body;
+   const { place_id, name, vicinity, international_phone_number, rating, user_ratings_total, photo, lat, lng } = req.body;
    try {
       const user = await Usuario.findById(userId);
-      const ginasiosFavoritos = user.toObject().ginasiosFavoritos;
-      console.log(ginasiosFavoritos);
+      const ginasiosFavoritos = user?.toObject()?.ginasiosFavoritos || [];
 
       // Caso já esteja favoritado
-      if (ginasiosFavoritos.includes(place_id)) {
-         return res.status(500).json({ message: "Esté ginásio já está favoritado!" });
-      }
+      const jaExiste = ginasiosFavoritos?.some((gym) => gym?.place_id === place_id);
+      if (jaExiste) return res.status(500).json({ message: "Esté ginásio já está favoritado!" });
 
-      ginasiosFavoritos.push({ place_id, name, position, vicinity, international_phone_number, rating, user_ratings_total, photo, lat, lng });
-      const atualizar = await Usuario.findByIdAndUpdate(user, { ginasiosFavoritos });
+      ginasiosFavoritos?.push({ place_id, name, vicinity, international_phone_number, rating, user_ratings_total, photo, lat, lng });
+      const atualizar = await Usuario.findByIdAndUpdate(userId, { ginasiosFavoritos });
       res.json({ ginasiosFavoritos, message: "Adicionado aos favoritos com sucesso!" });
    } catch (error) {
       res.status(500).json({ message: "Erro ao adicionar o ginásio aos favorito!" });
@@ -62,12 +60,13 @@ const removerGinasioDosFavoritos = async (req, res) => {
    const { userId } = req;
    const { place_id } = req.body;
    try {
-      const { user } = await Usuario.findById(userId);
+      const user = await Usuario.findById(userId);
       const favoritos = user.toObject().ginasiosFavoritos;
-      const favoritosAtualizados = favoritos.filter((v) => v.place_id !== place_id);
-      const atualizar = await Usuario.findByIdAndUpdate(user, { ginasiosFavoritos: favoritosAtualizados });
+      const favoritosAtualizados = favoritos?.filter((v) => v.place_id !== place_id);
+      const atualizar = await Usuario.findByIdAndUpdate(userId, { ginasiosFavoritos: favoritosAtualizados });
       res.json({ message: "Removido dos favoritos com sucesso!", ginasiosFavoritos: favoritosAtualizados });
    } catch (error) {
+      betterLog(error.message);
       res.status(500).json({ message: "Erro ao remover o ginásio dos favoritos!" });
    }
 };

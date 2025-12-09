@@ -44,19 +44,20 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
          data: {
             place_id: ginasio?.place_id,
             name: ginasio?.name,
-            position: ginasio?.position,
             vicinity: ginasio?.vicinity,
             international_phone_number: ginasio?.international_phone_number,
             rating: ginasio?.rating,
             user_ratings_total: ginasio?.user_ratings_total,
-            photo: ginasio?.photo,
+            photo: ginasio?.photos?.[0]?.getUrl(),
             lat: ginasio?.geometry?.location?.lat(),
             lng: ginasio?.geometry?.location?.lng(),
          },
       }).then((res) => {
+         const userCopy = user;
          setLoadingGuardarGinasio(false);
          setGuardado(true);
-         dispatch(setUser({ ...user, ginasiosFavoritos: res.ginasiosFavoritos }));
+         console.log(res.ginasiosFavoritos);
+         dispatch(setUser({ ...userCopy, ginasiosFavoritos: res.ginasiosFavoritos }));
       });
    }
 
