@@ -1,5 +1,5 @@
 .cardImg {
-   width: 170px;
+   width: 170px !important; 
    height: 155px;
    object-fit: cover;
 }
@@ -28,13 +28,13 @@
 
 @media screen and (max-width: 1400px) {
    .cardImg {
-      width: 135px;
+      width: 135px !important; 
    }
 }
 
 @media screen and (max-width: 1200px) {
    .cardImg {
-      width: 170px;
+      width: 170px !important; 
    }
 }
 
@@ -52,7 +52,7 @@
 
 @media screen and (max-width: 576px) {
    .cardImg {
-      width: 100%;
+      width: 100% !important; 
       height: 185px;
    }
 
