@@ -53,11 +53,11 @@ const CardGinasio = ({ ginasio, encontrarDirecao, modoFavorito }) => {
             lng: ginasio?.geometry?.location?.lng(),
          },
       }).then((res) => {
-         const userCopy = user;
+         
          setLoadingGuardarGinasio(false);
          setGuardado(true);
          console.log(res.ginasiosFavoritos);
-         dispatch(setUser({ ...userCopy, ginasiosFavoritos: res.ginasiosFavoritos }));
+         dispatch(setUser({ ...user, ginasiosFavoritos: res.ginasiosFavoritos }));
       });
    }
 
@@ -68,9 +68,8 @@ const CardGinasio = ({ ginasio, encontrarDirecao, modoFavorito }) => {
             place_id: ginasio?.place_id,
          },
       }).then((res) => {
-         console.log(res);
          setLoadingGuardarGinasio(false);
-         setGuardado(false);
+         if (!modoFavorito) setGuardado(false);
          dispatch(setUser({ ...user, ginasiosFavoritos: res.ginasiosFavoritos }));
       });
    }
@@ -78,7 +77,12 @@ const CardGinasio = ({ ginasio, encontrarDirecao, modoFavorito }) => {
    return (
       <>
          <Card className={"d-flex flex-column flex-sm-row flex-sm-nowrap position-relative " + styles.body}>
-            <PreloadImage className={styles.cardImg} src={modoFavorito === true ? ginasio?.photo : ginasio?.photos?.[0].getUrl()} errorSrc={noGym} preloaderCn={styles.cardImg} />
+            <PreloadImage
+               className={styles.cardImg}
+               src={modoFavorito ? ginasio?.photo : ginasio?.photos?.[0].getUrl()}
+               errorSrc={noGym}
+               preloaderCn={styles.cardImg}
+            />
             <Card.Body className={styles.body + " position-relative"}>
                {/* Nome */}
                <h6 className="fs-6">{ginasio?.name}</h6>
@@ -145,16 +149,17 @@ const CardGinasio = ({ ginasio, encontrarDirecao, modoFavorito }) => {
                </div>
             </Card.Body>
             {/* Botão de mostrar todas as fotos do ginásio (Desktop) */}
-            {ginasio?.photos && (
-               <div
-                  role="button"
-                  onClick={apanharFotos}
-                  className="text-bg-dark position-absolute bottom-0 small rounded ms-1 mb-1 border d-none d-sm-flex align-items-center gap-1"
-                  id={styles.verFotosBtn}
-               >
-                  <i className="bi bi-images"></i> {seePhotos} {loadingFotos && <Spinner className="mx-1" size="sm" />}
-               </div>
-            )}
+            {ginasio?.photos ||
+               (ginasio?.photo && (
+                  <div
+                     role="button"
+                     onClick={apanharFotos}
+                     className="text-bg-dark position-absolute bottom-0 small rounded ms-1 mb-1 border d-none d-sm-flex align-items-center gap-1"
+                     id={styles.verFotosBtn}
+                  >
+                     <i className="bi bi-images"></i> {seePhotos} {loadingFotos && <Spinner className="mx-1" size="sm" />}
+                  </div>
+               ))}
          </Card>
          {/* Modal de fotos do ginásio */}
          {mostrarLightbox && <LightBoxDeFotos fotos={fotos} mostrar={true} onClose={() => setMostrarLightbox(false)} />}
