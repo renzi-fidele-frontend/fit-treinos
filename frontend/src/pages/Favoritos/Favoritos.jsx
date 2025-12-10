@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 import styles from "./Favoritos.module.css";
 import CardGinasio from "../../components/CardGinasio/CardGinasio";
+import noGym from "../../assets/noGymFound.webp";
 
 // TODO: Renderizar a seção dos ginásios favoritos na página dos favoritos
 const Favoritos = () => {
@@ -64,7 +65,7 @@ const Favoritos = () => {
                      <h2 className="fw-semibold mb-4">Ginásios favoritos</h2>
                      <hr />
                      <Row className="mt-2 mb-5 g-4 flex-content-stretch justify-content-center">
-                        {user?.ginasiosFavoritos ? (
+                        {user?.ginasiosFavoritos?.length > 0 ? (
                            user?.ginasiosFavoritos?.map((v, k) => (
                               <Col key={k} sm={6}>
                                  <CardGinasio ginasio={v} modoFavorito={true} />
@@ -72,8 +73,8 @@ const Favoritos = () => {
                            ))
                         ) : (
                            <Col className="text-center">
-                              {/* TODO: Adicionar tela caso não exista nenhum ginásio */}
-                              <p>Você não guardou nenhum ginásio nos favoritos</p>
+                              <Image src={noGym} className="mt-4" />
+                              <Alert>Você não guardou nenhum ginásio nos favoritos</Alert>
                            </Col>
                         )}
                      </Row>
