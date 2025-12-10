@@ -161,7 +161,9 @@
       "tit": "Veja os seus exercícios favoritos",
       "desc": "Sempre que você ver algo de interessante podes guardar por aqui",
       "subtit": "Exercícios favoritos",
-      "noTrain": "Ainda não existem exercícios favoritos."
+      "noTrain": "Ainda não existem exercícios favoritos.",
+      "tit2": "Ginásios favoritos",
+      "gymNotFav": "Você não guardou nenhum ginásio nos favoritos"
    },
    "exercicio": {
       "tit": "Como praticar o:",

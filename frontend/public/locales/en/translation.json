@@ -161,10 +161,12 @@
       "indisponivel": "Unavailable"
    },
    "favoritos": {
-      "tit": "See your favorite exercises",
+      "tit": "See your favorite Exercises and Gyms",
       "desc": "Whenever you see something interesting you can save here",
       "subtit": "Favorite Exercises",
-      "noTrain": "There are no favorite exercises yet."
+      "noTrain": "There are no favorite exercises yet.",
+      "tit2": "Favorite gyms",
+      "gymNotFav": "You haven't saved any gyms to your favorites."
    },
    "exercicio": {
       "tit": "How to practice:",

@@ -17,7 +17,7 @@ import noGym from "../../assets/noGymFound.webp";
 // TODO: Renderizar a seção dos ginásios favoritos na página dos favoritos
 const Favoritos = () => {
    const { t } = useTranslation();
-   const { tit, desc, subtit, noTrain } = t("favoritos");
+   const { tit, desc, subtit, noTrain, tit2, gymNotFav } = t("favoritos");
    const { user } = useSelector((state) => state.auth);
    const { exercicios } = useSelector((state) => state.exercicios);
    const favoritos = exercicios?.filter((v) => user?.favoritos?.includes(v?.id));
@@ -62,7 +62,7 @@ const Favoritos = () => {
                   </div>
                   {/* Ginásios favoritos */}
                   <div className="pt-4">
-                     <h2 className="fw-semibold mb-4">Ginásios favoritos</h2>
+                     <h2 className="fw-semibold mb-4">{tit2}</h2>
                      <hr />
                      <Row className="mt-2 mb-5 g-4 flex-content-stretch justify-content-center">
                         {user?.ginasiosFavoritos?.length > 0 ? (
@@ -73,8 +73,8 @@ const Favoritos = () => {
                            ))
                         ) : (
                            <Col className="text-center">
-                              <Image src={noGym} className="mt-4" />
-                              <Alert>Você não guardou nenhum ginásio nos favoritos</Alert>
+                              <Image src={noGym} className="mb-3" />
+                              <Alert>{gymNotFav}</Alert>
                            </Col>
                         )}
                      </Row>
