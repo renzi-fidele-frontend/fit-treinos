@@ -11,6 +11,7 @@ import { gerarArray } from "../../utils/gerarArray";
 import { useTranslation } from "react-i18next";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 import styles from "./Favoritos.module.css";
+import CardGinasio from "../../components/CardGinasio/CardGinasio";
 
 // TODO: Renderizar a seção dos ginásios favoritos na página dos favoritos
 const Favoritos = () => {
@@ -29,32 +30,54 @@ const Favoritos = () => {
          <div className="py-4 py-md-5 px-sm-5 px-md-0 container-md">
             <Row>
                <Col>
-                  <h2 className="fw-semibold mb-4">{subtit}</h2>
-                  <hr />
-                  <Row className="mt-2 mb-5 g-4 flex-content-stretch justify-content-center justify-content-sm-start">
-                     {exercicios ? (
-                        favoritos?.length > 0 ? (
-                           favoritos?.map((v, k) => (
-                              <Col key={k} sm={6} lg={4}>
-                                 <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
+                  {/* Exercicios favoritos */}
+                  <div>
+                     <h2 className="fw-semibold mb-4">{subtit}</h2>
+                     <hr />
+                     <Row className="mt-2 mb-5 g-4 flex-content-stretch justify-content-center justify-content-sm-start">
+                        {exercicios ? (
+                           favoritos?.length > 0 ? (
+                              favoritos?.map((v, k) => (
+                                 <Col key={k} sm={6} lg={4}>
+                                    <CardExercicio titulo={v?.name} id={v?.id} foto={v?.gifUrl} categoria={v?.secondaryMuscles} />
+                                 </Col>
+                              ))
+                           ) : (
+                              <Col className="text-center">
+                                 <Image id={styles.modelo} src={noEx} />
+                                 <Alert className="mt-4" variant="warning">
+                                    {noTrain}
+                                 </Alert>
+                              </Col>
+                           )
+                        ) : (
+                           gerarArray(3).map((v, k) => (
+                              <Col md={4} sm={6} key={k} className="text-center">
+                                 <CardExercicio />
+                              </Col>
+                           ))
+                        )}
+                     </Row>
+                  </div>
+                  {/* Ginásios favoritos */}
+                  <div className="pt-4">
+                     <h2 className="fw-semibold mb-4">Ginásios favoritos</h2>
+                     <hr />
+                     <Row className="mt-2 mb-5 g-4 flex-content-stretch justify-content-center">
+                        {user?.ginasiosFavoritos ? (
+                           user?.ginasiosFavoritos?.map((v, k) => (
+                              <Col key={k} sm={6}>
+                                 <CardGinasio ginasio={v} modoFavorito={true} />
                               </Col>
                            ))
                         ) : (
                            <Col className="text-center">
-                              <Image id={styles.modelo} src={noEx} />
-                              <Alert className="mt-4" variant="warning">
-                                 {noTrain}
-                              </Alert>
+                              {/* TODO: Adicionar tela caso não exista nenhum ginásio */}
+                              <p>Você não guardou nenhum ginásio nos favoritos</p>
                            </Col>
-                        )
-                     ) : (
-                        gerarArray(3).map((v, k) => (
-                           <Col md={4} sm={6} key={k} className="text-center">
-                              <CardExercicio />
-                           </Col>
-                        ))
-                     )}
-                  </Row>
+                        )}
+                     </Row>
+                  </div>
                </Col>
             </Row>
          </div>

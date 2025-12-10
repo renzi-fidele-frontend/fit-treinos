@@ -14,7 +14,7 @@ import Tooltip from "../Tooltip/Tooltip";
 import { useDispatch, useSelector } from "react-redux";
 import { setMostrarModalAuth, setUser } from "../../state/auth/authSlice";
 
-const CardGinasio = ({ ginasio, encontrarDirecao }) => {
+const CardGinasio = ({ ginasio, encontrarDirecao, modoFavorito }) => {
    const { t } = useTranslation();
    const { contato, showWay, seePhotos } = t("ginasios");
    const { user } = useSelector((state) => state.auth);
@@ -78,7 +78,7 @@ const CardGinasio = ({ ginasio, encontrarDirecao }) => {
    return (
       <>
          <Card className={"d-flex flex-column flex-sm-row flex-sm-nowrap position-relative " + styles.body}>
-            <PreloadImage className={styles.cardImg} src={ginasio?.photos?.[0].getUrl()} errorSrc={noGym} preloaderCn={styles.cardImg} />
+            <PreloadImage className={styles.cardImg} src={modoFavorito === true ? ginasio?.photo : ginasio?.photos?.[0].getUrl()} errorSrc={noGym} preloaderCn={styles.cardImg} />
             <Card.Body className={styles.body + " position-relative"}>
                {/* Nome */}
                <h6 className="fs-6">{ginasio?.name}</h6>
