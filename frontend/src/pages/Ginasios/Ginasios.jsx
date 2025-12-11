@@ -132,7 +132,7 @@ const Ginasios = () => {
          <Container ref={mapRef}>
             <Row className="py-4 py-sm-5 mb-sm-4 g-5">
                <Col xl={7} className="d-flex flex-column align-items-center ">
-                  {/* Adicionar um loading de esqueleto ao se carregar o mapa */}
+                  {/* TODO: Adicionar um loading de esqueleto ao se carregar o mapa */}
                   {/* Mapa */}
                   {localizacao && (
                      <>
@@ -211,11 +211,11 @@ const Ginasios = () => {
                      </>
                   )}
                   {/* Raio de alcance (Mobile) */}
-                  <div className="d-sm-none border p-3 mt-4 shadow mx-0">
+                  <div className={`d-sm-none border p-3 mt-4 shadow rounded ${modoEscuro && "bg-black"}`}>
                      <div className="mb-2 d-flex align-items-center gap-3 justify-content-center">
-                        <span>2 km</span>{" "}
+                        <span className="text-decoration-underline fw-bold">2 km</span>{" "}
                         <input className="w-50" type="range" defaultValue={alcance} min={2000} max={10000} onChange={handleInputRangeChange} />{" "}
-                        <span>10 Km</span>
+                        <span className="text-decoration-underline fw-bold">10 Km</span>
                      </div>
                      <div className="d-flex align-items-center gap-2 justify-content-center">
                         <p className="mb-0 fw-medium">Raio de alcance: </p>
@@ -275,7 +275,7 @@ const Ginasios = () => {
                            )}
                            <hr className="mt-4" />
                            {/* Raio de alcance (Desktop) */}
-                           <div className={`d-none d-sm-block border p-3 mt-4 shadow mx-5 rounded ${modoEscuro && "bg-black"}`} style={{borderStyle: "dashed"}}>
+                           <div className={`d-none d-sm-block border p-3 mt-4 shadow mx-5 rounded ${modoEscuro && "bg-black"}`}>
                               <div className="mb-2 d-flex align-items-center gap-3 justify-content-center">
                                  <span className="text-decoration-underline fw-bold">2 km</span>{" "}
                                  <input
