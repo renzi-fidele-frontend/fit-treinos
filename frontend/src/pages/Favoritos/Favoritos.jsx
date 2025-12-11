@@ -14,7 +14,6 @@ import styles from "./Favoritos.module.css";
 import CardGinasio from "../../components/CardGinasio/CardGinasio";
 import noGym from "../../assets/noGymFound.webp";
 
-// TODO: Renderizar a seção dos ginásios favoritos na página dos favoritos
 const Favoritos = () => {
    const { t } = useTranslation();
    const { tit, desc, subtit, noTrain, tit2, gymNotFav } = t("favoritos");

@@ -14,6 +14,7 @@ import Tooltip from "../Tooltip/Tooltip";
 import { useDispatch, useSelector } from "react-redux";
 import { setMostrarModalAuth, setUser } from "../../state/auth/authSlice";
 
+// FIXME: Descobrir porque está sendo renderizando um object
 const CardGinasio = ({ ginasio, encontrarDirecao, modoFavorito }) => {
    const { t } = useTranslation();
    const { contato, showWay, seePhotos } = t("ginasios");
@@ -53,7 +54,6 @@ const CardGinasio = ({ ginasio, encontrarDirecao, modoFavorito }) => {
             lng: ginasio?.geometry?.location?.lng(),
          },
       }).then((res) => {
-         
          setLoadingGuardarGinasio(false);
          setGuardado(true);
          console.log(res.ginasiosFavoritos);
@@ -79,7 +79,7 @@ const CardGinasio = ({ ginasio, encontrarDirecao, modoFavorito }) => {
          <Card className={"d-flex flex-column flex-sm-row flex-sm-nowrap position-relative " + styles.body}>
             <PreloadImage
                className={styles.cardImg}
-               src={modoFavorito ? ginasio?.photo : ginasio?.photos?.[0].getUrl()}
+               src={modoFavorito ? ginasio?.photo : ginasio?.photos?.[0]?.getUrl()}
                errorSrc={noGym}
                preloaderCn={styles.cardImg}
             />
@@ -149,17 +149,16 @@ const CardGinasio = ({ ginasio, encontrarDirecao, modoFavorito }) => {
                </div>
             </Card.Body>
             {/* Botão de mostrar todas as fotos do ginásio (Desktop) */}
-            {ginasio?.photos ||
-               (ginasio?.photo && (
-                  <div
-                     role="button"
-                     onClick={apanharFotos}
-                     className="text-bg-dark position-absolute bottom-0 small rounded ms-1 mb-1 border d-none d-sm-flex align-items-center gap-1"
-                     id={styles.verFotosBtn}
-                  >
-                     <i className="bi bi-images"></i> {seePhotos} {loadingFotos && <Spinner className="mx-1" size="sm" />}
-                  </div>
-               ))}
+            {(ginasio?.photos || ginasio?.photo) && (
+               <div
+                  role="button"
+                  onClick={apanharFotos}
+                  className="text-bg-dark position-absolute bottom-0 small rounded ms-1 mb-1 border d-none d-sm-flex align-items-center gap-1"
+                  id={styles.verFotosBtn}
+               >
+                  <i className="bi bi-images"></i> {seePhotos} {loadingFotos && <Spinner className="mx-1" size="sm" />}
+               </div>
+            )}
          </Card>
          {/* Modal de fotos do ginásio */}
          {mostrarLightbox && <LightBoxDeFotos fotos={fotos} mostrar={true} onClose={() => setMostrarLightbox(false)} />}

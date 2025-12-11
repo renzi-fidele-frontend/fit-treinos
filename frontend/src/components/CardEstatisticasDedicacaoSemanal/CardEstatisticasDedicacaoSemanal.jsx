@@ -13,7 +13,6 @@ import { setPeriodo } from "../../state/configs/configsSlice";
 import { formatarData } from "../../utils/formatarData";
 Chart.register(CategoryScale);
 
-// FIXME: O default value do select não funciona bem
 const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaDedicacao, diaMaisTreinado, ultimosExerciciosPraticados, centralizado }) => {
    const { idioma } = useSelector((state) => state.idioma);
    const { periodo } = useSelector((state) => state.configs);
@@ -104,11 +103,6 @@ const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaDedicacao, diaMaisTrei
                <span className="text-bg-danger rounded px-1">{indisponivel}</span>
             )}
          </p>
-         {/* Descrição da funcionalidade do gráfico */}
-
-         {/* <div className="bg-secondary-subtle rounded px-2 py-1 d-flex gap-2 mt-3" id={styles.jumbo}>
-            <i className="bi bi-info-circle mt-1"></i> <p className="mb-0">{card4.desc2}</p>
-         </div> */}
       </div>
    );
 };

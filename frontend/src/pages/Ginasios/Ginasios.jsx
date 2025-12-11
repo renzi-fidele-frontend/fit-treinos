@@ -28,6 +28,7 @@ const Ginasios = () => {
    const placesService = usePlacesService();
    const map = useMap();
    const { user } = useSelector((state) => state.auth);
+   const { modoEscuro } = useSelector((state) => state.tema);
    const [caminho, setCaminho] = useState(null);
    const { directionsService, directionsRenderer } = useRoutesService();
    const [loadingCaminho, setLoadingCaminho] = useState(false);
@@ -131,6 +132,7 @@ const Ginasios = () => {
          <Container ref={mapRef}>
             <Row className="py-4 py-sm-5 mb-sm-4 g-5">
                <Col xl={7} className="d-flex flex-column align-items-center ">
+                  {/* Adicionar um loading de esqueleto ao se carregar o mapa */}
                   {/* Mapa */}
                   {localizacao && (
                      <>
@@ -249,7 +251,12 @@ const Ginasios = () => {
                      {ginasiosProximos === null && (
                         <div className="text-center">
                            <Image src={findGym} className="mt-sm-1" id={styles.foto} />
-                           <p className="mt-2 mb-3 bg-primary-subtle rounded border-black border">
+                           <p
+                              className={`px-3 mt-2 mb-3 mx-auto ${
+                                 modoEscuro ? "bg-light-subtle" : "bg-primary-subtle"
+                              } rounded border-black border`}
+                              style={{ width: "fit-content" }}
+                           >
                               <i className="bi bi-info-circle me-2"></i>
                               {info}
                            </p>
@@ -268,9 +275,9 @@ const Ginasios = () => {
                            )}
                            <hr className="mt-4" />
                            {/* Raio de alcance (Desktop) */}
-                           <div className="d-none d-sm-block border p-3 mt-4 shadow mx-5">
+                           <div className={`d-none d-sm-block border p-3 mt-4 shadow mx-5 rounded ${modoEscuro && "bg-black"}`} style={{borderStyle: "dashed"}}>
                               <div className="mb-2 d-flex align-items-center gap-3 justify-content-center">
-                                 <span>2 km</span>{" "}
+                                 <span className="text-decoration-underline fw-bold">2 km</span>{" "}
                                  <input
                                     className="w-50"
                                     type="range"
@@ -279,8 +286,9 @@ const Ginasios = () => {
                                     max={10000}
                                     onChange={handleInputRangeChange}
                                  />{" "}
-                                 <span>10 Km</span>
+                                 <span className="text-decoration-underline fw-bold">10 Km</span>
                               </div>
+                              {/* TODO: Internacionalizar este conteúdo para EN */}
                               <div className="d-flex align-items-center gap-2 justify-content-center">
                                  <p className="mb-0 fw-medium">Raio de alcance: </p>
                                  <Badge className="bg-success">{alcance} metros</Badge>
