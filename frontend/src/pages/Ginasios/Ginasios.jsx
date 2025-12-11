@@ -22,7 +22,7 @@ import fotoUser from "../../assets/noUser.jpg";
 
 const Ginasios = () => {
    const { t } = useTranslation();
-   const { titulo, descricao, you, gym, closeGyms, info, cta, distance, duration, load, gymNotFound } = t("ginasios");
+   const { titulo, descricao, you, gym, closeGyms, info, cta, distance, duration, load, gymNotFound, reach, meters } = t("ginasios");
    const [localizacao, setLocalizacao] = useState(null);
    const [ginasiosProximos, setGinasiosProximos] = useState(null);
    const placesService = usePlacesService();
@@ -288,10 +288,11 @@ const Ginasios = () => {
                                  />{" "}
                                  <span className="text-decoration-underline fw-bold">10 Km</span>
                               </div>
-                              {/* TODO: Internacionalizar este conteúdo para EN */}
                               <div className="d-flex align-items-center gap-2 justify-content-center">
-                                 <p className="mb-0 fw-medium">Raio de alcance: </p>
-                                 <Badge className="bg-success">{alcance} metros</Badge>
+                                 <p className="mb-0 fw-medium">{reach} </p>
+                                 <Badge className="bg-success">
+                                    {alcance} {meters}
+                                 </Badge>
                               </div>
                            </div>
                         </div>

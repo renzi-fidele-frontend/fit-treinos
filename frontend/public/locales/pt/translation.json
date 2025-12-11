@@ -158,7 +158,7 @@
       "indisponivel": "Indisponível"
    },
    "favoritos": {
-      "tit": "Veja os seus exercícios favoritos",
+      "tit": "Veja os seus exercícios e ginásios favoritos",
       "desc": "Sempre que você ver algo de interessante podes guardar por aqui",
       "subtit": "Exercícios favoritos",
       "noTrain": "Ainda não existem exercícios favoritos.",
@@ -269,7 +269,9 @@
       "distance": "Distância",
       "duration": "Duração da viagem (Carro)",
       "seePhotos": "Ver fotos",
-      "gymNotFound": "Nenhum ginásio foi encontrado, tente treinar ao ar livre!"
+      "gymNotFound": "Nenhum ginásio foi encontrado, tente treinar ao ar livre!",
+      "reach": "Raio de alcance:",
+      "metros": "metros"
    },
    "leaderboard": {
       "tit": "Descubra os usuários mais determinados",

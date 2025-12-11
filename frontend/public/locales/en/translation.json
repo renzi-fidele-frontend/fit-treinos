@@ -274,7 +274,9 @@
       "distance": "Distance",
       "duration": "Travel time (Car)",
       "seePhotos": "See photos",
-      "gymNotFound": "No gyms found, try training outdoors!"
+      "gymNotFound": "No gyms found, try training outdoors!",
+      "reach": "Range radius:",
+      "meters": "meters"
    },
    "leaderboard": {
       "tit": "Discover the most determined users",
