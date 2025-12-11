@@ -114,13 +114,15 @@ const CardGinasio = ({ ginasio, encontrarDirecao, modoFavorito }) => {
                      </Button>
                   )}
                   {/* Botão de ver direção */}
-                  <Button
-                     size="sm"
-                     variant="danger"
-                     onClick={() => encontrarDirecao({ lat: ginasio?.geometry?.location?.lat(), lng: ginasio?.geometry?.location?.lng() })}
-                  >
-                     <i className="bi bi-geo-alt-fill me-1"></i> {showWay}
-                  </Button>
+                  {!modoFavorito && (
+                     <Button
+                        size="sm"
+                        variant="danger"
+                        onClick={() => encontrarDirecao({ lat: ginasio?.geometry?.location?.lat(), lng: ginasio?.geometry?.location?.lng() })}
+                     >
+                        <i className="bi bi-geo-alt-fill me-1"></i> {showWay}
+                     </Button>
+                  )}
                   {/* Botão de mostrar todas as fotos do ginásio (Mobile) */}
                   {ginasio?.photos && (
                      <Button size="sm" onClick={apanharFotos} className="text-bg-dark d-sm-none">
