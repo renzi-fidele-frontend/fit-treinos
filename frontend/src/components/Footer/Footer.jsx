@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import styles from "./Footer.module.css";
 import { useTranslation } from "react-i18next";
 
+// TODO: Adicionar a seção da rede social do Facebook
 const Footer = () => {
    const { t } = useTranslation();
    const { copy, dev, politica, terms, descricao } = t("footer");
