@@ -27,6 +27,8 @@ import { useTranslation } from "react-i18next";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
 import fotoTestemunhos from "../../assets/Testimonials.webp";
+import { Particles, initParticlesEngine } from "@tsparticles/react";
+import { loadTrianglesPreset } from "@tsparticles/preset-triangles";
 
 const CardTestemunho = ({ nome, testemunho }) => {
    const { modoEscuro } = useSelector((state) => state.tema);
@@ -77,6 +79,14 @@ const Home = () => {
       }
    }, [partesDoCorpo, exercicios]);
 
+   // Aplicando o efeito de partículas ao se carregar a página
+   useEffect(() => {
+      initParticlesEngine(async (engine) => {
+         // Adicionar o presset de Triangles
+         await loadTrianglesPreset(engine);
+      });
+   }, []);
+
    return (
       <Container fluid>
          {/*  Banner Inicial  */}
@@ -112,10 +122,9 @@ const Home = () => {
                   </div>
                </div>
             </Col>
-            {/* TODO: Adicionar efeito bonito do TSparticles ao fundo do carousel de modelos na home */}
-            <Col id={styles.ctFoto} lg={6} className="pt-5 text-center rounded-bottom-5 bg-secondary-subtle bg-gradient">
+            <Col id={styles.ctFoto} lg={6} className="pt-5 text-center rounded-bottom-5 bg-secondary-subtle bg-gradient position-relative">
                {/* Carousel de modelos musculosos */}
-               <div>
+               <div className="position-relative z-3">
                   <Slider pauseOnFocus={false} pauseOnHover={false} centerMode arrows={false} autoplay fade>
                      <div className="d-flex justify-content-center">
                         <Image id={styles.fotoBanner} src={ftBanner} />
@@ -128,6 +137,22 @@ const Home = () => {
                      </div>
                   </Slider>
                </div>
+
+               {/* Fundo animado de partículas */}
+               <Particles
+                  id="tsparticles"
+                  options={{
+                     preset: "triangles",
+                     fullScreen: false,
+                     background: { color: "transparent" },
+                     particles: { number: { value: 5 }, reduceDuplicates: true },
+                     responsive: [
+                        { maxWidth: 600, options: { particles: { number: { value: 10 } } } },
+                        { maxWidth: 1000, options: { particles: { number: { value: 40 }, color: "#322627ff" } } },
+                     ],
+                  }}
+                  className="position-absolute w-100 h-100 top-0 end-0 start-0 bottom-0"
+               />
             </Col>
          </Row>
 
