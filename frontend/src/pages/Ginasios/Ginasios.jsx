@@ -35,6 +35,7 @@ const Ginasios = () => {
    const mapRef = useRef();
    const [alcance, setAlcance] = useState(4500);
    const circleRef = useRef();
+   const [mapaCarregado, setMapaCarregado] = useState(false);
 
    function encontrarLocalizacao() {
       // Apanhando as cooordenadas do usuário
@@ -132,84 +133,90 @@ const Ginasios = () => {
          <Container ref={mapRef}>
             <Row className="py-4 py-sm-5 mb-sm-4 g-5">
                <Col xl={7} className="d-flex flex-column align-items-center ">
-                  {/* TODO: Adicionar um loading de esqueleto ao se carregar o mapa */}
                   {/* Mapa */}
-                  {localizacao && (
-                     <>
-                        <div className={"position-relative " + styles.mapa}>
-                           <Map
-                              mapId="d95c984c2c99e484fcaaf9b5"
-                              className={styles.mapa}
-                              defaultZoom={12}
-                              defaultCenter={localizacao}
-                              mapTypeId="hybrid"
-                           >
-                              {/* Posição do usuário */}
-                              <AdvancedMarker position={localizacao}>
-                                 <div className="d-flex flex-column align-items-center justify-content-center">
-                                    <Image
-                                       src={user ? user?.foto : fotoUser}
-                                       className="rounded-circle border border-4 object-fit-cover border-danger"
-                                       width={40}
-                                       height={40}
-                                    />
-                                    <p className={"mb-1 text-white " + styles.p}>{you}</p>
-                                    <div className={styles.cursor}></div>
-                                 </div>
-                              </AdvancedMarker>
-
-                              {/* Ginásios próximos do usuário */}
-                              {ginasiosProximos &&
-                                 ginasiosProximos?.map((v, k) => (
-                                    <MarkerWithInfoWindow
-                                       titulo={v?.name}
-                                       position={{ lat: v?.geometry?.location?.lat(), lng: v?.geometry?.location?.lng() }}
-                                       key={k}
-                                    />
-                                 ))}
-                           </Map>
-
-                           {/* Overlay de loading */}
-                           {loadingCaminho && (
-                              <div className="position-absolute start-0 end-0 top-0 bottom-0 bg-black bg-opacity-50 d-flex flex-column align-items-center justify-content-center text-center text-white">
-                                 <p className="fw-medium fs-5">{load}</p>
-                                 <Spinner />
+                  <div className="w-100 position-relative">
+                     <div className={"position-relative " + styles.mapa}>
+                        <Map
+                           mapId="d95c984c2c99e484fcaaf9b5"
+                           className={styles.mapa}
+                           defaultZoom={12}
+                           defaultCenter={localizacao}
+                           mapTypeId="hybrid"
+                           onIdle={() => setMapaCarregado(true)}
+                        >
+                           {/* Posição do usuário */}
+                           <AdvancedMarker position={localizacao}>
+                              <div className="d-flex flex-column align-items-center justify-content-center">
+                                 <Image
+                                    src={user ? user?.foto : fotoUser}
+                                    className="rounded-circle border border-4 object-fit-cover border-danger"
+                                    width={40}
+                                    height={40}
+                                 />
+                                 <p className={"mb-1 text-white " + styles.p}>{you}</p>
+                                 <div className={styles.cursor}></div>
                               </div>
-                           )}
-                        </div>
+                           </AdvancedMarker>
 
-                        {/* Legenda do mapa */}
-                        <div className="d-flex justify-content-center align-items-center gap-4 fst-italic mt-2">
-                           <div className="d-flex gap-2 align-items-center">
-                              <div className={styles.you}></div> {you}
-                           </div>
-                           <div className="d-flex gap-2 align-items-center">
-                              <div className={styles.gym}></div> {gym}
-                           </div>
-                        </div>
+                           {/* Ginásios próximos do usuário */}
+                           {ginasiosProximos &&
+                              ginasiosProximos?.map((v, k) => (
+                                 <MarkerWithInfoWindow
+                                    titulo={v?.name}
+                                    position={{ lat: v?.geometry?.location?.lat(), lng: v?.geometry?.location?.lng() }}
+                                    key={k}
+                                 />
+                              ))}
+                        </Map>
 
-                        {/* Informação da distância até ao alvo */}
-                        {caminho && (
-                           <>
-                              <hr className="w-100 border-4" />
-                              <div className="d-flex gap-2 gap-sm-4 flex-column flex-sm-row text-center">
-                                 <p className="mb-0">
-                                    <span className="fw-bold">
-                                       <i className="bi bi-car-front me-1"></i> {distance}:
-                                    </span>{" "}
-                                    {caminho?.routes[0]?.legs[0]?.distance?.text}
-                                 </p>
-                                 <p className="mb-0">
-                                    <span className="fw-bold">
-                                       <i className="bi bi-clock me-1"></i> {duration}:
-                                    </span>{" "}
-                                    {caminho?.routes[0]?.legs[0]?.duration?.text}
-                                 </p>
-                              </div>
-                           </>
+                        {/* Overlay de loading da busca por ginásio */}
+                        {loadingCaminho && (
+                           <div className="position-absolute start-0 end-0 top-0 bottom-0 bg-black bg-opacity-50 d-flex flex-column align-items-center justify-content-center text-center text-white">
+                              <p className="fw-medium fs-5">{load}</p>
+                              <Spinner />
+                           </div>
                         )}
-                     </>
-                  )}
+                     </div>
+
+                     {/* Legenda do mapa */}
+                     <div className="d-flex justify-content-center align-items-center gap-4 fst-italic mt-2">
+                        <div className="d-flex gap-2 align-items-center">
+                           <div className={styles.you}></div> {you}
+                        </div>
+                        <div className="d-flex gap-2 align-items-center">
+                           <div className={styles.gym}></div> {gym}
+                        </div>
+                     </div>
+
+                     {/* Informação da distância até ao alvo */}
+                     {caminho && (
+                        <>
+                           <hr className="w-100 border-4" />
+                           <div className="d-flex gap-2 gap-sm-4 flex-column flex-sm-row text-center">
+                              <p className="mb-0">
+                                 <span className="fw-bold">
+                                    <i className="bi bi-car-front me-1"></i> {distance}:
+                                 </span>{" "}
+                                 {caminho?.routes[0]?.legs[0]?.distance?.text}
+                              </p>
+                              <p className="mb-0">
+                                 <span className="fw-bold">
+                                    <i className="bi bi-clock me-1"></i> {duration}:
+                                 </span>{" "}
+                                 {caminho?.routes[0]?.legs[0]?.duration?.text}
+                              </p>
+                           </div>
+                        </>
+                     )}
+
+                     {/* Overlay de carregamento inicial do mapa */}
+                     {!mapaCarregado && (
+                        <div className="text-bg-secondary w-100 h-100 position-absolute top-0 d-flex align-items-center justify-content-center">
+                           <p className="mb-0 text-center fs-4">{load}</p>
+                        </div>
+                     )}
+                  </div>
+
                   {/* Raio de alcance (Mobile) */}
                   <div className={`d-sm-none border p-3 mt-4 shadow rounded ${modoEscuro && "bg-black"}`}>
                      <div className="mb-2 d-flex align-items-center gap-3 justify-content-center">

@@ -14,7 +14,6 @@ import Tooltip from "../Tooltip/Tooltip";
 import { useDispatch, useSelector } from "react-redux";
 import { setMostrarModalAuth, setUser } from "../../state/auth/authSlice";
 
-// FIXME: Descobrir porque está sendo renderizando um object
 const CardGinasio = ({ ginasio, encontrarDirecao, modoFavorito }) => {
    const { t } = useTranslation();
    const { contato, showWay, seePhotos } = t("ginasios");

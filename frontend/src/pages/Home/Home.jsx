@@ -112,6 +112,7 @@ const Home = () => {
                   </div>
                </div>
             </Col>
+            {/* TODO: Adicionar efeito bonito do TSparticles ao fundo do carousel de modelos na home */}
             <Col id={styles.ctFoto} lg={6} className="pt-5 text-center rounded-bottom-5 bg-secondary-subtle bg-gradient">
                {/* Carousel de modelos musculosos */}
                <div>
