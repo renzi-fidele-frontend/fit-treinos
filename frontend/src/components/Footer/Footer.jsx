@@ -28,9 +28,15 @@ const Footer = () => {
                   <p className="mb-0 mt-2 text-center text-xl-start">{descricao}</p>
                </Col>
                <Col className="text-center text-xl-end mt-3 mt-xl-0">
-                  <h2 className="fs-5 fw-bold">
-                     {dev} <span className="fw-normal text-decoration-underline">Renzi Fidele</span>{" "}
-                  </h2>
+                  <div className="d-flex align-items-center gap-3 justify-content-center justify-content-xl-end mb-1">
+                     <h2 className="fs-5 fw-bold mb-0">
+                        {dev} <span className="fw-normal text-decoration-underline">Renzi Fidele</span>{" "}
+                     </h2>
+                     <div className="vr my-auto"></div>
+                     <Link target="_blank" to="https://www.facebook.com/profile.php?id=61582674007635">
+                        <i className="bi bi-facebook fs-4"></i>
+                     </Link>
+                  </div>
                   <div className="d-flex gap-3 justify-content-center justify-content-xl-end mt-3 mt-xl-0" id={styles.fim}>
                      <Link className="text-decoration-underline" to="/privacy">
                         {politica}
