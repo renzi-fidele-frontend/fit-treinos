@@ -13,7 +13,6 @@ import { gerarArray } from "../../utils/gerarArray";
 import LinhaUsuarioClassificado from "../../components/LinhaUsuarioClassificado/LinhaUsuarioClassificado";
 import { useTranslation } from "react-i18next";
 import Tooltip from "../../components/Tooltip/Tooltip";
-import moment from "moment";
 import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDispatchOnStore";
 import Filtragem from "./Filtragem";
 
@@ -23,7 +22,6 @@ const TabelaDeClassificacao = () => {
    const [usuarios, setUsuarios] = useState([]);
    const { apanharNoBackend } = useFetch();
    const { modoEscuro } = useSelector((state) => state.tema);
-   const { idioma } = useSelector((state) => state.idioma);
    const [mostrarModal, setMostrarModal] = useState(false);
    const { filtro, ordem } = useSelector((state) => state.leaderboard);
    useExercisesApiAndDispatchOnStore();
@@ -53,12 +51,6 @@ const TabelaDeClassificacao = () => {
          });
       }
    }, []);
-
-   // Controlador do idioma do momentJs
-   useEffect(() => {
-      if (idioma?.includes("pt")) moment.locale("pt");
-      if (idioma?.includes("en")) moment.locale("en");
-   }, [idioma]);
 
    // Controlador da mudança de filtros
    useEffect(() => {

@@ -19,6 +19,7 @@ import useExercisesApiAndDispatchOnStore from "../../hooks/useExercisesApiAndDis
 import CardExercicioMaisTreinado from "../../components/CardExercicioMaisTreinado/CardExercicioMaisTreinado";
 import CardEstatisticasDedicacaoSemanal from "../../components/CardEstatisticasDedicacaoSemanal/CardEstatisticasDedicacaoSemanal";
 import CardPartesDoCorpoMaisTreinadas from "../../components/CardPartesDoCorpoMaisTreinadas/CardPartesDoCorpoMaisTreinadas";
+import useAtualizarMomentJsLanguage from "../../hooks/useAtualizarMomentJsLanguage";
 
 const Dashboard = () => {
    const { t } = useTranslation();
@@ -42,6 +43,7 @@ const Dashboard = () => {
    const { periodo } = useSelector((state) => state.configs);
    const [fetched, setFetched] = useState(false);
    useExercisesApiAndDispatchOnStore();
+   useAtualizarMomentJsLanguage();
 
    useEffect(() => {
       if (!fetched && exercicios) {

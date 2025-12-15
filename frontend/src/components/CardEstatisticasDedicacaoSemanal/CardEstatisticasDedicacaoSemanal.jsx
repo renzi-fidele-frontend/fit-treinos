@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import moment from "moment";
 import { setPeriodo } from "../../state/configs/configsSlice";
 import { formatarData } from "../../utils/formatarData";
+import useAtualizarMomentJsLanguage from "../../hooks/useAtualizarMomentJsLanguage";
 Chart.register(CategoryScale);
 
 const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaDedicacao, diaMaisTreinado, ultimosExerciciosPraticados, centralizado }) => {
@@ -19,11 +20,7 @@ const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaDedicacao, diaMaisTrei
    const { t } = useTranslation();
    const { card4, indisponivel } = t("dashboard");
    const dispatch = useDispatch();
-
-   useEffect(() => {
-      if (idioma?.includes("pt")) moment.locale("pt");
-      if (idioma?.includes("en")) moment.locale("en");
-   }, [idioma]);
+   useAtualizarMomentJsLanguage();
 
    return (
       <div>
