@@ -19,6 +19,7 @@ import { useTranslation } from "react-i18next";
 import { AdvancedMarker, Map, useMap } from "@vis.gl/react-google-maps";
 import useRoutesService from "../../hooks/useRoutesService";
 import fotoUser from "../../assets/noUser.jpg";
+import { current } from "@reduxjs/toolkit";
 
 const Ginasios = () => {
    const { t } = useTranslation();
@@ -117,7 +118,7 @@ const Ginasios = () => {
 
       // Cleanup
       return () => {
-         circle?.setMap(null);
+         circleRef?.current?.setMap(null);
       };
    }, [localizacao, placesService, map]);
 
