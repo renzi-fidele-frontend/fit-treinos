@@ -11,8 +11,9 @@ import { useSelector } from "react-redux";
 import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
 import PreloadImage from "../ui/PreloadImage";
 import loadError from "../../assets/loadError.webp";
+import moment from "moment";
 
-const CardExercicio = ({ foto, categoria, titulo, id, customClass }) => {
+const CardExercicio = ({ foto, categoria, titulo, id, customClass, ultimoTreino }) => {
    const [tituloTraduzido, setTituloTraduzido] = useState();
    const { idioma } = useSelector((state) => state.idioma);
    const { investigarParteDoCorpo, investigarMusculoAlvo } = useAnalisarTraducao();
@@ -22,9 +23,8 @@ const CardExercicio = ({ foto, categoria, titulo, id, customClass }) => {
    }, [titulo, idioma]);
 
    return (foto, categoria, titulo, id) ? (
-      <Card className={"h-100 " + customClass} as={Link} to={`/exercicio/${id}`}>
+      <Card className={"h-100 position-relative " + customClass} as={Link} to={`/exercicio/${id}`}>
          <PreloadImage src={foto} errorSrc={loadError} preloaderCn={styles.exImg} alt={"Ilustração do exercício " + titulo} />
-
          <Card.Body className="d-flex flex-wrap gap-3">
             {categoria?.map((v, k) => (
                <Badge style={{ height: "fit-content" }} className=" text-capitalize fs-6 bg-secondary" key={k}>
@@ -37,6 +37,10 @@ const CardExercicio = ({ foto, categoria, titulo, id, customClass }) => {
                {idioma?.includes("en") ? titulo : tituloTraduzido}
             </Card.Title>
          </Card.Footer>
+         {/* Período do treinamento */}
+         {ultimoTreino && (
+            <div className="position-absolute end-0 top-0 mt-1 me-2 text-black text-capitalize">{moment(ultimoTreino).fromNow()}</div>
+         )}
       </Card>
    ) : (
       <Card className={`h-100 ` + customClass}>

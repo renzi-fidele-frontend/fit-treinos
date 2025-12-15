@@ -37,7 +37,6 @@ const Dashboard = () => {
    const [diaMaisTreinado, setDiaMaisTreinado] = useState(null);
    const [exercicioMaisTreinado, setExercicioMaisTreinado] = useState(null);
    const [ultimosExerciciosPraticados, setUltimosExerciciosPraticados] = useState(null);
-
    const { exercicios } = useSelector((state) => state.exercicios);
    const { modoEscuro } = useSelector((state) => state.tema);
    const { periodo } = useSelector((state) => state.configs);
@@ -59,7 +58,7 @@ const Dashboard = () => {
             setExercicioMaisTreinado(v.exercicioMaisTreinado);
             setUltimosExerciciosPraticados(
                v.ultimosExerciciosPraticados.map((v) => {
-                  return exercicios.find((obj) => obj.id === v.idExercicio);
+                  return { ...exercicios.find((obj) => obj.id === v.idExercicio), data: v.data };
                })
             );
             setUltimosTreinos(v?.ultimosExerciciosPraticados);
@@ -91,7 +90,7 @@ const Dashboard = () => {
    }
 
    return (
-      <div id={styles.ct}>
+      <div id={styles.ct} className="pb-3">
          <div className="h-100 py-4 py-md-4 px-3 px-md-5 px-lg-0 container-lg">
             <h2 className="fw-semibold mt-1 mb-4 text-center text-xl-start ">{tit}</h2>
             {/* Separador Mobile */}
@@ -305,6 +304,7 @@ const Dashboard = () => {
                               foto={v?.gifUrl}
                               categoria={v?.secondaryMuscles?.slice(0, 2)}
                               key={k}
+                              ultimoTreino={v?.data}
                            />
                         ))}
                      {ultimosExerciciosPraticados?.length === 0 && (
