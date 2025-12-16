@@ -19,7 +19,6 @@ import { useTranslation } from "react-i18next";
 import { AdvancedMarker, Map, useMap } from "@vis.gl/react-google-maps";
 import useRoutesService from "../../hooks/useRoutesService";
 import fotoUser from "../../assets/noUser.jpg";
-import { current } from "@reduxjs/toolkit";
 
 const Ginasios = () => {
    const { t } = useTranslation();
@@ -228,8 +227,8 @@ const Ginasios = () => {
                         <span className="text-decoration-underline fw-bold">10 Km</span>
                      </div>
                      <div className="d-flex align-items-center gap-2 justify-content-center">
-                        <p className="mb-0 fw-medium">Controle do raio de alcance: </p>
-                        <Badge className="bg-success">{alcance} metros</Badge>
+                        <p className="mb-0 fw-medium">{reach} </p>
+                        <Badge className="bg-success">{alcance} {meters}</Badge>
                      </div>
                   </div>
                </Col>
