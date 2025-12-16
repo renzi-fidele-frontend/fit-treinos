@@ -6,13 +6,14 @@ import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import styles from "./Footer.module.css";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
-// TODO: Adicionar a seção da rede social do Facebook
 const Footer = () => {
+   const { modoEscuro } = useSelector((state) => state.tema);
    const { t } = useTranslation();
    const { copy, dev, politica, terms, descricao } = t("footer");
    return (
-      <div className="text-bg-dark pt-3 pb-5 pb-xl-4 ">
+      <div className={`text-bg-dark ${modoEscuro && "bg-black"} pt-3 pb-5 pb-xl-4`}>
          <Container>
             <hr />
             <Row>
