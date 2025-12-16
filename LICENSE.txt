@@ -1,0 +1,12 @@
+Copyright (c) 2025 Renzi Fidele
+
+All rights reserved.
+
+This software and its source code are the exclusive property of
+Renzi Fidele.
+
+No part of this software may be copied, modified, distributed,
+or used in any form without explicit written permission from
+the author.
+
+Unauthorized use is strictly prohibited.
