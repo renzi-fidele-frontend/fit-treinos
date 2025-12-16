@@ -137,38 +137,40 @@ const Ginasios = () => {
                   {/* Mapa */}
                   <div className="w-100 position-relative">
                      <div className={"position-relative " + styles.mapa}>
-                        <Map
-                           mapId="d95c984c2c99e484fcaaf9b5"
-                           className={styles.mapa}
-                           defaultZoom={12}
-                           defaultCenter={localizacao}
-                           mapTypeId="hybrid"
-                           onIdle={() => setMapaCarregado(true)}
-                        >
-                           {/* Posição do usuário */}
-                           <AdvancedMarker position={localizacao}>
-                              <div className="d-flex flex-column align-items-center justify-content-center">
-                                 <Image
-                                    src={user ? user?.foto : fotoUser}
-                                    className="rounded-circle border border-4 object-fit-cover border-danger"
-                                    width={40}
-                                    height={40}
-                                 />
-                                 <p className={"mb-1 text-white " + styles.p}>{you}</p>
-                                 <div className={styles.cursor}></div>
-                              </div>
-                           </AdvancedMarker>
+                        {localizacao && (
+                           <Map
+                              mapId="d95c984c2c99e484fcaaf9b5"
+                              className={styles.mapa}
+                              defaultZoom={12}
+                              defaultCenter={localizacao}
+                              mapTypeId="hybrid"
+                              onIdle={() => setMapaCarregado(true)}
+                           >
+                              {/* Posição do usuário */}
+                              <AdvancedMarker position={localizacao}>
+                                 <div className="d-flex flex-column align-items-center justify-content-center">
+                                    <Image
+                                       src={user ? user?.foto : fotoUser}
+                                       className="rounded-circle border border-4 object-fit-cover border-danger"
+                                       width={40}
+                                       height={40}
+                                    />
+                                    <p className={"mb-1 text-white " + styles.p}>{you}</p>
+                                    <div className={styles.cursor}></div>
+                                 </div>
+                              </AdvancedMarker>
 
-                           {/* Ginásios próximos do usuário */}
-                           {ginasiosProximos &&
-                              ginasiosProximos?.map((v, k) => (
-                                 <MarkerWithInfoWindow
-                                    titulo={v?.name}
-                                    position={{ lat: v?.geometry?.location?.lat(), lng: v?.geometry?.location?.lng() }}
-                                    key={k}
-                                 />
-                              ))}
-                        </Map>
+                              {/* Ginásios próximos do usuário */}
+                              {ginasiosProximos &&
+                                 ginasiosProximos?.map((v, k) => (
+                                    <MarkerWithInfoWindow
+                                       titulo={v?.name}
+                                       position={{ lat: v?.geometry?.location?.lat(), lng: v?.geometry?.location?.lng() }}
+                                       key={k}
+                                    />
+                                 ))}
+                           </Map>
+                        )}
 
                         {/* Overlay de loading da busca por ginásio */}
                         {loadingCaminho && (
@@ -218,7 +220,7 @@ const Ginasios = () => {
                      )}
                   </div>
 
-                  {/* Raio de alcance (Mobile) */}
+                  {/* Controle do raio de alcance (Mobile) */}
                   <div className={`d-sm-none border p-3 mt-4 shadow rounded ${modoEscuro && "bg-black"}`}>
                      <div className="mb-2 d-flex align-items-center gap-3 justify-content-center">
                         <span className="text-decoration-underline fw-bold">2 km</span>{" "}
@@ -226,7 +228,7 @@ const Ginasios = () => {
                         <span className="text-decoration-underline fw-bold">10 Km</span>
                      </div>
                      <div className="d-flex align-items-center gap-2 justify-content-center">
-                        <p className="mb-0 fw-medium">Raio de alcance: </p>
+                        <p className="mb-0 fw-medium">Controle do raio de alcance: </p>
                         <Badge className="bg-success">{alcance} metros</Badge>
                      </div>
                   </div>
@@ -282,7 +284,7 @@ const Ginasios = () => {
                               </Button>
                            )}
                            <hr className="mt-4" />
-                           {/* Raio de alcance (Desktop) */}
+                           {/* Controle do raio de alcance (Desktop) */}
                            <div className={`d-none d-sm-block border p-3 mt-4 shadow mx-5 rounded ${modoEscuro && "bg-black"}`}>
                               <div className="mb-2 d-flex align-items-center gap-3 justify-content-center">
                                  <span className="text-decoration-underline fw-bold">2 km</span>{" "}
