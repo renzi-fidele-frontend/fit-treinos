@@ -58,11 +58,11 @@ const Dashboard = () => {
             setEstatisticasDoAno(v.estatisticasDoAno);
             setPartesDoCorpoTreinadas(v.partesDoCorpoTreinadas);
             setExercicioMaisTreinado(v.exercicioMaisTreinado);
-            setUltimosExerciciosPraticados(
-               v.ultimosExerciciosPraticados.map((v) => {
-                  return { ...exercicios.find((obj) => obj.id === v.idExercicio), data: v.data };
-               })
-            );
+            let ultimosPraticados = v.ultimosExerciciosPraticados.map((v) => {
+               return { ...exercicios.find((obj) => obj.id === v.idExercicio), data: v.data };
+            });
+            ultimosPraticados.reverse();
+            setUltimosExerciciosPraticados(ultimosPraticados);
             setUltimosTreinos(v?.ultimosExerciciosPraticados);
             setDiaMaisTreinado(v.diaMaisTreinado);
             setFetched(true);
