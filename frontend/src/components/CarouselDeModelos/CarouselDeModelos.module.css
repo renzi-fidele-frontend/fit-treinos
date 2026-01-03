@@ -1,0 +1,33 @@
+#fotoBanner {
+   height: 80vh;
+}
+
+@media screen and (max-width: 1540px) {
+   #fotoBanner {
+      height: 650px;
+   }
+}
+
+@media screen and (max-width: 1370px) {
+   #fotoBanner {
+      height: 600px;
+   }
+}
+
+@media screen and (max-width: 1200px) {
+   #fotoBanner {
+      height: 540px;
+   }
+}
+
+@media screen and (max-width: 992px) {
+   #fotoBanner {
+      height: 400px;
+   }
+}
+
+@media screen and (max-width: 500px) {
+   #fotoBanner {
+      height: 310px;
+   }
+}

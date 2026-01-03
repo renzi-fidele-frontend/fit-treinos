@@ -7,14 +7,11 @@ import ListGroupItem from "react-bootstrap/ListGroupItem";
 import Placeholder from "react-bootstrap/Placeholder";
 import Row from "react-bootstrap/Row";
 import styles from "./Home.module.css";
-import ftBanner from "../../assets/modelo.png";
-import ftBanner2 from "../../assets/model2.webp";
-import ftBanner3 from "../../assets/model3.webp";
 import Titulo from "../../components/ui/Titulo";
+import Slider from "react-slick";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setParteDoCorpoEscolhida } from "../../state/configs/configsSlice";
-import Slider from "react-slick";
 import bg1 from "../../assets/bg1.jpg";
 import fotoAtleta from "../../assets/atleta.png";
 import CardExercicio from "../../components/CardExercicio/CardExercicio";
@@ -29,6 +26,7 @@ import useAnalisarTraducao from "../../hooks/useAnalisarTraducao";
 import fotoTestemunhos from "../../assets/Testimonials.webp";
 import { Particles, initParticlesEngine } from "@tsparticles/react";
 import { loadTrianglesPreset } from "@tsparticles/preset-triangles";
+import CarouselDeModelos from "../../components/CarouselDeModelos/CarouselDeModelos";
 
 const CardTestemunho = ({ nome, testemunho }) => {
    const { modoEscuro } = useSelector((state) => state.tema);
@@ -45,6 +43,7 @@ const CardTestemunho = ({ nome, testemunho }) => {
 };
 
 const Home = () => {
+   "use no memo";
    const { t } = useTranslation();
    const { secaoInicial, vantagens, testemunhos, titExercicios, ctaExercicios, parteSelecionada } = t("home");
    const dispatch = useDispatch();
@@ -125,17 +124,7 @@ const Home = () => {
             <Col id={styles.ctFoto} lg={6} className="pt-5 text-center rounded-bottom-5 bg-secondary-subtle bg-gradient position-relative">
                {/* Carousel de modelos musculosos */}
                <div className="position-relative z-3">
-                  <Slider pauseOnFocus={false} pauseOnHover={false} centerMode arrows={false} autoplay fade>
-                     <div className="d-flex justify-content-center">
-                        <Image id={styles.fotoBanner} src={ftBanner} />
-                     </div>
-                     <div className="d-flex justify-content-center">
-                        <Image id={styles.fotoBanner} src={ftBanner2} />
-                     </div>
-                     <div className="d-flex justify-content-center">
-                        <Image id={styles.fotoBanner} src={ftBanner3} />
-                     </div>
-                  </Slider>
+                  <CarouselDeModelos />
                </div>
 
                {/* Fundo animado de partículas */}

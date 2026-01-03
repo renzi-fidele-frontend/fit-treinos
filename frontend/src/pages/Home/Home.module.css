@@ -1,7 +1,3 @@
-#fotoBanner {
-   height: 80vh;
-}
-
 #titulo {
    font-size: 4em;
    font-weight: 800;
@@ -37,9 +33,6 @@
 #bg2 {
    background-image: url("../../assets/bg1.jpg");
    background-size: cover;
-}
-
-#bg2 > div {
 }
 
 #bgdark {
@@ -96,17 +89,8 @@
 }
 
 @media screen and (max-width: 1540px) {
-   #fotoBanner {
-      height: 650px;
-   }
    #titulo {
       font-size: 3.5em;
-   }
-}
-
-@media screen and (max-width: 1370px) {
-  #fotoBanner {
-      height: 600px;
    }
 }
 
@@ -114,18 +98,12 @@
    #titulo {
       font-size: 3em;
    }
-   #fotoBanner {
-      height: 540px;
-   }
    #fotoTestemunhos {
       width: 400px;
    }
 }
 
 @media screen and (max-width: 992px) {
-   #fotoBanner {
-      height: 400px;
-   }
    #titulo {
       font-size: 2.5em;
    }
@@ -152,10 +130,6 @@
 }
 
 @media screen and (max-width: 500px) {
-   #fotoBanner {
-      height: 310px;
-   }
-
    #titulo {
       font-size: 1.8em;
    }
