@@ -101,7 +101,7 @@ const DetalhesExercicio = () => {
          data: { idExercicio: exercicio?.id },
       }).then(() => {
          if (!user?.favoritos?.includes(exercicio?.id)) {
-            const novosFavoritos = [...user?.favoritos, exercicio?.id];
+            const novosFavoritos = [...(user?.favoritos || []), exercicio?.id];
             dispatch(setUser({ ...user, favoritos: novosFavoritos }));
          }
          setFavorito(true);
@@ -112,6 +112,7 @@ const DetalhesExercicio = () => {
       const res = apanharNoBackendComAuth("actions/removerDosFavoritos", "DELETE", {
          data: { idExercicio: exercicio?.id },
       }).then((v) => {
+         const favoritosAtualizados = user?.favoritos?.filter((v) => v !== exercicio?.id);
          dispatch(setUser({ ...user, favoritos: v.favoritos }));
          setFavorito(false);
       });

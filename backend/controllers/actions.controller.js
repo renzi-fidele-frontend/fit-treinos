@@ -17,11 +17,8 @@ const removerDosFavoritos = async (req, res) => {
    const { userId } = req;
    const { idExercicio } = req.body;
    try {
-      const user = await Usuario.findById(userId);
-      const favoritos = user.toObject().favoritos;
-      const favoritosAtualizados = favoritos.filter((v) => v !== idExercicio);
-      const atualizar = await Usuario.findByIdAndUpdate(userId, { favoritos: favoritosAtualizados });
-      res.json({ message: "Removido dos favoritos com sucesso!", favoritos: favoritosAtualizados });
+      const remover = await Usuario.updateOne({ _id: userId }, { $pull: { favoritos: idExercicio } });
+      res.json({ message: "Removido dos favoritos com sucesso!" });
    } catch (error) {
       res.status(500).json({ message: "Erro ao remover o exercício!" });
    }
