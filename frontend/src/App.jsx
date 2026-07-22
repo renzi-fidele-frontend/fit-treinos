@@ -12,6 +12,7 @@ import ScrollTop from "./components/ScrollTop/ScrollTop";
 import AuthModal from "./components/AuthModal/AuthModal";
 
 // TODO: Investigar sobre um jeito de integrar o Google Fit Api de modo a escalar a aplicação de treino
+// TODO: Mudar a api do RapidApi para a do https://www.exercisedb.dev/ pois é totalmente gratuita!
 function App() {
    return (
       <div className="App">

@@ -71,7 +71,7 @@ const DetalhesExercicio = () => {
       if (!videos && exercicio) {
          apanharVideos
             .apanharDadosComParam(
-               `https://youtube-search-and-download.p.rapidapi.com/search?query=${exercicio?.name}%20exercise&hl=${idioma}&type=video`
+               `https://youtube-search-and-download.p.rapidapi.com/search?query=${exercicio?.name}%20exercise&hl=${idioma}&type=video`,
             )
             .then((v) => setVideos(v.contents));
       }
@@ -99,8 +99,11 @@ const DetalhesExercicio = () => {
    function adicionarAosFavoritos() {
       const res = apanharNoBackendComAuth("actions/adicionarAosFavoritos", "POST", {
          data: { idExercicio: exercicio?.id },
-      }).then((v) => {
-         dispatch(setUser({ ...user, favoritos: v.favoritos }));
+      }).then(() => {
+         if (!user?.favoritos?.includes(exercicio?.id)) {
+            const novosFavoritos = [...user?.favoritos, exercicio?.id];
+            dispatch(setUser({ ...user, favoritos: novosFavoritos }));
+         }
          setFavorito(true);
       });
    }
@@ -321,7 +324,7 @@ const DetalhesExercicio = () => {
                                  <Image className={styles.musculo + " border rounded-2"} src={noPhoto} />
                                  <span>{investigarMusculoAlvo(v) || v}</span>
                               </div>
-                           )
+                           ),
                         )
                      ) : (
                         <div className="d-flex flex-column text-capitalize fs-5 p-1 text-bg-secondary shadow-sm rounded-3 position-relative">
@@ -385,7 +388,7 @@ const DetalhesExercicio = () => {
                                       videoId={video?.videoId}
                                       descricao={video?.description}
                                    />
-                                )
+                                ),
                           )
                         : gerarArray(8).map((v, k) => <VideoCard key={k} />)}
                   </Slider>
