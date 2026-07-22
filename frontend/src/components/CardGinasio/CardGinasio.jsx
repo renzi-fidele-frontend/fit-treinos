@@ -68,10 +68,11 @@ const CardGinasio = ({ ginasio, encontrarDirecao, modoFavorito }) => {
          data: {
             place_id: ginasio?.place_id,
          },
-      }).then((res) => {
+      }).then(() => {
+         const favoritosAtualizados = user?.ginasiosFavoritos?.filter((v) => v.place_id !== ginasio?.place_id);
          setLoadingGuardarGinasio(false);
          if (!modoFavorito) setGuardado(false);
-         dispatch(setUser({ ...user, ginasiosFavoritos: res.ginasiosFavoritos }));
+         dispatch(setUser({ ...user, ginasiosFavoritos: favoritosAtualizados }));
       });
    }
 
