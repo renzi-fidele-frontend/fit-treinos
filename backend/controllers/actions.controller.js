@@ -29,16 +29,15 @@ const guardarGinasioNosFavoritos = async (req, res) => {
    // Apanhar a id do ginásio no body do request
    const { place_id, name, vicinity, international_phone_number, rating, user_ratings_total, photo, lat, lng } = req.body;
    try {
-      const user = await Usuario.findById(userId);
-      const ginasiosFavoritos = user?.toObject()?.ginasiosFavoritos || [];
-
-      // Caso já esteja favoritado
-      const jaExiste = ginasiosFavoritos?.some((gym) => gym?.place_id === place_id);
-      if (jaExiste) return res.status(500).json({ message: "Esté ginásio já está favoritado!" });
-
-      ginasiosFavoritos?.push({ place_id, name, vicinity, international_phone_number, rating, user_ratings_total, photo, lat, lng });
-      const atualizar = await Usuario.findByIdAndUpdate(userId, { ginasiosFavoritos });
-      res.json({ ginasiosFavoritos, message: "Adicionado aos favoritos com sucesso!" });
+      const guardar = await Usuario.updateOne(
+         { _id: userId },
+         {
+            $addToSet: {
+               ginasiosFavoritos: { place_id, name, vicinity, international_phone_number, rating, user_ratings_total, photo, lat, lng },
+            },
+         },
+      );
+      res.json({ message: "Adicionado aos favoritos com sucesso!" });
    } catch (error) {
       res.status(500).json({ message: "Erro ao adicionar o ginásio aos favorito!" });
    }

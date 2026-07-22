@@ -40,23 +40,25 @@ const CardGinasio = ({ ginasio, encontrarDirecao, modoFavorito }) => {
 
    function guardarGinasio() {
       setLoadingGuardarGinasio(true);
+      const data = {
+         place_id: ginasio?.place_id,
+         name: ginasio?.name,
+         vicinity: ginasio?.vicinity,
+         international_phone_number: ginasio?.international_phone_number,
+         rating: ginasio?.rating,
+         user_ratings_total: ginasio?.user_ratings_total,
+         photo: ginasio?.photos?.[0]?.getUrl(),
+         lat: ginasio?.geometry?.location?.lat(),
+         lng: ginasio?.geometry?.location?.lng(),
+      };
+
       const res = apanharNoBackendComAuth("actions/guardarGinasioNosFavoritos", "POST", {
-         data: {
-            place_id: ginasio?.place_id,
-            name: ginasio?.name,
-            vicinity: ginasio?.vicinity,
-            international_phone_number: ginasio?.international_phone_number,
-            rating: ginasio?.rating,
-            user_ratings_total: ginasio?.user_ratings_total,
-            photo: ginasio?.photos?.[0]?.getUrl(),
-            lat: ginasio?.geometry?.location?.lat(),
-            lng: ginasio?.geometry?.location?.lng(),
-         },
-      }).then((res) => {
+         data,
+      }).then(() => {
+         const favoritosAtualizados = [...(user?.ginasiosFavoritos || []), data];
          setLoadingGuardarGinasio(false);
          setGuardado(true);
-         console.log(res.ginasiosFavoritos);
-         dispatch(setUser({ ...user, ginasiosFavoritos: res.ginasiosFavoritos }));
+         dispatch(setUser({ ...user, ginasiosFavoritos: favoritosAtualizados }));
       });
    }
 
