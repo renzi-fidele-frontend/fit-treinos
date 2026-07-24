@@ -1,6 +1,7 @@
 const Usuario = require("../models/Usuario");
 const betterLog = require("../utils/betterLog");
 const verificarDiaDaSemana = require("../utils/verificarDiaDaSemana");
+const mongoose = require("mongoose");
 
 const adicionarAosFavoritos = async (req, res) => {
    const { userId } = req;
@@ -55,6 +56,7 @@ const removerGinasioDosFavoritos = async (req, res) => {
    }
 };
 
+// TODO: Refatorar essa função utilizando métodos atomicos do mongoose para melhoria da performance
 const atualizarProgresso = async (req, res) => {
    const { userId } = req;
    const { idExercicio, dataDoTreino, tempoDeTreino, parteDoCorpo } = req.body;
@@ -69,8 +71,8 @@ const atualizarProgresso = async (req, res) => {
          console.log("Treinou pela primeira vez hoje");
          progresso.push({ dataDoTreino, treinos: [{ tempoDeTreino, idExercicio }] });
       } else {
-         console.log("Já treinou hoje");
          // Caso o treino seja no mesmo dia
+         console.log("Já treinou hoje");
          progresso = progresso.map((v) => {
             if (v.dataDoTreino === dataDoTreino) {
                // Caso seja a primeira vez a se praticar o exercício
@@ -156,19 +158,20 @@ const atualizarProgresso = async (req, res) => {
    }
 };
 
+// Calculando o tempo total de treino via $unwind e $group
 const retornarTempoTotalDeTreinoDeExercicio = async (req, res) => {
    const { userId } = req;
    const { idExercicio } = req.params;
    try {
-      const user = await Usuario.findById(userId);
-      // Calculando o tempo total de treino do exercício
-      let tempoTotalDeTreino = 0;
-      user.progresso.forEach((v) => {
-         v.treinos.forEach((v) => {
-            if (v.idExercicio === idExercicio) tempoTotalDeTreino += Number(v.tempoDeTreino);
-         });
-      });
-      res.json({ tempoTotalDeTreino });
+      // Retornando o tempo total de treino do exercício
+      const tempoTotal = await Usuario.aggregate([
+         { $match: { _id: new mongoose.Types.ObjectId(userId) } },
+         { $unwind: "$progresso" },
+         { $unwind: "$progresso.treinos" },
+         { $group: { _id: "$progresso.treinos.idExercicio", total: { $sum: "$progresso.treinos.tempoDeTreino" } } },
+         { $match: { _id: idExercicio } },
+      ]);
+      res.json({ tempoTotalDeTreino: tempoTotal[0]?.total });
    } catch (error) {
       res.status(500).json({ message: "Erro ao retornar o tempo de treino" });
    }
