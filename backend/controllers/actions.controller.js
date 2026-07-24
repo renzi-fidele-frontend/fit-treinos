@@ -158,7 +158,6 @@ const atualizarProgresso = async (req, res) => {
    }
 };
 
-// Calculando o tempo total de treino via $unwind e $group
 const retornarTempoTotalDeTreinoDeExercicio = async (req, res) => {
    const { userId } = req;
    const { idExercicio } = req.params;
@@ -354,22 +353,27 @@ const retornarDadosTreinamento = async (req, res) => {
 
 const retornarUsuariosClassificados = async (req, res) => {
    try {
-      let usuarios = await Usuario.find({}, "-password -email -favoritos");
-      const usuariosClassificados = usuarios.map((usuario, k) => {
-         let tempoTotalAbsoluto = 0;
-         let nrTreinosRealizados = 0;
+      const usuariosClassificados = await Usuario.aggregate([
+         { $unwind: "$progresso" },
+         { $unwind: "$progresso.treinos" },
+         {
+            $group: {
+               _id: "$_id",
+               nrTreinosRealizados: { $sum: 1 },
+               tempoTotalAbsoluto: { $sum: "$progresso.treinos.tempoDeTreino" },
+               // Preservando o restante dos dados
+               nome: { $first: "$nome" },
+               foto: { $first: "$foto" },
+               ultimosExerciciosPraticados: { $first: "$ultimosExerciciosPraticados" },
+               criadoEm: { $first: "$criadoEm" },
+               pais: { $first: "$pais" },
+               location: { $first: "$location" },
+            },
+         },
+      ]);
 
-         usuario.progresso.forEach((v) => {
-            // Calculando o tempo total absoluto
-            v.treinos.forEach((v) => {
-               tempoTotalAbsoluto += Number(v.tempoDeTreino);
-            });
-            // Calculando o número total de treinamentos
-            nrTreinosRealizados += Number(v.treinos.length);
-         });
+      console.log(usuariosClassificados);
 
-         return { ...usuario.toObject(), tempoTotalAbsoluto, nrTreinosRealizados };
-      });
       res.json({ usuariosClassificados });
    } catch {
       res.status(401).json({ mensagem: "Erro ao apanhar os usuários classificados" });
