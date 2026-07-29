@@ -176,6 +176,7 @@ const retornarTempoTotalDeTreinoDeExercicio = async (req, res) => {
    }
 };
 
+// Retorna os dados de treino do usuário autenticado ou de um usuário especifico
 const retornarDadosTreinamento = async (req, res) => {
    let userId;
    if (req?.userId) {
@@ -196,76 +197,96 @@ const retornarDadosTreinamento = async (req, res) => {
             tempoTotalAbsoluto: 0,
             estatisticasDaSemana: [],
             partesDoCorpoTreinadas: [],
-            exercicioMaisTreinado: false,
+            exercicioMaisTreinado: null,
             ultimosExerciciosPraticados: [],
          });
       }
 
-      // Analisando o progresso do treinamento do usuário
-      let tempoTotalAbsoluto = 0;
-      const date = new Date();
-      let nrTreinosHoje = 0;
-      let totalTreinos = 0;
-      let tempoTotalHoje = 0;
-      let tempoTotal = 0;
-      const tempoPorDiaDaSemana = {};
-      const exerciciosTreinados = {};
-      let tempoTotalDeTreinoMaisPraticado = 0;
-      let exercicioMaisTreinado;
-      user.progresso.forEach((sessao) => {
-         sessao.treinos.forEach((treino) => {
-            // Calculando o dia da semana no qual se treinou por mais tempo
-            const diaSemana = verificarDiaDaSemana(new Date(sessao.dataDoTreino).getDay());
-            if (!tempoPorDiaDaSemana[diaSemana]) {
-               tempoPorDiaDaSemana[diaSemana] = 0;
-            }
+      const apanharDados = await Usuario.aggregate([
+         { $match: { _id: new mongoose.Types.ObjectId(userId) } },
+         { $unwind: "$progresso" },
+         { $unwind: "$progresso.treinos" },
+         {
+            $facet: {
+               tempoTotalAbsoluto: [
+                  {
+                     $group: {
+                        _id: null,
+                        tempoDeTreino: { $sum: "$progresso.treinos.tempoDeTreino" },
+                        nrTreinosRealizados: { $sum: 1 },
+                     },
+                  },
+               ],
+               nrTreinosHoje: [
+                  {
+                     $group: {
+                        _id: "$progresso.dataDoTreino",
+                        nrTreinos: { $sum: 1 },
+                        tempoDeTreino: { $sum: "$progresso.treinos.tempoDeTreino" },
+                     },
+                  },
+                  { $match: { _id: new Date().toDateString() } },
+               ],
+               diaDaSemanaMaisTreinado: [
+                  {
+                     $addFields: {
+                        diaDaSemana: {
+                           $dayOfWeek: {
+                              $toDate: "$progresso.dataDoTreino",
+                           },
+                        },
+                     },
+                  },
+                  {
+                     $group: {
+                        _id: "$diaDaSemana",
+                        tempoDeTreino: { $sum: "$progresso.treinos.tempoDeTreino" },
+                     },
+                  },
+                  { $sort: { tempoDeTreino: -1 } },
+                  { $limit: 1 },
+               ],
+               exercicioMaisTreinado: [
+                  {
+                     $group: {
+                        _id: "$progresso.treinos.idExercicio",
+                        tempoDeTreino: { $sum: "$progresso.treinos.tempoDeTreino" },
+                     },
+                  },
+                  { $sort: { tempoDeTreino: -1 } },
+                  { $limit: 1 },
+               ],
+               medias: [
+                  {
+                     $group: {
+                        _id: "$progresso.dataDoTreino",
+                        tempoDeTreino: { $sum: "$progresso.treinos.tempoDeTreino" },
+                        nrTreinos: { $sum: 1 },
+                     },
+                  },
+                  {
+                     $group: {
+                        _id: null,
+                        mediaTempoPorDia: { $avg: "$tempoDeTreino" },
+                        mediaTreinosPorDia: { $avg: "$nrTreinos" },
+                     },
+                  },
+               ],
+            },
+         },
+      ]);
 
-            // Calculando o tempo total absoluto
-            tempoTotalAbsoluto += Number(treino.tempoDeTreino);
-
-            // Calculando o tempo total treinado hoje
-            if (treino.dataDoTreino === date.toDateString()) {
-               tempoTotalHoje += Number(treino.tempoDeTreino);
-            }
-
-            // Calculando o tempo total treinado desde o cadastro
-            tempoTotal += Number(treino.tempoDeTreino);
-
-            // Calculando o tempo treinado em cada dia de semana
-            tempoPorDiaDaSemana[diaSemana] += Number(treino.tempoDeTreino);
-
-            // Verificar o exercício mais treinado de todos (de acordo com o tempo Treinado)
-            if (!exerciciosTreinados[treino.idExercicio]) {
-               exerciciosTreinados[treino.idExercicio] = 0;
-            }
-            exerciciosTreinados[treino.idExercicio] += Number(treino.tempoDeTreino);
-         });
-
-         // Calculando o nr de treinos feitos hoje
-         if (sessao.dataDoTreino === date.toDateString()) nrTreinosHoje += sessao.treinos.length;
-
-         // Calculando diferencial percentual do nr de treinos por dia
-         totalTreinos += sessao.treinos.length;
-      });
-
-      // Calculando o exercício mais treinado
-      exercicioMaisTreinado = Object.keys(exerciciosTreinados).reduce((a, b) => (exerciciosTreinados[a] > exerciciosTreinados[b] ? a : b));
-
-      // Calculando o dia da semana mais treinado
-      const diaMaisTreinado = Object.keys(tempoPorDiaDaSemana).reduce((a, b) => (tempoPorDiaDaSemana[a] > tempoPorDiaDaSemana[b] ? a : b));
-      user.progresso.forEach((sessao) => {
-         sessao.treinos.forEach((treino) => {
-            // Calculando o tempo total de treino do exercício mais treinado
-            if (treino.idExercicio === exercicioMaisTreinado) tempoTotalDeTreinoMaisPraticado += treino.tempoDeTreino;
-         });
-      });
-
-      // Calculando a média do tempo(segundos) de treino por dia e o seu diferencial percentual
-      const nrDiasTreinados = user.progresso.length;
-      const mediaTreinosPorDia = totalTreinos / nrDiasTreinados;
-      const diferencialPercentual = ((nrTreinosHoje - mediaTreinosPorDia) / mediaTreinosPorDia) * 100;
-      const mediaTempoPorDia = tempoTotal / nrDiasTreinados;
-      const diferencialPercentualTempo = ((tempoTotalHoje - mediaTempoPorDia) / mediaTempoPorDia) * 100;
+      // Armazenando os resultados
+      const tempoTotalTreinado = apanharDados[0].tempoTotalAbsoluto[0]?.tempoDeTreino || 0;
+      const nrTreinosRealizados = apanharDados[0].tempoTotalAbsoluto[0]?.nrTreinosRealizados || 0;
+      const nrTreinosHoje = apanharDados[0].nrTreinosHoje[0]?.nrTreinos || 0;
+      const tempoTotalHoje = apanharDados[0].nrTreinosHoje[0]?.tempoDeTreino || 0;
+      const diaDaSemanaMaisTreinado = apanharDados[0].diaDaSemanaMaisTreinado[0]?._id;
+      const exercicioMaisTreinado = apanharDados[0].exercicioMaisTreinado[0] || null;
+      const mediaTempoPorDia = apanharDados[0].medias[0]?.mediaTempoPorDia || 0;
+      const mediaTreinosPorDia = apanharDados[0].medias[0]?.mediaTreinosPorDia || 0;
+      const diferencialPercentualDeTreinos = ((nrTreinosHoje - mediaTreinosPorDia) / mediaTreinosPorDia) * 100;
+      const diferencialPercentualDoTempo = ((tempoTotalHoje - mediaTempoPorDia) / mediaTempoPorDia) * 100;
 
       // Calculando as estatísticas da dedicação do treinamento
       const hoje = new Date();
@@ -288,7 +309,7 @@ const retornarDadosTreinamento = async (req, res) => {
          return { tempoTreinadoNoDia, dia: verificarDiaDaSemana(dia.getDay()) };
       });
 
-      // Mês passado
+      // Mês passado ------------------------------
       const ultimaMes = [];
       for (let i = 30; i >= 0; i--) {
          const dia = new Date(hoje);
@@ -325,25 +346,30 @@ const retornarDadosTreinamento = async (req, res) => {
          });
          return { tempoTreinadoNoDia, dia: dia.toDateString() };
       });
+      // ------------------------------------------
 
       // Retornando todos os dados do progresso do treinamento
       const progresso = {
          nrTreinosHoje,
-         diferencialPercentual,
+         diferencialPercentualDeTreinos,
          mediaTempoPorDia,
-         diferencialPercentualTempo,
-         tempoTotalAbsoluto,
+         diferencialPercentualDoTempo,
+         tempoTotalTreinado,
+         nrTreinosRealizados,
+         exercicioMaisTreinado,
+         diaDaSemanaMaisTreinado,
+
+         // TODO: Mais tarde investigar a possiibilidade de usar o aggregate para calcular essas estatísticas
          estatisticasDaSemana,
          estatisticasDoMes,
          estatisticasDoAno,
+
+         // TODO: Calcular as partes do corpo treinadas via aggregate e remover daqui
          partesDoCorpoTreinadas: user.partesDoCorpoTreinadas,
-         exercicioMaisTreinado: {
-            id: exercicioMaisTreinado,
-            tempoTotalDeTreinoMaisPraticado,
-         },
+         // TODO: Calcular os últimos exercícios praticados via aggregate e remover daqui
          ultimosExerciciosPraticados: user.ultimosExerciciosPraticados,
-         diaMaisTreinado,
       };
+
       res.json(progresso);
    } catch (error) {
       betterLog(error);
@@ -371,9 +397,6 @@ const retornarUsuariosClassificados = async (req, res) => {
             },
          },
       ]);
-
-      console.log(usuariosClassificados);
-
       res.json({ usuariosClassificados });
    } catch {
       res.status(401).json({ mensagem: "Erro ao apanhar os usuários classificados" });

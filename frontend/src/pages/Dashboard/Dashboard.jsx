@@ -48,11 +48,11 @@ const Dashboard = () => {
    useEffect(() => {
       if (!fetched && exercicios) {
          const apanharEstatisticasDeTreino = apanharNoBackendComAuth("actions/retornarDadosTreinamento").then((v) => {
-            setTempoTotalTreino(v.tempoTotalAbsoluto);
+            setTempoTotalTreino(v.tempoTotalTreinado);
             setNrTreinosHoje(v.nrTreinosHoje);
-            setDifPercentualDiasDeTreino(parseFloat(v.diferencialPercentual.toFixed(3)));
+            setDifPercentualDiasDeTreino(parseFloat(v.diferencialPercentualDeTreinos.toFixed(3)));
             setMediaTempoPorDia(v.mediaTempoPorDia);
-            setDiferencialPercentualTempo(parseFloat(v.diferencialPercentualTempo).toFixed(2));
+            setDiferencialPercentualTempo(parseFloat(v.diferencialPercentualDoTempo).toFixed(2));
             setEstatisticasDaSemana(v.estatisticasDaSemana);
             setEstatisticasDoMes(v.estatisticasDoMes);
             setEstatisticasDoAno(v.estatisticasDoAno);
@@ -64,7 +64,7 @@ const Dashboard = () => {
             ultimosPraticados.reverse();
             setUltimosExerciciosPraticados(ultimosPraticados);
             setUltimosTreinos(v?.ultimosExerciciosPraticados);
-            setDiaMaisTreinado(v.diaMaisTreinado);
+            setDiaMaisTreinado(v.diaDaSemanaMaisTreinado);
             setFetched(true);
          });
       }
@@ -233,8 +233,8 @@ const Dashboard = () => {
                <Col sm={6} xl={4}>
                   <div className={`px-3 py-4 rounded-2 h-100 ${modoEscuro ? "bg-dark-subtle border" : "bg-white"}`}>
                      <CardExercicioMaisTreinado
-                        exercicio={exercicios?.filter((v) => v.id === exercicioMaisTreinado?.id)?.[0]}
-                        tempoDeTreino={exercicioMaisTreinado?.tempoTotalDeTreinoMaisPraticado}
+                        exercicio={exercicios?.filter((v) => v.id === exercicioMaisTreinado?._id)?.[0]}
+                        tempoDeTreino={exercicioMaisTreinado?.tempoDeTreino}
                      />
                   </div>
                </Col>
