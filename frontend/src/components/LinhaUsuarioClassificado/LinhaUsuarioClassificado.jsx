@@ -154,7 +154,7 @@ const LinhaUsuarioClassificado = ({ chave, usuario }) => {
                         <Col xl={4} className="mt-2">
                            <div>
                               <CardExercicioMaisTreinado
-                                 exercicio={exercicios?.filter((v) => v.id === progressoTreinamento?.exercicioMaisTreinado?.id)?.[0]}
+                                 exercicio={exercicios?.filter((v) => v._id === progressoTreinamento?.exercicioMaisTreinado?.id)?.[0]}
                                  tempoDeTreino={progressoTreinamento?.exercicioMaisTreinado?.tempoTotalDeTreinoMaisPraticado}
                               />
                            </div>

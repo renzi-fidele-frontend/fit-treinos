@@ -53,9 +53,9 @@ const Dashboard = () => {
             setDifPercentualDiasDeTreino(parseFloat(v.diferencialPercentualDeTreinos.toFixed(3)));
             setMediaTempoPorDia(v.mediaTempoPorDia);
             setDiferencialPercentualTempo(parseFloat(v.diferencialPercentualDoTempo).toFixed(2));
-            setEstatisticasDaSemana(v.estatisticasDaSemana);
-            setEstatisticasDoMes(v.estatisticasDoMes);
-            setEstatisticasDoAno(v.estatisticasDoAno);
+            setEstatisticasDaSemana(v._ultimaSemana);
+            setEstatisticasDoMes(v._ultimoMes);
+            setEstatisticasDoAno(v._ultimoAno);
             setPartesDoCorpoTreinadas(v.partesDoCorpoTreinadas);
             setExercicioMaisTreinado(v.exercicioMaisTreinado);
             let ultimosPraticados = v.ultimosExerciciosPraticados.map((v) => {

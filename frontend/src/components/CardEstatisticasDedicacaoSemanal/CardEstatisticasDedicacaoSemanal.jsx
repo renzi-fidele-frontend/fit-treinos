@@ -40,12 +40,12 @@ const CardEstatisticasDedicacaoSemanal = ({ estatisticasDaDedicacao, diaMaisTrei
                   <Line
                      data={{
                         labels: estatisticasDaDedicacao?.map((v) =>
-                           periodo === "semana" ? (idioma?.includes("en") ? traduzirDiaDaSemana(v?.dia) : v?.dia) : formatarData(v?.dia)
+                           periodo === "semana" ? (idioma?.includes("en") ? traduzirDiaDaSemana(v?.dia) : v?.dia) : formatarData(v?.dia),
                         ),
                         datasets: [
                            {
                               label: card4.chartLabel,
-                              data: estatisticasDaDedicacao?.map((v) => v?.tempoTreinadoNoDia),
+                              data: estatisticasDaDedicacao?.map((v) => v?.tempoTreinado),
                               fill: true,
                               tension: 0.4,
                               borderColor: "rgb(135, 142, 163)",
